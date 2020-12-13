@@ -8,29 +8,20 @@ import {
 } from 'react-native';
 
 import ConnectWithUs from "../components/connectwithus";
-
-const SocialMediaType = {
-  FACEBOOK : 1,
-  INSTAGRAM : 2,
-  YOUTUBE : 3,
-  TWITTER : 4,
-  LINKDIN : 5
-}
+import NoticeHeader from "../components/notice-header";
 
 class Welcome extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      unit:1202,
-      headerNoticeText : 'IMPORTANT NOTICE    IMPORTANT NOTICE',
       userName : 'KALPANA MISHRA'
     }
   }
 
   onClickGetStarted() {
 
-    this.props.navigation.navigate("Login")
+    this.props.navigation.navigate("Overview")
   }
 
   onClickConnectUs(value) {
@@ -41,17 +32,7 @@ class Welcome extends Component {
       return (
           <View style={{ flex: 1}}>
             
-            <View style={{ height:64}}>
-              <View style={{flex:1, marginEnd:20, justifyContent:'center', alignItems:'flex-end'}}>
-                <Text >UNIT {this.state.unit}</Text>
-              </View>
-
-              <View style={{flex:1,backgroundColor:'red'}}>
-                <View style={{flex:1, marginEnd:20, marginStart:20, justifyContent:'center', alignItems:'center'}}>
-                  <Text style={{color:'#FFF', fontWeight:'bold',}}>{this.state.headerNoticeText}</Text>
-                </View>
-              </View>
-            </View>
+            <NoticeHeader />
             
             <View style={{flex:1, flexDirection:'row'}}>
               <View style={{flex:1}}>
