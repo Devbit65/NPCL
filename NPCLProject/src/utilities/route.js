@@ -10,6 +10,7 @@ import EventLogging from "../screens/event-logging";
 import Notice from "../screens/notice";
 import Profile from "../screens/profile";
 import Settings from "../screens/settings";
+import AppRouteConfig from "../screens/app-route-config";
 
 const Stack = createStackNavigator();
 
@@ -29,34 +30,12 @@ const Route = () => {
               options={{ title: 'Welcome',headerShown: false }}
           />
 
-          <Stack.Screen
-              name="Overview"
-              component={Overview}
-              options={{ title: 'Overview',headerShown: false }}
-          />
+
 
           <Stack.Screen
-              name="EventLogging"
-              component={EventLogging}
-              options={{ title: 'EventLogging',headerShown: false }}
-          />
-
-          <Stack.Screen
-              name="Notice"
-              component={Notice}
-              options={{ title: 'Notice',headerShown: false }}
-          />
-
-          <Stack.Screen
-              name="Profile"
-              component={Profile}
-              options={{ title: 'Profile',headerShown: false }}
-          />
-
-          <Stack.Screen
-              name="Settings"
-              component={Settings}
-              options={{ title: 'Settings',headerShown: false }}
+              name="AppRouteConfig"
+              component={AppRouteConfig}
+              options={{ title: 'AppRouteConfig',headerShown: false }}
           />
             
         </Stack.Navigator>

@@ -23,7 +23,7 @@ class Login extends Component {
     }
 
     onClickLogin() {
-        this.props.navigation.navigate("Settings")
+        this.props.navigation.navigate("AppRouteConfig")
     }
     
     onClickForgotPassword() {
