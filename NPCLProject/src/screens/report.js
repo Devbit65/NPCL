@@ -19,7 +19,7 @@ class Report extends Component {
 
     render() {
         return  <View style={{flex:1}}>
-                    <NoticeHeader />
+                    {/* <NoticeHeader /> */}
                     <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                         <Text>Report</Text>
                     </View>

@@ -60,7 +60,7 @@ class Notice extends Component {
 
     render() {
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
-                    <NoticeHeader />
+                    {/* <NoticeHeader /> */}
                     
                     <View style={{margin:5, alignItems:'center', justifyContent:'center'}}>
                         <Text style={{color:'#F00', fontWeight:'bold', fontSize:30}}> NOTICE </Text>

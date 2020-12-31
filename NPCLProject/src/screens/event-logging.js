@@ -57,8 +57,6 @@ class EventLogging extends Component {
                 "dg_end_date":endDate
             }
 
-            console.log("messageArray ",messageArray)
-            console.log("logData ",logData)
             logMessages.push(logData)
         }
         return logMessages;
@@ -66,7 +64,7 @@ class EventLogging extends Component {
 
     render() {
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
-                    <NoticeHeader />
+                    {/* <NoticeHeader /> */}
                     
                     <View style={{margin:5, alignItems:'center', justifyContent:'center'}}>
                         <Text style={{color:'#F00', fontWeight:'bold', fontSize:30}}> DG EVENT LOGGING </Text>

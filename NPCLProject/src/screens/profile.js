@@ -21,12 +21,13 @@ class Profile extends Component {
         super(props)
         this.userData = new UserData().getUserData();
 
+        var dataResouces = this.userData.resource
         this.state = {
-            userName:this.userData.resource.consumer_name,
-            meterId:this.userData.resource.tp_token_id,
-            customerId:this.userData.resource.location_id,
-            phone:this.userData.resource.consumer_mobile_no,
-            email:this.userData.resource.consumer_email_id
+            userName:dataResouces.consumer_name,
+            meterId:dataResouces.tp_token_id,
+            customerId:dataResouces.location_id,
+            phone:dataResouces.consumer_mobile_no,
+            email:dataResouces.consumer_email_id
         }
     }
 
@@ -54,7 +55,7 @@ class Profile extends Component {
         return (
             <View style={{ flex: 1}} >
                 
-                <NoticeHeader />
+                {/* <NoticeHeader /> */}
                     
                 <View style={{margin:5, alignItems:'center', justifyContent:'center'}}>
                     <Text style={{color:'#F00', fontWeight:'bold', fontSize:30}}> PROFILE </Text>

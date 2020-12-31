@@ -19,7 +19,7 @@ class Recharge extends Component {
 
     render() {
         return  <View style={{flex:1}}>
-                    <NoticeHeader />
+                    {/* <NoticeHeader /> */}
                     <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                         <Text>Recharge</Text>
                     </View>

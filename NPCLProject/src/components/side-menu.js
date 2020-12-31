@@ -31,19 +31,9 @@ class SideMenu extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor:'transparent'}} >
+            <View style={{ flex: 1, backgroundColor:'#fff'}} >
 
-                <View style={{ flex: 1, justifyContent:'center', flexDirection:'row'}} >
-                
-                <View style={{ flex: 3, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
-                    <Image style={{width:30, height:30}} resizeMode='center' source={require("../resources/overview.png")} />
-
-                </View>
-                <View style={{ flex: 2,}} >
-
-                </View>
-                </View>
-                <View style={{ flex: 1, backgroundColor:'transparent',  }} >
+                <View style={{ flex: 1,  backgroundColor:'#fff',  }} >
                     {this.state.selectedMenu === 1?(
                         <View style={{backgroundColor: '#134571', flex:1,borderTopEndRadius:55,  borderBottomEndRadius:55, alignItems:'center', justifyContent:'center'}}>
                             <Image style={{width:50, height:50}} resizeMode='center' source={require("../resources/overview1.png")} />
@@ -51,17 +41,17 @@ class SideMenu extends Component {
                     ):( 
                         <TouchableOpacity style={{ flex: 1, flexDirection:'row'}} onPress={()=>{this.navigateToNext(1)}}>
                             
-                            <View style={{ flex: 3, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
+                            <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
                                 <Image style={{width:30, height:30}} resizeMode='center' source={require("../resources/overview.png")} />
 
                             </View>
-                            <View style={{ flex: 2,}} >
+                            <View style={{ flex: 2,backgroundColor:'#fff',  }} >
 
                             </View>
                         </TouchableOpacity>
                     )}
                 </View>
-                <View style={{ flex: 1, backgroundColor:'transparent'}} >
+                <View style={{ flex: 1, backgroundColor:'#fff',  }} >
                     {this.state.selectedMenu === 2?(
                         <View style={{backgroundColor: '#134571', flex:1, borderTopRightRadius: 55, borderBottomRightRadius:55, alignItems:'center', justifyContent:'center'}}>
                             <Image style={{width:50, height:50}} resizeMode='center' source={require("../resources/recharge1.png")} />
@@ -69,16 +59,16 @@ class SideMenu extends Component {
                     ):( 
                         <TouchableOpacity style={{ flex: 1, flexDirection:'row'}} onPress={()=>{this.navigateToNext(2)}}>
                             
-                            <View style={{ flex: 3, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
+                            <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
                                 <Image style={{width:30, height:30}} resizeMode='center' source={require("../resources/recharge.png")} />
 
                             </View>
-                            <View style={{ flex: 2,}} >
+                            <View style={{ flex: 2,backgroundColor:'#fff',  }} >
 
                             </View>
                         </TouchableOpacity>
                     )}
-                </View><View style={{ flex: 1, backgroundColor:'transparent'}} >
+                </View><View style={{ flex: 1, backgroundColor:'#fff'}} >
                     {this.state.selectedMenu === 3?(
                         <View style={{backgroundColor: '#134571', flex:1, borderTopRightRadius: 55, borderBottomRightRadius:55, alignItems:'center', justifyContent:'center'}}>
                             <Image style={{width:50, height:50}} resizeMode='center' source={require("../resources/report1.png")} />
@@ -86,16 +76,16 @@ class SideMenu extends Component {
                     ):( 
                         <TouchableOpacity style={{ flex: 1, flexDirection:'row'}} onPress={()=>{this.navigateToNext(3)}}>
                             
-                            <View style={{ flex: 3, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
+                            <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
                                 <Image style={{width:30, height:30}} resizeMode='center' source={require("../resources/report.png")} />
 
                             </View>
-                            <View style={{ flex: 2,}} >
+                            <View style={{ flex: 2,backgroundColor:'#fff'}} >
 
                             </View>
                         </TouchableOpacity>
                     )}
-                </View><View style={{ flex: 1, backgroundColor:'transparent'}} >
+                </View><View style={{ flex: 1, backgroundColor:'#fff'}} >
                     {this.state.selectedMenu === 4?(
                         <View style={{backgroundColor: '#134571', flex:1, borderTopRightRadius: 55, borderBottomRightRadius:55, alignItems:'center', justifyContent:'center'}}>
                             <Image style={{width:50, height:50}} resizeMode='center' source={require("../resources/setting1.png")} />
@@ -103,16 +93,16 @@ class SideMenu extends Component {
                     ):( 
                         <TouchableOpacity style={{ flex: 1, flexDirection:'row'}} onPress={()=>{this.navigateToNext(4)}}>
                             
-                            <View style={{ flex: 3, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
+                            <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
                                 <Image style={{width:30, height:30}} resizeMode='center' source={require("../resources/setting.png")} />
 
                             </View>
-                            <View style={{ flex: 2,}} >
+                            <View style={{ flex: 2,backgroundColor:'#fff'}} >
 
                             </View>
                         </TouchableOpacity>
                     )}
-                </View><View style={{ flex: 1, backgroundColor:'transparent'}} >
+                </View><View style={{ flex: 1, backgroundColor:'#fff'}} >
                     {this.state.selectedMenu === 5?(
                         <View style={{backgroundColor: '#134571', flex:1, borderTopRightRadius: 55, borderBottomRightRadius:55, alignItems:'center', justifyContent:'center'}}>
                             <View style={{width:50, height:50, borderRadius:50, backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}}>
@@ -122,16 +112,16 @@ class SideMenu extends Component {
                     ):( 
                         <TouchableOpacity style={{ flex: 1, flexDirection:'row'}} onPress={()=>{this.navigateToNext(5)}}>
                             
-                            <View style={{ flex: 3, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
+                            <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
                                 <Image style={{width:30, height:30}} resizeMode='center' source={require("../resources/icon.png")} />
 
                             </View>
-                            <View style={{ flex: 2,}} >
+                            <View style={{ flex: 2,backgroundColor:'#fff'}} >
 
                             </View>
                         </TouchableOpacity>
                     )}
-                </View><View style={{ flex: 1, backgroundColor:'transparent'}} >
+                </View><View style={{ flex: 1, backgroundColor:'#fff'}} >
                     {this.state.selectedMenu === 6?(
                         <View style={{backgroundColor: '#134571', flex:1, borderTopRightRadius: 55, borderBottomRightRadius:55, alignItems:'center', justifyContent:'center'}}>
                             <Image style={{width:50, height:50}} resizeMode='center' source={require("../resources/notification1.png")} />
@@ -139,16 +129,16 @@ class SideMenu extends Component {
                     ):( 
                         <TouchableOpacity style={{ flex: 1, flexDirection:'row'}} onPress={()=>{this.navigateToNext(6)}}>
                             
-                            <View style={{ flex: 3, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
+                            <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
                                 <Image style={{width:30, height:30}} resizeMode='center' source={require("../resources/notification.png")} />
 
                             </View>
-                            <View style={{ flex: 2,}} >
+                            <View style={{ flex: 2,backgroundColor:'#fff'}} >
 
                             </View>
                         </TouchableOpacity>
                     )}
-                </View><View style={{ flex: 1, backgroundColor:'transparent'}} >
+                </View><View style={{ flex: 1, backgroundColor:'#fff'}} >
                     {this.state.selectedMenu === 7?(
                         <View style={{backgroundColor: '#134571', flex:1, borderTopRightRadius: 55, borderBottomRightRadius:55, alignItems:'center', justifyContent:'center'}}>
                             <Image style={{width:50, height:50}} resizeMode='center' source={require("../resources/DG1.png")} />
@@ -156,16 +146,16 @@ class SideMenu extends Component {
                     ):( 
                         <TouchableOpacity style={{ flex: 1, flexDirection:'row'}} onPress={()=>{this.navigateToNext(7)}}>
                             
-                            <View style={{ flex: 3, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
+                            <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
                                 <Image style={{width:30, height:30}} resizeMode='center' source={require("../resources/DG.png")} />
 
                             </View>
-                            <View style={{ flex: 2,}} >
+                            <View style={{ flex: 2,backgroundColor:'#fff'}} >
 
                             </View>
                         </TouchableOpacity>
                     )}
-                </View><View style={{ flex: 1, backgroundColor:'transparent'}} >
+                </View><View style={{ flex: 1, backgroundColor:'#fff'}} >
                     {this.state.selectedMenu === 8?(
                         <View style={{backgroundColor: '#134571', flex:1, borderTopRightRadius: 55, borderBottomRightRadius:55, alignItems:'center', justifyContent:'center'}}>
                             <Image style={{width:50, height:50}} resizeMode='center' source={require("../resources/overview1.png")} />
@@ -173,11 +163,11 @@ class SideMenu extends Component {
                     ):( 
                         <TouchableOpacity style={{ flex: 1, flexDirection:'row'}} onPress={()=>{this.navigateToNext(8)}}>
                             
-                            <View style={{ flex: 3, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
+                            <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
                                 <Icon size={40} name="dots-vertical" color="#fff" />
 
                             </View>
-                            <View style={{ flex: 2,}} >
+                            <View style={{ flex: 2,backgroundColor:'#fff'}} >
 
                             </View>
                         </TouchableOpacity>

@@ -19,16 +19,18 @@ class Settings extends Component {
         super(props)
 
         this.userData = new UserData().getUserData();
+        var dataResouces = this.userData.resource
         this.state = {
-            nofity:this.userData.resource.notification_email==='Y',
-            low_balance:this.userData.resource.notification_app_balance==='Y',
-            power_cut_restore:this.userData.resource.power_cut_restore_notification==='Y',
-            notify_recharge:this.userData.resource.recharge_notification==='Y',
+            nofity:dataResouces.notification_email==='Y',
+            low_balance:dataResouces.notification_app_balance==='Y',
+            power_cut_restore:dataResouces.power_cut_restore_notification==='Y',
+            notify_recharge:dataResouces.recharge_notification==='Y',
         }
     }
     render() {
+        var dataResouces = this.userData.resource
         return  <View style={{flex:1}}>
-                    <NoticeHeader />
+                    {/* <NoticeHeader /> */}
                     
                     <View style={{margin:5, alignItems:'center', justifyContent:'center'}}>
                         <Text style={{color:'#F00', fontWeight:'bold', fontSize:30}}> SETTINGS </Text>
@@ -60,7 +62,7 @@ class Settings extends Component {
                                 <View style={{flex:1, justifyContent:'center'}}>
                                     <Text>GRID UNIT</Text>
                                     
-                                    <Text>{this.userData.resource.alert_daily_consumption_grid}</Text>
+                                    <Text>{dataResouces.alert_daily_consumption_grid}</Text>
                                 </View>
                                 
                                 <View style={{width:50,}}>
@@ -71,7 +73,7 @@ class Settings extends Component {
                                 <View style={{flex:1, justifyContent:'center'}}>
                                     <Text>DG UNIT</Text>
                                 
-                                    <Text>{this.userData.resource.alert_daily_consumption_dg}</Text>
+                                    <Text>{dataResouces.alert_daily_consumption_dg}</Text>
                                 </View>
                                 
                                 <View style={{width:50, }}>
@@ -90,7 +92,7 @@ class Settings extends Component {
                                     <View style={{flex:1, justifyContent:'center'}}>
                                         <Text>LOW BALANCE</Text>
                                 
-                                        <Text>{this.userData.resource.low_bal_alert}</Text>
+                                        <Text>{dataResouces.low_bal_alert}</Text>
                                     </View>
                                     <View style={{width:50, justifyContent:'center' }}>
                                         <Switch
