@@ -10,26 +10,58 @@ import {
 import NoticeHeader from "../components/notice-header";
 
 import * as Utilities from "../utilities/utilities-methods";
-
+import {fethchMessages} from '../utilities/webservices'
+import Spinner from '../components/activity-indicator'
 
 class EventLogging extends Component {
 
     constructor(props) {
         super(props)
+        this.spinner = new Spinner()
         this.state = {
-            logDate : [
-                {
-                    "date":"05/10/2020",
-                    "dg_start_date":Utilities.changeDateFormate(Date()),
-                    "dg_end_date":Utilities.changeDateFormate(Date())
-                },
-                {
-                    "date":"05/10/2020",
-                    "dg_start_date":Utilities.changeDateFormate(Date()),
-                    "dg_end_date":Utilities.changeDateFormate(Date())
-                }
-            ]
+            logDate : null
         }
+    }
+
+    componentDidMount(){
+
+        this.spinner.startActivity();
+        fethchMessages()
+        .then(response=>{
+
+            var logMessages = this.parseMessages(response.resource)
+            this.setState({
+                logDate : logMessages
+            })
+            this.spinner.stopActivity();
+        })
+
+    }
+
+    parseMessages(messages){
+
+        var logMessages = []
+        var keys = Object.keys(messages)
+        for(var i=0; i<keys.length; i++){
+            var message = messages[keys[i]];
+            
+            var messageArray = message.split('::')
+            var date = messageArray[0]
+            messageArray[1] = messageArray[1].trim()
+            messageArray = messageArray[1].split(' ')
+            var startDate = messageArray[3]
+            var endDate = messageArray[5]
+            var logData = {
+                "date":date,
+                "dg_start_date":startDate,
+                "dg_end_date":endDate
+            }
+
+            console.log("messageArray ",messageArray)
+            console.log("logData ",logData)
+            logMessages.push(logData)
+        }
+        return logMessages;
     }
 
     render() {

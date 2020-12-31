@@ -10,6 +10,9 @@ import {
 
 import ConnectWithUs from "../components/connectwithus";
 import Icon from 'react-native-vector-icons/Fontisto';
+import {fethcLogin} from '../utilities/webservices'
+import Spinner from '../components/activity-indicator'
+import UserData from '../utilities/models/user-data'
 
 class Login extends Component {
 
@@ -20,10 +23,22 @@ class Login extends Component {
             password:'',
             securePassword:true
         }
+        this.spinner = new Spinner()
+        this.userData = new UserData()
+        
     }
 
     onClickLogin() {
-        this.props.navigation.navigate("AppRouteConfig")
+        
+        this.spinner.startActivity();
+        fethcLogin()
+        .then(response=>{
+
+            this.userData.setUserData(response)
+
+            this.props.navigation.navigate("Welcome")
+            this.spinner.stopActivity();
+        })
     }
     
     onClickForgotPassword() {

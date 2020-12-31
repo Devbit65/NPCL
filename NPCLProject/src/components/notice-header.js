@@ -5,14 +5,18 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
+import MarqueeText from 'react-native-marquee';
+
+import UserData from '../utilities/models/user-data'
 
 class NoticeHeader extends Component {
 
     constructor(props) {
         super(props)
+        this.userData = new UserData().getUserData();
         this.state = {
-          unit:1202,
-          headerNoticeText : 'IMPORTANT NOTICE    IMPORTANT NOTICE',
+          unit:this.userData.resource.site_code,
+          headerNoticeText : this.userData.resource.msg,
         }
       }
 
@@ -23,8 +27,17 @@ class NoticeHeader extends Component {
                     </View>
 
                     <View style={{flex:1,backgroundColor:'red'}}>
-                        <View style={{flex:1, marginEnd:20, marginStart:20, justifyContent:'center', alignItems:'center'}}>
-                            <Text style={{color:'#FFF', fontWeight:'bold',}}>{this.state.headerNoticeText}</Text>
+                        <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+                            <MarqueeText
+                                style={{color:'#FFF', fontWeight:'bold',}}
+                                duration={3000}
+                                marqueeOnStart
+                                loop
+                                marqueeDelay={1000}
+                                marqueeResetDelay={1000}
+                                >
+                                {this.state.headerNoticeText}
+                            </MarqueeText>
                         </View>
                     </View>
                 </View>

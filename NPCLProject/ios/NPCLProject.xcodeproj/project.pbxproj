@@ -29,6 +29,7 @@
 		867362AF08BF4512AF4CF49E /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AED404317C54BB7A265AA8A /* Entypo.ttf */; };
 		91EB5A6B8B9245AFA7A77F83 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75FC45BF2D1945E3A8041592 /* Octicons.ttf */; };
 		954E281EFC6B45E6BA69F060 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E6CDD07ADC4C06B4A65BB9 /* FontAwesome5_Solid.ttf */; };
+		B05CB2CA259D4DF800F7FF60 /* App-Launch-Icon-640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = B05CB2C9259D4DF800F7FF60 /* App-Launch-Icon-640x1136.png */; };
 		B10656C24B254CEDBA3FB768 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 239BE5CB2D4C4AA3A5F41344 /* Fontisto.ttf */; };
 		BA304AEFEBA7600CE78F7BE5 /* libPods-NPCLProject-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 956B89F84671B96BAE284840 /* libPods-NPCLProject-tvOS.a */; };
 		BADAAD62EE5256279A862DE5 /* libPods-NPCLProject-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C69F0DEB1C1EE93421360A7 /* libPods-NPCLProject-tvOSTests.a */; };
@@ -90,6 +91,7 @@
 		A00C59033058494FA43A93C7 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		A0C3D9D82BE69583CD7F1357 /* Pods-NPCLProject-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NPCLProject-tvOS.release.xcconfig"; path = "Target Support Files/Pods-NPCLProject-tvOS/Pods-NPCLProject-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		A68C493CD33A5B898491848D /* Pods-NPCLProject-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NPCLProject-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-NPCLProject-tvOSTests/Pods-NPCLProject-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B05CB2C9259D4DF800F7FF60 /* App-Launch-Icon-640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Launch-Icon-640x1136.png"; path = "NPCLProject/App-Launch-Icon-640x1136.png"; sourceTree = "<group>"; };
 		BE519980774BA88C695B4CFC /* Pods-NPCLProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NPCLProject.release.xcconfig"; path = "Target Support Files/Pods-NPCLProject/Pods-NPCLProject.release.xcconfig"; sourceTree = "<group>"; };
 		BF07EF1B3A4B4C72A156C238 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		C3CAF33217ABA29DFCCDA8DB /* Pods-NPCLProject-NPCLProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NPCLProject-NPCLProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-NPCLProject-NPCLProjectTests/Pods-NPCLProject-NPCLProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				B05CB2C9259D4DF800F7FF60 /* App-Launch-Icon-640x1136.png */,
 			);
 			name = NPCLProject;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				C701F492E04241C08455134B /* Feather.ttf in Resources */,
 				1EB75BEFE5E34209A4BAD099 /* FontAwesome.ttf in Resources */,
 				CC44A32AAA804125A6E38112 /* FontAwesome5_Brands.ttf in Resources */,
+				B05CB2CA259D4DF800F7FF60 /* App-Launch-Icon-640x1136.png in Resources */,
 				F07F9CFBED17405B9658A6B1 /* FontAwesome5_Regular.ttf in Resources */,
 				954E281EFC6B45E6BA69F060 /* FontAwesome5_Solid.ttf in Resources */,
 				B10656C24B254CEDBA3FB768 /* Fontisto.ttf in Resources */,

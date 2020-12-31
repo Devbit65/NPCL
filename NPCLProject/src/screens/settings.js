@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import NoticeHeader from "../components/notice-header";
+import UserData from '../utilities/models/user-data'
 
 class Settings extends Component {
 
@@ -17,11 +18,12 @@ class Settings extends Component {
     constructor(props) {
         super(props)
 
+        this.userData = new UserData().getUserData();
         this.state = {
-            nofity:true,
-            low_balance:false,
-            power_cut_restore:false,
-            notify_recharge:false
+            nofity:this.userData.resource.notification_email==='Y',
+            low_balance:this.userData.resource.notification_app_balance==='Y',
+            power_cut_restore:this.userData.resource.power_cut_restore_notification==='Y',
+            notify_recharge:this.userData.resource.recharge_notification==='Y',
         }
     }
     render() {
@@ -58,7 +60,7 @@ class Settings extends Component {
                                 <View style={{flex:1, justifyContent:'center'}}>
                                     <Text>GRID UNIT</Text>
                                     
-                                    <Text>2</Text>
+                                    <Text>{this.userData.resource.alert_daily_consumption_grid}</Text>
                                 </View>
                                 
                                 <View style={{width:50,}}>
@@ -69,7 +71,7 @@ class Settings extends Component {
                                 <View style={{flex:1, justifyContent:'center'}}>
                                     <Text>DG UNIT</Text>
                                 
-                                    <Text>2</Text>
+                                    <Text>{this.userData.resource.alert_daily_consumption_dg}</Text>
                                 </View>
                                 
                                 <View style={{width:50, }}>
@@ -88,7 +90,7 @@ class Settings extends Component {
                                     <View style={{flex:1, justifyContent:'center'}}>
                                         <Text>LOW BALANCE</Text>
                                 
-                                        <Text>500</Text>
+                                        <Text>{this.userData.resource.low_bal_alert}</Text>
                                     </View>
                                     <View style={{width:50, justifyContent:'center' }}>
                                         <Switch

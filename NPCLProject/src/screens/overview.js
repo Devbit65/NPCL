@@ -9,25 +9,30 @@ import {
 import NoticeHeader from "../components/notice-header";
 
 import * as Utilities from "../utilities/utilities-methods";
+import UserData from '../utilities/models/user-data'
 
 
 class Overview extends Component {
 
     constructor(props) {
         super(props);
+        this.userData = new UserData().getUserData();
 
+        console.log("this.userData ",this.userData)
         this.state = {
-            balance_inr:1029.12,
-            balance_updated_on:Utilities.changeDateFormate(Date()),
-            grid_start_time:Utilities.changeDateFormate(Date()),
-            grid_kwh:"14073.15 KWH",
-            dg_kwh:"145.02 KWH",
-            sectioned_grid:"9.00",
-            sectioned_dg:"4.00",
-            consumption_grid:'267.5',
-            consumption_dg:'8.31',
-            consumption_fixed_charged:'872.7',
-            consumption_total:'3528.21',
+            balance_inr:this.userData.resource.balance_amount,
+            balance_updated_on:this.userData.resource.last_reading_updated,
+            grid_start_time:this.userData.resource.last_reading_updated_dg,
+            grid_kwh:this.userData.resource.grid_reading,
+            dg_kwh:this.userData.resource.dg_reading,
+            sectioned_grid:this.userData.resource.grid_sanctioned_load,
+            sectioned_dg:this.userData.resource.dg_sanctioned_load,
+            consumption_grid:this.userData.resource.monthly_grid_unit,
+            consumption_dg:this.userData.resource.monthly_dg_unit,
+            consumption_fixed_charged:this.userData.resource.fix_charges,
+            consumption_total:this.userData.resource.monthly_grid_amount,
+            load_unit:this.userData.resource.load_unit,
+            currency:this.userData.resource.currency
         }
     }
 
@@ -48,7 +53,7 @@ class Overview extends Component {
                                     </View>
                                     
                                     <View style={{flex:1, flexDirection:'row'}}>
-                                        <Text style={{flex:1, color:'red', fontSize:12}}>INR</Text>
+                                        <Text style={{flex:1, color:'red', fontSize:12}}>{this.userData.resource.currency}</Text>
                                         
                                         <Text style={{flex:1, color:'red', fontSize:12}}>{this.state.balance_inr}</Text>
                                     </View>
@@ -56,7 +61,7 @@ class Overview extends Component {
                                     <View style={{flex:1, flexDirection:'row'}}>
                                         <Text style={{flex:1, fontSize:12}}>UPDATED ON</Text>
                                         
-                                        <Text style={{flex:1, fontSize:12}}>{this.state.balance_updated_on}</Text>
+                                        <Text style={{flex:1, fontSize:10}}>{this.state.balance_updated_on}</Text>
                                     </View>
                                 </View>
                                 
@@ -71,16 +76,16 @@ class Overview extends Component {
                                         
                                         <Text style={{flex:1, fontSize:12}}>START TIME</Text>
                                         
-                                        <Text style={{flex:1, fontSize:9}}>{this.state.grid_start_time}</Text>
+                                        <Text style={{flex:1, fontSize:8}}>{this.state.grid_start_time}</Text>
                                         
-                                        <Text style={{flex:1, fontSize:12}}>{this.state.grid_kwh}</Text>
+                                        <Text style={{flex:1, fontSize:10}}>{this.state.grid_kwh} {this.userData.resource.reading_unit}</Text>
                                     </View>
                                     
                                     <View style={{flex:1, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'}}>
                                         <Text style={{fontWeight:'bold'}}>DG</Text>
                                         <Text style={{flex:1, fontSize:12}}>OFF</Text>
                                         <Text style={{flex:1, fontSize:9}}></Text>
-                                        <Text style={{flex:1, fontSize:12}}>{this.state.dg_kwh}</Text>
+                                        <Text style={{flex:1, fontSize:10}}>{this.state.dg_kwh} {this.userData.resource.reading_unit}</Text>
                                     </View>
                                 </View>
                                 
@@ -120,7 +125,7 @@ class Overview extends Component {
                                     <View style={{flex:0.5, flexDirection:'row'}}>
                                         <Text style={{flex:1, fontSize:12}}></Text>
                                         
-                                        <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN INR</Text>
+                                        <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {this.userData.resource.currency}</Text>
                                     </View>
                                 </View>
                             </View>
@@ -146,7 +151,7 @@ class Overview extends Component {
                                     <View style={{flex:0.5, flexDirection:'row'}}>
                                         <Text style={{flex:1, fontSize:12}}></Text>
                                         
-                                        <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN KWH</Text>
+                                        <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {this.state.load_unit}</Text>
                                     </View>
 
                                 </View>

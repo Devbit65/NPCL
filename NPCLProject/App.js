@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 import Route from './src/utilities/route'
+import Spinner from './src/components/activity-indicator'
 
 
 
@@ -26,6 +27,7 @@ const App = () => {
       <SafeAreaView  style={{flex:1}}>
         <Route >
         </Route>
+        <Spinner />
       </SafeAreaView>
     </View>
   );

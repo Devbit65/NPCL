@@ -10,36 +10,52 @@ import {
 import NoticeHeader from "../components/notice-header";
 
 import * as Utilities from "../utilities/utilities-methods";
+import {fethchNotice} from '../utilities/webservices'
+import Spinner from '../components/activity-indicator'
 
 
 class Notice extends Component {
 
     constructor(props) {
         super(props)
+        this.spinner = new Spinner()
         this.state = {
-            logDate : [
-                {
-                    "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
-                    "isNew":true
-                },
-                {
-                    "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
-                    "isNew":true
-                },
-                {
-                    "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
-                    "isNew":false
-                },
-                {
-                    "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
-                    "isNew":false
-                },
-                {
-                    "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
-                    "isNew":false
-                },
-            ]
+            logDate : []
+            // [
+            //     {
+            //         "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
+            //         "isNew":true
+            //     },
+            //     {
+            //         "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
+            //         "isNew":true
+            //     },
+            //     {
+            //         "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
+            //         "isNew":false
+            //     },
+            //     {
+            //         "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
+            //         "isNew":false
+            //     },
+            //     {
+            //         "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
+            //         "isNew":false
+            //     },
+            // ]
         }
+    }
+
+    componentDidMount(){
+        this.spinner.startActivity();
+        fethchNotice()
+        .then(response=>{
+
+            this.setState({
+                logDate:response.resources
+            })
+            this.spinner.stopActivity();
+        })
     }
 
     render() {

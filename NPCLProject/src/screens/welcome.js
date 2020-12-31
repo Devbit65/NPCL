@@ -9,19 +9,21 @@ import {
 
 import ConnectWithUs from "../components/connectwithus";
 import NoticeHeader from "../components/notice-header";
+import UserData from '../utilities/models/user-data'
 
 class Welcome extends Component {
 
   constructor(props) {
     super(props)
+    this.userData = new UserData()
     this.state = {
-      userName : 'KALPANA MISHRA'
+      userName : this.userData.getUserName()
     }
   }
 
   onClickGetStarted() {
 
-    this.props.navigation.navigate("Overview")
+    this.props.navigation.navigate("AppRouteConfig")
   }
 
   onClickConnectUs(value) {

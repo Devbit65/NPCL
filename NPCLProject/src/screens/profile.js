@@ -13,17 +13,20 @@ import NoticeHeader from "../components/notice-header";
 import * as Utilities from "../utilities/utilities-methods";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MailIcon from 'react-native-vector-icons/Ionicons';
+import UserData from '../utilities/models/user-data'
 
 class Profile extends Component {
 
     constructor(props) {
         super(props)
+        this.userData = new UserData().getUserData();
+
         this.state = {
-            userName:'KALPANA MISHRA',
-            meterId:'837731951202',
-            customerId:'CS5-1202',
-            phone:'8925402809',
-            email:'KALPANA.MISHRA@RADIUS.CO.IN'
+            userName:this.userData.resource.consumer_name,
+            meterId:this.userData.resource.tp_token_id,
+            customerId:this.userData.resource.location_id,
+            phone:this.userData.resource.consumer_mobile_no,
+            email:this.userData.resource.consumer_email_id
         }
     }
 
