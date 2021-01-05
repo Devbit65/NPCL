@@ -110,8 +110,8 @@ class Recharge extends Component {
                         <View style={[{ maxHeight:150, margin:5, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                             <View style={[{ margin:10, padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
                                 <View style={{height:25,flexDirection:'row'}}>
-                                    <Text style={{flex:1, fontWeight:'bold'}}>AVAILABLE BALANCE</Text>
-                                    <Text style={{color:'red', fontSize:12}}>{this.state.balance_inr}</Text>
+                                    <Text style={{flex:1, fontWeight:'bold', color:'rgb(19,69,113)'}}>AVAILABLE BALANCE</Text>
+                                    <Text style={{color:'rgb(206, 0, 57)', fontSize:12}}>{this.state.balance_inr}</Text>
                                 </View>
                                                                     
                                 <View style={{ height:20, flexDirection:'row', alignItems:'center',justifyContent:'center'}}>
@@ -189,26 +189,29 @@ class Recharge extends Component {
                         </View>
 
                         <View style={[{ flex:1, margin:5, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
-                        <FlatList
-                            data={this.state.history}
-                            showsVerticalScrollIndicator={true}
-                            renderItem={({ item, index, separators })=>{
-                                 
-                                return  <View style={{ flexDirection:'row'}}>
-                                            <View style={{flex:2, alignItems:'center', justifyContent:'center'}}>
-                                                <Image style={{width:50, height:60, resizeMode:'center' }}  source={require("../resources/paytm-512.png")}/>
-                                            </View>
-                                            <View style={{flex:3,  justifyContent:'center',}}>
-                                                <View style={{flexDirection:'row',alignItems:'center',}}>
-                                                    <Icon size={10} name="currency-inr" color="rgb(206, 0, 57)" />
-                                                    <Text style={{color:'rgb(206, 0, 57)', fontSize:10}}>{item.amount}</Text>
+                            <Text style={{margin:5, fontWeight:'bold', color:'rgb(19,69,113)'}}>RECHARGE HISTORY</Text>
+                            <View style={[{ flex:1, margin:5, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                                <FlatList
+                                    data={this.state.history}
+                                    showsVerticalScrollIndicator={true}
+                                    renderItem={({ item, index, separators })=>{
+                                        
+                                        return  <View style={{ flexDirection:'row'}}>
+                                                    <View style={{flex:2, alignItems:'center', justifyContent:'center'}}>
+                                                        <Image style={{width:50, height:60, resizeMode:'center' }}  source={require("../resources/paytm-512.png")}/>
+                                                    </View>
+                                                    <View style={{flex:3,  justifyContent:'center',}}>
+                                                        <View style={{flexDirection:'row',alignItems:'center',}}>
+                                                            <Icon size={10} name="currency-inr" color="rgb(206, 0, 57)" />
+                                                            <Text style={{color:'rgb(206, 0, 57)', fontSize:10}}>{item.amount}</Text>
+                                                        </View>
+                                                        <Text style={{fontSize:10}}>{item.recharge_id}</Text>
+                                                        <Text style={{fontSize:10}}>{item.date}</Text>
+                                                    </View>
                                                 </View>
-                                                <Text style={{fontSize:10}}>{item.recharge_id}</Text>
-                                                <Text style={{fontSize:10}}>{item.date}</Text>
-                                            </View>
-                                        </View>
-                            }}
-                        />
+                                    }}
+                                />
+                            </View>
                         </View>
                     </View>
                 </View>

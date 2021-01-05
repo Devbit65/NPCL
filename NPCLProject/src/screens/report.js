@@ -16,7 +16,7 @@ class Report extends Component {
         this.userData = new UserData().getUserData();
         var dataResouces = this.userData.resource
         this.state={
-            monthly_bill_enable : 'Y'//dataResouces.monthly_bill_enable //'N'
+            monthly_bill_enable : dataResouces.monthly_bill_enable //'N'
         }
     }
 
