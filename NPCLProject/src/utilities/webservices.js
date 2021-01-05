@@ -18,8 +18,12 @@ const kHistory = "https://www.myxenius.com/thirdparty/api/recharge_history"
 const kCurrentRates = "https://myxenius.com//thirdparty/api/current_applicable_rates"
 const kMonthlyBill = "https://myxenius.com//thirdparty/api/report"
 
+import UserData from '../utilities/models/user-data'
+
 export const fethcLogin = () => {
-  return fetch(kLoginURL+'?login_id=101210007&password=101210007')
+  var userCred = new UserData().getUserCredential()
+  var req_url = kLoginURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {
         return json;
@@ -30,7 +34,9 @@ export const fethcLogin = () => {
 };
 
 export const fethchMessages = () => {
-  return fetch(kMessageURL+'?login_id=101210007&password=101210007')
+  var userCred = new UserData().getUserCredential()
+  var req_url = kMessageURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {
         return json;
@@ -41,7 +47,9 @@ export const fethchMessages = () => {
 };
 
 export const fethchNotice= () => {
-  return fetch(kNotice+'?login_id=101210007&password=101210007')
+  var userCred = new UserData().getUserCredential()
+  var req_url = kNotice+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {
         return json;

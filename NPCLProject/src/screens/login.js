@@ -19,13 +19,13 @@ class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            userid:'',
-            password:'',
+            userid:'101210007',
+            password:'101210007',
             securePassword:true
         }
         this.spinner = new Spinner()
         this.userData = new UserData()
-        
+        this.userData.setUserCredential(this.state.userid, this.state.password)
     }
 
     onClickLogin() {
@@ -82,7 +82,7 @@ class Login extends Component {
                                 style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25,  marginTop:30}}
                                 textAlign={'center'}
                                 placeholder="USER ID"
-                                onChangeText={text => this.setState({userid:text})}
+                                onChangeText={text => this.setState({userid:text},()=>this.userData.setUserCredential(this.state.userid, this.state.password))}
                                 defaultValue={this.state.userid}
                             />
 
@@ -91,7 +91,7 @@ class Login extends Component {
                                 textAlign={'center'}
                                 placeholder="PASSWORD"
                                 secureTextEntry={this.state.securePassword}
-                                onChangeText={text => this.setState({password:text})}
+                                onChangeText={text => this.setState({password:text},()=>this.userData.setUserCredential(this.state.userid, this.state.password))}
                                 defaultValue={this.state.password}
                             />
 

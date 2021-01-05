@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import {
     Text, 
     View,
-    TouchableOpacity,
     Image
 } from 'react-native';
 
-import NoticeHeader from "../components/notice-header";
-
-import * as Utilities from "../utilities/utilities-methods";
 import UserData from '../utilities/models/user-data'
+import Pie from 'react-native-pie'
 
 
 class Overview extends Component {
@@ -20,11 +17,11 @@ class Overview extends Component {
 
         var dataResouces = this.userData.resource
         this.state = {
-            balance_inr:dataResouces.balance_amount,
+            balance_inr:Number(dataResouces.balance_amount).toFixed(2),
             balance_updated_on:dataResouces.last_reading_updated,
             grid_start_time:dataResouces.last_reading_updated_dg,
-            grid_kwh:dataResouces.grid_reading,
-            dg_kwh:dataResouces.dg_reading,
+            grid_kwh:Number(dataResouces.grid_reading).toFixed(2),
+            dg_kwh:Number(dataResouces.dg_reading).toFixed(2),
             sectioned_grid:dataResouces.grid_sanctioned_load,
             sectioned_dg:dataResouces.dg_sanctioned_load,
             consumption_grid:dataResouces.monthly_grid_unit,
@@ -38,6 +35,9 @@ class Overview extends Component {
 
     render() {
         var dataResouces = this.userData.resource
+        var totalUnit = Number(dataResouces.daily_dg_unit) + Number(dataResouces.daily_grid_unit)
+        var gridPer = dataResouces.daily_grid_unit*100/totalUnit
+        var dgPer = dataResouces.daily_dg_unit*100/totalUnit
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     {/* <NoticeHeader /> */}
                     
@@ -71,8 +71,7 @@ class Overview extends Component {
                                         <View style={{flexDirection:'row'}}>
                                             <Text style={{flex:1, fontWeight:'bold'}}>GRID</Text>
                                             
-                                            <View style={{width:15, height:15, borderRadius:15, backgroundColor:'#0F0'}}>
-                                            </View>
+                                            {dataResouces.energy_source === 'GRID' && <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image>}
                                         </View>
                                         
                                         <Text style={{flex:1, fontSize:12}}>START TIME</Text>
@@ -83,7 +82,11 @@ class Overview extends Component {
                                     </View>
                                     
                                     <View style={{flex:1, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'}}>
-                                        <Text style={{fontWeight:'bold'}}>DG</Text>
+                                        <View style={{flexDirection:'row'}}>
+                                            <Text style={{flex:1, fontWeight:'bold'}}>DG</Text>
+                                            
+                                            {dataResouces.energy_source === 'DG' && <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/RedLEDIcon.png")}></Image>}
+                                        </View>
                                         <Text style={{flex:1, fontSize:12}}>OFF</Text>
                                         <Text style={{flex:1, fontSize:9}}></Text>
                                         <Text style={{flex:1, fontSize:10}}>{this.state.dg_kwh} {dataResouces.reading_unit}</Text>
@@ -97,8 +100,23 @@ class Overview extends Component {
                                     <Text style={{fontWeight:'bold'}}>TODAY'S CONSUMPTION</Text>
                                 </View>
 
-                                <View style={{flex:2}}>
-                                    <Text>Charts</Text>
+                                <View style={{flex:2,  alignItems:'center', justifyContent:'center'}}>
+                                    <Pie
+                                        radius={50}
+                                        sections={[
+                                            {
+                                            percentage: gridPer,
+                                            color: '#134571',
+                                            },
+                                            {
+                                            percentage: dgPer,
+                                            color: '#f00',
+                                            },
+                                            
+                                        ]}
+                                        dividerSize={2}
+                                        strokeCap={'butt'}
+                                    />
                                 </View>
                                 <View style={{flex:3, paddingLeft:20, paddingRight:20}}>
                                     <View style={{flex:1, maxHeight:25, margin:5, borderWidth:0.5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}}>

@@ -7,11 +7,29 @@ export default class UserData {
 
         if(!UserData.singletonObject ){
             this.userData = null
+            this.userCred = null;
             UserData.singletonObject = this;
         }
         
         return UserData.singletonObject;
         
+    }
+
+    setUserCredential(user_id, pswd){
+        if(user_id || pswd){
+
+            this.userCred = {
+                user_id : user_id,
+                pswd : pswd
+            }
+        }
+        else {
+            this.userCred = null;
+        }
+    }
+
+    getUserCredential() {
+        return this.userCred;
     }
 
     setUserData(userData){

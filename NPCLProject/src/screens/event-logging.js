@@ -87,7 +87,7 @@ class EventLogging extends Component {
                                             <View style={{flex:1,  justifyContent:'center'}}>
                                                 <Text style={{fontSize:10}}> DG END DATE </Text>
                                             
-                                                <Text style={{fontSize:8}}> {item.dg_start_date} </Text>
+                                                <Text style={{fontSize:8}}> {item.dg_end_date} </Text>
                                             </View>
                                         </View>
                                     </View>
