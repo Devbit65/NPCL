@@ -51,7 +51,6 @@ class Login extends Component {
     }
 
     onClickShowPassword() {
-        console.log("onClickShowPassword")
         this.setState({
             securePassword:!this.state.securePassword
         })

@@ -3,14 +3,10 @@ import React, { Component } from 'react';
 import {
     Text, 
     View,
-    TouchableOpacity,
-    TextInput,
-    Image
+    Image,
+    StyleSheet
 } from 'react-native';
 
-import NoticeHeader from "../components/notice-header";
-
-import * as Utilities from "../utilities/utilities-methods";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MailIcon from 'react-native-vector-icons/Ionicons';
 import UserData from '../utilities/models/user-data'
@@ -45,7 +41,6 @@ class Profile extends Component {
     }
 
     onClickShowPassword() {
-        console.log("onClickShowPassword")
         this.setState({
             securePassword:!this.state.securePassword
         })
@@ -63,8 +58,8 @@ class Profile extends Component {
                 <View style={{flex:1, marginTop:50}}>
                     
                     <View style={{flex:1, margin:25, maxHeight:350, backgroundColor:'#FFF', borderRadius:5}}>
-                        <View style={{width:152, height:152, borderRadius:150, alignSelf:'center', position:'absolute', top:-75}}>
-                            <Image style={{width:150, height:150, borderRadius:150,borderWidth:5, borderColor:'red'}} source={{uri: "https://lh3.googleusercontent.com/ogw/ADGmqu-9yiHVpiKJ0fcCRlKUZl1ayq4rk_ydcfzvY1qlnw=s192-c-mo"}}/>
+                        <View style={[{width:140, height:140, borderRadius:150, alignSelf:'center', alignItems:'center', justifyContent:'center', position:'absolute', top:-75, borderRadius:150,borderWidth:5, borderColor:'red'},style.cardShadow]}>
+                            <Image style={{width:110, height:110, resizeMode:'center' }}  source={require("../resources/icon.png")}/>
                         </View>
                         <View style={{height:75}}>
                         </View>
@@ -129,4 +124,19 @@ class Profile extends Component {
           );
     }
 }
+
+var style = StyleSheet.create({
+    cardShadow:{
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 3,
+
+        elevation: 5,
+    }
+})
+
 export default Profile;

@@ -58,3 +58,17 @@ export const fethchNotice= () => {
       return null
     });
 };
+
+
+export const fethchRechargeHistory = () => {
+  var userCred = new UserData().getUserCredential()
+  var req_url = kHistory+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  return fetch(req_url)
+    .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+};

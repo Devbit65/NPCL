@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
     Text, 
     View,
-    Image
+    Image,
+    StyleSheet
 } from 'react-native';
 
 import UserData from '../utilities/models/user-data'
@@ -47,8 +48,8 @@ class Overview extends Component {
 
                     <View style={{flex:1}}>
                         <View style={{flex:4, marginLeft:10, marginRight:10}}>
-                            <View style={{flex:1, maxHeight:150, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)', borderWidth:1, borderColor:"gray"}}>
-                                <View style={{flex:1, margin:10, padding:5, borderRadius:5, backgroundColor:'#FFF'}}>
+                            <View style={[{flex:1, maxHeight:150, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                                <View style={[{flex:1, margin:10, padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
                                     <View style={{flex:1.5}}>
                                         <Text style={{fontWeight:'bold'}}>AVAILABLE BALANCE</Text>
                                     </View>
@@ -67,7 +68,7 @@ class Overview extends Component {
                                 </View>
                                 
                                 <View style={{flex:1.5, flexDirection:'row'}}>
-                                    <View style={{flex:1, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'}}>
+                                    <View style={[{flex:1, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
                                         <View style={{flexDirection:'row'}}>
                                             <Text style={{flex:1, fontWeight:'bold'}}>GRID</Text>
                                             
@@ -81,7 +82,7 @@ class Overview extends Component {
                                         <Text style={{flex:1, fontSize:10}}>{this.state.grid_kwh} {dataResouces.reading_unit}</Text>
                                     </View>
                                     
-                                    <View style={{flex:1, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'}}>
+                                    <View style={[{flex:1, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
                                         <View style={{flexDirection:'row'}}>
                                             <Text style={{flex:1, fontWeight:'bold'}}>DG</Text>
                                             
@@ -95,7 +96,7 @@ class Overview extends Component {
                                 
                             </View>
                             
-                            <View style={{flex:1, margin:10, marginBottom:5, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)', borderWidth:1, borderColor:"gray"}}>
+                            <View style={[{flex:1, margin:10, marginBottom:5, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                                 <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
                                     <Text style={{fontWeight:'bold'}}>TODAY'S CONSUMPTION</Text>
                                 </View>
@@ -119,23 +120,23 @@ class Overview extends Component {
                                     />
                                 </View>
                                 <View style={{flex:3, paddingLeft:20, paddingRight:20}}>
-                                    <View style={{flex:1, maxHeight:25, margin:5, borderWidth:0.5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}}>
+                                    <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                                         <Text style={{flex:1, fontSize:12}}>GRID</Text>
                                         
                                         <Text style={{width:75, fontSize:12}}>{this.state.consumption_grid}</Text>
                                     </View>
                                     
-                                    <View style={{flex:1, maxHeight:25, margin:5, borderWidth:0.5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}}>
+                                    <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                                         <Text style={{flex:1, fontSize:12}}>DG</Text>
                                         
                                         <Text style={{width:75, fontSize:12}}>{this.state.consumption_dg}</Text>
                                     </View>
-                                    <View style={{flex:1, maxHeight:25, margin:5, borderWidth:0.5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}}>
+                                    <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                                         <Text style={{flex:1, fontSize:12}}>FIXED CHARGED</Text>
                                         
                                         <Text style={{width:75, fontSize:12}}>{this.state.consumption_fixed_charged}</Text>
                                     </View>
-                                    <View style={{flex:1, maxHeight:25, margin:5, borderWidth:0.5,  borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}}>
+                                    <View style={[{flex:1, maxHeight:25, margin:5,  borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                                         <Text style={{flex:1, fontSize:12}}>TOTAL</Text>
                                         
                                         <Text style={{width:75, fontSize:12}}>{this.state.consumption_total}</Text>
@@ -149,7 +150,7 @@ class Overview extends Component {
                                 </View>
                             </View>
                             
-                            <View style={{flex:1, maxHeight:75, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)', borderWidth:1, borderColor:"gray"}}>
+                            <View style={[{flex:1, maxHeight:75, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                                 <View style={{flex:1, backgroundColor:'rgb(19,69,113)', borderRadius:5, alignItems:'center', justifyContent:'center'}}>
                                     <Text style={{fontWeight:'bold', color:'#fff'}}>SECTIONED LOAD</Text>
                                 </View>
@@ -181,5 +182,19 @@ class Overview extends Component {
                 </View>
     }
 }
+
+var style = StyleSheet.create({
+    cardShadow:{
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3,
+
+        elevation: 1,
+    }
+})
 
 export default Overview;
