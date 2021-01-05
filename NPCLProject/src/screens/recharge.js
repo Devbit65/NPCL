@@ -5,7 +5,8 @@ import {
     Image,
     FlatList,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    TextInput
 } from 'react-native';
 
 import UserData from '../utilities/models/user-data'
@@ -29,6 +30,8 @@ class Recharge extends Component {
             history:null,
             isOpenOnline:true,
             isOpenCoupon:false,
+            couponAmout:null,
+            rechargeAmount:null,
         }
     }
 
@@ -90,6 +93,14 @@ class Recharge extends Component {
         })
     }
 
+    payByCoupon() {
+        console.log("payByCoupon")
+    }
+
+    payByOnline() {
+        console.log("payByOnline")
+    }
+
     render() {
         return  <View style={{flex:1}}>
                     <View style={{margin:5, alignItems:'center', justifyContent:'center'}}>
@@ -116,65 +127,63 @@ class Recharge extends Component {
                             </View>
                         </View>
 
-                        <View style={[{flex:1, maxHeight:this.state.isOpenOnline?75 : 30, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                        <View style={[{flex:1, maxHeight:this.state.isOpenOnline?75 : 30, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)', borderColor:'rgb(19,69,113)', borderWidth:1}, style.cardShadow]}>
                             
                             <View style={{ padding:5, backgroundColor:'rgb(19,69,113)', borderRadius:5, alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
                                 <Text style={{flex:1, fontWeight:'bold', color:'#fff'}}>ONLINE</Text>
                                 <TouchableOpacity onPress={()=>this.openOnline()} >
-                                    <Icon size={20} name="chevron-up-circle-outline" color="#fff" />
+                                    <Icon size={20} name={this.state.isOpenOnline?"chevron-down-circle-outline":"chevron-up-circle-outline"} color="#fff" />
                                 </TouchableOpacity>
                             </View>
 
-                            {this.state.isOpenOnline && <View style={{flex:2, marginRight:25, marginLeft:25}}>
-                                <View style={{flex:1, flexDirection:'row'}}>
-                                    <Text style={{flex:1, fontSize:12}}>GRID</Text>
-                                    
-                                    <Text style={{flex:1, fontSize:12, textAlign:'right'}}>{this.state.sectioned_grid}</Text>
-                                </View>
+                            {this.state.isOpenOnline && <View style={{flex:2,  flexDirection:'row'}}>
                                 
-                                <View style={{flex:1, flexDirection:'row'}}>
-                                    <Text style={{flex:1, fontSize:12}}>DG</Text>
-                                    
-                                    <Text style={{flex:1, fontSize:12, textAlign:'right'}}>{this.state.sectioned_dg}</Text>
+                                <View style={{flex:1,alignItems:'center', justifyContent:'center'}}>
+                                    <TextInput
+                                        style={{width:100, height: 25, borderWidth:0.5, borderRadius:5, paddingLeft:5, paddingRight:5, fontSize:10}}
+                                        textAlign={'center'}
+                                        placeholder="ENTER AMOUNT"
+                                        placeholderTextColor={"#000"}
+                                        onChangeText={text => this.setState({couponAmout:text})}
+                                        defaultValue={this.state.userid}
+                                    />
                                 </View>
 
-                                <View style={{flex:0.5, flexDirection:'row'}}>
-                                    <Text style={{flex:1, fontSize:12}}></Text>
-                                    
-                                    <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {this.state.load_unit}</Text>
+                                <View style={{flex:1,alignItems:'center', justifyContent:'center',}}>
+                                    <TouchableOpacity onPress={()=>this.payByOnline()} style={{width:60, height:25, backgroundColor:'rgb(19,69,113)', alignItems:'center', justifyContent:'center', borderRadius:5}}>
+                                        <Text style={{color:'#fff'}}>PAY</Text>
+                                    </TouchableOpacity>
                                 </View>
-
                             </View>}
                             
                         </View>
 
-                        <View style={[{flex:1, maxHeight:this.state.isOpenCoupon?75 : 30, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                        <View style={[{flex:1, maxHeight:this.state.isOpenCoupon?75 : 30, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)', borderColor:'rgb(206, 0, 57)', borderWidth:1}, style.cardShadow]}>
                             <View style={{ padding:5, backgroundColor:'rgb(206, 0, 57)', borderRadius:5, alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
                                 <Text style={{flex:1, fontWeight:'bold', color:'#fff'}}>COUPON</Text>
                                 <TouchableOpacity onPress={()=>this.openCoupon()} >
-                                    <Icon size={20} name="chevron-up-circle-outline" color="#fff" />
+                                    <Icon size={20} name={this.state.isOpenCoupon?"chevron-down-circle-outline":"chevron-up-circle-outline"}  color="#fff" />
                                 </TouchableOpacity>
                             </View>
                             
-                            {this.state.isOpenCoupon && <View style={{flex:2, marginRight:25, marginLeft:25}}>
-                                <View style={{flex:1, flexDirection:'row'}}>
-                                    <Text style={{flex:1, fontSize:12}}>GRID</Text>
-                                    
-                                    <Text style={{flex:1, fontSize:12, textAlign:'right'}}>{this.state.sectioned_grid}</Text>
-                                </View>
+                            {this.state.isOpenCoupon && <View style={{flex:2,  flexDirection:'row'}}>
                                 
-                                <View style={{flex:1, flexDirection:'row'}}>
-                                    <Text style={{flex:1, fontSize:12}}>DG</Text>
-                                    
-                                    <Text style={{flex:1, fontSize:12, textAlign:'right'}}>{this.state.sectioned_dg}</Text>
+                                <View style={{flex:1,alignItems:'center', justifyContent:'center'}}>
+                                    <TextInput
+                                        style={{width:100, height: 25, borderWidth:0.5, borderRadius:5, paddingLeft:5, paddingRight:5, fontSize:10}}
+                                        textAlign={'center'}
+                                        placeholder="ENTER AMOUNT"
+                                        placeholderTextColor={"#000"}
+                                        onChangeText={text => this.setState({couponAmout:text})}
+                                        defaultValue={this.state.userid}
+                                    />
                                 </View>
 
-                                <View style={{flex:0.5, flexDirection:'row'}}>
-                                    <Text style={{flex:1, fontSize:12}}></Text>
-                                    
-                                    <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {this.state.load_unit}</Text>
+                                <View style={{flex:1,alignItems:'center', justifyContent:'center',}}>
+                                    <TouchableOpacity onPress={()=>this.payByCoupon()} style={{width:60, height:25, backgroundColor:'rgb(206, 0, 57)', alignItems:'center', justifyContent:'center', borderRadius:5}}>
+                                        <Text style={{color:'#fff'}}>PAY</Text>
+                                    </TouchableOpacity>
                                 </View>
-
                             </View>}
                             
                         </View>
