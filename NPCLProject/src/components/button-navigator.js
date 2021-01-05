@@ -15,7 +15,7 @@ class BottomNavigator extends Component {
                     <Icon
                         name='add'
                         type='material'
-                        color='#f00'
+                        color='rgb(206, 0, 57)'
                         containerStyle={{ alignSelf: 'center' }}
                         reverse
                         size={28}

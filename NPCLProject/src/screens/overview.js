@@ -43,7 +43,7 @@ class Overview extends Component {
                     {/* <NoticeHeader /> */}
                     
                     <View style={{margin:5, alignItems:'center', justifyContent:'center'}}>
-                        <Text style={{color:'#F00', fontWeight:'bold', fontSize:30}}> OVERVIEW </Text>
+                        <Text style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:30}}> OVERVIEW </Text>
                     </View>
 
                     <View style={{flex:1}}>
@@ -111,7 +111,7 @@ class Overview extends Component {
                                             },
                                             {
                                             percentage: dgPer,
-                                            color: '#f00',
+                                            color: 'rgb(206, 0, 57)',
                                             },
                                             
                                         ]}

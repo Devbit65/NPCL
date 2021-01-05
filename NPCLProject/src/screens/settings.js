@@ -33,7 +33,7 @@ class Settings extends Component {
                     {/* <NoticeHeader /> */}
                     
                     <View style={{margin:5, alignItems:'center', justifyContent:'center'}}>
-                        <Text style={{color:'#F00', fontWeight:'bold', fontSize:30}}> SETTINGS </Text>
+                        <Text style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:30}}> SETTINGS </Text>
                     </View>
 
                     <View style={{flex:1,}}>

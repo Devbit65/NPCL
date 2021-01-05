@@ -4,7 +4,8 @@ import {
     View,
     TouchableOpacity,
     Image,
-    FlatList
+    FlatList,
+    StyleSheet
 } from 'react-native';
 
 import NoticeHeader from "../components/notice-header";
@@ -52,6 +53,7 @@ class EventLogging extends Component {
             var startDate = messageArray[3]
             var endDate = messageArray[5]
             var logData = {
+                id:i.toString(),
                 "date":date,
                 "dg_start_date":startDate,
                 "dg_end_date":endDate
@@ -67,7 +69,7 @@ class EventLogging extends Component {
                     {/* <NoticeHeader /> */}
                     
                     <View style={{margin:5, alignItems:'center', justifyContent:'center'}}>
-                        <Text style={{color:'#F00', fontWeight:'bold', fontSize:30}}> DG EVENT LOGGING </Text>
+                        <Text style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:30}}> DG EVENT LOGGING </Text>
                     </View>
                     
                     <FlatList
@@ -76,9 +78,9 @@ class EventLogging extends Component {
                             return  <View key={index} style={{flex:1, height:75, marginLeft:10, marginRight:10, alignItems:'center', justifyContent:'center'}}>
                                         <Text style={{fontSize:11}}> Date - {item.date} </Text>
                                         
-                                        <View style={{flex:1, maxHeight:40, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)', borderWidth:1, borderColor:"gray", flexDirection:'row'}}>
+                                        <View style={[{flex:1, maxHeight:40, margin:10, marginTop:5, borderRadius:5, backgroundColor:'#fff', flexDirection:'row'},style.cardShadow]}>
 
-                                            <View style={{flex:2, paddingLeft:20, justifyContent:'center'}}>
+                                            <View style={{flex:1, paddingLeft:20, justifyContent:'center'}}>
                                                 <Text style={{fontSize:10}}> DG START DATE </Text>
                                             
                                                 <Text style={{fontSize:8}}> {item.dg_start_date} </Text>
@@ -98,5 +100,20 @@ class EventLogging extends Component {
                 </View>
     }
 }
+
+
+var style = StyleSheet.create({
+    cardShadow:{
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3,
+
+        elevation: 1,
+    }
+})
 
 export default EventLogging;

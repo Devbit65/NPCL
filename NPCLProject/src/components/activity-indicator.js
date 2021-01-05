@@ -57,7 +57,7 @@ export default class AppSpinner extends Component {
          {/* <View style = {styles.indicatorView}> */}
                 <ActivityIndicator animating = {true}
                     style = {styles.activityIndicator} size = "large"
-                    color = '#f00'
+                    color = 'rgb(206, 0, 57)'
                 />
                 {/* <Text style={{flex:1, color:'#FFF'}}>Fetching Data ...</Text> */}
           {/* </View>   */}

@@ -61,11 +61,11 @@ class Login extends Component {
             <View style={{ flex: 1}} >
                 <View style={{flex:1, maxHeight:100, marginLeft:20}}>
                     <View style={{flex:1, justifyContent:'center'}}>
-                        <Text style={{fontSize:30, fontWeight:'bold', color:'#f00'}}> HELLO </Text>
+                        <Text style={{fontSize:30, fontWeight:'bold', color:'rgb(206, 0, 57)'}}> HELLO </Text>
                     </View>
 
                     <View style={{flex:1, alignItems:'center', flexDirection:'row'}}>
-                        <Text style={{fontSize:30, fontWeight:'bold', color:'#f00'}}> WE'RE </Text>
+                        <Text style={{fontSize:30, fontWeight:'bold', color:'rgb(206, 0, 57)'}}> WE'RE </Text>
                         
                         <View >
                             <Image style={{width:120, height:40, resizeMode:'contain'}} source={require("../resources/Xenius_Registered_Logo.png")}></Image>
@@ -119,7 +119,7 @@ class Login extends Component {
                 
                 <View style={{flex:1, maxHeight:100,  alignItems:'center', justifyContent:'flex-end'}}>
                     <View style={{height:30, alignItems:'center', justifyContent:'center', flexDirection:'row',}}>
-                        <Text style={{fontSize:11, color:'#F00'}}> PREPAID METERING SOLUTION BY</Text>
+                        <Text style={{fontSize:11, color:'rgb(206, 0, 57)'}}> PREPAID METERING SOLUTION BY</Text>
                         
                         <Image style={{width:70, height:20, resizeMode:'contain'}} source={require("../resources/Xenius_Registered_Logo.png")}></Image>
                     </View>
