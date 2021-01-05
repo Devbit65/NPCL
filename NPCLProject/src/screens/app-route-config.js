@@ -41,7 +41,7 @@ class AppRouteConfig extends Component {
         return (
             <View style={{ flex: 1, backgroundColor:'#fff'}} >
 
-                <View style={{ flex: 1, maxHeight:64, justifyContent:'center', flexDirection:'row'}} >
+                <View style={{ flex: 1, maxHeight:64, justifyContent:'center', flexDirection:'row', backgroundColor:'#fff'}} >
                 
                     <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
                         <Icon size={30} name="menu" color="#fff" />

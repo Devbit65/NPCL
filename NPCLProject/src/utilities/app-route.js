@@ -10,6 +10,7 @@ import EventLogging from "../screens/event-logging";
 import Notice from "../screens/notice";
 import Profile from "../screens/profile";
 import Settings from "../screens/settings";
+import ReportChart from "../screens/report-chart";
 
 
 const Stack = createStackNavigator();
@@ -39,6 +40,12 @@ class AppRoute extends Component {
                         options={{ title: 'Report',headerShown: false }}
                     />}
 
+                    {this.props.nextScreenIndex === 3 && <Stack.Screen
+                      name="ReportChart"
+                      component={ReportChart}
+                      options={{ title: 'ReportChart',headerShown: false }}
+                    />}
+
                     {this.props.nextScreenIndex === 4 && <Stack.Screen
                         name="Settings"
                         component={Settings}
@@ -62,8 +69,8 @@ class AppRoute extends Component {
                       component={EventLogging}
                       options={{ title: 'EventLogging',headerShown: false }}
                     />}
-                                
-                    </Stack.Navigator>
+
+                </Stack.Navigator>
             </NavigationContainer>
           );
     }

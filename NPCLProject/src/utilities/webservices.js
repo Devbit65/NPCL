@@ -72,3 +72,16 @@ export const fethchRechargeHistory = () => {
       return null
     });
 };
+
+export const fetchDailyReport = (month=11, year=2020) => {
+  var userCred = new UserData().getUserCredential()
+  var req_url = kDateWiseURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&month='+month+'&year='+year
+  return fetch(req_url)
+    .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+}

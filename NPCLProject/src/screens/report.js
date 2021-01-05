@@ -21,7 +21,7 @@ class Report extends Component {
     }
 
     onPressDaily() {
-        console.log("onPressDaily")
+        this.props.navigation.navigate("ReportChart")
     }
 
     onPressMonthly() {

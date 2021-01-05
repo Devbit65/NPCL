@@ -39,7 +39,7 @@ class SideMenu extends Component {
                             <Image style={{width:50, height:50}} resizeMode='center' source={require("../resources/overview1.png")} />
                         </View>
                     ):( 
-                        <TouchableOpacity style={{ flex: 1, flexDirection:'row'}} onPress={()=>{this.navigateToNext(1)}}>
+                        <TouchableOpacity style={{ flex: 1, flexDirection:'row', backgroundColor:'#fff'}} onPress={()=>{this.navigateToNext(1)}}>
                             
                             <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
                                 <Image style={{width:30, height:30}} resizeMode='center' source={require("../resources/overview.png")} />
@@ -57,7 +57,7 @@ class SideMenu extends Component {
                             <Image style={{width:50, height:50}} resizeMode='center' source={require("../resources/recharge1.png")} />
                         </View>
                     ):( 
-                        <TouchableOpacity style={{ flex: 1, flexDirection:'row'}} onPress={()=>{this.navigateToNext(2)}}>
+                        <TouchableOpacity style={{ flex: 1, flexDirection:'row', backgroundColor:'#fff'}} onPress={()=>{this.navigateToNext(2)}}>
                             
                             <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
                                 <Image style={{width:30, height:30}} resizeMode='center' source={require("../resources/recharge.png")} />
