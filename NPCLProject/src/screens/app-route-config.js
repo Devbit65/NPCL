@@ -1,12 +1,7 @@
 
 import React, { Component } from 'react';
 import {
-    Text, 
     View,
-    TouchableOpacity,
-    TextInput,
-    Image,
-    ImageBackground
 } from 'react-native';
 
 import SideMenu from "../components/side-menu";

@@ -4,7 +4,7 @@ import {
     Text, 
     View,
     TouchableOpacity,
-    TextInput,
+    Alert,
     Image
 } from 'react-native';
 
@@ -23,10 +23,42 @@ class SideMenu extends Component {
 
     navigateToNext(menuIndex){
 
-        this.setState({selectedMenu:menuIndex})
-        if(this.props.navigateToNext){
-            this.props.navigateToNext(menuIndex)
+        if(menuIndex === 8) {
+            Alert.alert(
+                "Logout Confirmation!",
+                "Are you sure want to logout?",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => {
+                            this.setState({
+                                menuIndex:3
+                            })
+                        },
+                        style: "cancel"
+                    },
+                    { 
+                        text: "OK", 
+                        onPress: () => {
+
+                            this.setState({selectedMenu:menuIndex})
+                            if(this.props.navigateToNext){
+                                this.props.navigateToNext(menuIndex)
+                            }
+                        } 
+                    }
+                ],
+                { cancelable: false }
+            );
         }
+        else{
+
+            this.setState({selectedMenu:menuIndex})
+            if(this.props.navigateToNext){
+                this.props.navigateToNext(menuIndex)
+            }
+        }
+        
     }
 
     render() {
@@ -156,22 +188,17 @@ class SideMenu extends Component {
                         </TouchableOpacity>
                     )}
                 </View><View style={{ flex: 1, backgroundColor:'#fff'}} >
-                    {this.state.selectedMenu === 8?(
-                        <View style={{backgroundColor: '#134571', flex:1, borderTopRightRadius: 55, borderBottomRightRadius:55, alignItems:'center', justifyContent:'center'}}>
-                            <Image style={{width:50, height:50}} resizeMode='center' source={require("../resources/overview1.png")} />
-                        </View>
-                    ):( 
-                        <TouchableOpacity style={{ flex: 1, flexDirection:'row'}} onPress={()=>{this.navigateToNext(8)}}>
+                    <TouchableOpacity style={{ flex: 1, flexDirection:'row'}} onPress={()=>{this.navigateToNext(8)}}>
                             
-                            <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
-                                <Icon size={40} name="dots-vertical" color="#fff" />
+                        <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
+                            <Icon size={40} name="dots-vertical" color="#fff" />
 
-                            </View>
-                            <View style={{ flex: 2,backgroundColor:'#fff'}} >
+                        </View>
+                        <View style={{ flex: 2,backgroundColor:'#fff'}} >
 
-                            </View>
-                        </TouchableOpacity>
-                    )}
+                        </View>
+                    </TouchableOpacity>
+
                 </View>
                 
             </View>
