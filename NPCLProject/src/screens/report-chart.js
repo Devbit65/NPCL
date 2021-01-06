@@ -116,9 +116,9 @@ class ReportChart extends Component {
                     <View style={{margin:5, alignItems:'flex-start', justifyContent:'center', backgroundColor:'#fff'}}>
                         <View style={{flexDirection:'row'}}>
                             <TouchableOpacity onPress={()=>this.onPressBackButton()} style={{width:25, alignItems:'center', justifyContent:'center'}}>
-                                <Icon size={25} name="arrow-back-ios" color="rgb(206, 0, 57)" />
+                                <Icon size={21} name="arrow-back-ios" color="rgb(206, 0, 57)" />
                             </TouchableOpacity>
-                            <Text adjustsFontSizeToFit={true} style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:26}}> REPORT - {this.state.period} </Text>
+                            <Text adjustsFontSizeToFit={true} style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:25}}> REPORT - {this.state.period} </Text>
                         </View>
                     </View>
                     <View style={{flex:1, backgroundColor:'#fff'}}>
@@ -150,8 +150,14 @@ class ReportChart extends Component {
                                 </View>
                             </View>
                             <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                <Text style={{flex:1, color:'rgb(19,69,113)', fontSize:9, alignSelf:'center', textAlign:'center'}}> GRID {dataResouces.reading_unit} </Text>
-                                <Text style={{flex:1, color:'rgb(206, 0, 57)', fontSize:9, alignSelf:'center', textAlign:'center'}}> DG {dataResouces.reading_unit} </Text>
+                                <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                    <Icon size={10} name="check-box-outline-blank" color='rgb(19,69,113)' />
+                                    <Text style={{color:'rgb(19,69,113)', fontSize:9, alignSelf:'center', textAlign:'center'}}> GRID {dataResouces.reading_unit} </Text>
+                                </View>
+                                <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                    <Icon size={10} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
+                                    <Text style={{color:'rgb(206, 0, 57)', fontSize:9, alignSelf:'center', textAlign:'center'}}> DG {dataResouces.reading_unit} </Text>
+                                </View>
                             </View>
                         </View>
 
@@ -181,9 +187,15 @@ class ReportChart extends Component {
                                     </StackedAreaChart>
                                 </View>
                             </View>
-                            <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                <Text style={{flex:1, color:'rgb(19,69,113)', fontSize:9, alignSelf:'center', textAlign:'center'}}> GRID {dataResouces.currency} </Text>
-                                <Text style={{flex:1, color:'rgb(206, 0, 57)', fontSize:9, alignSelf:'center', textAlign:'center'}}> DG {dataResouces.currency} </Text>
+                            <View style={{flexDirection:'row'}}>
+                                <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                    <Icon size={10} name="check-box-outline-blank" color='rgb(19,69,113)' />
+                                    <Text style={{color:'rgb(19,69,113)', fontSize:9, alignSelf:'center', textAlign:'center'}}> GRID {dataResouces.currency} </Text>
+                                </View>
+                                <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                    <Icon size={10} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
+                                    <Text style={{color:'rgb(206, 0, 57)', fontSize:9, alignSelf:'center', textAlign:'center'}}> DG {dataResouces.currency} </Text>
+                                </View>
                             </View>
                         </View>
                     </View>
