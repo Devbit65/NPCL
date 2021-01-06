@@ -14,6 +14,10 @@ var indicatorWidth = 125;//deviceWidth*3/4;
 var indicatorHeight = 125;
 
 let singletonObj = null;
+
+const kThemeRedColor = 'rgb(206, 0, 57)'
+const kThemeBlueColor = 'rgb(19,69,113)'
+
 export default class AppSpinner extends Component {
 
    constructor(props) {
@@ -57,7 +61,7 @@ export default class AppSpinner extends Component {
          {/* <View style = {styles.indicatorView}> */}
                 <ActivityIndicator animating = {true}
                     style = {styles.activityIndicator} size = "large"
-                    color = 'rgb(206, 0, 57)'
+                    color = {kThemeRedColor}
                 />
                 {/* <Text style={{flex:1, color:'#FFF'}}>Fetching Data ...</Text> */}
           {/* </View>   */}

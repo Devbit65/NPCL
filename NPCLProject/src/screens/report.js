@@ -9,6 +9,9 @@ import {
 
 import UserData from '../utilities/models/user-data'
 
+const kThemeRedColor = 'rgb(206, 0, 57)'
+const kThemeBlueColor = 'rgb(19,69,113)'
+
 class Report extends Component {
 
     constructor(props) {
@@ -43,20 +46,20 @@ class Report extends Component {
     render() {
         return  <View style={{flex:1}}>
                     <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
-                        <Text style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:30}}> REPORT </Text>
+                        <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> REPORT </Text>
                     </View>
                     <View style={{flexDirection:'row', margin:5}}>
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                             <TouchableOpacity onPress={()=>this.onPressDaily()} style={[{ width:100, height:100, margin:5, borderRadius:5, backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
                                 <Image style={{width:75, height:75, resizeMode:'center' }}  source={require("../resources/daily.png")}/>
-                                <Text style={{marginTop:5, fontSize:11, fontWeight:'bold', color:'rgb(19,69,113)'}}>DAILY</Text>
+                                <Text style={{marginTop:5, fontSize:11, fontWeight:'bold', color:kThemeBlueColor}}>DAILY</Text>
                             </TouchableOpacity>
                         </View>
                         
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                             <TouchableOpacity onPress={()=>this.onPressMonthly()} style={[{ width:100, height:100, margin:5, borderRadius:5, backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
                                 <Image style={{width:75, height:75, resizeMode:'center' }}  source={require("../resources/monthly.jpg")}/>
-                                <Text style={{marginTop:5, fontSize:11, fontWeight:'bold', color:'rgb(19,69,113)'}}>MONTHLY</Text>
+                                <Text style={{marginTop:5, fontSize:11, fontWeight:'bold', color:kThemeBlueColor}}>MONTHLY</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -65,14 +68,14 @@ class Report extends Component {
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                             <TouchableOpacity onPress={()=>this.onPressComparative()} style={[{ width:100, height:100, margin:5, borderRadius:5, backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
                                 <Image style={{width:75, height:75, resizeMode:'center' }}  source={require("../resources/comparative.png")}/>
-                                <Text style={{marginTop:5, fontSize:11, fontWeight:'bold', color:'rgb(19,69,113)'}}>COMPARATIVE</Text>
+                                <Text style={{marginTop:5, fontSize:11, fontWeight:'bold', color:kThemeBlueColor}}>COMPARATIVE</Text>
                             </TouchableOpacity>
                         </View>
                         
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                             <TouchableOpacity onPress={()=>this.onPressCurrentTarrif()} style={[{ width:100, height:100, margin:5, borderRadius:5, backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
                                 <Image style={{width:75, height:75, resizeMode:'center' }}  source={require("../resources/current-tariff.png")}/>
-                                <Text style={{marginTop:5, fontSize:11, fontWeight:'bold', color:'rgb(19,69,113)'}}>CURRENT TARRIF</Text>
+                                <Text style={{marginTop:5, fontSize:11, fontWeight:'bold', color:kThemeBlueColor}}>CURRENT TARRIF</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -82,7 +85,7 @@ class Report extends Component {
                             <View style={{flex:1, marginLeft:10, alignItems:'flex-start', justifyContent:'center'}}>
                             <Image style={{ width:45, height:45, resizeMode:'center' }}  source={require("../resources/bill-download.png")}/>
                             </View>
-                            <Text style={{ flex:1, marginTop:5, fontSize:11, fontWeight:'bold', color:'rgb(19,69,113)'}}>BILL DOWNLOAD</Text>
+                            <Text style={{ flex:1, marginTop:5, fontSize:11, fontWeight:'bold', color:kThemeBlueColor}}>BILL DOWNLOAD</Text>
                         </TouchableOpacity>
                     </View>}
                 </View>

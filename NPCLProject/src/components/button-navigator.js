@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Icon} from 'react-native-elements'
 
+const kThemeRedColor = 'rgb(206, 0, 57)'
+const kThemeBlueColor = 'rgb(19,69,113)'
+
 class BottomNavigator extends Component {
     render() {
         return (
@@ -15,7 +18,7 @@ class BottomNavigator extends Component {
                     <Icon
                         name='add'
                         type='material'
-                        color='rgb(206, 0, 57)'
+                        color={ kThemeRedColor }
                         containerStyle={{ alignSelf: 'center' }}
                         reverse
                         size={28}

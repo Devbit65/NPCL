@@ -14,6 +14,9 @@ import * as Utilities from "../utilities/utilities-methods";
 import {fethchMessages} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 
+const kThemeRedColor = 'rgb(206, 0, 57)'
+const kThemeBlueColor = 'rgb(19,69,113)'
+
 class EventLogging extends Component {
 
     constructor(props) {
@@ -66,28 +69,27 @@ class EventLogging extends Component {
 
     render() {
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
-                    {/* <NoticeHeader /> */}
                     
-                    <View style={{margin:5, alignItems:'center', justifyContent:'center'}}>
-                        <Text style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:30}}> DG EVENT LOGGING </Text>
+                    <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
+                        <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:26}}> DG EVENT LOGGING </Text>
                     </View>
                     
                     <FlatList
                         data={this.state.logDate}
                         renderItem={({ item, index, separators })=>{
                             return  <View key={index} style={{flex:1, height:75, marginLeft:10, marginRight:10, alignItems:'center', justifyContent:'center'}}>
-                                        <Text style={{fontSize:11}}> Date - {item.date} </Text>
+                                        <Text style={{fontSize:11, color:kThemeBlueColor}}> Date - {item.date} </Text>
                                         
                                         <View style={[{flex:1, maxHeight:40, margin:10, marginTop:5, borderRadius:5, backgroundColor:'#fff', flexDirection:'row'},style.cardShadow]}>
 
                                             <View style={{flex:1, paddingLeft:20, justifyContent:'center'}}>
-                                                <Text style={{fontSize:10}}> DG START DATE </Text>
+                                                <Text style={{fontSize:10, color:kThemeBlueColor}}> DG START DATE </Text>
                                             
                                                 <Text style={{fontSize:8}}> {item.dg_start_date} </Text>
                                             </View>
                                             
                                             <View style={{flex:1,  justifyContent:'center'}}>
-                                                <Text style={{fontSize:10}}> DG END DATE </Text>
+                                                <Text style={{fontSize:10, color:kThemeBlueColor}}> DG END DATE </Text>
                                             
                                                 <Text style={{fontSize:8}}> {item.dg_end_date} </Text>
                                             </View>

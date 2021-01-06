@@ -17,6 +17,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { StackedAreaChart, YAxis, Grid } from 'react-native-svg-charts'
 import * as shape from 'd3-shape'
 
+const kThemeRedColor = 'rgb(206, 0, 57)'
+const kThemeBlueColor = 'rgb(19,69,113)'
+
 class ReportChart extends Component {
     constructor(props){
         super(props)
@@ -118,13 +121,13 @@ class ReportChart extends Component {
                             <TouchableOpacity onPress={()=>this.onPressBackButton()} style={{width:25, alignItems:'center', justifyContent:'center'}}>
                                 <Icon size={21} name="arrow-back-ios" color="rgb(206, 0, 57)" />
                             </TouchableOpacity>
-                            <Text adjustsFontSizeToFit={true} style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:25}}> REPORT - {this.state.period} </Text>
+                            <Text adjustsFontSizeToFit={true} style={{color:kThemeRedColor, fontWeight:'bold', fontSize:25}}> REPORT - {this.state.period} </Text>
                         </View>
                     </View>
                     <View style={{flex:1, backgroundColor:'#fff'}}>
 
                         <View style={[{ flex:1, margin:15, padding:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
-                            <Text style={{color:'rgb(19,69,113)', fontSize:9, alignSelf:'center', fontWeight:'bold'}}> GRID CONSUMPTION </Text>
+                            <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> GRID CONSUMPTION </Text>
                             <View style={{ flex:1, flexDirection:'row'}}>
                                 <YAxis
                                     data={this.chart1UnitYAxis}
@@ -141,7 +144,7 @@ class ReportChart extends Component {
                                         style={{ height: 200, paddingVertical: 16, paddingHorizontal:10}}
                                         data={this.state.chardData}
                                         keys={['dg_unit','grid_unit']}
-                                        colors={['rgb(206, 0, 57)','rgb(19,69,113)']}
+                                        colors={[kThemeRedColor,kThemeBlueColor]}
                                         curve={shape.curveNatural}
                                         showGrid={true}
                                     >
@@ -151,18 +154,18 @@ class ReportChart extends Component {
                             </View>
                             <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                                 <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                    <Icon size={10} name="check-box-outline-blank" color='rgb(19,69,113)' />
-                                    <Text style={{color:'rgb(19,69,113)', fontSize:9, alignSelf:'center', textAlign:'center'}}> GRID {dataResouces.reading_unit} </Text>
+                                    <Icon size={10} name="check-box-outline-blank" color={kThemeBlueColor} />
+                                    <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', textAlign:'center'}}> GRID {dataResouces.reading_unit} </Text>
                                 </View>
                                 <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                                     <Icon size={10} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
-                                    <Text style={{color:'rgb(206, 0, 57)', fontSize:9, alignSelf:'center', textAlign:'center'}}> DG {dataResouces.reading_unit} </Text>
+                                    <Text style={{color:kThemeRedColor, fontSize:9, alignSelf:'center', textAlign:'center'}}> DG {dataResouces.reading_unit} </Text>
                                 </View>
                             </View>
                         </View>
 
                         <View style={[{ flex:1, margin:15, padding:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
-                            <Text style={{color:'rgb(19,69,113)', fontSize:9, alignSelf:'center', fontWeight:'bold'}}> COST CONSUMPTION </Text>
+                            <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> COST CONSUMPTION </Text>
                             <View style={{ flex:1, flexDirection:'row'}}>
                                 <YAxis
                                     data={this.chart1AmountYAxis}
@@ -179,7 +182,7 @@ class ReportChart extends Component {
                                         style={{ height: 200, paddingVertical: 16, paddingHorizontal:10 }}
                                         data={this.state.chardData}
                                         keys={['dg_amt','grid_amt']}
-                                        colors={['rgb(206, 0, 57)','rgb(19,69,113)']}
+                                        colors={[kThemeRedColor,kThemeBlueColor]}
                                         curve={shape.curveNatural}
                                         showGrid={false}
                                     >
@@ -189,12 +192,12 @@ class ReportChart extends Component {
                             </View>
                             <View style={{flexDirection:'row'}}>
                                 <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                    <Icon size={10} name="check-box-outline-blank" color='rgb(19,69,113)' />
-                                    <Text style={{color:'rgb(19,69,113)', fontSize:9, alignSelf:'center', textAlign:'center'}}> GRID {dataResouces.currency} </Text>
+                                    <Icon size={10} name="check-box-outline-blank" color={kThemeBlueColor} />
+                                    <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', textAlign:'center'}}> GRID {dataResouces.currency} </Text>
                                 </View>
                                 <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                                     <Icon size={10} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
-                                    <Text style={{color:'rgb(206, 0, 57)', fontSize:9, alignSelf:'center', textAlign:'center'}}> DG {dataResouces.currency} </Text>
+                                    <Text style={{color:kThemeRedColor, fontSize:9, alignSelf:'center', textAlign:'center'}}> DG {dataResouces.currency} </Text>
                                 </View>
                             </View>
                         </View>

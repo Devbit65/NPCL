@@ -9,6 +9,9 @@ import MarqueeText from 'react-native-marquee';
 
 import UserData from '../utilities/models/user-data'
 
+const kThemeRedColor = 'rgb(206, 0, 57)'
+const kThemeBlueColor = 'rgb(19,69,113)'
+
 class NoticeHeader extends Component {
 
     constructor(props) {
@@ -21,12 +24,12 @@ class NoticeHeader extends Component {
       }
 
     render() {
-        return  <View style={{ height:64}}>
+        return  <View style={{ height:44}}>
                     <View style={{flex:1, marginEnd:20, justifyContent:'center', alignItems:'flex-end'}}>
-                        <Text >UNIT {this.state.unit}</Text>
+                        <Text style={{fontSize:10, fontWeight:'bold'}} >UNIT {this.state.unit}</Text>
                     </View>
 
-                    <View style={{flex:1,backgroundColor:'red'}}>
+                    <View style={{flex:1,backgroundColor:kThemeRedColor}}>
                         <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
                             <MarqueeText
                                 style={{color:'#FFF', fontWeight:'bold',}}

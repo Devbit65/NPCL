@@ -11,6 +11,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MailIcon from 'react-native-vector-icons/Ionicons';
 import UserData from '../utilities/models/user-data'
 
+const kThemeRedColor = 'rgb(206, 0, 57)'
+const kThemeBlueColor = 'rgb(19,69,113)'
+
 class Profile extends Component {
 
     constructor(props) {
@@ -48,17 +51,17 @@ class Profile extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1}} >
+            <View style={{ flex: 1, backgroundColor:'#fff'}} >
                 
                 {/* <NoticeHeader /> */}
                     
-                <View style={{margin:5, alignItems:'center', justifyContent:'center'}}>
-                    <Text style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:30}}> PROFILE </Text>
+                <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
+                    <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> PROFILE </Text>
                 </View>
                 <View style={{flex:1, marginTop:50}}>
                     
-                    <View style={{flex:1, margin:25, maxHeight:350, backgroundColor:'#FFF', borderRadius:5}}>
-                        <View style={[{width:140, height:140, borderRadius:150, alignSelf:'center', alignItems:'center', justifyContent:'center', position:'absolute', top:-75, borderRadius:150,borderWidth:5, borderColor:'red'},style.cardShadow]}>
+                    <View style={[{flex:1, margin:25, maxHeight:350, backgroundColor:'#FFF', borderRadius:5},style.cardShadow]}>
+                        <View style={{width:140, height:140, borderRadius:150, alignSelf:'center', alignItems:'center', justifyContent:'center', position:'absolute', top:-75, borderRadius:150,borderWidth:5, borderColor:kThemeRedColor, backgroundColor:'#fff'}}>
                             <Image style={{width:110, height:110, resizeMode:'center' }}  source={require("../resources/icon.png")}/>
                         </View>
                         <View style={{height:75}}>

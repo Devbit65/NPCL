@@ -14,6 +14,9 @@ import {fethchRechargeHistory} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+const kThemeRedColor = 'rgb(206, 0, 57)'
+const kThemeBlueColor = 'rgb(19,69,113)'
+
 class Recharge extends Component {
 
     constructor(props) {
@@ -102,16 +105,16 @@ class Recharge extends Component {
     }
 
     render() {
-        return  <View style={{flex:1}}>
-                    <View style={{margin:5, alignItems:'center', justifyContent:'center'}}>
-                        <Text style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:30}}> RECHARGE </Text>
+        return  <View style={{flex:1, backgroundColor:'#fff'}}>
+                    <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
+                        <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> RECHARGE </Text>
                     </View>
                     <View style={{flex:1}}>
                         <View style={[{ maxHeight:150, margin:5, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                             <View style={[{ margin:10, padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
                                 <View style={{height:25,flexDirection:'row'}}>
-                                    <Text style={{flex:1, fontWeight:'bold', color:'rgb(19,69,113)'}}>AVAILABLE BALANCE</Text>
-                                    <Text style={{color:'rgb(206, 0, 57)', fontSize:12}}>{this.state.balance_inr}</Text>
+                                    <Text style={{flex:1, fontWeight:'bold', color:kThemeBlueColor}}>AVAILABLE BALANCE</Text>
+                                    <Text style={{color:kThemeRedColor, fontSize:12}}>{this.state.balance_inr}</Text>
                                 </View>
                                                                     
                                 <View style={{ height:20, flexDirection:'row', alignItems:'center',justifyContent:'center'}}>
@@ -127,9 +130,9 @@ class Recharge extends Component {
                             </View>
                         </View>
 
-                        <View style={[{flex:1, maxHeight:this.state.isOpenOnline?75 : 30, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)', borderColor:'rgb(19,69,113)', borderWidth:1}, style.cardShadow]}>
+                        <View style={[{flex:1, maxHeight:this.state.isOpenOnline?75 : 30, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)', borderColor:kThemeBlueColor, borderWidth:1}, style.cardShadow]}>
                             
-                            <View style={{ padding:5, backgroundColor:'rgb(19,69,113)', borderRadius:5, alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
+                            <View style={{ padding:5, backgroundColor:kThemeBlueColor, borderRadius:5, alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
                                 <Text style={{flex:1, fontWeight:'bold', color:'#fff'}}>ONLINE</Text>
                                 <TouchableOpacity onPress={()=>this.openOnline()} >
                                     <Icon size={20} name={this.state.isOpenOnline?"chevron-down-circle-outline":"chevron-up-circle-outline"} color="#fff" />
@@ -150,7 +153,7 @@ class Recharge extends Component {
                                 </View>
 
                                 <View style={{flex:1,alignItems:'center', justifyContent:'center',}}>
-                                    <TouchableOpacity onPress={()=>this.payByOnline()} style={{width:60, height:25, backgroundColor:'rgb(19,69,113)', alignItems:'center', justifyContent:'center', borderRadius:5}}>
+                                    <TouchableOpacity onPress={()=>this.payByOnline()} style={{width:60, height:25, backgroundColor:kThemeBlueColor, alignItems:'center', justifyContent:'center', borderRadius:5}}>
                                         <Text style={{color:'#fff'}}>PAY</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -158,8 +161,8 @@ class Recharge extends Component {
                             
                         </View>
 
-                        <View style={[{flex:1, maxHeight:this.state.isOpenCoupon?75 : 30, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)', borderColor:'rgb(206, 0, 57)', borderWidth:1}, style.cardShadow]}>
-                            <View style={{ padding:5, backgroundColor:'rgb(206, 0, 57)', borderRadius:5, alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
+                        <View style={[{flex:1, maxHeight:this.state.isOpenCoupon?75 : 30, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)', borderColor:kThemeRedColor, borderWidth:1}, style.cardShadow]}>
+                            <View style={{ padding:5, backgroundColor:kThemeRedColor, borderRadius:5, alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
                                 <Text style={{flex:1, fontWeight:'bold', color:'#fff'}}>COUPON</Text>
                                 <TouchableOpacity onPress={()=>this.openCoupon()} >
                                     <Icon size={20} name={this.state.isOpenCoupon?"chevron-down-circle-outline":"chevron-up-circle-outline"}  color="#fff" />
@@ -180,7 +183,7 @@ class Recharge extends Component {
                                 </View>
 
                                 <View style={{flex:1,alignItems:'center', justifyContent:'center',}}>
-                                    <TouchableOpacity onPress={()=>this.payByCoupon()} style={{width:60, height:25, backgroundColor:'rgb(206, 0, 57)', alignItems:'center', justifyContent:'center', borderRadius:5}}>
+                                    <TouchableOpacity onPress={()=>this.payByCoupon()} style={{width:60, height:25, backgroundColor:kThemeRedColor, alignItems:'center', justifyContent:'center', borderRadius:5}}>
                                         <Text style={{color:'#fff'}}>PAY</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -189,7 +192,7 @@ class Recharge extends Component {
                         </View>
 
                         <View style={[{ flex:1, margin:5, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
-                            <Text style={{margin:5, fontWeight:'bold', color:'rgb(19,69,113)'}}>RECHARGE HISTORY</Text>
+                            <Text style={{margin:5, fontWeight:'bold', color:kThemeBlueColor}}>RECHARGE HISTORY</Text>
                             <View style={[{ flex:1, margin:5, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                                 <FlatList
                                     data={this.state.history}
@@ -203,7 +206,7 @@ class Recharge extends Component {
                                                     <View style={{flex:3,  justifyContent:'center',}}>
                                                         <View style={{flexDirection:'row',alignItems:'center',}}>
                                                             <Icon size={10} name="currency-inr" color="rgb(206, 0, 57)" />
-                                                            <Text style={{color:'rgb(206, 0, 57)', fontSize:10}}>{item.amount}</Text>
+                                                            <Text style={{color:kThemeRedColor, fontSize:10}}>{item.amount}</Text>
                                                         </View>
                                                         <Text style={{fontSize:10}}>{item.recharge_id}</Text>
                                                         <Text style={{fontSize:10}}>{item.date}</Text>

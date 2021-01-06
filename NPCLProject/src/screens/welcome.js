@@ -11,6 +11,9 @@ import ConnectWithUs from "../components/connectwithus";
 import NoticeHeader from "../components/notice-header";
 import UserData from '../utilities/models/user-data'
 
+const kThemeRedColor = 'rgb(206, 0, 57)'
+const kThemeBlueColor = 'rgb(19,69,113)'
+
 class Welcome extends Component {
 
   constructor(props) {
@@ -43,7 +46,7 @@ class Welcome extends Component {
               <View style={{flex:5}}>
                 <View style={{flex:1,}}>
                   <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
-                    <Text style={{color:'rgb(206, 0, 57)', fontWeight:'bold',}}> WELCOME </Text>
+                    <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> WELCOME </Text>
                   </View>
 
                   <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
@@ -58,7 +61,7 @@ class Welcome extends Component {
                 </View>
 
                 <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                  <TouchableOpacity onPress={()=>this.onClickGetStarted()} style={{width:150, height:35,alignItems:'center', justifyContent:'center', backgroundColor:'red', borderRadius:5}}>
+                  <TouchableOpacity onPress={()=>this.onClickGetStarted()} style={{width:150, height:35,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
                     <Text style={{color:'#FFF', fontWeight:'bold'}}>GET STARTED</Text>
                   </TouchableOpacity>
                 </View>

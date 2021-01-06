@@ -14,6 +14,9 @@ import {fethcLogin} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 import UserData from '../utilities/models/user-data'
 
+const kThemeRedColor = 'rgb(206, 0, 57)'
+const kThemeBlueColor = 'rgb(19,69,113)'
+
 class Login extends Component {
 
     constructor(props) {
@@ -61,11 +64,11 @@ class Login extends Component {
             <View style={{ flex: 1}} >
                 <View style={{flex:1, maxHeight:100, marginLeft:20}}>
                     <View style={{flex:1, justifyContent:'center'}}>
-                        <Text style={{fontSize:30, fontWeight:'bold', color:'rgb(206, 0, 57)'}}> HELLO </Text>
+                        <Text style={{fontSize:30, fontWeight:'bold', color:kThemeRedColor}}> HELLO </Text>
                     </View>
 
                     <View style={{flex:1, alignItems:'center', flexDirection:'row'}}>
-                        <Text style={{fontSize:30, fontWeight:'bold', color:'rgb(206, 0, 57)'}}> WE'RE </Text>
+                        <Text style={{fontSize:30, fontWeight:'bold', color:kThemeRedColor}}> WE'RE </Text>
                         
                         <View >
                             <Image style={{width:120, height:40, resizeMode:'contain'}} source={require("../resources/Xenius_Registered_Logo.png")}></Image>
@@ -78,7 +81,7 @@ class Login extends Component {
                     <View style={{width:250, height:300, backgroundColor:'#FFF', borderRadius:5}}>
                         <View style={{flex:3}}>
                             <TextInput
-                                style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25,  marginTop:30}}
+                                style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25,  marginTop:30, borderColor:kThemeBlueColor}}
                                 textAlign={'center'}
                                 placeholder="USER ID"
                                 onChangeText={text => this.setState({userid:text},()=>this.userData.setUserCredential(this.state.userid, this.state.password))}
@@ -86,7 +89,7 @@ class Login extends Component {
                             />
 
                             <TextInput
-                                style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25, marginTop:0, marginBottom:5}}
+                                style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25, marginTop:0, marginBottom:5, borderColor:kThemeBlueColor}}
                                 textAlign={'center'}
                                 placeholder="PASSWORD"
                                 secureTextEntry={this.state.securePassword}
@@ -95,19 +98,19 @@ class Login extends Component {
                             />
 
                             <TouchableOpacity onPress={()=>this.onClickShowPassword()} style={{marginLeft:25, marginRight:25,marginTop:5, flexDirection:'row', alignItems:'center', justifyContent:'flex-start'}}>
-                                <Icon size={10} name={this.state.securePassword?"checkbox-passive":"checkbox-active"} color="#000" />
+                                <Icon size={10} name={this.state.securePassword?"checkbox-passive":"checkbox-active"} color={kThemeBlueColor} />
                                 
-                                <Text style={{ fontSize:8, marginLeft:5}}>SHOW PASSWORD</Text>
+                                <Text style={{ fontSize:8, marginLeft:5, color:kThemeBlueColor}}>SHOW PASSWORD</Text>
                             </TouchableOpacity>
                         </View>
                         
                         <View style={{flex:2, alignItems:'center', justifyContent:'center'}}>
-                            <TouchableOpacity onPress={()=>this.onClickLogin()} style={{width:200, height:30,alignItems:'center', justifyContent:'center', backgroundColor:'red', borderRadius:5}}>
+                            <TouchableOpacity onPress={()=>this.onClickLogin()} style={{width:200, height:30,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
                                 <Text style={{color:'#FFF', fontWeight:'bold'}}>SIGN IN</Text>
                             </TouchableOpacity>
                             
                             <TouchableOpacity onPress={()=>this.onClickForgotPassword()} >
-                                <Text style={{ fontSize:8, marginTop:5}}>FORG0T PASSWORD?</Text>
+                                <Text style={{ fontSize:8, marginTop:5, color:kThemeBlueColor}}>FORG0T PASSWORD?</Text>
                             </TouchableOpacity>
                         </View>
                         
@@ -119,7 +122,7 @@ class Login extends Component {
                 
                 <View style={{flex:1, maxHeight:100,  alignItems:'center', justifyContent:'flex-end'}}>
                     <View style={{height:30, alignItems:'center', justifyContent:'center', flexDirection:'row',}}>
-                        <Text style={{fontSize:11, color:'rgb(206, 0, 57)'}}> PREPAID METERING SOLUTION BY</Text>
+                        <Text style={{fontSize:11, color:kThemeRedColor}}> PREPAID METERING SOLUTION BY</Text>
                         
                         <Image style={{width:70, height:20, resizeMode:'contain'}} source={require("../resources/Xenius_Registered_Logo.png")}></Image>
                     </View>

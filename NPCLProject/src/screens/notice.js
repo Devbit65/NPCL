@@ -13,6 +13,8 @@ import * as Utilities from "../utilities/utilities-methods";
 import {fethchNotice} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 
+const kThemeRedColor = 'rgb(206, 0, 57)'
+const kThemeBlueColor = 'rgb(19,69,113)'
 
 class Notice extends Component {
 
@@ -21,28 +23,6 @@ class Notice extends Component {
         this.spinner = new Spinner()
         this.state = {
             logDate : []
-            // [
-            //     {
-            //         "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
-            //         "isNew":true
-            //     },
-            //     {
-            //         "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
-            //         "isNew":true
-            //     },
-            //     {
-            //         "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
-            //         "isNew":false
-            //     },
-            //     {
-            //         "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
-            //         "isNew":false
-            //     },
-            //     {
-            //         "message":"LEOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA. LABORE ET DOLORE MAGNA ALIQUA.",
-            //         "isNew":false
-            //     },
-            // ]
         }
     }
 
@@ -60,10 +40,9 @@ class Notice extends Component {
 
     render() {
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
-                    {/* <NoticeHeader /> */}
                     
-                    <View style={{margin:5, alignItems:'center', justifyContent:'center'}}>
-                        <Text style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:30}}> NOTICE </Text>
+                    <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
+                        <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> NOTICE </Text>
                     </View>
                     
                     <FlatList
