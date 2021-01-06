@@ -21,11 +21,11 @@ class Report extends Component {
     }
 
     onPressDaily() {
-        this.props.navigation.navigate("ReportChart")
+        this.props.navigation.navigate("ReportChart",{ "period":"DAILY" },)
     }
 
     onPressMonthly() {
-        console.log("onPressMonthly")
+        this.props.navigation.navigate("ReportChart",{ "period":"MONTHLY" },)
     }
 
     onPressComparative() {

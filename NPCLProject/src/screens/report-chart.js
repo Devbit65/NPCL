@@ -12,7 +12,7 @@ import {
 import UserData from '../utilities/models/user-data'
 import {fetchDailyReport, fetchMonthlyReport} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { StackedAreaChart, YAxis, Grid } from 'react-native-svg-charts'
 import * as shape from 'd3-shape'
@@ -22,8 +22,10 @@ class ReportChart extends Component {
         super(props)
 
         this.state={
-            chardData : []
+            chardData : [],
+            period : ""
         }
+        this.period = ""
         this.chart1UnitYAxis = []
         this.chart1AmountYAxis = []
         this.chart2YAxis = []
@@ -33,8 +35,19 @@ class ReportChart extends Component {
 
     componentDidMount() {
 
-        this.fetchMonthlyReport(2020);
-        // this.fetchDailyReport(11, 2020);
+        const { params } = this.props.route;
+
+        this.setState({
+            period : params["period"]
+        },()=>{
+
+            if(this.state.period === "MONTHLY"){
+                this.fetchMonthlyReport(2020);
+            }
+            else if(this.state.period === "DAILY"){
+                this.fetchDailyReport(11, 2020);
+            }
+        })
     }
 
     fetchDailyReport(month, year) {
@@ -91,13 +104,22 @@ class ReportChart extends Component {
 
     }
 
+    onPressBackButton() {
+        this.props.navigation.pop()
+    }
+
     render(){
         var dataResouces = this.userData.resource
         const contentInset = { top: 20, bottom: 20 }
-        const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
+
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     <View style={{margin:5, alignItems:'flex-start', justifyContent:'center', backgroundColor:'#fff'}}>
-                        <Text style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:30}}> REPORT </Text>
+                        <View style={{flexDirection:'row'}}>
+                            <TouchableOpacity onPress={()=>this.onPressBackButton()} style={{width:25, alignItems:'center', justifyContent:'center'}}>
+                                <Icon size={25} name="arrow-back-ios" color="rgb(206, 0, 57)" />
+                            </TouchableOpacity>
+                            <Text adjustsFontSizeToFit={true} style={{color:'rgb(206, 0, 57)', fontWeight:'bold', fontSize:26}}> REPORT - {this.state.period} </Text>
+                        </View>
                     </View>
                     <View style={{flex:1, backgroundColor:'#fff'}}>
 
