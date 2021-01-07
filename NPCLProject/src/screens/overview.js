@@ -105,6 +105,7 @@ class Overview extends Component {
                                 <View style={{flex:2,  alignItems:'center', justifyContent:'center'}}>
                                     <Pie
                                         radius={50}
+                                        innerRadius={25}
                                         sections={
                                             [
                                                 {
