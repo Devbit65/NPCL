@@ -44,7 +44,7 @@ class Report extends Component {
     }
 
     render() {
-        return  <View style={{flex:1}}>
+        return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
                         <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> REPORT </Text>
                     </View>
