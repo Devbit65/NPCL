@@ -5,12 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Welcome from '../screens/welcome'
 import Login from '../screens/login'
-import Overview from "../screens/overview";
-import EventLogging from "../screens/event-logging";
-import Notice from "../screens/notice";
-import Profile from "../screens/profile";
-import Settings from "../screens/settings";
 import AppRouteConfig from "../screens/app-route-config";
+import ConnectUs from "../screens/connect-us";
 
 const Stack = createStackNavigator();
 
@@ -30,12 +26,16 @@ const Route = () => {
               options={{ title: 'Welcome',headerShown: false }}
           />
 
-
-
           <Stack.Screen
               name="AppRouteConfig"
               component={AppRouteConfig}
               options={{ title: 'AppRouteConfig',headerShown: false }}
+          />
+
+          <Stack.Screen
+              name="ConnectUs"
+              component={ConnectUs}
+              options={{ title: 'ConnectUs'}}
           />
             
         </Stack.Navigator>

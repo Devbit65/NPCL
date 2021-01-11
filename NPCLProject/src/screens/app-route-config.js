@@ -9,6 +9,7 @@ import AppRoute from "../utilities/app-route"
 import NoticeHeader from "../components/notice-header";
 import UserData from '../utilities/models/user-data'
 import Icon from 'react-native-vector-icons/Entypo';
+import * as Keychain from 'react-native-keychain';
 
 class AppRouteConfig extends Component {
 
@@ -21,9 +22,7 @@ class AppRouteConfig extends Component {
     }
     navigateToNext(menuIndex){
         if(menuIndex === 8){
-            var userData = new UserData()
-            userData.setUserData(null)
-            this.props.navigation.navigate("Login")
+            this.logoutApp()
         }
         else{
 
@@ -31,6 +30,19 @@ class AppRouteConfig extends Component {
                 menuIndex
             })
         }
+    }
+
+    async logoutApp() {
+
+        try {
+            const credentials = await Keychain.resetGenericPassword();
+            var userData = new UserData()
+            userData.setUserData(null)
+            this.props.navigation.navigate("Login")
+                
+        } catch (error) {
+        }
+        
     }
     render() {
         return (

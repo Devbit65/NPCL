@@ -110,7 +110,7 @@ class Overview extends Component {
                                             [
                                                 {
                                                     percentage: gridPer,
-                                                    color:kThemeRedColor,
+                                                    color:kThemeBlueColor,
                                                 },
                                                 {
                                                     percentage: dgPer,

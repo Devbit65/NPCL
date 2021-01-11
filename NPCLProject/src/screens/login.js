@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/Fontisto';
 import {fethcLogin} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 import UserData from '../utilities/models/user-data'
+import * as Keychain from 'react-native-keychain';
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -22,25 +23,44 @@ class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            userid:'101210007',
-            password:'101210007',
+            userid:'',
+            password:'',
             securePassword:true
         }
         this.spinner = new Spinner()
         this.userData = new UserData()
-        this.userData.setUserCredential(this.state.userid, this.state.password)
+    }
+
+    componentDidMount() {
+        this.getCredFromKeyChain()
     }
 
     onClickLogin() {
-        
+
+        if(this.state.userid === '' || this.state.password === '') {
+            alert("Please enter valid User-Id and Password")
+            return;
+        }
         this.spinner.startActivity();
         fethcLogin()
         .then(response=>{
 
+            this.spinner.stopActivity();
+
+            if(response.message.includes('ERROR')){
+                alert("Invalid User-Id / Password")
+                return;
+            }
+
             this.userData.setUserData(response)
 
             this.props.navigation.navigate("Welcome")
-            this.spinner.stopActivity();
+            
+            this.saveCredToKeyChain();
+            this.setState({
+                userid:'',
+                password:''
+            })
         })
     }
     
@@ -50,13 +70,40 @@ class Login extends Component {
 
     onClickConnectUs(value) {
 
-        console.log("onClickConnectUs ",value);
+        this.props.navigation.navigate("ConnectUs", {'url':value})
     }
 
     onClickShowPassword() {
         this.setState({
             securePassword:!this.state.securePassword
         })
+    }
+
+    async saveCredToKeyChain() {
+
+        const username = this.state.userid;
+        const password = this.state.password;
+        
+        await Keychain.setGenericPassword(username, password);
+    }
+
+    async getCredFromKeyChain() {
+
+        try {
+            const credentials = await Keychain.getGenericPassword();
+            if(credentials && credentials.username && credentials.password){
+
+                this.setState({
+                    userid:credentials.username,
+                    password:credentials.password
+                },()=>{
+                    this.userData.setUserCredential(this.state.userid, this.state.password)
+                    this.onClickLogin()
+                })
+            }
+        }
+        catch (error) {
+          }
     }
 
     render() {
@@ -115,7 +162,7 @@ class Login extends Component {
                         </View>
                         
                         <View style={{flex:1}}>
-                            <ConnectWithUs callback={this.onClickConnectUs}/>
+                            <ConnectWithUs callback={this.onClickConnectUs.bind(this)}/>
                         </View>
                     </View>
                 </View>

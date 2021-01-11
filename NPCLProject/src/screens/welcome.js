@@ -31,7 +31,7 @@ class Welcome extends Component {
 
   onClickConnectUs(value) {
 
-    console.log("onClickConnectUs ",value);
+    this.props.navigation.navigate("ConnectUs", {'url':value})
   }
   render() {
       return (
@@ -66,7 +66,7 @@ class Welcome extends Component {
                   </TouchableOpacity>
                 </View>
 
-                <ConnectWithUs callback={this.onClickConnectUs} />
+                <ConnectWithUs callback={this.onClickConnectUs.bind(this)} />
 
                 <View style={{flex:2}}>
                 </View>
