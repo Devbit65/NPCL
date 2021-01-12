@@ -53,8 +53,6 @@ class Profile extends Component {
         return (
             <View style={{ flex: 1, backgroundColor:'#fff'}} >
                 
-                {/* <NoticeHeader /> */}
-                    
                 <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
                     <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> PROFILE </Text>
                 </View>

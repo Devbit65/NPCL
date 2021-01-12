@@ -37,7 +37,7 @@ class ConnectWithUs extends Component {
 
     render() {
         return  <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                    <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:12}}>CONNECT WITH US</Text>
+                    <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:12}}>CONNECT WITH US ON</Text>
                     
                     <View style={{width:150, height:35,alignItems:'center', justifyContent:'center'}}>
                         <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row'}}>

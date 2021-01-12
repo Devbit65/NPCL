@@ -5,7 +5,9 @@ import {
     View,
     TouchableOpacity,
     TextInput,
-    Image
+    Image,
+    ImageBackground,
+    Dimensions
 } from 'react-native';
 
 import ConnectWithUs from "../components/connectwithus";
@@ -109,72 +111,74 @@ class Login extends Component {
     render() {
         return (
             <View style={{ flex: 1}} >
-                <View style={{flex:1, maxHeight:100, marginLeft:20}}>
-                    <View style={{flex:1, justifyContent:'center'}}>
-                        <Text style={{fontSize:30, fontWeight:'bold', color:kThemeRedColor}}> HELLO </Text>
-                    </View>
-
-                    <View style={{flex:1, alignItems:'center', flexDirection:'row'}}>
-                        <Text style={{fontSize:30, fontWeight:'bold', color:kThemeRedColor}}> WE'RE </Text>
-                        
-                        <View >
-                            <Image style={{width:120, height:40, resizeMode:'contain'}} source={require("../resources/Xenius_Registered_Logo.png")}></Image>
-                            <Text style={{fontSize:6, alignSelf:'flex-end'}}> HUMANIZING MACHINES </Text>
+                <ImageBackground source={require('../resources/login_page_bg.png')} style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height-20}}>
+                    <View style={{flex:1, maxHeight:75, marginLeft:20}}>
+                        <View style={{flex:1, justifyContent:'center'}}>
+                            <Text style={{fontSize:30, fontWeight:'bold', color:kThemeRedColor}}> HELLO </Text>
                         </View>
-                    </View>
-                </View>
-                
-                <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                    <View style={{width:250, height:300, backgroundColor:'#FFF', borderRadius:5}}>
-                        <View style={{flex:3}}>
-                            <TextInput
-                                style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25,  marginTop:30, borderColor:kThemeBlueColor}}
-                                textAlign={'center'}
-                                placeholder="USER ID"
-                                onChangeText={text => this.setState({userid:text},()=>this.userData.setUserCredential(this.state.userid, this.state.password))}
-                                defaultValue={this.state.userid}
-                            />
 
-                            <TextInput
-                                style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25, marginTop:0, marginBottom:5, borderColor:kThemeBlueColor}}
-                                textAlign={'center'}
-                                placeholder="PASSWORD"
-                                secureTextEntry={this.state.securePassword}
-                                onChangeText={text => this.setState({password:text},()=>this.userData.setUserCredential(this.state.userid, this.state.password))}
-                                defaultValue={this.state.password}
-                            />
-
-                            <TouchableOpacity onPress={()=>this.onClickShowPassword()} style={{marginLeft:25, marginRight:25,marginTop:5, flexDirection:'row', alignItems:'center', justifyContent:'flex-start'}}>
-                                <Icon size={10} name={this.state.securePassword?"checkbox-passive":"checkbox-active"} color={kThemeBlueColor} />
-                                
-                                <Text style={{ fontSize:8, marginLeft:5, color:kThemeBlueColor}}>SHOW PASSWORD</Text>
-                            </TouchableOpacity>
-                        </View>
-                        
-                        <View style={{flex:2, alignItems:'center', justifyContent:'center'}}>
-                            <TouchableOpacity onPress={()=>this.onClickLogin()} style={{width:200, height:30,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
-                                <Text style={{color:'#FFF', fontWeight:'bold'}}>SIGN IN</Text>
-                            </TouchableOpacity>
+                        <View style={{flex:1, alignItems:'center', flexDirection:'row'}}>
+                            <Text style={{fontSize:30, fontWeight:'bold', color:kThemeRedColor}}> WE'RE </Text>
                             
-                            <TouchableOpacity onPress={()=>this.onClickForgotPassword()} >
-                                <Text style={{ fontSize:8, marginTop:5, color:kThemeBlueColor}}>FORG0T PASSWORD?</Text>
-                            </TouchableOpacity>
+                            <View >
+                                <Image style={{width:120, height:40, resizeMode:'contain'}} source={require("../resources/Xenius_Registered_Logo.png")}></Image>
+                                <Text style={{fontSize:6, alignSelf:'flex-end'}}> HUMANIZING MACHINES </Text>
+                            </View>
                         </View>
-                        
-                        <View style={{flex:1}}>
-                            <ConnectWithUs callback={this.onClickConnectUs.bind(this)}/>
-                        </View>
-                    </View>
-                </View>
-                
-                <View style={{flex:1, maxHeight:100,  alignItems:'center', justifyContent:'flex-end'}}>
-                    <View style={{height:30, alignItems:'center', justifyContent:'center', flexDirection:'row',}}>
-                        <Text style={{fontSize:11, color:kThemeRedColor}}> PREPAID METERING SOLUTION BY</Text>
-                        
-                        <Image style={{width:70, height:20, resizeMode:'contain'}} source={require("../resources/Xenius_Registered_Logo.png")}></Image>
                     </View>
                     
-                </View>
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                        <View style={{width:225, height:275, backgroundColor:'#FFF', borderRadius:5}}>
+                            <View style={{flex:3}}>
+                                <TextInput
+                                    style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25,  marginTop:30, borderColor:kThemeBlueColor}}
+                                    textAlign={'center'}
+                                    placeholder="USER ID"
+                                    onChangeText={text => this.setState({userid:text},()=>this.userData.setUserCredential(this.state.userid, this.state.password))}
+                                    defaultValue={this.state.userid}
+                                />
+
+                                <TextInput
+                                    style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25, marginTop:0, marginBottom:5, borderColor:kThemeBlueColor}}
+                                    textAlign={'center'}
+                                    placeholder="PASSWORD"
+                                    secureTextEntry={this.state.securePassword}
+                                    onChangeText={text => this.setState({password:text},()=>this.userData.setUserCredential(this.state.userid, this.state.password))}
+                                    defaultValue={this.state.password}
+                                />
+
+                                <TouchableOpacity onPress={()=>this.onClickShowPassword()} style={{marginLeft:25, marginRight:25,marginTop:5, flexDirection:'row', alignItems:'center', justifyContent:'flex-start'}}>
+                                    <Icon size={10} name={this.state.securePassword?"checkbox-passive":"checkbox-active"} color={kThemeBlueColor} />
+                                    
+                                    <Text style={{ fontSize:8, marginLeft:5, color:kThemeBlueColor}}>SHOW PASSWORD</Text>
+                                </TouchableOpacity>
+                            </View>
+                            
+                            <View style={{flex:2, alignItems:'center', justifyContent:'center'}}>
+                                <TouchableOpacity onPress={()=>this.onClickLogin()} style={{width:150, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
+                                    <Text style={{color:'#FFF', fontWeight:'bold'}}>SIGN IN</Text>
+                                </TouchableOpacity>
+                                
+                                <TouchableOpacity onPress={()=>this.onClickForgotPassword()} >
+                                    <Text style={{ fontSize:8, marginTop:5, color:kThemeBlueColor}}>FORG0T PASSWORD?</Text>
+                                </TouchableOpacity>
+                            </View>
+                            
+                            <View style={{flex:1}}>
+                                <ConnectWithUs callback={this.onClickConnectUs.bind(this)}/>
+                            </View>
+                        </View>
+                    </View>
+                    
+                    <View style={{flex:1, maxHeight:100,  alignItems:'center', justifyContent:'flex-end'}}>
+                        <View style={{width:'100%', height:25, backgroundColor:'#fff', alignItems:'center', justifyContent:'center', flexDirection:'row',}}>
+                            <Text style={{fontSize:11, color:kThemeRedColor}}> PREPAID METERING SOLUTION BY</Text>
+                            
+                            <Image style={{width:70, height:20, resizeMode:'contain'}} source={require("../resources/Xenius_Registered_Logo.png")}></Image>
+                        </View>
+                        
+                    </View>
+                </ImageBackground>
             </View>
           );
     }

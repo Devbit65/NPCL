@@ -199,17 +199,35 @@ class Recharge extends Component {
                                     showsVerticalScrollIndicator={true}
                                     renderItem={({ item, index, separators })=>{
                                         
-                                        return  <View style={{ flexDirection:'row'}}>
-                                                    <View style={{flex:2, alignItems:'center', justifyContent:'center'}}>
-                                                        <Image style={{width:50, height:60, resizeMode:'center' }}  source={require("../resources/paytm-512.png")}/>
-                                                    </View>
-                                                    <View style={{flex:3,  justifyContent:'center',}}>
-                                                        <View style={{flexDirection:'row',alignItems:'center',}}>
-                                                            <Icon size={10} name="currency-inr" color="rgb(206, 0, 57)" />
-                                                            <Text style={{color:kThemeRedColor, fontSize:10}}>{item.amount}</Text>
+                                        return  <View style={{borderWidth:1, borderColor:kThemeBlueColor, margin:5, borderRadius:5, padding:5}} >
+                                                    <View style={{flex:1, alignItems:'center',  justifyContent:'center', flexDirection:'row'}}>
+                                                        <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
+                                                            <Text style={{ fontSize:10}}>Date :</Text>
                                                         </View>
-                                                        <Text style={{fontSize:10}}>{item.recharge_id}</Text>
-                                                        <Text style={{fontSize:10}}>{item.date}</Text>
+                                                        <View style={{flex:1, flexDirection:'row',alignItems:'center', marginLeft:5}}>
+                                                            <Text style={{ fontSize:10}}>{item.date}</Text>
+                                                        </View>
+                                                        
+                                                    </View>
+                                                    <View style={{flex:1, alignItems:'center',  justifyContent:'center', flexDirection:'row'}}>
+                                                        <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
+                                                            <Text style={{ fontSize:10}}>Recharged with :</Text>
+                                                        </View>
+                                                        <View style={{flex:1, flexDirection:'row',alignItems:'center', marginLeft:5}}>
+                                                            <Text style={{ fontSize:10}}>{item.recharge_id}</Text>
+                                                        </View>
+                                                        
+                                                    </View>
+                                                    <View style={{flex:1, alignItems:'center',  justifyContent:'center', flexDirection:'row'}}>
+                                                        <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
+                                                            <Text style={{ fontSize:10}}>Amount :</Text>
+                                                        </View>
+                                                        <View style={{flex:1, flexDirection:'row',alignItems:'center', marginLeft:5}}>
+                                                            {/* <Icon size={10} name="currency-inr" color="rgb(206, 0, 57)" /> */}
+                                                            <Image style={{width:8, height:8, resizeMode:'center'}}  source={require('../resources/rupee24.png')} />
+                                                            <Text style={{ color:kThemeRedColor, fontWeight:'bold', fontSize:10}}>{item.amount}</Text>
+                                                        </View>
+                                                        
                                                     </View>
                                                 </View>
                                     }}
