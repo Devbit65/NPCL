@@ -4,11 +4,13 @@ import {
     Text, 
     View,
     Image,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity,
+    Linking, 
+    Alert, 
+    Platform
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-import MailIcon from 'react-native-vector-icons/Ionicons';
 import UserData from '../utilities/models/user-data'
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
@@ -35,12 +37,29 @@ class Profile extends Component {
     }
     
     onClickForgotPassword() {
-        console.log("onClickForgotPassword")
+        Alert.alert('In-Progress');
     }
 
-    onClickConnectUs(value) {
+    onClickConnectUs(phone) {
 
-        console.log("onClickConnectUs ",value);
+        let phoneNumber = phone;
+        if (Platform.OS !== 'android') {
+            phoneNumber = `telprompt:${phone}`;
+        }
+        else  {
+            phoneNumber = `tel:${phone}`;
+        }
+        Linking.canOpenURL(phoneNumber)
+        .then(supported => {
+            if (!supported) {
+                Alert.alert('Phone number is not available');
+            } else {
+                return Linking.openURL(phoneNumber);
+            }
+        })
+        .catch(err => {
+            Alert.alert('Phone number is not available');
+        });
     }
 
     onClickShowPassword() {
@@ -59,63 +78,68 @@ class Profile extends Component {
                 <View style={{flex:1, marginTop:50}}>
                     
                     <View style={[{flex:1, margin:25, maxHeight:350, backgroundColor:'#FFF', borderRadius:5},style.cardShadow]}>
-                        <View style={{width:140, height:140, borderRadius:150, alignSelf:'center', alignItems:'center', justifyContent:'center', position:'absolute', top:-75, borderRadius:150,borderWidth:5, borderColor:kThemeRedColor, backgroundColor:'#fff'}}>
-                            <Image style={{width:110, height:110, resizeMode:'center' }}  source={require("../resources/icon.png")}/>
+                        <View style={{width:140, height:140, borderRadius:150, alignSelf:'center', alignItems:'center', justifyContent:'center', position:'absolute', top:-75, backgroundColor:'#fff'}}>
+                            <Image style={{width:140, height:140, resizeMode:'center' }}  source={require("../resources/profile_pic.png")}/>
                         </View>
                         <View style={{height:75}}>
                         </View>
                         <Text style={{alignSelf:'center', fontSize:22, fontWeight:'bold'}}>{this.state.userName}</Text>
                         
                         <View style={{flex:1, alignSelf:'center', alignItems:'center'}}>
-                            <View style={{ height:40, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{flex:1, textAlign:'right'}} >
-                                    <Icon size={15} name="tachometer" color="#000" />
-                                </Text>
-                                <Text style={{width:25,}}></Text>
-                                <Text style={{flex:2, fontSize:10}}>{this.state.meterId}</Text>
+                            <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
+                                <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}} >
+                                    <Image style={{width:15, height:15, resizeMode:'center'}} source={require('../resources/meter.png')} />
+                                </View>
+                                <View style={{width:20}} />
+                                <View style={{flex:2, alignItems:'flex-start', justifyContent:'center'}} >
+                                    <Text style={{ fontSize:12}}>{this.state.meterId}</Text>
+                                </View>
                             </View>
 
-                            <View style={{ height:40, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{flex:1, textAlign:'right'}} >
-                                    <Icon size={15} name="superpowers" color="#000" />
-                                </Text>
-                                <Text style={{width:25,}}></Text>
-                                <Text style={{flex:2, fontSize:10}}>{this.state.customerId}</Text>
+                            <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
+                                <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}} >
+                                    <Image style={{width:15, height:15, resizeMode:'center'}} source={require('../resources/locId.png')} />
+                                </View>
+                                <View style={{width:20}} />
+                                <View style={{flex:2, alignItems:'flex-start', justifyContent:'center'}} >
+                                    <Text style={{ fontSize:12}}>{this.state.customerId}</Text>
+                                </View>
                             </View>
 
-                            <View style={{ height:40, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{flex:1, textAlign:'right'}} >
-                                    <Icon size={15} name="phone" color="#000" />
-                                </Text>
-                                <Text style={{width:25,}}></Text>
-                                <Text style={{flex:2, fontSize:10}}>{this.state.phone}</Text>
+                            <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
+                                <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}} >
+                                    <Image style={{width:15, height:15, resizeMode:'center'}} source={require('../resources/phone.png')} />
+                                </View>
+                                <View style={{width:20}} />
+                                <View style={{flex:2, alignItems:'flex-start', justifyContent:'center'}} >
+                                    <Text style={{ fontSize:12}}>{this.state.phone}</Text>
+                                </View>
                             </View>
 
-                            <View style={{ height:40, flexDirection:'row', alignItems:'center'}}>
-                                <Text style={{flex:1, textAlign:'right'}} >
-                                    <MailIcon size={15} name="mail" color="#000" />
-                                </Text>
-                                <Text style={{width:25,}}></Text>
-                                <Text style={{flex:2, fontSize:10}}>{this.state.email}</Text>
+                            <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
+                                <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}} >
+                                    <Image style={{width:15, height:15, resizeMode:'center'}} source={require('../resources/email.png')} />
+                                </View>
+                                <View style={{width:20}} />
+                                <View style={{flex:2, alignItems:'flex-start', justifyContent:'center'}} >
+                                    <Text style={{ fontSize:12}}>{this.state.email}</Text>
+                                </View>
                             </View>
                         </View>
                        
-                        <View style={{alignItems:'center', marginTop:10, justifyContent:'center'}}>
-                            <View style={{borderRadius:5, borderWidth:0.5,  width:150, height:30, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                <Text >
-                                    <Icon size={15} name="phone" color="#000" />
-                                </Text>
+                        <View style={{alignItems:'center', justifyContent:'center'}}>
+                            <TouchableOpacity style={[{width:175, borderRadius:5, height:25, flexDirection:'row', alignItems:'center', justifyContent:'center', backgroundColor:'#fff'},style.cardShadow]} onPress={()=>this.onClickConnectUs('1')}>
+                                <Image style={{width:20, height:20, resizeMode:'center'}} source={require('../resources/help_support.png')} />
                                 <Text style={{fontSize:12}}>  Help & Support</Text>
-                            </View>
+                            </TouchableOpacity>
                         </View>
                         
-                        <View style={{alignItems:'center', marginTop:10, marginBottom:10, justifyContent:'center'}}>
-                            <View style={{borderRadius:5, borderWidth:0.5,  width:150, height:30, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                <Text >
-                                    <Icon size={15} name="key" color="#000" />
-                                </Text>
-                                <Text style={{fontSize:11}}>  CHANGE PASSWORD &gt; </Text>
-                            </View>
+                        <View style={{alignItems:'center', marginTop:20, marginBottom:10, justifyContent:'center'}}>
+                            <TouchableOpacity style={[{width:175, borderRadius:5, height:25, flexDirection:'row', alignItems:'center', justifyContent:'center', backgroundColor:'#fff'},style.cardShadow]} onPress={()=>this.onClickForgotPassword()}>
+                                <Image style={{width:20, height:20, resizeMode:'center'}} source={require('../resources/change_password.png')} />
+                                <Text style={{fontSize:11}}>  CHANGE PASSWORD </Text>
+                                <Image style={{width:15, height:15, resizeMode:'center'}} source={require('../resources/arrow.png')} />
+                            </TouchableOpacity>
                         </View>
 
                     </View>

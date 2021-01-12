@@ -68,6 +68,7 @@ class Login extends Component {
     
     onClickForgotPassword() {
         console.log("onClickForgotPassword")
+        alert('In-Progress')
     }
 
     onClickConnectUs(value) {
@@ -111,7 +112,7 @@ class Login extends Component {
     render() {
         return (
             <View style={{ flex: 1}} >
-                <ImageBackground source={require('../resources/login_page_bg.png')} style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height-20}}>
+                <ImageBackground source={require('../resources/login_page_bg.png')} style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height-20}} resizeMode={'cover'}>
                     <View style={{flex:1, maxHeight:75, marginLeft:20}}>
                         <View style={{flex:1, justifyContent:'center'}}>
                             <Text style={{fontSize:30, fontWeight:'bold', color:kThemeRedColor}}> HELLO </Text>
@@ -131,7 +132,7 @@ class Login extends Component {
                         <View style={{width:225, height:275, backgroundColor:'#FFF', borderRadius:5}}>
                             <View style={{flex:3}}>
                                 <TextInput
-                                    style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25,  marginTop:30, borderColor:kThemeBlueColor}}
+                                    style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25,  marginTop:30, borderColor:kThemeBlueColor, padding:0}}
                                     textAlign={'center'}
                                     placeholder="USER ID"
                                     onChangeText={text => this.setState({userid:text},()=>this.userData.setUserCredential(this.state.userid, this.state.password))}
@@ -139,7 +140,7 @@ class Login extends Component {
                                 />
 
                                 <TextInput
-                                    style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25, marginTop:0, marginBottom:5, borderColor:kThemeBlueColor}}
+                                    style={{height: 25, borderWidth:0.5, borderRadius:5, margin:25, marginTop:0, marginBottom:5, borderColor:kThemeBlueColor, padding:0}}
                                     textAlign={'center'}
                                     placeholder="PASSWORD"
                                     secureTextEntry={this.state.securePassword}
@@ -170,11 +171,11 @@ class Login extends Component {
                         </View>
                     </View>
                     
-                    <View style={{flex:1, maxHeight:100,  alignItems:'center', justifyContent:'flex-end'}}>
-                        <View style={{width:'100%', height:25, backgroundColor:'#fff', alignItems:'center', justifyContent:'center', flexDirection:'row',}}>
+                    <View style={{flex:1, maxHeight:30,  alignItems:'center', justifyContent:'center'}}>
+                        <View style={{width:'100%', height:30, backgroundColor:'#fff', alignItems:'center', justifyContent:'center', flexDirection:'row',}}>
                             <Text style={{fontSize:11, color:kThemeRedColor}}> PREPAID METERING SOLUTION BY</Text>
                             
-                            <Image style={{width:70, height:20, resizeMode:'contain'}} source={require("../resources/Xenius_Registered_Logo.png")}></Image>
+                            <Image style={{width:70, height:30, resizeMode:'center'}} source={require("../resources/Xenius_Registered_Logo.png")}></Image>
                         </View>
                         
                     </View>

@@ -143,7 +143,7 @@ class Recharge extends Component {
                                 
                                 <View style={{flex:1,alignItems:'center', justifyContent:'center'}}>
                                     <TextInput
-                                        style={{width:100, height: 25, borderWidth:0.5, borderRadius:5, paddingLeft:5, paddingRight:5, fontSize:10}}
+                                        style={{width:100, height: 25, borderWidth:0.5, borderRadius:5, paddingLeft:5, paddingRight:5, fontSize:10, padding:0}}
                                         textAlign={'center'}
                                         placeholder="ENTER AMOUNT"
                                         placeholderTextColor={"#000"}
@@ -173,7 +173,7 @@ class Recharge extends Component {
                                 
                                 <View style={{flex:1,alignItems:'center', justifyContent:'center'}}>
                                     <TextInput
-                                        style={{width:100, height: 25, borderWidth:0.5, borderRadius:5, paddingLeft:5, paddingRight:5, fontSize:10}}
+                                        style={{width:100, height: 25, borderWidth:0.5, borderRadius:5, paddingLeft:5, paddingRight:5, fontSize:10, padding:0}}
                                         textAlign={'center'}
                                         placeholder="ENTER AMOUNT"
                                         placeholderTextColor={"#000"}
