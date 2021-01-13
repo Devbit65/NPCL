@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import {
     Text, 
     View,
-    Image,
-    FlatList,
     StyleSheet,
     TouchableOpacity,
-    TextInput
+    Modal
 } from 'react-native';
 
 import UserData from '../utilities/models/user-data'
@@ -17,6 +15,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { StackedAreaChart, YAxis, Grid } from 'react-native-svg-charts'
 import * as shape from 'd3-shape'
 import moment from 'moment';
+import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED, ACTION_NEUTRAL } from 'react-native-month-year-picker';
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -25,14 +24,12 @@ class ReportChart extends Component {
     constructor(props){
         super(props)
 
-        var date = moment(new Date()).format('DD-MMM-YYYY');
-        var dateArray = date.split('-')
-        var newDate = {day:dateArray[0], month:dateArray[1], year:dateArray[2]}
-
+        const { params } = this.props.route;
         this.state={
             chartData : [],
             period : "",
-            date:newDate
+            date:params["selecteDate"],
+            willShowCallendar : false
         }
         this.period = ""
         this.chart1UnitYAxis = []
@@ -47,16 +44,23 @@ class ReportChart extends Component {
         const { params } = this.props.route;
 
         this.setState({
-            period : params["period"]
-        },()=>{
+            period : params["period"],
+            date: params["selecteDate"]
+        },()=>this.fetchReport(params["selecteDate"]))
+    }
 
-            if(this.state.period === "MONTHLY"){
-                this.fetchMonthlyReport(2020);
-            }
-            else if(this.state.period === "DAILY"){
-                this.fetchDailyReport(11, 2020);
-            }
-        })
+    fetchReport(newDate) {
+
+        var curDate = moment(newDate).format('DD-MM-YYYY');
+        var dateArray = curDate.split('-')
+        newDate = {day:dateArray[0], month:dateArray[1], year:dateArray[2]}
+
+        if(this.state.period === "MONTHLY"){
+            this.fetchMonthlyReport(newDate.year);
+        }
+        else if(this.state.period === "DAILY"){
+            this.fetchDailyReport(newDate.month, newDate.year);
+        }
     }
 
     fetchDailyReport(month, year) {
@@ -64,7 +68,6 @@ class ReportChart extends Component {
         this.spinner.startActivity();
         fetchDailyReport(month, year)
         .then(response=>{
-            
             if(response.resource) {
                 var maxUnit = 0
                 var maxAmount = 0
@@ -120,9 +123,49 @@ class ReportChart extends Component {
         this.props.navigation.pop()
     }
 
+    onSelectDate(newDate) {
+        var curDate = moment(newDate).format('DD-MMM-YYYY');
+        this.setState({
+            date:curDate,
+            willShowCallendar:false,
+        },()=>this.fetchReport(curDate))
+    }
+
+    openCallendar() {
+
+        this.setState({
+            willShowCallendar:true
+        })
+    }
+
+    closeCallendar() {
+        this.setState({
+            willShowCallendar:false
+        })
+    }
+
+    onValueChange = (event, newDate) => {
+        switch(event) {
+          case ACTION_DATE_SET:
+            this.onSelectDate(newDate)
+            break;
+          case ACTION_NEUTRAL:
+          case ACTION_DISMISSED:
+          default:
+            this.closeCallendar(); //when ACTION_DISMISSED new date will be undefined
+        }
+      }
+
     render(){
         var dataResouces = this.userData.resource
         const contentInset = { top: 20, bottom: 20 }
+
+        var newDate = {day:"-", month:"-", year:"-"}
+        if(this.state.date) {
+
+            var dateArray = this.state.date.split('-')
+            newDate = {day:dateArray[0], month:dateArray[1], year:dateArray[2]}
+        }
 
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     <View style={{margin:5, alignItems:'flex-start', justifyContent:'center', backgroundColor:'#fff'}}>
@@ -134,12 +177,12 @@ class ReportChart extends Component {
                                 <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
                                     <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> REPORT </Text>
                                 </View>
-                                <TouchableOpacity style={{backgroundColor:'#ededed', marginRight:10}} onPress={()=>this.onSelectDate()}>
+                                <TouchableOpacity style={{backgroundColor:'#ededed', marginRight:10}} onPress={()=>this.openCallendar()}>
                                     {this.state.period === "DAILY" && <View style={{flex:1, backgroundColor:kThemeRedColor, alignItems:'center', justifyContent:'center'}}>
-                                        <Text style={{color:'#fff', fontWeight:'bold', fontSize:12, textAlign:'right'}}> {this.state.date.month.toUpperCase()} </Text>
+                                        <Text style={{color:'#fff', fontWeight:'bold', fontSize:12, textAlign:'right'}}> {newDate.month.toUpperCase()} </Text>
                                     </View>}
                                     <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                                        <Text style={{color:kThemeBlueColor, fontWeight:'bold', fontSize:11,textAlign:'right',}}> {this.state.date.year} </Text>
+                                        <Text style={{color:kThemeBlueColor, fontWeight:'bold', fontSize:11,textAlign:'right',}}> {newDate.year} </Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -227,6 +270,26 @@ class ReportChart extends Component {
                             </View>
                         </View>
                     </View>
+                    {this.state.willShowCallendar && (
+                        <Modal
+                            style={{backgroundColor:'red'}}
+                            animationType="slide"
+                            transparent={true}
+                            visible={this.state.willShowCallendar}
+                            onRequestClose={() => {
+                                this.setState({
+                                    willShowCallendar:false
+                                })
+                        }}>
+                            <MonthPicker
+                                onChange={this.onValueChange}
+                                value={new Date(this.state.date)}
+                                minimumDate={new Date(1900, 1)}
+                                maximumDate={new Date()}
+                                locale="en"
+                            />
+                        </Modal>
+                    )}
                 </View>
     }
 }
