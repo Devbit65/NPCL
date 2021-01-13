@@ -4,7 +4,8 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    Modal
+    Modal,
+    Platform
 } from 'react-native';
 
 import UserData from '../utilities/models/user-data'
@@ -270,7 +271,7 @@ class ReportChart extends Component {
                             </View>
                         </View>
                     </View>
-                    {this.state.willShowCallendar && (
+                    {this.state.willShowCallendar && Platform.OS === 'ios'  && (
                         <Modal
                             style={{backgroundColor:'red'}}
                             animationType="slide"
@@ -289,6 +290,16 @@ class ReportChart extends Component {
                                 locale="en"
                             />
                         </Modal>
+                    )}
+
+                    {this.state.willShowCallendar && Platform.OS === 'android' && (
+                        <MonthPicker
+                            onChange={this.onValueChange}
+                            value={new Date(this.state.date)}
+                            minimumDate={new Date(1900, 1)}
+                            maximumDate={new Date()}
+                            locale="en"
+                        />
                     )}
                 </View>
     }

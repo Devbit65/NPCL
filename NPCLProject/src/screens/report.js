@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     Image,
     StyleSheet,
-    Modal
+    Modal,
+    Platform
 } from 'react-native';
 
 import moment from 'moment';
@@ -145,7 +146,7 @@ class Report extends Component {
                         </TouchableOpacity>
                     </View>}
 
-                    {this.state.willShowCallendar &&(
+                    {this.state.willShowCallendar && Platform.OS === 'ios' &&(
                         <Modal
                             style={{backgroundColor:'red'}}
                             animationType="slide"
@@ -164,6 +165,16 @@ class Report extends Component {
                                 locale="en"
                             />
                         </Modal>
+                    )}
+
+                    {this.state.willShowCallendar && Platform.OS === 'android' &&(
+                            <MonthPicker
+                                onChange={this.onValueChange}
+                                value={new Date(this.state.date)}
+                                minimumDate={new Date(1900, 1)}
+                                maximumDate={new Date()}
+                                locale="en"
+                            />
                     )}
                 </View>
     }
