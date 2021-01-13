@@ -8,9 +8,6 @@ import {
     StyleSheet
 } from 'react-native';
 
-import NoticeHeader from "../components/notice-header";
-
-import * as Utilities from "../utilities/utilities-methods";
 import {fethchMessages} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 
@@ -37,6 +34,9 @@ class EventLogging extends Component {
             this.setState({
                 logDate : logMessages
             })
+            this.spinner.stopActivity();
+        })
+        .catch(error=>{
             this.spinner.stopActivity();
         })
 

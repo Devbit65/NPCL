@@ -103,7 +103,7 @@ class Overview extends Component {
                                 </View>
 
                                 <View style={{flex:2,  alignItems:'center', justifyContent:'center'}}>
-                                    <Pie
+                                    {gridPer && dgPer ? <Pie
                                         radius={50}
                                         innerRadius={25}
                                         sections={
@@ -120,7 +120,7 @@ class Overview extends Component {
                                         ]}
                                         dividerSize={2}
                                         strokeCap={'butt'}
-                                    />
+                                    />:null}
                                 </View>
                                 <View style={{flex:3, paddingLeft:20, paddingRight:20}}>
                                     <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>

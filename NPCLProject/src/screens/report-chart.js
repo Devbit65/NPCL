@@ -25,7 +25,7 @@ class ReportChart extends Component {
         super(props)
 
         this.state={
-            chardData : [],
+            chartData : [],
             period : ""
         }
         this.period = ""
@@ -72,10 +72,13 @@ class ReportChart extends Component {
                 this.chart1UnitYAxis = [0, maxUnit];
                 this.chart1AmountYAxis = [0, maxAmount];
                 this.setState({
-                    chardData : response.resource
+                    chartData : response.resource
                 })
             }
             this.spinner.stopActivity();
+        })
+        .catch(error=>{
+
         })
 
     }
@@ -99,7 +102,7 @@ class ReportChart extends Component {
             this.chart1AmountYAxis = [0, maxAmount];
             if(response.resource) {
                 this.setState({
-                    chardData : response.resource
+                    chartData : response.resource
                 })
             }
             this.spinner.stopActivity();
@@ -128,7 +131,7 @@ class ReportChart extends Component {
 
                         <View style={[{ flex:1, margin:15, padding:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                             <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> GRID CONSUMPTION </Text>
-                            <View style={{ flex:1, flexDirection:'row'}}>
+                            {this.state.chartData && this.state.chartData.length>0 &&  <View style={{ flex:1, flexDirection:'row'}}>
                                 <YAxis
                                     data={this.chart1UnitYAxis}
                                     contentInset={contentInset}
@@ -142,7 +145,7 @@ class ReportChart extends Component {
                                 <View style={{ flex:1}}>
                                     <StackedAreaChart
                                         style={{ height: 200, paddingVertical: 16, paddingHorizontal:10}}
-                                        data={this.state.chardData}
+                                        data={this.state.chartData}
                                         keys={['dg_unit','grid_unit']}
                                         colors={[kThemeRedColor,kThemeBlueColor]}
                                         curve={shape.curveNatural}
@@ -151,7 +154,7 @@ class ReportChart extends Component {
                                         <Grid />
                                     </StackedAreaChart>
                                 </View>
-                            </View>
+                            </View>}
                             <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                                 <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                                     <Icon size={10} name="check-box-outline-blank" color={kThemeBlueColor} />
@@ -166,7 +169,7 @@ class ReportChart extends Component {
 
                         <View style={[{ flex:1, margin:15, padding:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                             <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> COST CONSUMPTION </Text>
-                            <View style={{ flex:1, flexDirection:'row'}}>
+                            {this.state.chartData && this.state.chartData.length>0 && <View style={{ flex:1, flexDirection:'row'}}>
                                 <YAxis
                                     data={this.chart1AmountYAxis}
                                     contentInset={contentInset}
@@ -180,7 +183,7 @@ class ReportChart extends Component {
                                 <View style={{ flex:1}}>
                                     <StackedAreaChart
                                         style={{ height: 200, paddingVertical: 16, paddingHorizontal:10 }}
-                                        data={this.state.chardData}
+                                        data={this.state.chartData}
                                         keys={['dg_amt','grid_amt']}
                                         colors={[kThemeRedColor,kThemeBlueColor]}
                                         curve={shape.curveNatural}
@@ -189,7 +192,7 @@ class ReportChart extends Component {
                                         <Grid />
                                     </StackedAreaChart>
                                 </View>
-                            </View>
+                            </View>}
                             <View style={{flexDirection:'row'}}>
                                 <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                                     <Icon size={10} name="check-box-outline-blank" color={kThemeBlueColor} />

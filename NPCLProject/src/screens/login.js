@@ -25,7 +25,7 @@ class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            userid:'',
+            userid:'',//101210007 //2121101
             password:'',
             securePassword:true
         }
@@ -175,7 +175,7 @@ class Login extends Component {
                         <View style={{width:'100%', height:30, backgroundColor:'#fff', alignItems:'center', justifyContent:'center', flexDirection:'row',}}>
                             <Text style={{fontSize:11, color:kThemeRedColor}}> PREPAID METERING SOLUTION BY</Text>
                             
-                            <Image style={{width:70, height:30, resizeMode:'center'}} source={require("../resources/Xenius_Registered_Logo.png")}></Image>
+                            <Image style={{width:90, height:20, resizeMode:'contain'}} source={require("../resources/radius-logo.png")}></Image>
                         </View>
                         
                     </View>

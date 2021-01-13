@@ -53,6 +53,9 @@ class Recharge extends Component {
             })
             this.spinner.stopActivity();
         })
+        .catch(error=>{
+            this.spinner.stopActivity();
+        })
 
     }
 
