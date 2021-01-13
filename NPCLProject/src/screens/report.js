@@ -7,6 +7,8 @@ import {
     StyleSheet
 } from 'react-native';
 
+import moment from 'moment';
+
 import UserData from '../utilities/models/user-data'
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
@@ -18,8 +20,13 @@ class Report extends Component {
         super(props);
         this.userData = new UserData().getUserData();
         var dataResouces = this.userData.resource
+        var date = moment(Date()).format('DD-MMM-YYYY');
+        var dateArray = date.split('-')
+        var newDate = {day:dateArray[0], month:dateArray[1], year:dateArray[2]}
+
         this.state={
-            monthly_bill_enable : dataResouces.monthly_bill_enable //'N'
+            monthly_bill_enable : dataResouces.monthly_bill_enable, //'N'
+            date:newDate
         }
     }
 
@@ -43,10 +50,27 @@ class Report extends Component {
         console.log("onPressBillDownload")
     }
 
+    onSelectDate() {
+        console.log("onSelectDate")
+    }
+
     render() {
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
-                    <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
-                        <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> REPORT </Text>
+                    <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
+                        <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
+                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> REPORT </Text>
+                        </View>
+                        <TouchableOpacity style={{backgroundColor:'#ededed', marginRight:10}} onPress={()=>this.onSelectDate()}>
+                            <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
+                                <Text style={{color:kThemeBlueColor, fontWeight:'bold', fontSize:11, textAlign:'right'}}> {this.state.date.day} </Text>
+                            </View>
+                            <View style={{flex:1, backgroundColor:kThemeRedColor, alignItems:'flex-end', justifyContent:'center'}}>
+                                <Text style={{color:'#fff', fontWeight:'bold', fontSize:12, textAlign:'right', backgroundColor:kThemeRedColor}}> {this.state.date.month.toUpperCase()} </Text>
+                            </View>
+                            <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
+                                <Text style={{color:kThemeBlueColor, fontWeight:'bold', fontSize:11, textAlign:'right'}}> {this.state.date.year} </Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={{flexDirection:'row', margin:5}}>
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>

@@ -15,6 +15,7 @@
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
     "d3-shape": "^2.0.0",
+    "moment": "^2.29.1",
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-elements": "^3.0.1",

@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { StackedAreaChart, YAxis, Grid } from 'react-native-svg-charts'
 import * as shape from 'd3-shape'
+import moment from 'moment';
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -24,9 +25,14 @@ class ReportChart extends Component {
     constructor(props){
         super(props)
 
+        var date = moment(Date()).format('DD-MMM-YYYY');
+        var dateArray = date.split('-')
+        var newDate = {day:dateArray[0], month:dateArray[1], year:dateArray[2]}
+
         this.state={
             chartData : [],
-            period : ""
+            period : "",
+            date:newDate
         }
         this.period = ""
         this.chart1UnitYAxis = []
@@ -124,7 +130,19 @@ class ReportChart extends Component {
                             <TouchableOpacity onPress={()=>this.onPressBackButton()} style={{width:25, alignItems:'center', justifyContent:'center'}}>
                                 <Icon size={21} name="arrow-back-ios" color="rgb(206, 0, 57)" />
                             </TouchableOpacity>
-                            <Text adjustsFontSizeToFit={true} style={{color:kThemeRedColor, fontWeight:'bold', fontSize:25}}> REPORT - {this.state.period} </Text>
+                            <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
+                                <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
+                                    <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> REPORT </Text>
+                                </View>
+                                <TouchableOpacity style={{backgroundColor:'#ededed', marginRight:10}} onPress={()=>this.onSelectDate()}>
+                                    {this.state.period === "DAILY" && <View style={{flex:1, backgroundColor:kThemeRedColor, alignItems:'center', justifyContent:'center'}}>
+                                        <Text style={{color:'#fff', fontWeight:'bold', fontSize:12, textAlign:'right'}}> {this.state.date.month.toUpperCase()} </Text>
+                                    </View>}
+                                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                                        <Text style={{color:kThemeBlueColor, fontWeight:'bold', fontSize:11,textAlign:'right',}}> {this.state.date.year} </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                     <View style={{flex:1, backgroundColor:'#fff'}}>
