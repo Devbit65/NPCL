@@ -20,7 +20,7 @@ class Report extends Component {
         super(props);
         this.userData = new UserData().getUserData();
         var dataResouces = this.userData.resource
-        var date = moment(Date()).format('DD-MMM-YYYY');
+        var date = moment(new Date()).format('DD-MMM-YYYY');
         var dateArray = date.split('-')
         var newDate = {day:dateArray[0], month:dateArray[1], year:dateArray[2]}
 
