@@ -8,6 +8,7 @@ import {
 
 import UserData from '../utilities/models/user-data'
 import Pie from 'react-native-pie'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -121,6 +122,17 @@ class Overview extends Component {
                                         dividerSize={2}
                                         strokeCap={'butt'}
                                     />:null}
+                                     <View style={{flexDirection:'row'}}>
+                                        <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                            <Icon size={10} name="check-box-outline-blank" color={kThemeBlueColor} />
+                                            <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', textAlign:'center'}}> GRID </Text>
+                                        </View>
+                                        <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                            <Icon size={10} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
+                                            <Text style={{color:kThemeRedColor, fontSize:9, alignSelf:'center', textAlign:'center'}}> DG </Text>
+                                        </View>
+                                    </View>
+
                                 </View>
                                 <View style={{flex:1, maxHeight:150, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
                                     <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>

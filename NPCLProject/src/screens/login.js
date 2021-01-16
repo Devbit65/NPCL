@@ -48,8 +48,8 @@ class Login extends Component {
 
             this.spinner.stopActivity();
 
-            if(response.message.includes('ERROR')){
-                alert("Invalid User-Id / Password")
+            if(!response.message.includes('SUCCESS')){
+                alert(response.message)
                 return;
             }
 

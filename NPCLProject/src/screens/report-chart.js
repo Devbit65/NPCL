@@ -13,7 +13,7 @@ import {fetchDailyReport, fetchMonthlyReport} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { StackedAreaChart, YAxis, Grid } from 'react-native-svg-charts'
+import { StackedAreaChart, YAxis, XAxis, Grid } from 'react-native-svg-charts'
 import * as shape from 'd3-shape'
 import moment from 'moment';
 import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED, ACTION_NEUTRAL } from 'react-native-month-year-picker';
@@ -30,7 +30,8 @@ class ReportChart extends Component {
             chartData : [],
             period : "",
             date:params["selecteDate"],
-            willShowCallendar : false
+            willShowCallendar : false,
+            xAxisDate:[]
         }
         this.period = ""
         this.chart1UnitYAxis = []
@@ -70,6 +71,7 @@ class ReportChart extends Component {
         fetchDailyReport(month, year)
         .then(response=>{
             if(response.resource) {
+                response.resource = response.resource.sort(this.GetSortOrder("date"))
                 var maxUnit = 0
                 var maxAmount = 0
                 for(var i=0; i<response.resource.length; i++){
@@ -93,12 +95,23 @@ class ReportChart extends Component {
 
     }
 
+    GetSortOrder(prop) {    
+        return function(a, b) {    
+            if (a[prop] > b[prop]) {    
+                return 1;    
+            } else if (a[prop] < b[prop]) {    
+                return -1;    
+            }    
+            return 0;    
+        }    
+    } 
+
     fetchMonthlyReport(year) {
 
         this.spinner.startActivity();
         fetchMonthlyReport(year)
         .then(response=>{
-
+            response.resource = response.resource.sort(this.GetSortOrder("date"))
             var maxUnit = 0
             var maxAmount = 0
             for(var i=0; i<response.resource.length; i++){
@@ -159,7 +172,7 @@ class ReportChart extends Component {
 
     render(){
         var dataResouces = this.userData.resource
-        const contentInset = { top: 20, bottom: 20 }
+        const contentInset = { bottom: 20 }
 
         var newDate = {day:"-", month:"-", year:"-"}
         if(this.state.date) {
@@ -207,7 +220,7 @@ class ReportChart extends Component {
                                     />
                                     <View style={{ flex:1}}>
                                         <StackedAreaChart
-                                            style={{ height: '100%', paddingVertical: 16, paddingHorizontal:10}}
+                                            style={{ height: '90%', paddingVertical: 1, paddingHorizontal:10}}
                                             data={this.state.chartData}
                                             keys={['dg_unit','grid_unit']}
                                             colors={[kThemeRedColor,kThemeBlueColor]}
@@ -216,7 +229,15 @@ class ReportChart extends Component {
                                         >
                                             <Grid />
                                         </StackedAreaChart>
+                                        <XAxis
+                                            data={this.state.chartData}
+                                            style={{width:'100%', height:20}}
+                                            formatLabel={(value, index) => index+1}
+                                            contentInset={{ left: 10, right: 10 }}
+                                            svg={{ fontSize: 6, fill: 'grey',  rotation: -90,originY: 10, y:10 }}
+                                        />
                                     </View>
+                                    
                                 </View>}
                             </View>
                             <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
@@ -247,7 +268,7 @@ class ReportChart extends Component {
                                     />
                                     <View style={{ flex:1}}>
                                         <StackedAreaChart
-                                            style={{ height: '100%', paddingVertical: 16, paddingHorizontal:10 }}
+                                            style={{ height: '90%', paddingVertical: 1, paddingHorizontal:10}}
                                             data={this.state.chartData}
                                             keys={['dg_amt','grid_amt']}
                                             colors={[kThemeRedColor,kThemeBlueColor]}
@@ -256,6 +277,13 @@ class ReportChart extends Component {
                                         >
                                             <Grid />
                                         </StackedAreaChart>
+                                        <XAxis
+                                            data={this.state.chartData}
+                                            style={{width:'100%', height:20}}
+                                            formatLabel={(value, index) => index+1}
+                                            contentInset={{ left: 10, right: 10 }}
+                                            svg={{ fontSize: 6, fill: 'grey',  rotation: -90,originY: 10, y:10 }}
+                                        />
                                     </View>
                                 </View>}
                             </View>
