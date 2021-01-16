@@ -49,8 +49,8 @@ class Overview extends Component {
 
                     <View style={{flex:1}}>
                         <View style={{flex:4, marginLeft:10, marginRight:10}}>
-                            <View style={[{flex:1, maxHeight:160, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
-                                <View style={[{flex:1, margin:10, padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
+                            <View style={[{flex:1, maxHeight:155, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                                <View style={[{flex:1, margin:10, marginBottom:5, padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
                                     <View style={{flex:1}}>
                                         <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>AVAILABLE BALANCE</Text>
                                     </View>
@@ -102,7 +102,7 @@ class Overview extends Component {
                                     <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>TODAY'S CONSUMPTION</Text>
                                 </View>
 
-                                <View style={{flex:2,  alignItems:'center', justifyContent:'center'}}>
+                                <View style={{flex:1,  alignItems:'center', justifyContent:'center'}}>
                                     {gridPer ? <Pie
                                         radius={50}
                                         innerRadius={25}
@@ -122,7 +122,7 @@ class Overview extends Component {
                                         strokeCap={'butt'}
                                     />:null}
                                 </View>
-                                <View style={{flex:3, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
+                                <View style={{flex:1, maxHeight:150, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
                                     <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                                         <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
                                         
