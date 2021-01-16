@@ -30,8 +30,8 @@ class ConnectUs extends Component {
     }
     render() {
         const { params } = this.props.route;
-        return <View style={{flex:1, backgroundColor:kThemeBlueColor}}>
-                    <WebView style={{flex:1}} source={{url:params["url"]}}  onLoadEnd={this.onFinishLoading.bind(this)}/>
+        return <View style={{flex:1}}>
+                    <WebView style={{flex:1}} source={{uri:params["url"]}}  onLoadEnd={this.onFinishLoading.bind(this)}/>
             </View>
     }
 }

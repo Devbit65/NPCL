@@ -207,7 +207,7 @@ class ReportChart extends Component {
                                     />
                                     <View style={{ flex:1}}>
                                         <StackedAreaChart
-                                            style={{ height: 200, paddingVertical: 16, paddingHorizontal:10}}
+                                            style={{ height: '100%', paddingVertical: 16, paddingHorizontal:10}}
                                             data={this.state.chartData}
                                             keys={['dg_unit','grid_unit']}
                                             colors={[kThemeRedColor,kThemeBlueColor]}
@@ -247,7 +247,7 @@ class ReportChart extends Component {
                                     />
                                     <View style={{ flex:1}}>
                                         <StackedAreaChart
-                                            style={{ height: 200, paddingVertical: 16, paddingHorizontal:10 }}
+                                            style={{ height: '100%', paddingVertical: 16, paddingHorizontal:10 }}
                                             data={this.state.chartData}
                                             keys={['dg_amt','grid_amt']}
                                             colors={[kThemeRedColor,kThemeBlueColor]}

@@ -49,9 +49,9 @@ class Overview extends Component {
 
                     <View style={{flex:1}}>
                         <View style={{flex:4, marginLeft:10, marginRight:10}}>
-                            <View style={[{flex:1, maxHeight:150, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                            <View style={[{flex:1, maxHeight:160, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                                 <View style={[{flex:1, margin:10, padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
-                                    <View style={{flex:1.5}}>
+                                    <View style={{flex:1}}>
                                         <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>AVAILABLE BALANCE</Text>
                                     </View>
                                     
@@ -76,11 +76,11 @@ class Overview extends Component {
                                             {dataResouces.energy_source === 'GRID' && <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image>}
                                         </View>
                                         
-                                        <Text style={{flex:1, fontSize:12}}>START TIME</Text>
+                                        <Text style={{flex:1, fontSize:11}}>START TIME</Text>
                                         
                                         <Text style={{flex:1, fontSize:8}}>{this.state.grid_start_time}</Text>
                                         
-                                        <Text style={{flex:1, fontSize:10}}>{this.state.grid_kwh} {dataResouces.reading_unit}</Text>
+                                        <Text style={{flex:1, fontWeight:'bold', fontSize:10}}>{this.state.grid_kwh} {dataResouces.reading_unit}</Text>
                                     </View>
                                     
                                     <View style={[{flex:1, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
@@ -89,9 +89,9 @@ class Overview extends Component {
                                             
                                             {dataResouces.energy_source === 'DG' && <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/RedLEDIcon.png")}></Image>}
                                         </View>
-                                        <Text style={{flex:1, fontSize:12}}>OFF</Text>
-                                        <Text style={{flex:1, fontSize:9}}></Text>
-                                        <Text style={{flex:1, fontSize:10}}>{this.state.dg_kwh} {dataResouces.reading_unit}</Text>
+                                        <Text style={{flex:1, fontSize:11}}>OFF</Text>
+                                        <Text style={{flex:1, fontSize:8}}></Text>
+                                        <Text style={{flex:1, fontWeight:'bold', fontSize:10}}>{this.state.dg_kwh} {dataResouces.reading_unit}</Text>
                                     </View>
                                 </View>
                                 
@@ -103,7 +103,7 @@ class Overview extends Component {
                                 </View>
 
                                 <View style={{flex:2,  alignItems:'center', justifyContent:'center'}}>
-                                    {gridPer && dgPer ? <Pie
+                                    {gridPer ? <Pie
                                         radius={50}
                                         innerRadius={25}
                                         sections={
@@ -122,7 +122,7 @@ class Overview extends Component {
                                         strokeCap={'butt'}
                                     />:null}
                                 </View>
-                                <View style={{flex:3, paddingLeft:20, paddingRight:20}}>
+                                <View style={{flex:3, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
                                     <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                                         <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
                                         
@@ -153,12 +153,12 @@ class Overview extends Component {
                                 </View>
                             </View>
                             
-                            <View style={[{flex:1, maxHeight:75, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                            <View style={[{flex:1, maxHeight:70, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                                 <View style={{flex:1, backgroundColor:kThemeBlueColor, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
                                     <Text style={{fontWeight:'bold', color:'#fff'}}>SECTIONED LOAD</Text>
                                 </View>
                                 
-                                <View style={{flex:2, marginRight:25, marginLeft:25}}>
+                                <View style={{flex:2, marginRight:25, marginLeft:25, alignItems:'center', justifyContent:'center'}}>
                                     <View style={{flex:1, flexDirection:'row'}}>
                                         <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
                                         

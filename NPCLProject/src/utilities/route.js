@@ -7,6 +7,7 @@ import Welcome from '../screens/welcome'
 import Login from '../screens/login'
 import AppRouteConfig from "../screens/app-route-config";
 import ConnectUs from "../screens/connect-us";
+import PasswordReset from "../screens/password-reset";
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,12 @@ const Route = () => {
               name="ConnectUs"
               component={ConnectUs}
               options={{ title: 'ConnectUs'}}
+          />
+
+          <Stack.Screen
+              name="PasswordReset"
+              component={PasswordReset}
+              options={{ title: 'Change Password'}}
           />
             
         </Stack.Navigator>

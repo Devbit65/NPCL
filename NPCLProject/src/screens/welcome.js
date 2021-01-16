@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     Image,
     ImageBackground,
-    Dimensions
 } from 'react-native';
 
 import ConnectWithUs from "../components/connectwithus";
@@ -38,7 +37,7 @@ class Welcome extends Component {
   render() {
       return (
           <View style={{ flex: 1}}>
-            <ImageBackground source={require('../resources/welcome_bg.png')} style={{width:Dimensions.get('window').width, height:Dimensions.get('window').height-20}} resizeMode={'cover'}>
+            <ImageBackground source={require('../resources/welcome_bg.png')} style={{flex:1}} resizeMode={'stretch'}>
             
               <NoticeHeader />
             

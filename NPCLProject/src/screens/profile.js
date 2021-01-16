@@ -83,8 +83,8 @@ class Profile extends Component {
                         </View>
                         <View style={{height:75}}>
                         </View>
-                        <Text style={{alignSelf:'center', fontSize:22, fontWeight:'bold'}}>{this.state.userName}</Text>
-                        
+                        <Text style={{ textAlign:'center', fontSize:20, padding:2, fontWeight:'bold'}}>{this.state.userName} {this.state.userName}</Text>
+
                         <View style={{flex:1, alignSelf:'center', alignItems:'center'}}>
                             <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
                                 <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}} >
@@ -128,7 +128,7 @@ class Profile extends Component {
                         </View>
                        
                         <View style={{alignItems:'center', justifyContent:'center'}}>
-                            <TouchableOpacity style={[{width:175, borderRadius:5, height:25, flexDirection:'row', alignItems:'center', justifyContent:'center', backgroundColor:'#fff'},style.cardShadow]} onPress={()=>this.onClickConnectUs('1')}>
+                            <TouchableOpacity style={[{width:175, borderRadius:5, height:25, flexDirection:'row', alignItems:'center', justifyContent:'center', backgroundColor:'#fff'},style.cardShadow]} onPress={()=>this.onClickConnectUs(this.userData.resource.site_support_contact_no)}>
                                 <Image style={{width:20, height:20, resizeMode:'center'}} source={require('../resources/help_support.png')} />
                                 <Text style={{fontSize:12}}>  Help & Support</Text>
                             </TouchableOpacity>
