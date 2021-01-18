@@ -73,7 +73,7 @@ export const fethchRechargeHistory = () => {
     });
 };
 
-export const fetchDailyReport = (month=1, year=2021) => {
+export const fetchDailyReport = (month, year) => {
   var userCred = new UserData().getUserCredential()
   var req_url = kDateWiseURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&month='+month+'&year='+year
   return fetch(req_url)
@@ -86,9 +86,22 @@ export const fetchDailyReport = (month=1, year=2021) => {
     });
 }
 
-export const fetchMonthlyReport = (year=2020) => {
+export const fetchMonthlyReport = (year) => {
   var userCred = new UserData().getUserCredential()
   var req_url = kMonthWiseURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&year='+year
+  return fetch(req_url)
+    .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+}
+
+export const fetchMonthlyComparativeReport = (month, year) => {
+  var userCred = new UserData().getUserCredential()
+  var req_url = kMonthWiseURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&month='+month+'&year='+year
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {

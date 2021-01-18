@@ -41,7 +41,7 @@ class Report extends Component {
     }
 
     onPressComparative() {
-        console.log("onPressComparative")
+        this.props.navigation.navigate("ReportChart",{ "period":"COMPARATIVE", "selecteDate":this.state.date })
     }
 
     onPressCurrentTarrif() {
