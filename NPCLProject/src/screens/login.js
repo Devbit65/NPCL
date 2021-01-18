@@ -48,7 +48,7 @@ class Login extends Component {
 
             this.spinner.stopActivity();
 
-            if(!response.message.includes('SUCCESS')){
+            if(response && !response.message.includes('SUCCESS')){
                 alert(response.message)
                 return;
             }
@@ -160,7 +160,7 @@ class Login extends Component {
                                 </TouchableOpacity>
                                 
                                 <TouchableOpacity onPress={()=>this.onClickForgotPassword()} >
-                                    <Text style={{ fontSize:8, marginTop:5, color:kThemeBlueColor}}>FORG0T PASSWORD?</Text>
+                                    <Text style={{ fontSize:8, marginTop:5, color:kThemeBlueColor}}>FORGOT PASSWORD?</Text>
                                 </TouchableOpacity>
                             </View>
                             

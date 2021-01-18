@@ -61,7 +61,6 @@ class CurrentTarrif extends Component {
         this.props.navigation.pop()
     }
     render() {
-        console.log(this.state.dataNotFound)
         return  <View style={{flex:1}}>
                     <View style={{flexDirection:'row'}}>
                         <TouchableOpacity onPress={()=>this.onPressBackButton()} style={{width:25, alignItems:'center', justifyContent:'center'}}>

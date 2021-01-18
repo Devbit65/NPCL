@@ -8,6 +8,7 @@ export default class UserData {
         if(!UserData.singletonObject ){
             this.userData = null
             this.userCred = null;
+            this.baseURL = null;
             UserData.singletonObject = this;
         }
         
@@ -33,11 +34,21 @@ export default class UserData {
     }
 
     setUserData(userData){
+        this.setBaseURL(userData.app_base_url)
+
         this.userData = userData;
     }
 
     getUserData(){
         return this.userData;
+    }
+
+    setBaseURL(url){
+        this.baseURL = url;
+    }
+
+    getBaseURL(){
+        return this.baseURL;
     }
 
     getUserName(){

@@ -74,7 +74,7 @@ class ReportChart extends Component {
         this.spinner.startActivity();
         fetchDailyReport(month, year)
         .then(response=>{
-            if(response.resource) {
+            if(response && response.resource) {
                 response.resource = response.resource.sort(this.GetSortOrder("date"))
                 var maxUnit = 0
                 var maxAmount = 0
@@ -115,22 +115,25 @@ class ReportChart extends Component {
         this.spinner.startActivity();
         fetchMonthlyReport(year)
         .then(response=>{
-            response.resource = response.resource.sort(this.GetSortOrder("date"))
-            var maxUnit = 0
-            var maxAmount = 0
-            for(var i=0; i<response.resource.length; i++){
-                if(Number(response.resource[i].grid_unit) > maxUnit)
-                    maxUnit = Number(response.resource[i].grid_unit)
+            if(response && response.resource){
 
-                if(Number(response.resource[i].grid_amt) > maxAmount)
-                    maxAmount = Number(response.resource[i].grid_amt)
-            }
-            this.chart1UnitYAxis = [0, maxUnit];
-            this.chart1AmountYAxis = [0, maxAmount];
-            if(response.resource) {
-                this.setState({
-                    chartData : response.resource
-                })
+                response.resource = response.resource.sort(this.GetSortOrder("date"))
+                var maxUnit = 0
+                var maxAmount = 0
+                for(var i=0; i<response.resource.length; i++){
+                    if(Number(response.resource[i].grid_unit) > maxUnit)
+                        maxUnit = Number(response.resource[i].grid_unit)
+
+                    if(Number(response.resource[i].grid_amt) > maxAmount)
+                        maxAmount = Number(response.resource[i].grid_amt)
+                }
+                this.chart1UnitYAxis = [0, maxUnit];
+                this.chart1AmountYAxis = [0, maxAmount];
+                if(response.resource) {
+                    this.setState({
+                        chartData : response.resource
+                    })
+                }
             }
             this.spinner.stopActivity();
         })
@@ -143,78 +146,84 @@ class ReportChart extends Component {
         var _this = this
         fetchMonthlyComparativeReport(month, year)
         .then(response=>{
-            _this.state.chartData.push(response.resource[0])
-            if(_this.state.chartData.length < 2) {
+            if(response && response.resource){
+                _this.state.chartData.push(response.resource[0])
+                if(_this.state.chartData.length < 2) {
 
-                year = Number(year)
-                year = year - 1
+                    year = Number(year)
+                    year = year - 1
 
-                _this.fetchComparativeReport(month, year)
-            }
-            else{
-                var data = {
-                        "Unit":[],
-                        "Amount":[]
-                    }
-                var maxUnit = 0
-                var maxAmount = 0
-                for(var i = 0; i<_this.state.chartData.length; i++){
-
-                    var unit =  Number(_this.state.chartData[i]["grid_unit"])
-                    var amount = Number(_this.state.chartData[i]["grid_amt"])
-                    if(unit > maxUnit)
-                        maxUnit = unit
-
-                    if(amount > maxAmount)
-                        maxAmount = amount
-                    data["Unit"] = [
-                        ...data["Unit"],
-                        {
-                            value:0,
-                        },
-                        {
-                            value:Number(_this.state.chartData[i]["grid_unit"]),
-                            svg: {
-                                fill: kThemeBlueColor,
-                            },
-                        },
-                        {
-                            value:Number(_this.state.chartData[i]["dg_unit"]),
-                            svg: {
-                                fill: kThemeRedColor
-                            },
-                        }
-                        
-                    ]
-
-                    data["Amount"] = [
-                        ...data["Amount"],
-                        {
-                            value:0,
-                        },
-                        {
-                            value:Number(_this.state.chartData[i]["grid_amt"]),
-                            svg: {
-                                fill: kThemeBlueColor,
-                            },
-                        },
-                        {
-                            value:Number(_this.state.chartData[i]["dg_amt"]),
-                            svg: {
-                                fill: kThemeRedColor
-                            },
-                        }
-                        
-                    ]
+                    _this.fetchComparativeReport(month, year)
                 }
-                this.chart1UnitYAxis = [0, maxUnit];
-                this.chart1AmountYAxis = [0, maxAmount];
-                _this.setState({
-                    chartData : data
-                },()=>{
-                    this.spinner.stopActivity();
-                }) 
+                else{
+                    var data = {
+                            "Unit":[],
+                            "Amount":[]
+                        }
+                    var maxUnit = 0
+                    var maxAmount = 0
+                    for(var i = 0; i<_this.state.chartData.length; i++){
+
+                        var unit =  Number(_this.state.chartData[i]["grid_unit"])
+                        var amount = Number(_this.state.chartData[i]["grid_amt"])
+                        if(unit > maxUnit)
+                            maxUnit = unit
+
+                        if(amount > maxAmount)
+                            maxAmount = amount
+                        data["Unit"] = [
+                            ...data["Unit"],
+                            {
+                                value:0,
+                            },
+                            {
+                                value:Number(_this.state.chartData[i]["grid_unit"]),
+                                svg: {
+                                    fill: kThemeBlueColor,
+                                },
+                            },
+                            {
+                                value:Number(_this.state.chartData[i]["dg_unit"]),
+                                svg: {
+                                    fill: kThemeRedColor
+                                },
+                            }
+                            
+                        ]
+
+                        data["Amount"] = [
+                            ...data["Amount"],
+                            {
+                                value:0,
+                            },
+                            {
+                                value:Number(_this.state.chartData[i]["grid_amt"]),
+                                svg: {
+                                    fill: kThemeBlueColor,
+                                },
+                            },
+                            {
+                                value:Number(_this.state.chartData[i]["dg_amt"]),
+                                svg: {
+                                    fill: kThemeRedColor
+                                },
+                            }
+                            
+                        ]
+                    }
+                    this.chart1UnitYAxis = [0, maxUnit];
+                    this.chart1AmountYAxis = [0, maxAmount];
+                    _this.setState({
+                        chartData : data
+                    },()=>{
+                        this.spinner.stopActivity();
+                    }) 
+                }
             }
+            else {
+                this.spinner.stopActivity();
+            }
+            
             
         })
 
