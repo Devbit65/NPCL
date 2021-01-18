@@ -45,7 +45,7 @@ class Report extends Component {
     }
 
     onPressCurrentTarrif() {
-        console.log("onPressCurrentTarrif")
+        this.props.navigation.navigate("CurrentTarrif")
     }
 
     onPressBillDownload() {

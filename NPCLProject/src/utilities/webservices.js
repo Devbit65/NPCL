@@ -111,3 +111,16 @@ export const fetchMonthlyComparativeReport = (month, year) => {
       return null
     });
 }
+
+export const fetchCurrentApplicableRates = () => {
+  var userCred = new UserData().getUserCredential()
+  var req_url = kCurrentRates+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  return fetch(req_url)
+    .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+};

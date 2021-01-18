@@ -11,6 +11,8 @@ import Notice from "../screens/notice";
 import Profile from "../screens/profile";
 import Settings from "../screens/settings";
 import ReportChart from "../screens/report-chart";
+import CurrentTarrif from "../screens/current-tarrif";
+
 
 
 const Stack = createStackNavigator();
@@ -44,6 +46,12 @@ class AppRoute extends Component {
                       name="ReportChart"
                       component={ReportChart}
                       options={{ title: 'ReportChart',headerShown: false }}
+                    />}
+
+                    {this.props.nextScreenIndex === 3 && <Stack.Screen
+                      name="CurrentTarrif"
+                      component={CurrentTarrif}
+                      options={{ title: 'CurrentTarrif',headerShown: false }}
                     />}
 
                     {this.props.nextScreenIndex === 4 && <Stack.Screen
