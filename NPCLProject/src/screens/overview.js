@@ -3,12 +3,15 @@ import {
     Text, 
     View,
     Image,
+    TouchableOpacity,
     StyleSheet
 } from 'react-native';
 
 import UserData from '../utilities/models/user-data'
 import Pie from 'react-native-pie'
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Spinner from '../components/activity-indicator'
+import {fethcLogin} from '../utilities/webservices'
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -35,6 +38,45 @@ class Overview extends Component {
             load_unit:dataResouces.load_unit,
             currency:dataResouces.currency
         }
+
+        this.spinner = new Spinner()
+    }
+
+
+
+    onRefreshClicked() {
+
+        this.spinner.startActivity();
+        fethcLogin()
+        .then(response=>{
+
+            this.spinner.stopActivity();
+
+            if(response && !response.message.includes('SUCCESS')){
+                alert(response.message)
+                return;
+            }
+
+            new UserData().setUserData(response);
+            this.userData = new UserData().getUserData();;
+
+            var dataResouces = this.userData.resource
+            this.setState({
+                balance_inr:Number(dataResouces.balance_amount).toFixed(2),
+                balance_updated_on:dataResouces.last_reading_updated,
+                grid_start_time:dataResouces.last_reading_updated_dg,
+                grid_kwh:Number(dataResouces.grid_reading).toFixed(2),
+                dg_kwh:Number(dataResouces.dg_reading).toFixed(2),
+                sectioned_grid:dataResouces.grid_sanctioned_load,
+                sectioned_dg:dataResouces.dg_sanctioned_load,
+                consumption_grid:dataResouces.monthly_grid_unit,
+                consumption_dg:dataResouces.monthly_dg_unit,
+                consumption_fixed_charged:dataResouces.fix_charges,
+                consumption_total:dataResouces.monthly_grid_amount,
+                load_unit:dataResouces.load_unit,
+                currency:dataResouces.currency
+            })
+        })
     }
 
     render() {
@@ -44,8 +86,13 @@ class Overview extends Component {
         var dgPer = dataResouces.daily_dg_unit*100/totalUnit
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     
-                    <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
-                        <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> OVERVIEW </Text>
+                    <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
+                        <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
+                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> OVERVIEW </Text>
+                        </View>
+                        <TouchableOpacity style={{ width:40, height:40, marginRight:10, alignItems:'center', justifyContent:'center'}} onPress={()=>this.onRefreshClicked()}>
+                            <Image style={{width:25, height:25, resizeMode:'stretch'}} source={require("../resources/Refresh_icon.png")}></Image>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={{flex:1}}>

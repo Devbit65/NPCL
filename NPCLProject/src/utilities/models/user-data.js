@@ -8,7 +8,7 @@ export default class UserData {
         if(!UserData.singletonObject ){
             this.userData = null
             this.userCred = null;
-            this.baseURL = null;
+            this.baseURL = "myxenius.com";
             UserData.singletonObject = this;
         }
         
@@ -34,8 +34,10 @@ export default class UserData {
     }
 
     setUserData(userData){
-        this.setBaseURL(userData.app_base_url)
+        if(userData){
 
+            this.setBaseURL(userData.app_base_url)
+        }
         this.userData = userData;
     }
 
@@ -44,7 +46,9 @@ export default class UserData {
     }
 
     setBaseURL(url){
-        this.baseURL = url;
+        if(url){
+            this.baseURL = url;
+        }
     }
 
     getBaseURL(){
@@ -52,6 +56,7 @@ export default class UserData {
     }
 
     getUserName(){
-        return this.userData.resource.consumer_name;
+
+        return this.userData ? this.userData.resource.consumer_name:"";
     }
 }

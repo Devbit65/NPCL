@@ -27,10 +27,10 @@ export const fethcLogin = () => {
   var userCred = userData.getUserCredential()
   
   var url = userData.getBaseURL()
-  if(url){
-    url = baseURL
+  if(!url.includes('https://')){
+    url = 'https://'+url
   }
-  var req_url = 'https://'+url+kLoginURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  var req_url = url+kLoginURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {
@@ -46,10 +46,10 @@ export const fethchMessages = () => {
   var userCred = userData.getUserCredential()
   
   var url = userData.getBaseURL()
-  if(url){
-    url = baseURL
+  if(!url.includes('https://')){
+    url = 'https://'+url
   }
-  var req_url = 'https://'+url+kMessageURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  var req_url = url+kMessageURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {
@@ -65,10 +65,10 @@ export const fethchNotice= () => {
   var userCred = userData.getUserCredential()
   
   var url = userData.getBaseURL()
-  if(url){
-    url = baseURL
+  if(!url.includes('https://')){
+    url = 'https://'+url
   }
-  var req_url = 'https://'+url+kNotice+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  var req_url = url+kNotice+'?login_id='+userCred.user_id+'&password='+userCred.pswd
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {
@@ -85,10 +85,10 @@ export const fethchRechargeHistory = () => {
   var userCred = userData.getUserCredential()
   
   var url = userData.getBaseURL()
-  if(url){
-    url = baseURL
+  if(!url.includes('https://')){
+    url = 'https://'+url
   }
-  var req_url = 'https://'+url+kHistory+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  var req_url = url+kHistory+'?login_id='+userCred.user_id+'&password='+userCred.pswd
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {
@@ -104,10 +104,10 @@ export const fetchDailyReport = (month, year) => {
   var userCred = userData.getUserCredential()
   
   var url = userData.getBaseURL()
-  if(url){
-    url = baseURL
+  if(!url.includes('https://')){
+    url = 'https://'+url
   }
-  var req_url = 'https://'+url+kDateWiseURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&month='+month+'&year='+year
+  var req_url = url+kDateWiseURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&month='+month+'&year='+year
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {
@@ -123,10 +123,10 @@ export const fetchMonthlyReport = (year) => {
   var userCred = userData.getUserCredential()
   
   var url = userData.getBaseURL()
-  if(url){
-    url = baseURL
+  if(!url.includes('https://')){
+    url = 'https://'+url
   }
-  var req_url = 'https://'+url+kMonthWiseURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&year='+year
+  var req_url = url+kMonthWiseURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&year='+year
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {
@@ -142,10 +142,10 @@ export const fetchMonthlyComparativeReport = (month, year) => {
   var userCred = userData.getUserCredential()
   
   var url = userData.getBaseURL()
-  if(url){
-    url = baseURL
+  if(!url.includes('https://')){
+    url = 'https://'+url
   }
-  var req_url = 'https://'+url+kMonthWiseURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&month='+month+'&year='+year
+  var req_url = url+kMonthWiseURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&month='+month+'&year='+year
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {
@@ -161,12 +161,33 @@ export const fetchCurrentApplicableRates = () => {
   var userCred = userData.getUserCredential()
   
   var url = userData.getBaseURL()
-  if(url){
-    url = baseURL
+  if(!url.includes('https://')){
+    url = 'https://'+url
   }
-  var req_url = 'https://'+url+kCurrentRates+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  var req_url = url+kCurrentRates+'?login_id='+userCred.user_id+'&password='+userCred.pswd
   return fetch(req_url)
     .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+};
+
+export const fetchSaveSettings = (data) => {
+  var userData = new UserData()
+  var userCred = userData.getUserCredential()
+  
+  var url = userData.getBaseURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+  var req_url = url+kNotificationURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&notification_app_load='+data.notification_app_load+'&notification_app_balance='+data.notification_app_balance+'&low_bal_alert='+data.low_bal_alert+'&notification_app_esource='+data.notification_app_esource+'&notification_app_unit_consumption='+data.notification_app_unit_consumption+'&alert_daily_consumption_grid='+data.alert_daily_consumption_grid+'&alert_daily_consumption_dg='+data.alert_daily_consumption_dg+'&grid_load_alarm='+data.grid_load_alarm+'&dg_load_alarm='+data.dg_load_alarm+'&notification_app_recharge='+data.recharge_notification+'&notification_power_cut_restore='+data.power_cut_restore_notification
+  return fetch(req_url)
+    .then((response) => {
+      return response.json()
+    })
     .then((json) => {
         return json;
     })
