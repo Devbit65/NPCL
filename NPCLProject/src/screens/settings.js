@@ -100,6 +100,7 @@ class Settings extends Component {
     }
 
     render() {
+        var isResetDisabled = this.isResetDisabled()
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     
                     <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
@@ -231,7 +232,7 @@ class Settings extends Component {
                         </View>
                     </View>
                     <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', }}>
-                        <TouchableOpacity disabled={this.isResetDisabled()} onPress={()=>this.resetData()} style={{margin:10, width:80, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
+                        <TouchableOpacity disabled={isResetDisabled} onPress={()=>this.resetData()} style={{margin:10, width:80, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5,opacity:isResetDisabled?0.5:1}}>
                             <Text style={{color:'#FFF', fontWeight:'bold'}}>RE-SET</Text>
                         </TouchableOpacity>
                         

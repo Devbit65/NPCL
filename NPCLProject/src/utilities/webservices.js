@@ -195,3 +195,85 @@ export const fetchSaveSettings = (data) => {
       return null
     });
 };
+
+
+export const fetchReSendOTP = (user_id) => {
+  var userData = new UserData()
+  
+  var url = userData.getBaseURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+  var req_url = url+kResendOTP+'?login_id='+user_id
+  return fetch(req_url)
+    .then((response) => {
+      return response.json()
+    })
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+};
+
+export const fetchVerifyOTP = (user_id, otp) => {
+  var userData = new UserData()
+  
+  var url = userData.getBaseURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+  var req_url = url+kVerifyOTP+'?login_id='+user_id+'&otp='+otp
+  return fetch(req_url)
+    .then((response) => {
+      return response.json()
+    })
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+};
+
+export const fetchChangePassword = (password, new_password) => {
+  var userData = new UserData()
+  var userCred = userData.getUserCredential()
+  
+  var url = userData.getBaseURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+  var req_url = url+kChangePasswordURl+'?login_id='+userCred.user_id+'&password='+password+'&new_password='+new_password
+  return fetch(req_url)
+    .then((response) => {
+      return response.json()
+    })
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+};
+
+export const fetchSetPassword = (user_id, password) => {
+  var userData = new UserData()
+  
+  var url = userData.getBaseURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+  var req_url = url+kSetPassword+'?login_id='+user_id+'&password='+password
+  return fetch(req_url)
+    .then((response) => {
+      return response.json()
+    })
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+};

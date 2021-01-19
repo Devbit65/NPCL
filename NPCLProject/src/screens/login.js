@@ -15,6 +15,7 @@ import {fethcLogin} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 import UserData from '../utilities/models/user-data'
 import * as Keychain from 'react-native-keychain';
+import {SCREENTYPE} from '../utilities/utilities-methods'
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -65,9 +66,9 @@ class Login extends Component {
         })
     }
     
-    onClickForgotPassword() {
+    onClickForgotPassword(type) {
         
-        this.props.navigation.navigate("PasswordReset", {'type':"FORGETPASSWORD"})
+        this.props.navigation.navigate("PasswordReset", {'type':type})
     }
 
     onClickConnectUs(value) {
@@ -159,9 +160,10 @@ class Login extends Component {
                                     <Text style={{color:'#FFF', fontWeight:'bold'}}>SIGN IN</Text>
                                 </TouchableOpacity>
                                 
-                                <TouchableOpacity onPress={()=>this.onClickForgotPassword()} >
+                                <TouchableOpacity onPress={()=>this.onClickForgotPassword(SCREENTYPE.FORGETPASSWORD)} >
                                     <Text style={{ fontSize:8, marginTop:5, color:kThemeBlueColor}}>FORGOT PASSWORD?</Text>
                                 </TouchableOpacity>
+
                             </View>
                             
                             <View style={{flex:1}}>

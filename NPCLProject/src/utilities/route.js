@@ -42,7 +42,7 @@ const Route = () => {
           <Stack.Screen
               name="PasswordReset"
               component={PasswordReset}
-              options={{ title: 'Change Password'}}
+              options={{ title: 'Change Password', headerShown: false }}
           />
             
         </Stack.Navigator>
