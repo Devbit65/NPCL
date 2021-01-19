@@ -9,7 +9,6 @@ import {
     Switch
 } from 'react-native';
 
-import NoticeHeader from "../components/notice-header";
 import UserData from '../utilities/models/user-data'
 import {fetchSaveSettings, fethcLogin} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
@@ -101,7 +100,6 @@ class Settings extends Component {
     }
 
     render() {
-        var dataResouces = this.userData.resource
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     
                     <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
