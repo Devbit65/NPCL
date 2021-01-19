@@ -84,7 +84,7 @@ class Profile extends Component {
                         </View>
                         <View style={{height:75}}>
                         </View>
-                        <Text style={{ textAlign:'center', fontSize:20, padding:2, fontWeight:'bold'}}>{this.state.userName} {this.state.userName}</Text>
+                        <Text style={{ textAlign:'center', fontSize:20, padding:2, fontWeight:'bold'}}>{this.state.userName}</Text>
 
                         <View style={{flex:1, alignSelf:'center', alignItems:'center'}}>
                             <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>

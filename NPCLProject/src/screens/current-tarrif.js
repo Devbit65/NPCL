@@ -6,7 +6,7 @@ import {
     View,
     TouchableOpacity,
     FlatList,
-    Image,
+    StyleSheet,
     webview
 } from 'react-native';
 
@@ -70,7 +70,7 @@ class CurrentTarrif extends Component {
                             <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:24}}> CURRENT TARRIF </Text>
                         </View>
                     </View>
-                    <View style={{ borderWidth:1, borderColor:kThemeBlueColor, margin:5, borderRadius:5, padding:5}}>
+                    <View style={[{ borderWidth:1, borderColor:kThemeBlueColor, margin:5, borderRadius:5, padding:5},style.cardShadow]}>
 
                         {this.state.tarifData ? <FlatList
                             data={this.state.tarifData}
@@ -97,5 +97,19 @@ class CurrentTarrif extends Component {
             </View>
     }
 }
+
+var style = StyleSheet.create({
+    cardShadow:{
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3,
+
+        elevation: 1,
+    }
+})
 
 export default CurrentTarrif;
