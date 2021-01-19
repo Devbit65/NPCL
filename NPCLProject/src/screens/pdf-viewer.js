@@ -44,7 +44,7 @@ class PDFViewer extends Component {
 
         const source = {uri:this.state.billURL,cache:true};
 
-        return  <View style={{flex:1}}>
+        return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     <View style={{ flex: 1, maxHeight:64, justifyContent:'center', flexDirection:'row', backgroundColor:'#fff'}} >
                         
                         <View style={{ flex: 1,}} >
