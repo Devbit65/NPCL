@@ -15,21 +15,29 @@ import {
 
 import Route from './src/utilities/route'
 import Spinner from './src/components/activity-indicator'
+import {createStore, applyMiddleware} from 'redux';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk'
+import reducer from './src/redux/reducer';
 
+const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
+const store = createStoreWithMiddleware(reducer);
 
 
 const App = () => {
   return (
-    <View style={{flex:1}}>
+    <Provider store={store}>
+      <View style={{flex:1}}>
+        
+        <StatusBar barStyle="dark-content" />
       
-      <StatusBar barStyle="dark-content" />
-    
-      <SafeAreaView  style={{flex:1}}>
-        <Route >
-        </Route>
-        <Spinner />
-      </SafeAreaView>
-    </View>
+        <SafeAreaView  style={{flex:1}}>
+          <Route >
+          </Route>
+          <Spinner />
+        </SafeAreaView>
+      </View>
+    </Provider>
   );
 };
 

@@ -2,12 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-    Text, 
     View,
-    TouchableOpacity,
-    TextInput,
-    Image,
-    webview
 } from 'react-native';
 
 import { WebView } from 'react-native-webview';

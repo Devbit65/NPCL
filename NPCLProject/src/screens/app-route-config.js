@@ -11,6 +11,10 @@ import UserData from '../utilities/models/user-data'
 import Icon from 'react-native-vector-icons/Entypo';
 import * as Keychain from 'react-native-keychain';
 
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../redux/action';
+
 class AppRouteConfig extends Component {
 
     constructor(props){
@@ -44,6 +48,12 @@ class AppRouteConfig extends Component {
         }
         
     }
+    componentDidUpdate() {
+
+        if(this.props.data && this.props.data.willShowPdfView) {
+            this.props.navigation.navigate("PDFViewer", {'url':this.props.data.date})
+        }
+    }
     render() {
         return (
             <View style={{ flex: 1, backgroundColor:'#fff'}} >
@@ -74,4 +84,15 @@ class AppRouteConfig extends Component {
     }
 }
 
-export default AppRouteConfig;
+
+function mapStateToProps(state) {
+    return {
+        data : state.appReducer.data
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) { 
+      return bindActionCreators(ActionCreators, dispatch); 
+  }
+  
+export default connect(mapStateToProps, mapDispatchToProps)(AppRouteConfig);

@@ -13,6 +13,11 @@ import moment from 'moment';
 
 import UserData from '../utilities/models/user-data'
 import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED, ACTION_NEUTRAL } from 'react-native-month-year-picker';
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../redux/action';
+
+
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -22,11 +27,11 @@ class Report extends Component {
     constructor(props) {
         super(props);
         this.userData = new UserData().getUserData();
-        var dataResouces = this.userData.resource
+        var dataResouces = this.userData ? this.userData.resource : null
         var curDate = moment(new Date()).format('DD-MMM-YYYY');
         
         this.state={
-            monthly_bill_enable : dataResouces.monthly_bill_enable, //'N'
+            monthly_bill_enable : dataResouces ? dataResouces.monthly_bill_enable : 'Y', //'N'
             date : curDate,
             willShowCallendar : false
         }
@@ -49,7 +54,7 @@ class Report extends Component {
     }
 
     onPressBillDownload() {
-        console.log("onPressBillDownload")
+        this.props.showPDFView(true, this.state.date)
     }
 
     onSelectDate(newDate) {
@@ -194,4 +199,15 @@ var style = StyleSheet.create({
     }
 })
 
-export default Report;
+
+function mapStateToProps(state) {
+    return {
+        
+    };  
+  }
+  
+  function mapDispatchToProps(dispatch) { 
+      return bindActionCreators(ActionCreators, dispatch); 
+  }
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Report);

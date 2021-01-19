@@ -8,6 +8,7 @@ import Login from '../screens/login'
 import AppRouteConfig from "../screens/app-route-config";
 import ConnectUs from "../screens/connect-us";
 import PasswordReset from "../screens/password-reset";
+import PDFViewer from "../screens/pdf-viewer";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,12 @@ const Route = () => {
               name="PasswordReset"
               component={PasswordReset}
               options={{ title: 'Forgot Password'}}
+          />
+
+          <Stack.Screen
+              name="PDFViewer"
+              component={PDFViewer}
+              options={{ title: 'PDFViewer', headerShown: false }}
           />
             
         </Stack.Navigator>

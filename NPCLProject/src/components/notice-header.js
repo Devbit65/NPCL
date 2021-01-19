@@ -18,8 +18,8 @@ class NoticeHeader extends Component {
         super(props)
         this.userData = new UserData().getUserData();
         this.state = {
-          unit:this.userData.resource.flat_number?this.userData.resource.flat_number:'--',
-          headerNoticeText : this.userData.resource.msg,
+          unit:this.userData && this.userData.resource.flat_number?this.userData.resource.flat_number:'--',
+          headerNoticeText : this.userData && this.userData.resource.msg?this.userData.resource.msg:'',
         }
       }
 

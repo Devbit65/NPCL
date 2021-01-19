@@ -1,0 +1,1 @@
+export const SHOW_PDF_VIEW = 'SHOW_PDF_VIEW'

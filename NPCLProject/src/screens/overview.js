@@ -22,22 +22,22 @@ class Overview extends Component {
         super(props);
         this.userData = new UserData().getUserData();
 
-        var dataResouces = this.userData.resource
+        var dataResouces = this.userData ? this.userData.resource:null
         this.state = {
-            balance_inr:Number(dataResouces.balance_amount).toFixed(2),
-            balance_updated_on:dataResouces.last_reading_updated,
-            grid_start_time:dataResouces.last_reading_updated_dg,
-            grid_kwh:Number(dataResouces.grid_reading).toFixed(2),
-            dg_kwh:Number(dataResouces.dg_reading).toFixed(2),
-            sectioned_grid:dataResouces.grid_sanctioned_load,
-            sectioned_dg:dataResouces.dg_sanctioned_load,
-            consumption_grid:dataResouces.monthly_grid_unit,
-            consumption_dg:dataResouces.monthly_dg_unit,
-            consumption_fixed_charged:dataResouces.fix_charges,
-            consumption_total:dataResouces.monthly_grid_amount,
-            load_unit:dataResouces.load_unit,
-            currency:dataResouces.currency,
-            willShowResetButton:(Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm))
+            balance_inr : dataResouces ? Number(dataResouces.balance_amount).toFixed(2) : "",
+            balance_updated_on : dataResouces ? dataResouces.last_reading_updated : '',
+            grid_start_time : dataResouces ? dataResouces.last_reading_updated_dg : '',
+            grid_kwh : dataResouces ? Number(dataResouces.grid_reading).toFixed(2) : '',
+            dg_kwh : dataResouces ? Number(dataResouces.dg_reading).toFixed(2) : '',
+            sectioned_grid : dataResouces ? dataResouces.grid_sanctioned_load : '',
+            sectioned_dg : dataResouces ? dataResouces.dg_sanctioned_load : '',
+            consumption_grid : dataResouces ? dataResouces.monthly_grid_unit : '',
+            consumption_dg : dataResouces ? dataResouces.monthly_dg_unit : '',
+            consumption_fixed_charged : dataResouces ? dataResouces.fix_charges : '',
+            consumption_total : dataResouces ? dataResouces.monthly_grid_amount : '',
+            load_unit : dataResouces ? dataResouces.load_unit : '',
+            currency : dataResouces ? dataResouces.currency : '',
+            willShowResetButton : dataResouces ? (Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm)) : ''
         }
 
         this.spinner = new Spinner()
@@ -137,10 +137,10 @@ class Overview extends Component {
     }
 
     render() {
-        var dataResouces = this.userData.resource
-        var totalUnit = Number(dataResouces.daily_dg_unit) + Number(dataResouces.daily_grid_unit)
-        var gridPer = dataResouces.daily_grid_unit*100/totalUnit
-        var dgPer = dataResouces.daily_dg_unit*100/totalUnit
+        var dataResouces = this.userData ? this.userData.resource : null
+        var totalUnit = dataResouces ? Number(dataResouces.daily_dg_unit) + Number(dataResouces.daily_grid_unit):0
+        var gridPer = dataResouces ? dataResouces.daily_grid_unit*100/totalUnit : 0
+        var dgPer = dataResouces ? dataResouces.daily_dg_unit*100/totalUnit : 0
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     
                     <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
@@ -161,7 +161,7 @@ class Overview extends Component {
                                     </View>
                                     
                                     <View style={{flex:1, flexDirection:'row'}}>
-                                        <Text style={{flex:1, color:kThemeRedColor, fontSize:12}}>{dataResouces.currency}</Text>
+                                        <Text style={{flex:1, color:kThemeRedColor, fontSize:12}}>{dataResouces ? dataResouces.currency : 'RS'}</Text>
                                         
                                         <Text style={{flex:1, color:kThemeRedColor, fontSize:12}}>{this.state.balance_inr}</Text>
                                     </View>
@@ -178,25 +178,25 @@ class Overview extends Component {
                                         <View style={{flexDirection:'row'}}>
                                             <Text style={{flex:1, fontWeight:'bold', color:kThemeBlueColor}}>GRID</Text>
                                             
-                                            {dataResouces.energy_source === 'GRID' && <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image>}
+                                            {dataResouces && dataResouces.energy_source === 'GRID' && <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image>}
                                         </View>
                                         
                                         <Text style={{flex:1, fontSize:11}}>START TIME</Text>
                                         
                                         <Text style={{flex:1, fontSize:8}}>{this.state.grid_start_time}</Text>
                                         
-                                        <Text style={{flex:1, fontWeight:'bold', fontSize:10}}>{this.state.grid_kwh} {dataResouces.reading_unit}</Text>
+                                        <Text style={{flex:1, fontWeight:'bold', fontSize:10}}>{this.state.grid_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
                                     </View>
                                     
                                     <View style={[{flex:1, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
                                         <View style={{flexDirection:'row'}}>
                                             <Text style={{flex:1, fontWeight:'bold', color:kThemeBlueColor}}>DG</Text>
                                             
-                                            {dataResouces.energy_source === 'DG' && <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/RedLEDIcon.png")}></Image>}
+                                            {dataResouces && dataResouces.energy_source === 'DG' && <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/RedLEDIcon.png")}></Image>}
                                         </View>
                                         <Text style={{flex:1, fontSize:11}}>OFF</Text>
                                         <Text style={{flex:1, fontSize:8}}></Text>
-                                        <Text style={{flex:1, fontWeight:'bold', fontSize:10}}>{this.state.dg_kwh} {dataResouces.reading_unit}</Text>
+                                        <Text style={{flex:1, fontWeight:'bold', fontSize:10}}>{this.state.dg_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
                                     </View>
                                 </View>
                                 
@@ -264,7 +264,7 @@ class Overview extends Component {
                                     <View style={{flex:0.5, flexDirection:'row'}}>
                                         <Text style={{flex:1, fontSize:12}}></Text>
                                         
-                                        <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {dataResouces.currency}</Text>
+                                        <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {dataResouces ? dataResouces.currency : 'RS'}</Text>
                                     </View>
                                 </View>
                             </View>
@@ -296,7 +296,7 @@ class Overview extends Component {
                                 </View>
                             </View>
                         </View>
-                        {this.state.willShowResetButton && <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', position:'absolute', bottom:0 }}>
+                        {this.state.willShowResetButton ? <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', position:'absolute', bottom:0 }}>
                             <TouchableOpacity onPress={()=>this.cancelReset()} style={{margin:10, width:80, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
                                 <Text style={{color:'#FFF', fontWeight:'bold'}}>CANCEL</Text>
                             </TouchableOpacity>
@@ -304,7 +304,7 @@ class Overview extends Component {
                             <TouchableOpacity onPress={()=>this.verifyBalance()} style={{margin:10, width:80, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
                                 <Text style={{color:'#FFF', fontWeight:'bold'}}>RE-STORE</Text>
                             </TouchableOpacity>
-                        </View>}
+                        </View>:null}
                     </View>
                     
                 </View>
