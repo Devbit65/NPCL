@@ -318,3 +318,16 @@ export const fetchVerifyBalance = () => {
       return null
     });
 }
+
+export const fetchMonthlyBillURL = (month, year) => {
+
+  var userData = new UserData()
+  var userCred = userData.getUserCredential()
+  
+  var url = userData.getBaseURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+  var req_url = url+kMonthlyBill+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&month='+month+'&year='+year
+  return req_url
+}

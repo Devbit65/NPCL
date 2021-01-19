@@ -100,7 +100,6 @@ class Overview extends Component {
             else{
                 
                 var balance = Number(response.message)
-                console.log(balance)
                 if(balance < 0){
                     alert("Unable to Re-store due to low balance !!!")
                 }

@@ -3,11 +3,16 @@ import React, { Component } from 'react';
 import {
     View,
     TouchableOpacity,
-    Text
+    Text,
+    StyleSheet,
 } from 'react-native';
 
 import NoticeHeader from "../components/notice-header";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Pdf from 'react-native-pdf';
+import UserData from '../utilities/models/user-data'
+import {fetchMonthlyBillURL} from '../utilities/webservices'
+import Spinner from '../components/activity-indicator'
 
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
@@ -23,20 +28,22 @@ class PDFViewer extends Component {
 
         const { params } = this.props.route;
         var curDate = params["url"]
-        var dateArray = curDate.split('-')
-        var newDate = {day:dateArray[0], month:dateArray[1], year:dateArray[2]}
-        
-        console.log("newDate ",newDate)
+        var newDate = new Date(curDate)        
         this.state = {
-            month :newDate.month,
-            year : newDate.year
+            billURL : fetchMonthlyBillURL(newDate.getMonth()+1, newDate.getFullYear())
         }
+        this.userData = new UserData().getUserData();
+        this.spinner = new Spinner()
+        this.spinner.startActivity()
     }
     onPressBackButton() {
         this.props.showPDFView(false)
         this.props.navigation.pop()
     }
     render(){
+
+        const source = {uri:this.state.billURL,cache:true};
+
         return  <View style={{flex:1}}>
                     <View style={{ flex: 1, maxHeight:64, justifyContent:'center', flexDirection:'row', backgroundColor:'#fff'}} >
                         
@@ -56,10 +63,39 @@ class PDFViewer extends Component {
                                 </View>
                             </View>
                         </View>
+                        <View style={{flex:1}}>
+                            <Pdf
+                                source={source}
+                                onLoadComplete={(numberOfPages,filePath)=>{
+                                    this.spinner.stopActivity()
+                                }}
+                                onPageChanged={(page,numberOfPages)=>{
+                                }}
+                                onError={(error)=>{
+                                    this.spinner.stopActivity()
+                                }}
+                                onPressLink={(uri)=>{
+                                }}
+                                style={styles.pdf}/>
+                        </View>
                     </View>
                 </View>
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginTop: 25,
+    },
+    pdf: {
+        flex:1,
+        width:'100%',
+        height:'100%'
+    }
+});
 
 function mapStateToProps(state) {
     return {
