@@ -11,7 +11,7 @@ import UserData from '../utilities/models/user-data'
 import Pie from 'react-native-pie'
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Spinner from '../components/activity-indicator'
-import {fethcLogin} from '../utilities/webservices'
+import {fethcLogin, fetchVerifyBalance, fetchRestoreAPI} from '../utilities/webservices'
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -36,7 +36,8 @@ class Overview extends Component {
             consumption_fixed_charged:dataResouces.fix_charges,
             consumption_total:dataResouces.monthly_grid_amount,
             load_unit:dataResouces.load_unit,
-            currency:dataResouces.currency
+            currency:dataResouces.currency,
+            willShowResetButton:(Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm))
         }
 
         this.spinner = new Spinner()
@@ -76,6 +77,62 @@ class Overview extends Component {
                 load_unit:dataResouces.load_unit,
                 currency:dataResouces.currency
             })
+        })
+    }
+
+    cancelReset() {
+
+        this.setState({
+            willShowResetButton : false
+        })
+    }
+
+    verifyBalance() {
+
+        this.spinner.startActivity();
+        fetchVerifyBalance()
+        .then(response=>{
+
+            if(response.rc === -1) {
+                var msg = response.message
+                alert(msg)
+            }
+            else{
+                
+                var balance = Number(response.message)
+                console.log(balance)
+                if(balance < 0){
+                    alert("Unable to Re-store due to low balance !!!")
+                }
+                else {
+                    this.restoreApi()
+                }
+            }
+            this.spinner.stopActivity();
+        })
+        .catch(error=>{
+            alert('Data not found')
+            this.spinner.stopActivity();
+        })
+    }
+
+    restoreApi() {
+
+        this.spinner.startActivity();
+        fetchRestoreAPI()
+        .then(response=>{
+
+            var msg = response.message
+            alert(msg)
+            this.setState({
+                willShowResetButton:false
+            })
+
+            this.spinner.stopActivity();
+        })
+        .catch(error=>{
+            alert('Data not found')
+            this.spinner.stopActivity();
         })
     }
 
@@ -239,6 +296,15 @@ class Overview extends Component {
                                 </View>
                             </View>
                         </View>
+                        {this.state.willShowResetButton && <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', position:'absolute', bottom:0 }}>
+                            <TouchableOpacity onPress={()=>this.cancelReset()} style={{margin:10, width:80, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
+                                <Text style={{color:'#FFF', fontWeight:'bold'}}>CANCEL</Text>
+                            </TouchableOpacity>
+                            
+                            <TouchableOpacity onPress={()=>this.verifyBalance()} style={{margin:10, width:80, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
+                                <Text style={{color:'#FFF', fontWeight:'bold'}}>RE-STORE</Text>
+                            </TouchableOpacity>
+                        </View>}
                     </View>
                     
                 </View>

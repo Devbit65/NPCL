@@ -277,3 +277,44 @@ export const fetchSetPassword = (user_id, password) => {
       return null
     });
 };
+
+export const fetchRestoreAPI = () => {
+
+  var userData = new UserData()
+  var userCred = userData.getUserCredential()
+  
+  var url = userData.getBaseURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+  var req_url = url+kRestoreAPI+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  return fetch(req_url)
+    .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+};
+
+
+export const fetchVerifyBalance = () => {
+
+  var userData = new UserData()
+  var userCred = userData.getUserCredential()
+  
+  var url = userData.getBaseURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+  var req_url = url+kVerifyBalance+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  return fetch(req_url)
+    .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+}
