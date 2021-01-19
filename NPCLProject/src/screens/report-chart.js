@@ -74,7 +74,7 @@ class ReportChart extends Component {
         this.spinner.startActivity();
         fetchDailyReport(month, year)
         .then(response=>{
-            if(response && response.resource) {
+            if(response && response.rc === 0 && response.resource) {
                 response.resource = response.resource.sort(this.GetSortOrder("date"))
                 var maxUnit = 0
                 var maxAmount = 0
@@ -91,10 +91,14 @@ class ReportChart extends Component {
                     chartData : response.resource
                 })
             }
+            else {
+                var msg = response.message
+                alert(msg)
+            }
             this.spinner.stopActivity();
         })
         .catch(error=>{
-
+            alert('Data not found')
         })
 
     }
@@ -115,7 +119,7 @@ class ReportChart extends Component {
         this.spinner.startActivity();
         fetchMonthlyReport(year)
         .then(response=>{
-            if(response && response.resource){
+            if(response && response.rc === 0 && response.resource){
 
                 response.resource = response.resource.sort(this.GetSortOrder("date"))
                 var maxUnit = 0
@@ -135,7 +139,14 @@ class ReportChart extends Component {
                     })
                 }
             }
+            else {
+                var msg = response.message
+                alert(msg)
+            }
             this.spinner.stopActivity();
+        })
+        .catch(error=>{
+            alert('Data not found')
         })
 
     }
@@ -146,7 +157,7 @@ class ReportChart extends Component {
         var _this = this
         fetchMonthlyComparativeReport(month, year)
         .then(response=>{
-            if(response && response.resource){
+            if(response && response.rc === 0 && response.resource){
                 _this.state.chartData.push(response.resource[0])
                 if(_this.state.chartData.length < 2) {
 
@@ -221,12 +232,15 @@ class ReportChart extends Component {
                 }
             }
             else {
+                var msg = response.message
+                alert(msg)
                 this.spinner.stopActivity();
             }
-            
-            
         })
-
+        .catch(error=>{
+            alert('Data not found')
+            this.spinner.stopActivity();
+        })
     }
 
     getDailyMonthlyReportChart(keys) {

@@ -12,7 +12,7 @@ import Profile from "../screens/profile";
 import Settings from "../screens/settings";
 import ReportChart from "../screens/report-chart";
 import CurrentTarrif from "../screens/current-tarrif";
-
+import PasswordReset from "../screens/password-reset";
 
 
 const Stack = createStackNavigator();
@@ -64,6 +64,12 @@ class AppRoute extends Component {
                         name="Profile"
                         component={Profile}
                         options={{ title: 'Profile',headerShown: false }}
+                    />}
+
+                    {this.props.nextScreenIndex === 5 && <Stack.Screen
+                        name="PasswordReset"
+                        component={PasswordReset}
+                        options={{ title: 'Change Password', headerShown: false }}
                     />}
 
                     {this.props.nextScreenIndex === 6 && <Stack.Screen

@@ -47,13 +47,21 @@ class Recharge extends Component {
         fethchRechargeHistory()
         .then(response=>{
 
-            var history = this.parseHistory(response.resource)
-            this.setState({
-                history : history
-            })
+            if(response.rc === 0){
+                var history = this.parseHistory(response.resource)
+                this.setState({
+                    history : history
+                })
+            }
+            else{
+                var msg = response.message
+                alert(msg)
+            }
+            
             this.spinner.stopActivity();
         })
         .catch(error=>{
+            alert('Data not found')
             this.spinner.stopActivity();
         })
 

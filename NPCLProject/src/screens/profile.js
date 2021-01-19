@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import UserData from '../utilities/models/user-data'
+import {SCREENTYPE} from '../utilities/utilities-methods'
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -37,7 +38,7 @@ class Profile extends Component {
     }
     
     onClickForgotPassword() {
-        Alert.alert('In-Progress');
+        this.props.navigation.navigate("PasswordReset", {'type':SCREENTYPE.CHANGEPASSWORD})
     }
 
     onClickConnectUs(phone) {
