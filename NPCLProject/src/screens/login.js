@@ -7,6 +7,8 @@ import {
     TextInput,
     Image,
     ImageBackground,
+    BackHandler,
+    Alert
 } from 'react-native';
 
 import ConnectWithUs from "../components/connectwithus";
@@ -31,10 +33,31 @@ class Login extends Component {
         }
         this.spinner = new Spinner()
         this.userData = new UserData()
+
+        this.backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            this.backAction.bind(this)
+        );
     }
 
     componentDidMount() {
         this.getCredFromKeyChain()
+    }
+
+
+    backAction() {
+        if(this.props.navigation.isFocused()){
+
+            Alert.alert("Warning!", "Are you sure you want to exit the App?", [
+                {
+                  text: "Cancel",
+                  onPress: () => null,
+                  style: "cancel"
+                },
+                { text: "YES", onPress: () => BackHandler.exitApp() }
+              ]);
+        }
+        return true;
     }
 
     onClickLogin() {
@@ -59,7 +82,10 @@ class Login extends Component {
 
             this.userData.setUserData(response)
 
-            this.props.navigation.navigate("Welcome")
+            this.props.navigation.reset({
+                index: 0,
+                routes: [{ name: 'Welcome' }]
+            })
             
             this.saveCredToKeyChain();
             this.setState({

@@ -27,7 +27,10 @@ class Welcome extends Component {
 
   onClickGetStarted() {
 
-    this.props.navigation.navigate("AppRouteConfig")
+    this.props.navigation.reset({
+      index: 0,
+      routes: [{ name: 'AppRouteConfig' }]
+    })
   }
 
   onClickConnectUs(value) {

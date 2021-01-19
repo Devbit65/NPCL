@@ -42,7 +42,10 @@ class AppRouteConfig extends Component {
             const credentials = await Keychain.resetGenericPassword();
             var userData = new UserData()
             userData.setUserData(null)
-            this.props.navigation.navigate("Login")
+            this.props.navigation.reset({
+                index: 0,
+                routes: [{ name: 'Login' }]
+              })
                 
         } catch (error) {
         }
