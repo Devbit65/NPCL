@@ -16,7 +16,9 @@ import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED, ACTION_NEUTRAL } from '
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import { ActionCreators } from '../redux/action';
-
+import {fetchMonthlyBillURL} from '../utilities/webservices'
+import Spinner from '../components/activity-indicator'
+import RNFetchBlob from 'rn-fetch-blob'
 
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
@@ -35,6 +37,7 @@ class Report extends Component {
             date : curDate,
             willShowCallendar : false
         }
+        this.spinner = new Spinner()
     }
 
     onPressDaily() {
@@ -54,7 +57,51 @@ class Report extends Component {
     }
 
     onPressBillDownload() {
-        this.props.showPDFView(true, this.state.date)
+        this.spinner.startActivity();
+
+        const newDate = new Date(this.state.date)  
+        const month = newDate.getMonth()+1
+        const year = newDate.getFullYear()
+        const monthlyBillURL = fetchMonthlyBillURL(month, year)
+        
+        const pdfName = "monthly_bill_"+month+"_"+year+".pdf"
+
+        const { dirs } = RNFetchBlob.fs;
+        const dirToSave = Platform.OS == 'ios' ? dirs.DocumentDir : dirs.DownloadDir
+        const configfb = {
+            fileCache: true,
+            useDownloadManager: true,
+            notification: true,
+            mediaScannable: true,
+            title: pdfName,
+            path: `${dirToSave}/${pdfName}`,
+        }
+        const configOptions = Platform.select({
+            ios: {
+                fileCache: configfb.fileCache,
+                title: configfb.title,
+                path: configfb.path,
+                appendExt: 'pdf',
+            },
+            android: configfb,
+        });
+        RNFetchBlob
+        .config(configOptions)
+        .fetch('GET', monthlyBillURL, {
+            //some headers ..
+        })
+        .progress({ count : 20 },(received, total) => {
+            
+        })
+        .then((res) => {
+            alert("Bill downloaded successfully.")
+            this.props.showPDFView(true, res.path())
+            console.log('The file saved to ', res.path())
+        })
+        .catch((error)=>{
+            alert("Unable to download bill for Month : "+month+" Year : "+year+". Please try again.")
+        })
+
     }
 
     onSelectDate(newDate) {
