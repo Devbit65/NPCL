@@ -12,6 +12,11 @@ import {
 import UserData from '../utilities/models/user-data'
 import {fetchSaveSettings, fethcLogin} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
+import { INITIATE_REFRESH } from '../redux/constants';
+
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../redux/action';
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -97,6 +102,21 @@ class Settings extends Component {
         .then(response=>{
             this.resetData()
         })
+    }
+
+    componentDidUpdate() {
+
+        if(this.props.data) {
+            switch (this.props.data.type) {
+                case INITIATE_REFRESH:
+                    this.resetData()
+                    this.props.onRefreshInitiated()
+                    break;
+            
+                default:
+                    break;
+            }
+        }
     }
 
     render() {
@@ -244,4 +264,14 @@ class Settings extends Component {
     }
 }
 
-export default Settings;
+function mapStateToProps(state) {
+    return {
+        data : state.appReducer.data
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) { 
+      return bindActionCreators(ActionCreators, dispatch); 
+  }
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

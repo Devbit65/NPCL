@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import {
     Text, 
     View,
-    TouchableOpacity,
-    Image,
     FlatList,
     StyleSheet
 } from 'react-native';
 
 import {fethchMessages} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
+import { INITIATE_REFRESH } from '../redux/constants';
+
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../redux/action';
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -26,6 +29,11 @@ class EventLogging extends Component {
 
     componentDidMount(){
 
+        this.fethchMessages()
+    }
+
+    fethchMessages() {
+
         this.spinner.startActivity();
         fethchMessages()
         .then(response=>{
@@ -39,7 +47,6 @@ class EventLogging extends Component {
         .catch(error=>{
             this.spinner.stopActivity();
         })
-
     }
 
     parseMessages(messages){
@@ -65,6 +72,21 @@ class EventLogging extends Component {
             logMessages.push(logData)
         }
         return logMessages;
+    }
+
+    componentDidUpdate() {
+
+        if(this.props.data) {
+            switch (this.props.data.type) {
+                case INITIATE_REFRESH:
+                    this.fethchMessages()
+                    this.props.onRefreshInitiated()
+                    break;
+            
+                default:
+                    break;
+            }
+        }
     }
 
     render() {
@@ -118,4 +140,14 @@ var style = StyleSheet.create({
     }
 })
 
-export default EventLogging;
+function mapStateToProps(state) {
+    return {
+        data : state.appReducer.data
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) { 
+      return bindActionCreators(ActionCreators, dispatch); 
+  }
+  
+export default connect(mapStateToProps, mapDispatchToProps)(EventLogging);

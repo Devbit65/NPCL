@@ -12,6 +12,11 @@ import UserData from '../utilities/models/user-data'
 import {fetchDailyReport, fetchMonthlyReport, fetchMonthlyComparativeReport} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { INITIATE_REFRESH } from '../redux/constants';
+
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../redux/action';
 
 import { StackedAreaChart, YAxis, XAxis, Grid, BarChart } from 'react-native-svg-charts'
 import * as shape from 'd3-shape'
@@ -348,6 +353,21 @@ class ReportChart extends Component {
         }
       }
 
+    componentDidUpdate() {
+
+        if(this.props.data) {
+            switch (this.props.data.type) {
+                case INITIATE_REFRESH:
+                    this.fetchReport(this.state.date)
+                    this.props.onRefreshInitiated()
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+    }
+
     render(){
         var dataResouces = this.userData.resource
         const contentInset = { bottom: 20 }
@@ -464,4 +484,14 @@ var style = StyleSheet.create({
     }
 })
 
-export default ReportChart;
+function mapStateToProps(state) {
+    return {
+        data : state.appReducer.data
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) { 
+      return bindActionCreators(ActionCreators, dispatch); 
+  }
+  
+export default connect(mapStateToProps, mapDispatchToProps)(ReportChart);

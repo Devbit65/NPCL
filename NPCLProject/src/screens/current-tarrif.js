@@ -7,13 +7,16 @@ import {
     TouchableOpacity,
     FlatList,
     StyleSheet,
-    webview
 } from 'react-native';
 
-import { WebView } from 'react-native-webview';
 import Spinner from '../components/activity-indicator'
 import {fetchCurrentApplicableRates} from '../utilities/webservices'
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { INITIATE_REFRESH } from '../redux/constants';
+
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../redux/action';
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -28,12 +31,12 @@ class CurrentTarrif extends Component {
         }
 
         this.spinner = new Spinner()
-        this.spinner.startActivity()
         this.fetchCurrentApplicableRates()
     }
 
     fetchCurrentApplicableRates() {
         
+        this.spinner.startActivity()
         fetchCurrentApplicableRates()
         .then(response=>{
             this.spinner.stopActivity();
@@ -43,7 +46,7 @@ class CurrentTarrif extends Component {
                 }
                 this.setState({
                     tarifData : response.resource
-                })
+                },()=>{console.log("Done")})
             }
             else{
                 this.setState({
@@ -60,6 +63,22 @@ class CurrentTarrif extends Component {
     onPressBackButton() {
         this.props.navigation.pop()
     }
+
+    componentDidUpdate() {
+
+        if(this.props.data) {
+            switch (this.props.data.type) {
+                case INITIATE_REFRESH:
+                    this.fetchCurrentApplicableRates()
+                    this.props.onRefreshInitiated()
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+    }
+
     render() {
         return  <View style={{flex:1}}>
                     <View style={{flexDirection:'row'}}>
@@ -112,4 +131,14 @@ var style = StyleSheet.create({
     }
 })
 
-export default CurrentTarrif;
+function mapStateToProps(state) {
+    return {
+        data : state.appReducer.data
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) { 
+      return bindActionCreators(ActionCreators, dispatch); 
+  }
+  
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentTarrif);

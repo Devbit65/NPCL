@@ -7,11 +7,13 @@ import {
     FlatList
 } from 'react-native';
 
-import NoticeHeader from "../components/notice-header";
-
-import * as Utilities from "../utilities/utilities-methods";
 import {fethchNotice} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
+import { INITIATE_REFRESH } from '../redux/constants';
+
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { ActionCreators } from '../redux/action';
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -27,6 +29,11 @@ class Notice extends Component {
     }
 
     componentDidMount(){
+        this.fetchNotice()
+    }
+
+    fetchNotice() {
+
         this.spinner.startActivity();
         fethchNotice()
         .then(response=>{
@@ -36,6 +43,21 @@ class Notice extends Component {
             })
             this.spinner.stopActivity();
         })
+    }
+
+    componentDidUpdate() {
+
+        if(this.props.data) {
+            switch (this.props.data.type) {
+                case INITIATE_REFRESH:
+                    this.fetchNotice()
+                    this.props.onRefreshInitiated()
+                    break;
+            
+                default:
+                    break;
+            }
+        }
     }
 
     render() {
@@ -76,4 +98,14 @@ class Notice extends Component {
     }
 }
 
-export default Notice;
+function mapStateToProps(state) {
+    return {
+        data : state.appReducer.data
+    };
+  }
+  
+  function mapDispatchToProps(dispatch) { 
+      return bindActionCreators(ActionCreators, dispatch); 
+  }
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Notice);
