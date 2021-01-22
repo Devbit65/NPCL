@@ -6,7 +6,8 @@ import {
     Image,
     StyleSheet,
     Modal,
-    Platform
+    Platform,
+    PermissionsAndroid
 } from 'react-native';
 
 import moment from 'moment';
@@ -56,7 +57,43 @@ class Report extends Component {
         this.props.navigation.navigate("CurrentTarrif")
     }
 
-    onPressBillDownload() {
+    async onPressBillDownload() {
+
+        if(Platform.OS === 'android'){
+
+            try {
+                const READ_PERMISSION = PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE
+                const WRITE_PERMISSION = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
+                
+                const granted = await PermissionsAndroid.requestMultiple(
+                        [
+                            READ_PERMISSION,
+                            WRITE_PERMISSION
+                        ]
+                        
+                    // {
+                    //     title: "App need Storage Permission",
+                    //     message:
+                    //     "App need you device storage permesion " +
+                    //     "so you can download monthly bill.",
+                    //     buttonNeutral: "Ask Me Later",
+                    //     buttonNegative: "Cancel",
+                    //     buttonPositive: "OK"
+                    // }
+                );
+                if (granted[READ_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED && granted[WRITE_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED) {
+                    console.log("Permission Granted");
+                } else {
+                    
+                    console.log("permission denied ");
+                    return;
+                }
+            } catch (err) {
+                console.warn(err);
+                return;
+            }
+        }
+
         this.spinner.startActivity();
 
         const newDate = new Date(this.state.date)  
