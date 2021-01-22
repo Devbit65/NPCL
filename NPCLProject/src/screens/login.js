@@ -73,6 +73,7 @@ class Login extends Component {
             this.spinner.stopActivity();
             if(!response){
                 alert("Unable to login into App !!!")
+                return;
             }
 
             if(response && !response.message.includes('SUCCESS')){

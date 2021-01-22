@@ -100,8 +100,9 @@ class Report extends Component {
         const month = newDate.getMonth()+1
         const year = newDate.getFullYear()
         const monthlyBillURL = fetchMonthlyBillURL(month, year)
+        var dateArray = this.state.date.split('-')
         
-        const pdfName = "monthly_bill_"+month+"_"+year+".pdf"
+        const pdfName = "Monthly_Bill_"+dateArray[1]+"_"+year+".pdf"
 
         const { dirs } = RNFetchBlob.fs;
         const dirToSave = Platform.OS == 'ios' ? dirs.DocumentDir : dirs.DownloadDir
@@ -131,11 +132,25 @@ class Report extends Component {
             
         })
         .then((res) => {
+            var newPath =  res.path()
+            if(Platform.OS === 'android'){
+
+                RNFetchBlob.android.addCompleteDownload({
+                    title: pdfName,
+                    description: pdfName,
+                    mime: 'application/pdf',
+                    path: newPath,
+                    showNotification: true
+                })
+            }
+            
             alert("Bill downloaded successfully.")
-            this.props.showPDFView(true, res.path())
-            console.log('The file saved to ', res.path())
+            this.props.showPDFView(true, newPath)
+            console.log('The file saved to ', newPath)
         })
         .catch((error)=>{
+            this.spinner.stopActivity()
+            console.log("error ",error)
             alert("Unable to download bill for Month : "+month+" Year : "+year+". Please try again.")
         })
 
