@@ -27,14 +27,8 @@ class PDFViewer extends Component {
         super(props);
 
         const { params } = this.props.route;
-        // var curDate = params["url"]
-        // var newDate = new Date(curDate)        
-        // this.state = {
-        //     billURL : fetchMonthlyBillURL(newDate.getMonth()+1, newDate.getFullYear())
-        // }
-
         this.state = {
-            billURL : params["url"]
+            billURL : params["pdfURL"]
         }
         this.userData = new UserData().getUserData();
         this.spinner = new Spinner()

@@ -82,10 +82,8 @@ class Report extends Component {
                     // }
                 );
                 if (granted[READ_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED && granted[WRITE_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED) {
-                    console.log("Permission Granted");
                 } else {
                     
-                    console.log("permission denied ");
                     return;
                 }
             } catch (err) {
@@ -146,11 +144,9 @@ class Report extends Component {
             
             alert("Bill downloaded successfully.")
             this.props.showPDFView(true, newPath)
-            console.log('The file saved to ', newPath)
         })
         .catch((error)=>{
             this.spinner.stopActivity()
-            console.log("error ",error)
             alert("Unable to download bill for Month : "+month+" Year : "+year+". Please try again.")
         })
 

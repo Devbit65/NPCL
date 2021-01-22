@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import {
     View,
+    ScrollView,
+    RefreshControl
 } from 'react-native';
 
 import SideMenu from "../components/side-menu";
@@ -10,6 +12,8 @@ import NoticeHeader from "../components/notice-header";
 import UserData from '../utilities/models/user-data'
 import Icon from 'react-native-vector-icons/Entypo';
 import * as Keychain from 'react-native-keychain';
+import { SHOW_PDF_VIEW } from '../redux/constants';
+import Spinner from '../components/activity-indicator'
 
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
@@ -21,8 +25,10 @@ class AppRouteConfig extends Component {
         super(props)
         
         this.state = {
-            menuIndex : 1
+            menuIndex : 1,
+            refreshing:false
         }
+        this.spinner = new Spinner()
     }
     navigateToNext(menuIndex){
         if(menuIndex === 8){
@@ -53,12 +59,36 @@ class AppRouteConfig extends Component {
     }
     componentDidUpdate() {
 
-        if(this.props.data && this.props.data.willShowPdfView) {
-            this.props.navigation.navigate("PDFViewer", {'url':this.props.data.date})
+        if(this.props.data) {
+            switch (this.props.data.type) {
+                case SHOW_PDF_VIEW:
+                    
+                    if(this.props.data.willShowPdfView) {
+                        this.props.navigation.navigate("PDFViewer", {'pdfURL':this.props.data.pdfURL})
+                    }
+                    break;
+            
+                default:
+                    break;
+            }
         }
     }
+
+    onRefreshing() {
+
+        this.setState({
+          refreshing:false
+        },()=>this.props.inInitiateRefresh())
+        
+      }
     render() {
         return (
+            <ScrollView
+            contentContainerStyle={{flex:1}}
+            refreshControl={
+              <RefreshControl refreshing={this.state.refreshing} onRefresh={this.onRefreshing.bind(this)} />
+            }
+          >
             <View style={{ flex: 1, backgroundColor:'#fff'}} >
 
                 <View style={{ flex: 1, maxHeight:64, justifyContent:'center', flexDirection:'row', backgroundColor:'#fff'}} >
@@ -83,6 +113,7 @@ class AppRouteConfig extends Component {
                     </View>  
                 </View>   
             </View> 
+            </ScrollView>
         )
     }
 }
