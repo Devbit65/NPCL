@@ -253,6 +253,7 @@ class ReportChart extends Component {
         const contentInset = { bottom: 20 }
         return  <View style={{ flex:1, flexDirection:'row'}}>
                     <YAxis
+                        style={{width:25}}
                         data={keys[1] === 'grid_unit' ? this.chart1UnitYAxis : this.chart1AmountYAxis}
                         contentInset={contentInset}
                         svg={{
@@ -293,6 +294,7 @@ class ReportChart extends Component {
         return (
             <View style={{ flex:1, flexDirection:'row'}}>
                 <YAxis
+                    style={{width:25}}
                     data={key === 'Unit' ? this.chart1UnitYAxis : this.chart1AmountYAxis}
                     contentInset={contentInset}
                     svg={{
@@ -379,7 +381,22 @@ class ReportChart extends Component {
             newDate = {day:dateArray[0], month:dateArray[1], year:dateArray[2]}
         }
 
-        return  <View style={{flex:1, backgroundColor:'#fff'}}>
+        return  <View 
+                    style={{flex:1, backgroundColor:'#fff'}} 
+                    onLayout={(e)=>{{
+                        var chartData = this.state.chartData
+                        this.spinner.startActivity()
+                        this.setState({
+                            chartData:[]
+                        },()=>{
+                            this.setState({
+                                chartData:chartData
+                            },()=>{
+                                this.spinner.stopActivity()
+                            }) 
+                        })
+                    }}}
+                >
                     <View style={{margin:5, alignItems:'flex-start', justifyContent:'center', backgroundColor:'#fff'}}>
                         <View style={{flexDirection:'row'}}>
                             <TouchableOpacity onPress={()=>this.onPressBackButton()} style={{width:25, alignItems:'center', justifyContent:'center'}}>
@@ -403,7 +420,9 @@ class ReportChart extends Component {
                     <View style={{flex:1, backgroundColor:'#fff'}}>
 
                         <View style={[{ flex:1, margin:15, padding:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
-                            <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> GRID CONSUMPTION </Text>
+                            <View style={{width:'100%', height:20, alignItems:'center', justifyContent:'center'}}>
+                                <Text style={{ color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> GRID CONSUMPTION </Text>
+                            </View>
                             <View style={{flex:1}}>
                                 {this.state.chartData && this.state.period === "COMPARATIVE"? this.getComparativeReportChart("Unit"):this.state.chartData.length>0 ?this.getDailyMonthlyReportChart(['dg_unit','grid_unit']):null}
                             </View>

@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import {
     View,
     ScrollView,
-    RefreshControl
+    RefreshControl,
+    TouchableOpacity
 } from 'react-native';
 
 import SideMenu from "../components/side-menu";
@@ -26,7 +27,8 @@ class AppRouteConfig extends Component {
         
         this.state = {
             menuIndex : 1,
-            refreshing:false
+            refreshing:false,
+            willShowSideMenu:true
         }
         this.spinner = new Spinner()
     }
@@ -81,6 +83,12 @@ class AppRouteConfig extends Component {
         },()=>this.props.inInitiateRefresh())
         
       }
+
+    onPressHamburgerMenu() {
+        this.setState({
+            willShowSideMenu:!this.state.willShowSideMenu
+        })
+    }
     render() {
         return (
             <ScrollView
@@ -93,16 +101,25 @@ class AppRouteConfig extends Component {
 
                 <View style={{ flex: 1, maxHeight:64, justifyContent:'center', flexDirection:'row', backgroundColor:'#fff'}} >
                 
-                    <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
-                        <Icon size={30} name="menu" color="#fff" />
+                    {this.state.willShowSideMenu && <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
+                        <TouchableOpacity style={{flex:1, alignItems:'center', justifyContent:'center', position:'absolute'}} onPress={()=>this.onPressHamburgerMenu()}>
+                            <Icon size={30} name="menu" color="#fff" />
+                        </TouchableOpacity>
 
-                    </View>
+                    </View>} 
                     <View style={{ flex: 1,}} >
+                     
                         <NoticeHeader />
+                        {!this.state.willShowSideMenu &&<View style={{ width:50,  position:'absolute'}} >
+                            <TouchableOpacity style={{flex:1, alignItems:'center', justifyContent:'center'}} onPress={()=>this.onPressHamburgerMenu()}>
+                                <Icon size={30} name="menu" color="#134571" />
+                            </TouchableOpacity>
+
+                        </View>}
                     </View>
                 </View>
                 <View style={{ flex: 1, flexDirection:'row', backgroundColor:'#fff'}} >
-                    <View style={{ flex: 1, width:100, backgroundColor:'#fff'}} >
+                    <View style={{ flex: 1, maxWidth:this.state.willShowSideMenu? 100 : 0, backgroundColor:'#fff'}} >
                         <SideMenu navigateToNext={this.navigateToNext.bind(this)}/>
                     </View>
                     
