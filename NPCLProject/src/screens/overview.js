@@ -160,6 +160,7 @@ class Overview extends Component {
         var totalUnit = dataResouces ? Number(dataResouces.daily_dg_unit) + Number(dataResouces.daily_grid_unit):0
         var gridPer = dataResouces ? dataResouces.daily_grid_unit*100/totalUnit : 0
         var dgPer = dataResouces ? dataResouces.daily_dg_unit*100/totalUnit : 0
+        var emptyGraph = gridPer > 0 ? 0 : 100;
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     
                     <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
@@ -241,18 +242,33 @@ class Overview extends Component {
                                                     color:kThemeRedColor,
                                                 },
                                             
-                                        ]}
-                                        dividerSize={2}
-                                        strokeCap={'butt'}
-                                    />:null}
+                                            ]}
+                                            dividerSize={2}
+                                            strokeCap={'butt'}
+                                        />
+                                    :   <Pie
+                                            radius={50}
+                                            innerRadius={25}
+                                            sections={
+                                                [
+                                                
+                                                    {
+                                                        percentage: emptyGraph,
+                                                        color:"#D3D3D3",
+                                                    }
+                                                
+                                            ]}
+                                            dividerSize={2}
+                                            strokeCap={'butt'}
+                                        />}
                                      <View style={{flexDirection:'row'}}>
                                         <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                            <Icon size={10} name="check-box-outline-blank" color={kThemeBlueColor} />
-                                            <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', textAlign:'center'}}> GRID </Text>
+                                            <Icon size={9} name="check-box-outline-blank" color={kThemeBlueColor} />
+                                            <Text style={{color:kThemeBlueColor, fontSize:8, alignSelf:'center', textAlign:'center'}}> GRID({Number(dataResouces.daily_grid_unit).toFixed(2)} {this.state.load_unit}) </Text>
                                         </View>
                                         <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                            <Icon size={10} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
-                                            <Text style={{color:kThemeRedColor, fontSize:9, alignSelf:'center', textAlign:'center'}}> DG </Text>
+                                            <Icon size={9} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
+                                            <Text style={{color:kThemeRedColor, fontSize:8, alignSelf:'center', textAlign:'center'}}> DG({Number(dataResouces.daily_dg_unit).toExponential(2)} {this.state.load_unit}) </Text>
                                         </View>
                                     </View>
 

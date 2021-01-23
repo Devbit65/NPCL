@@ -33,8 +33,8 @@ class PasswordReset extends Component {
             logId:"",
             registeredMobile:"",
             screenType : params["type"],
-            otp:''
-
+            otp:'',
+            submitBtnTitle :params["type"] === SCREENTYPE.FORGETPASSWORD ? "SEND OTP" : 'SUBMIT'
         }
     }
 
@@ -82,7 +82,8 @@ class PasswordReset extends Component {
                 var msg = response.message
                 alert(msg)
                 this.setState({
-                    screenType : SCREENTYPE.VERIFYOTP
+                    screenType : SCREENTYPE.VERIFYOTP,
+                    submitBtnTitle:"VERIFY OTP"
                 })
             }
             this.spinner.stopActivity();
@@ -105,7 +106,8 @@ class PasswordReset extends Component {
                 var msg = response.message
                 alert(msg)
                 this.setState({
-                    screenType : SCREENTYPE.SETNEWPASSWORD
+                    screenType : SCREENTYPE.SETNEWPASSWORD,
+                    submitBtnTitle:"SET PASSWORD"
                 })
             }
             this.spinner.stopActivity();
@@ -175,9 +177,8 @@ class PasswordReset extends Component {
                                 
                             </View>
                             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                                <View style={[{width:225, height:200, backgroundColor:'#FFF', borderRadius:5},style.cardShadow]}>
-
-                                    <View style={{flex:3}}>
+                                <View style={{ flex:1, alignItems:'center', justifyContent:'center'}}>
+                                    <View style={[{width:225, backgroundColor:'#FFF', borderRadius:5}, style.cardShadow]}>
                                         <View style={{margin:25, }}>
                                             <Text style={{ fontSize:10, color:kThemeBlueColor}}>Password</Text>
                                             <TextInput
@@ -190,7 +191,7 @@ class PasswordReset extends Component {
                                             />
                                         </View>
 
-                                        <View style={{margin:25,}}>
+                                        <View style={{margin:25, marginTop:0}}>
                                             <Text style={{ fontSize:10, color:kThemeBlueColor}}>New Password</Text>
                                             <TextInput
                                                 style={{paddingLeft:5, fontSize:11, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
@@ -201,12 +202,13 @@ class PasswordReset extends Component {
                                                 defaultValue={this.state.newPassword}
                                             />
                                         </View>
-                                    </View>
-                                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                                        <TouchableOpacity onPress={()=>this.onSubmitPress()} style={{width:150, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
-                                            <Text style={{color:'#FFF', fontWeight:'bold'}}>SUBMIT</Text>
-                                        </TouchableOpacity>
-                                        
+                                    
+                                        <View style={{ alignItems:'center', justifyContent:'center', margin:25, marginTop:0}}>
+                                            <TouchableOpacity onPress={()=>this.onSubmitPress()} style={{width:150, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
+                                                <Text style={{color:'#FFF', fontWeight:'bold'}}>SUBMIT</Text>
+                                            </TouchableOpacity>
+                                            
+                                        </View>
                                     </View>
                                 </View>
                             </View>
@@ -214,10 +216,10 @@ class PasswordReset extends Component {
                         <ImageBackground source={require('../resources/login_page_bg.png')} style={{width:Dimensions.get('window').width, height:Dimensions.get('screen').height-64}} resizeMode={'cover'}>
 
                             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                                <View style={[{width:225, height:200, backgroundColor:'#FFF', borderRadius:5}, style.cardShadow]}>
+                                <View style={{ flex:1, alignItems:'center', justifyContent:'center'}}>
+                                    <View style={[{width:225, backgroundColor:'#FFF', borderRadius:5}, style.cardShadow]}>
 
-                                    <View style={{flex:3}}>
-                                        <View style={{margin:25,   marginTop:30,}}>
+                                        <View style={{margin:25,}}>
                                             <Text style={{ fontSize:10, color:kThemeBlueColor}}>LOGIN ID</Text>
                                             <TextInput
                                                 style={{paddingLeft:5, fontSize:11, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
@@ -252,15 +254,14 @@ class PasswordReset extends Component {
                                                 defaultValue={this.state.newPassword}
                                             />
                                         </View>}
-                                    </View>
-                                    
-                                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                                        <TouchableOpacity onPress={()=>this.onSubmitPress()} style={{width:150, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
-                                            <Text style={{color:'#FFF', fontWeight:'bold'}}>SUBMIT</Text>
-                                        </TouchableOpacity>
                                         
+                                        <View style={{margin:25, marginTop:0, alignItems:'center', justifyContent:'center'}}>
+                                            <TouchableOpacity onPress={()=>this.onSubmitPress()} style={{width:150, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
+                                                <Text style={{color:'#FFF', fontWeight:'bold'}}>{this.state.submitBtnTitle}</Text>
+                                            </TouchableOpacity>
+                                            
+                                        </View>
                                     </View>
-                                    
                                 </View>
                             </View>
                         </ImageBackground>
