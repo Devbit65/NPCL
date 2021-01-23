@@ -9,6 +9,7 @@ import AppRouteConfig from "../screens/app-route-config";
 import ConnectUs from "../screens/connect-us";
 import PasswordReset from "../screens/password-reset";
 import PDFViewer from "../screens/pdf-viewer";
+import Payment from "../screens/payment";
 
 const Stack = createStackNavigator();
 
@@ -51,7 +52,12 @@ const Route = () => {
               component={PDFViewer}
               options={{ title: 'PDFViewer', headerShown: false }}
           />
-            
+
+          <Stack.Screen
+              name="Payment"
+              component={Payment}
+              options={{ title: 'Payment', headerShown: false }}
+          />
         </Stack.Navigator>
     </NavigationContainer>
   );

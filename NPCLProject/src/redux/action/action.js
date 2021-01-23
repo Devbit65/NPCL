@@ -1,4 +1,4 @@
-import { SHOW_PDF_VIEW, REFRESH_INITIATED, INITIATE_REFRESH} from '../constants';
+import { SHOW_PDF_VIEW, REFRESH_INITIATED, INITIATE_REFRESH, SHOW_PAYMENT_VIEW} from '../constants';
 export function showPDFView(willShowPdfView, pdfURL) {
     return {
         type: SHOW_PDF_VIEW,
@@ -6,6 +6,17 @@ export function showPDFView(willShowPdfView, pdfURL) {
             type: SHOW_PDF_VIEW,
             willShowPdfView:willShowPdfView,
             pdfURL:pdfURL
+        }
+    }
+}
+
+export function showPaymentView(willShowPaymentView, paymentURL) {
+    return {
+        type: SHOW_PAYMENT_VIEW,
+        payload: {
+            type: SHOW_PAYMENT_VIEW,
+            willShowPaymentView:willShowPaymentView,
+            paymentURL:paymentURL
         }
     }
 }

@@ -1,11 +1,13 @@
-import { SHOW_PDF_VIEW, REFRESH_INITIATED, INITIATE_REFRESH } from '../constants';
+import { SHOW_PDF_VIEW, REFRESH_INITIATED, INITIATE_REFRESH, SHOW_PAYMENT_VIEW } from '../constants';
 const initialState = {
-    willShowPDFView: false
+    willShowPDFView: false,
+    willShowPaymentView: false
 };
 
 const appReducer = (state = initialState, action) => {
 switch(action.type) {
     case SHOW_PDF_VIEW :
+    case SHOW_PAYMENT_VIEW :
     case REFRESH_INITIATED :
     case INITIATE_REFRESH :
         return {

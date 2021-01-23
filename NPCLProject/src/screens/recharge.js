@@ -41,6 +41,7 @@ class Recharge extends Component {
             isOpenCoupon:false,
             couponAmout:null,
             rechargeAmount:null,
+            paymentMethod:null
         }
     }
 
@@ -118,9 +119,32 @@ class Recharge extends Component {
     }
 
     payByOnline() {
-        console.log("payByOnline")
+        var url = ''
+        var dataResouces = this.userData.resource
+        switch (this.state.paymentMethod) {
+            case "PAYTM":
+                    url = dataResouces.paytm_mobile_url  
+                break;
+            case "MOBIKWIK":
+                    url = dataResouces.mobikwik_mobile_url  
+                break;
+            case "HDFC":
+                    url = dataResouces.paytm_mobile_url  
+                break;
+                
+            default:
+                break;
+        }
+
+        this.props.showPaymentView(true, url)
     }
 
+    onSelectPaymentMethod(paymentMethod) {
+
+        this.setState({
+            paymentMethod:paymentMethod
+        })
+    }
     componentDidUpdate() {
 
         if(this.props.data) {
@@ -137,6 +161,37 @@ class Recharge extends Component {
     }
 
     render() {
+        var isPaytmEnabled = false
+        var isMobikwikEnabled = false
+        var isHDFCEnabled = false
+        if(this.userData && this.userData.resource) {
+
+            var dataResouces = this.userData.resource
+            isPaytmEnabled = dataResouces.pg_enable_paytm === 'Y'
+            isMobikwikEnabled = dataResouces.pg_enable_mobikwik === 'Y'
+            isHDFCEnabled = dataResouces.pg_enable_hdfc === 'Y'
+        }
+
+        var onlineViewHeight = 75
+        if(this.state.isOpenOnline) {
+            if(isPaytmEnabled) {
+                onlineViewHeight+=15   
+            }
+
+            if(isMobikwikEnabled) {
+                onlineViewHeight+=15   
+            }
+
+            if(isHDFCEnabled) {
+                onlineViewHeight+=15   
+            }
+            
+        }
+        else {
+            onlineViewHeight = 30
+        }
+        
+        
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
                         <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> RECHARGE </Text>
@@ -162,7 +217,7 @@ class Recharge extends Component {
                             </View>
                         </View>
 
-                        <View style={[{flex:1, maxHeight:this.state.isOpenOnline?75 : 30, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)', borderColor:kThemeBlueColor, borderWidth:1}, style.cardShadow]}>
+                        <View style={[{flex:1, maxHeight:this.state.isOpenOnline?onlineViewHeight : 30, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)', borderColor:kThemeBlueColor, borderWidth:1}, style.cardShadow]}>
                             
                             <View style={{ padding:5, backgroundColor:kThemeBlueColor, alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
                                 <Text style={{flex:1, fontWeight:'bold', color:'#fff'}}>ONLINE</Text>
@@ -173,20 +228,26 @@ class Recharge extends Component {
 
                             {this.state.isOpenOnline && <View style={{flex:2,  flexDirection:'row'}}>
                                 
-                                <View style={{flex:1,alignItems:'center', justifyContent:'center'}}>
-                                    <TextInput
-                                        style={{paddingLeft:5, fontSize:11, width:100, height: 25, borderWidth:0.5, borderRadius:5, paddingLeft:5, paddingRight:5, fontSize:10, padding:0}}
-                                        textAlign={'left'}
-                                        placeholder="ENTER AMOUNT"
-                                        placeholderTextColor={"#000"}
-                                        onChangeText={text => this.setState({couponAmout:text})}
-                                        defaultValue={this.state.userid}
-                                    />
+                                <View style={{flex:1,alignItems:'flex-start', justifyContent:'center', margin:10}}>
+                                    {isPaytmEnabled && <TouchableOpacity onPress={()=>this.onSelectPaymentMethod("PAYTM")} style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                        <Icon size={15} name={this.state.paymentMethod === "PAYTM" ? "radiobox-marked" : "radiobox-blank"}  color={kThemeBlueColor} />
+                                        <Text style={{marginLeft:5}}>PAYTM</Text>
+                                    </TouchableOpacity>}
+                                    {isMobikwikEnabled && <TouchableOpacity onPress={()=>this.onSelectPaymentMethod("MOBIKWIK")} style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                        <Icon size={15} name={this.state.paymentMethod === "MOBIKWIK" ? "radiobox-marked" : "radiobox-blank"}   color={kThemeBlueColor} />
+                                        <Text style={{marginLeft:5}}>MOBIKWIK</Text>
+                                    </TouchableOpacity>}
+                                    {isHDFCEnabled && <TouchableOpacity onPress={()=>this.onSelectPaymentMethod("HDFC")} style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                        <Icon size={15} name={this.state.paymentMethod === "HDFC" ? "radiobox-marked" : "radiobox-blank"}   color={kThemeBlueColor} />
+                                        <Text style={{marginLeft:5}}>HDFC</Text>
+                                    </TouchableOpacity>}
                                 </View>
 
                                 <View style={{flex:1,alignItems:'center', justifyContent:'center',}}>
-                                    <TouchableOpacity onPress={()=>this.payByOnline()} style={{width:60, height:25, backgroundColor:kThemeBlueColor, alignItems:'center', justifyContent:'center', borderRadius:5}}>
-                                        <Text style={{color:'#fff'}}>PAY</Text>
+                                    <TouchableOpacity onPress={()=>this.payByOnline()} disabled={this.state.paymentMethod === null} style={{ width:60, height:25, backgroundColor:kThemeBlueColor, borderRadius:5,}}>
+                                        <View style={{flex:1, opacity:this.state.paymentMethod?1:0.5, alignItems:'center', justifyContent:'center',}}>
+                                            <Text style={{color:'#fff'}}>PAY</Text>
+                                        </View>
                                     </TouchableOpacity>
                                 </View>
                             </View>}
@@ -215,8 +276,10 @@ class Recharge extends Component {
                                 </View>
 
                                 <View style={{flex:1,alignItems:'center', justifyContent:'center',}}>
-                                    <TouchableOpacity onPress={()=>this.payByCoupon()} style={{width:60, height:25, backgroundColor:kThemeRedColor, alignItems:'center', justifyContent:'center', borderRadius:5}}>
-                                        <Text style={{color:'#fff'}}>PAY</Text>
+                                    <TouchableOpacity onPress={()=>this.payByCoupon()} style={{width:60, height:25, backgroundColor:kThemeRedColor, borderRadius:5}}>
+                                        <View style={{flex:1, alignItems:'center', justifyContent:'center',}}>
+                                            <Text style={{color:'#fff'}}>PAY</Text>
+                                        </View>
                                     </TouchableOpacity>
                                 </View>
                             </View>}

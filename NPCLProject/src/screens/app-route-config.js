@@ -13,7 +13,7 @@ import NoticeHeader from "../components/notice-header";
 import UserData from '../utilities/models/user-data'
 import Icon from 'react-native-vector-icons/Entypo';
 import * as Keychain from 'react-native-keychain';
-import { SHOW_PDF_VIEW } from '../redux/constants';
+import { SHOW_PDF_VIEW, SHOW_PAYMENT_VIEW } from '../redux/constants';
 import Spinner from '../components/activity-indicator'
 
 import {bindActionCreators} from 'redux';
@@ -67,6 +67,13 @@ class AppRouteConfig extends Component {
                     
                     if(this.props.data.willShowPdfView) {
                         this.props.navigation.navigate("PDFViewer", {'pdfURL':this.props.data.pdfURL})
+                    }
+                    break;
+                
+                case SHOW_PAYMENT_VIEW:
+                
+                    if(this.props.data.willShowPaymentView) {
+                        this.props.navigation.navigate("Payment", {'paymentURL':this.props.data.paymentURL})
                     }
                     break;
             
