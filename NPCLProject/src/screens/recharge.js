@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import UserData from '../utilities/models/user-data'
-import {fethchRechargeHistory} from '../utilities/webservices'
+import {fethchRechargeHistory, payByCoupon} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -114,8 +114,20 @@ class Recharge extends Component {
         })
     }
 
-    payByCoupon() {
-        alert("In-Progress")
+    payByCoupon(couponAmout) {
+        this.spinner.startActivity();
+        payByCoupon(couponAmout)
+        .then(response=>{
+
+            var msg = response.message
+            alert(msg)
+
+            this.spinner.stopActivity();
+        })
+        .catch(error=>{
+            alert('Data not found')
+            this.spinner.stopActivity();
+        })
     }
 
     payByOnline() {
@@ -249,18 +261,18 @@ class Recharge extends Component {
                                 
                                 <View style={{flex:1,alignItems:'center', justifyContent:'center'}}>
                                     <TextInput
-                                        style={{paddingLeft:5, fontSize:11, width:100, height: 25, borderWidth:0.5, borderRadius:5, paddingLeft:5, paddingRight:5, fontSize:10, padding:0}}
+                                        style={{paddingLeft:10, fontSize:11, width:120, height: 25, borderWidth:0.5, borderRadius:5, paddingLeft:5, paddingRight:5, fontSize:10, padding:0, borderColor:kThemeRedColor,}}
                                         textAlign={'left'}
-                                        placeholder="ENTER AMOUNT"
+                                        placeholder="ENTER COUPON-ID"
                                         placeholderTextColor={"#000"}
                                         onChangeText={text => this.setState({couponAmout:text})}
-                                        defaultValue={this.state.userid}
+                                        defaultValue={this.state.couponAmout}
                                     />
                                 </View>
 
                                 <View style={{flex:1,alignItems:'center', justifyContent:'center',}}>
-                                    <TouchableOpacity onPress={()=>this.payByCoupon()} style={{width:60, height:25, backgroundColor:kThemeRedColor, borderRadius:5}}>
-                                        <View style={{flex:1, alignItems:'center', justifyContent:'center',}}>
+                                    <TouchableOpacity disabled={this.state.couponAmout === null || this.state.couponAmout === ''} onPress={()=>this.payByCoupon(this.state.couponAmout)} style={{width:60, height:25, backgroundColor:kThemeRedColor, borderRadius:5}}>
+                                        <View style={{flex:1, opacity:this.state.couponAmout?1:0.5, alignItems:'center', justifyContent:'center',}}>
                                             <Text style={{color:'#fff'}}>PAY</Text>
                                         </View>
                                     </TouchableOpacity>

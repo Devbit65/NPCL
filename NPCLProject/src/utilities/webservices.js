@@ -336,3 +336,23 @@ export const fetchMonthlyBillURL = (month, year) => {
   var req_url = url+kMonthlyBill+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&month='+month+'&year='+year
   return req_url
 }
+
+export const payByCoupon = (coupon) => {
+
+  var userData = new UserData()
+  var userCred = userData.getUserCredential()
+  
+  var url = userData.getBaseURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+  var req_url = url+kRechargeCouponURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&coupon_id='+coupon
+  return fetch(req_url)
+    .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+}
