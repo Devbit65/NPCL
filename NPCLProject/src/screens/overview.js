@@ -268,7 +268,7 @@ class Overview extends Component {
                                         </View>
                                         <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                                             <Icon size={9} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
-                                            <Text style={{color:kThemeRedColor, fontSize:8, alignSelf:'center', textAlign:'center'}}> DG({Number(dataResouces.daily_dg_unit).toExponential(2)} {this.state.load_unit}) </Text>
+                                            <Text style={{color:kThemeRedColor, fontSize:8, alignSelf:'center', textAlign:'center'}}> DG({Number(dataResouces.daily_dg_unit).toFixed(2)} {this.state.load_unit}) </Text>
                                         </View>
                                     </View>
 
