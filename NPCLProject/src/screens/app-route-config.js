@@ -73,7 +73,7 @@ class AppRouteConfig extends Component {
                 case SHOW_PAYMENT_VIEW:
                 
                     if(this.props.data.willShowPaymentView) {
-                        this.props.navigation.navigate("Payment", {'paymentURL':this.props.data.paymentURL})
+                        this.props.navigation.navigate("Payment", {'paymentMethod':this.props.data.paymentMethod})
                     }
                     break;
             

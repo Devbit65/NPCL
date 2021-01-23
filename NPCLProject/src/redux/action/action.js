@@ -10,13 +10,13 @@ export function showPDFView(willShowPdfView, pdfURL) {
     }
 }
 
-export function showPaymentView(willShowPaymentView, paymentURL) {
+export function showPaymentView(willShowPaymentView, paymentMethod) {
     return {
         type: SHOW_PAYMENT_VIEW,
         payload: {
             type: SHOW_PAYMENT_VIEW,
             willShowPaymentView:willShowPaymentView,
-            paymentURL:paymentURL
+            paymentMethod:paymentMethod
         }
     }
 }

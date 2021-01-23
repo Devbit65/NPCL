@@ -115,28 +115,11 @@ class Recharge extends Component {
     }
 
     payByCoupon() {
-        console.log("payByCoupon")
+        alert("In-Progress")
     }
 
     payByOnline() {
-        var url = ''
-        var dataResouces = this.userData.resource
-        switch (this.state.paymentMethod) {
-            case "PAYTM":
-                    url = dataResouces.paytm_mobile_url  
-                break;
-            case "MOBIKWIK":
-                    url = dataResouces.mobikwik_mobile_url  
-                break;
-            case "HDFC":
-                    url = dataResouces.paytm_mobile_url  
-                break;
-                
-            default:
-                break;
-        }
-
-        this.props.showPaymentView(true, url)
+        this.props.showPaymentView(true, this.state.paymentMethod)
     }
 
     onSelectPaymentMethod(paymentMethod) {
