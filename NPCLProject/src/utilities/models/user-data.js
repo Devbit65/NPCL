@@ -8,12 +8,21 @@ export default class UserData {
         if(!UserData.singletonObject ){
             this.userData = null
             this.userCred = null;
+            this.deviceToken = null;
             this.baseURL = "myxenius.com";
             UserData.singletonObject = this;
         }
         
         return UserData.singletonObject;
         
+    }
+
+    setDeviceToken(deviceToken){
+        this.deviceToken = deviceToken
+    }
+
+    getDeviceToken(){
+        return this.deviceToken
     }
 
     setUserCredential(user_id, pswd){

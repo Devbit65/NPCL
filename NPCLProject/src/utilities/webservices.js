@@ -20,17 +20,22 @@ const kMonthlyBill = "/thirdparty/api/report"
 
 const baseURL = "myxenius.com"
 
+import { Platform } from 'react-native'
 import UserData from '../utilities/models/user-data'
 
 export const fethcLogin = () => {
   var userData = new UserData()
   var userCred = userData.getUserCredential()
+  var devToken = userData.getDeviceToken()
   
   var url = userData.getBaseURL()
   if(!url.includes('https://')){
     url = 'https://'+url
   }
   var req_url = url+kLoginURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  if(devToken){
+    req_url = req_url + '&device_token='+devToken+'&device_OS='+Platform.OS
+  }
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {

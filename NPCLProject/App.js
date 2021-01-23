@@ -13,6 +13,7 @@ import {
   StatusBar,
 } from 'react-native';
 
+import UserData from './src/utilities/models/user-data'
 import Route from './src/utilities/route'
 import Spinner from './src/components/activity-indicator'
 import {createStore, applyMiddleware} from 'redux';
@@ -28,15 +29,17 @@ const store = createStoreWithMiddleware(reducer);
 
 
 const registerPushNotificaiton = () => {
+  
   PushNotification.configure({
     // (optional) Called when Token is generated (iOS and Android)
     onRegister: function (token) {
-      console.log("TOKEN:", token);
+      var userData = new UserData();
+      const devToken = token?token.token:''
+      userData.setDeviceToken(devToken)
     },
   
     // (required) Called when a remote is received or opened, or local notification is opened
     onNotification: function (notification) {
-      console.log("NOTIFICATION:", notification);
   
       // process the notification
   
@@ -46,8 +49,6 @@ const registerPushNotificaiton = () => {
   
     // (optional) Called when Registered Action is pressed and invokeApp is false, if true onNotification will be called (Android)
     onAction: function (notification) {
-      console.log("ACTION:", notification.action);
-      console.log("NOTIFICATION:", notification);
   
       // process the action
     },
