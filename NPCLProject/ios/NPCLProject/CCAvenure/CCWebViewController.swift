@@ -105,8 +105,6 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         
-      NSLog("user Data %@", userData)
-      print("userData : ",userData)
         //fill the required values to be passes to the payment web page
       BILLING_NAME_Val = userData["consumer_name"] as! String
       BILLING_ADDRESS_Val = userData["flat_number"] as! String

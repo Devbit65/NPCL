@@ -13,20 +13,6 @@ import UIKit
 @objc(CCAvenuePaymentDisplayVC)
 class CCAvenuePaymentDisplayVC: UIViewController {
     
-//    var netAmount: String?
-        
-//    @objc func openPaymentView(_ userData: String, netAmount: String) -> Void {
-//      gotoPaymentWebView(userData, netAmount: netAmount);
-////
-//////      DispatchQueue.main.async {
-//////      let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//////      let controller = UIViewController.init()
-//////        controller.view.backgroundColor = UIColor.red
-////////        appDelegate.window.rootViewController?.view.addSubview(controller.view)
-//////        appDelegate.window.rootViewController?.present(controller, animated: true, completion: nil)
-////////      self.present(controller, animated: true, completion: nil)
-//////      }
-//  }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
