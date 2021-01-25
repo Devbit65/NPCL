@@ -19,6 +19,8 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import { ActionCreators } from '../redux/action';
 
+var paymentVC = require('react-native').NativeModules.CCAvenuePaymentDisplayVC;
+
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
 
@@ -76,8 +78,13 @@ class Payment extends Component {
         this.props.navigation.pop()
     }
 
-    payByOnline() {
-        alert("In-Progress")
+    payByOnline(netAmount) {
+        this.spinner.startActivity()
+        var userObj = new UserData();
+        paymentVC.openPaymentView(this.userData.resource, netAmount.toString(), userObj.getUserCredential())
+        setTimeout(() => {
+            this.spinner.stopActivity()
+        }, 2000);
     }
 
     render() {
@@ -115,7 +122,7 @@ class Payment extends Component {
                                         textAlign={'left'}
                                         placeholder="AMOUNT"
                                         onChangeText={text => this.setState({amount:text},()=>{})}
-                                        defaultValue={this.state.amount}
+                                        defaultValue={this.state.amount.toString()}
                                     />
                                 </View>
                                 <View style={{marginLeft:25, marginRight:25, alignItems:'center', justifyContent:'center'}}>
@@ -176,7 +183,7 @@ class Payment extends Component {
                                     </View>
 
                                     <View style={{alignItems:'center', justifyContent:'center',}}>
-                                        <TouchableOpacity onPress={()=>this.payByOnline()} style={{ width:120, height:25, backgroundColor:kThemeBlueColor, borderRadius:5,}}>
+                                        <TouchableOpacity onPress={()=>this.payByOnline(netAmount)} style={{ width:120, height:25, backgroundColor:kThemeBlueColor, borderRadius:5,}}>
                                             <View style={{flex:1, alignItems:'center', justifyContent:'center',}}>
                                                 <Text style={{color:'#fff'}}>PAY</Text>
                                             </View>
