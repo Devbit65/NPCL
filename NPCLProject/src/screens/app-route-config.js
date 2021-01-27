@@ -14,7 +14,6 @@ import UserData from '../utilities/models/user-data'
 import Icon from 'react-native-vector-icons/Entypo';
 import * as Keychain from 'react-native-keychain';
 import { SHOW_PDF_VIEW, SHOW_PAYMENT_VIEW } from '../redux/constants';
-import Spinner from '../components/activity-indicator'
 
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
@@ -30,7 +29,6 @@ class AppRouteConfig extends Component {
             refreshing:false,
             willShowSideMenu:true
         }
-        this.spinner = new Spinner()
     }
     navigateToNext(menuIndex){
         if(menuIndex === 8){

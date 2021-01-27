@@ -11,6 +11,7 @@ import {
 import ConnectWithUs from "../components/connectwithus";
 import NoticeHeader from "../components/notice-header";
 import UserData from '../utilities/models/user-data'
+import Spinner from '../components/activity-indicator'
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -23,6 +24,7 @@ class Welcome extends Component {
     this.state = {
       userName : this.userData.getUserName()
     }
+    this.spinner = new Spinner()
   }
 
   onClickGetStarted() {
@@ -35,6 +37,10 @@ class Welcome extends Component {
 
   onClickConnectUs(value) {
 
+    if(!this.spinner.isNetConnected()){
+      alert("Please check you internet connection.")
+      return;
+    }
     this.props.navigation.navigate("ConnectUs", {'url':value})
   }
   render() {

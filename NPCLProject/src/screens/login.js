@@ -62,11 +62,14 @@ class Login extends Component {
 
     onClickLogin() {
 
-        if(this.state.userid === '' || this.state.password === '') {
-            alert("Please enter valid User-Id and Password")
+        this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
             return;
         }
-        this.spinner.startActivity();
+
         fethcLogin()
         .then(response=>{
 
@@ -103,6 +106,10 @@ class Login extends Component {
 
     onClickConnectUs(value) {
 
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            return;
+        }
         this.props.navigation.navigate("ConnectUs", {'url':value})
     }
 

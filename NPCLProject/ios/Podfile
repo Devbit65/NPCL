@@ -12,6 +12,8 @@ target 'NPCLProject' do
 
   pod 'RNKeychain', :path => '../node_modules/react-native-keychain'
 
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
   target 'NPCLProjectTests' do
     inherit! :complete
     # Pods for testing

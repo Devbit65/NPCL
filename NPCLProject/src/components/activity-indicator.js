@@ -5,8 +5,10 @@ import {
    StyleSheet,
    Dimensions,
    Text,
-   TouchableOpacity
+   TouchableOpacity,
 } from 'react-native';
+
+import NetInfo from "@react-native-community/netinfo";
 
 var deviceWidth = Dimensions.get('window').width;
 var deviceHeight = Dimensions.get('window').height;
@@ -27,21 +29,35 @@ export default class AppSpinner extends Component {
       singletonObj = this;
       this.state = {
         showActivityIndicator:false,
+        isNetConnected : false
       }
       this.startActivity = this.startActivity.bind(this);
       this.stopActivity = this.stopActivity.bind(this);
       this.isActivityStarted = this.isActivityStarted.bind(this);
 
+      NetInfo.addEventListener(this.networkListner.bind(this));
+      
     }
     
     return singletonObj;
-	}
+  }
+  
+  networkListner(state) {
+
+    this.setState({
+      isNetConnected : state.isConnected
+    })
+  }
   
   isActivityStarted(){
     return this.state.showActivityIndicator;
   }
   startActivity(){
     this.setState({showActivityIndicator:true})
+  }
+
+  isNetConnected() {
+    return this.state.isNetConnected;
   }
 
 

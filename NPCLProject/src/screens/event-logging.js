@@ -35,6 +35,13 @@ class EventLogging extends Component {
     fethchMessages() {
 
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         fethchMessages()
         .then(response=>{
 

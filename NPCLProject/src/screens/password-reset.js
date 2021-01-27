@@ -70,6 +70,13 @@ class PasswordReset extends Component {
     resendOTP() {
 
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         fetchReSendOTP(this.state.logId)
         .then(response=>{
 
@@ -93,6 +100,13 @@ class PasswordReset extends Component {
     verifyOTP() {
 
         this.spinner.startActivity();
+        
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         fetchVerifyOTP(this.state.logId, this.state.otp)
         .then(response=>{
 
@@ -117,6 +131,13 @@ class PasswordReset extends Component {
     setNewPassword() {
 
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         fetchSetPassword(this.state.logId, this.state.newPassword)
         .then(response=>{
 
@@ -137,6 +158,13 @@ class PasswordReset extends Component {
     changePassword() {
 
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         fetchChangePassword(this.state.password, this.state.newPassword)
         .then(response=>{
 

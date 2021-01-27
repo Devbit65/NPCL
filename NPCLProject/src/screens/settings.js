@@ -43,6 +43,13 @@ class Settings extends Component {
 
     resetData() {
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         fethcLogin()
         .then(response=>{
 
@@ -83,6 +90,13 @@ class Settings extends Component {
     saveData() {
 
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         var dataResouces = this.userData.resource
         var saveData = {
             'notification_app_load':this.state.nofity || this.state.nofity==='YES'?'Y':'N',

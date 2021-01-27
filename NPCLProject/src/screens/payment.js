@@ -41,6 +41,10 @@ class Payment extends Component {
         }
         this.spinner = new Spinner()
         this.spinner.startActivity()
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+        }
     }
     componentDidMount() {
         
@@ -80,6 +84,13 @@ class Payment extends Component {
 
     payByOnline(netAmount) {
         this.spinner.startActivity()
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         var userObj = new UserData();
         var hostURL = userObj.getBaseURL()
         if(!hostURL.includes('https://')){

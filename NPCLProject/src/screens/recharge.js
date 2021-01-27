@@ -51,6 +51,13 @@ class Recharge extends Component {
 
     fetchRechargeHisory() {
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         fethchRechargeHistory()
         .then(response=>{
 
@@ -116,6 +123,13 @@ class Recharge extends Component {
 
     payByCoupon(couponAmout) {
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         payByCoupon(couponAmout)
         .then(response=>{
 

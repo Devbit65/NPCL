@@ -77,6 +77,13 @@ class ReportChart extends Component {
     fetchDailyReport(month, year) {
 
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         fetchDailyReport(month, year)
         .then(response=>{
             if(response && response.rc === 0 && response.resource) {
@@ -122,6 +129,13 @@ class ReportChart extends Component {
     fetchMonthlyReport(year) {
 
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         fetchMonthlyReport(year)
         .then(response=>{
             if(response && response.rc === 0 && response.resource){
@@ -159,6 +173,13 @@ class ReportChart extends Component {
     fetchComparativeReport(month, year){
 
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         var _this = this
         fetchMonthlyComparativeReport(month, year)
         .then(response=>{

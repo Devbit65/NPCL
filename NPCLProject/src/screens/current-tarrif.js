@@ -37,6 +37,13 @@ class CurrentTarrif extends Component {
     fetchCurrentApplicableRates() {
         
         this.spinner.startActivity()
+        
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+        
         fetchCurrentApplicableRates()
         .then(response=>{
             this.spinner.stopActivity();

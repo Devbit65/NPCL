@@ -93,6 +93,11 @@ class Report extends Component {
         }
 
         this.spinner.startActivity();
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
 
         const newDate = new Date(this.state.date)  
         const month = newDate.getMonth()+1

@@ -53,6 +53,13 @@ class Overview extends Component {
     onRefreshClicked() {
 
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         fethcLogin()
         .then(response=>{
 
@@ -95,6 +102,13 @@ class Overview extends Component {
     verifyBalance() {
 
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         fetchVerifyBalance()
         .then(response=>{
 
@@ -123,6 +137,13 @@ class Overview extends Component {
     restoreApi() {
 
         this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
         fetchRestoreAPI()
         .then(response=>{
 
