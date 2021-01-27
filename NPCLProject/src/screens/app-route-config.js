@@ -19,6 +19,9 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import { ActionCreators } from '../redux/action';
 
+const kThemeRedColor = 'rgb(206, 0, 57)'
+const kThemeBlueColor = 'rgb(19,69,113)'
+
 class AppRouteConfig extends Component {
 
     constructor(props){
@@ -27,8 +30,11 @@ class AppRouteConfig extends Component {
         this.state = {
             menuIndex : 1,
             refreshing:false,
-            willShowSideMenu:true
+            willShowSideMenu:true,
+            hambugerMenuWidth:50
         }
+
+        this.updateHambugerMenuWidth = this.updateHambugerMenuWidth.bind(this)
     }
     navigateToNext(menuIndex){
         if(menuIndex === 8){
@@ -94,6 +100,15 @@ class AppRouteConfig extends Component {
             willShowSideMenu:!this.state.willShowSideMenu
         })
     }
+
+    updateHambugerMenuWidth(width) {
+        if(width>0){
+            this.setState({
+                hambugerMenuWidth:width
+            })
+        }
+    }
+
     render() {
         return (
             <ScrollView
@@ -106,7 +121,7 @@ class AppRouteConfig extends Component {
 
                 <View style={{ flex: 1, maxHeight:64, justifyContent:'center', flexDirection:'row', backgroundColor:'#fff'}} >
                 
-                    {this.state.willShowSideMenu && <View style={{ width:50, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
+                    {this.state.willShowSideMenu && <View style={{ width:this.state.hambugerMenuWidth, alignItems:'center', justifyContent:'center', backgroundColor: '#134571'}} >
                         <TouchableOpacity style={{flex:1, alignItems:'center', justifyContent:'center', position:'absolute'}} onPress={()=>this.onPressHamburgerMenu()}>
                             <Icon size={30} name="menu" color="#fff" />
                         </TouchableOpacity>
@@ -115,9 +130,9 @@ class AppRouteConfig extends Component {
                     <View style={{ flex: 1,}} >
                      
                         <NoticeHeader />
-                        {!this.state.willShowSideMenu &&<View style={{ width:50,  position:'absolute'}} >
+                        {!this.state.willShowSideMenu &&<View style={{width:this.state.hambugerMenuWidth,  position:'absolute'}} >
                             <TouchableOpacity style={{flex:1, alignItems:'center', justifyContent:'center'}} onPress={()=>this.onPressHamburgerMenu()}>
-                                <Icon size={30} name="menu" color="#134571" />
+                                <Icon size={30} name="menu" color={kThemeRedColor} />
                             </TouchableOpacity>
 
                         </View>}
@@ -125,7 +140,7 @@ class AppRouteConfig extends Component {
                 </View>
                 <View style={{ flex: 1, flexDirection:'row', backgroundColor:'#fff'}} >
                     <View style={{ flex: 1, maxWidth:this.state.willShowSideMenu? 100 : 0, backgroundColor:'#fff'}} >
-                        <SideMenu navigateToNext={this.navigateToNext.bind(this)}/>
+                        <SideMenu navigateToNext={this.navigateToNext.bind(this)} updateHambugerMenuWidth={this.updateHambugerMenuWidth}/>
                     </View>
                     
                     <View style={{ flex: 3, backgroundColor:'#fff'}} >
