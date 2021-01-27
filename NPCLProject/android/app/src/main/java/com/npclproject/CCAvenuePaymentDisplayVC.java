@@ -28,13 +28,13 @@ public class CCAvenuePaymentDisplayVC extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void openPaymentView(ReadableMap userData, String netAmount, ReadableMap cred) {
+    public void openPaymentView(String hostURL, ReadableMap userData, String netAmount, ReadableMap cred) {
         ReactApplicationContext context = getReactApplicationContext();
         try {
             String userId = cred.getString("user_id");
             String pswd = cred.getString("pswd");
 
-            String d = Util.getdata("https://myxenius.com"+"/thirdparty/api/getOrderID?login_id="+userId+"&password="+pswd+"&amount="+netAmount);
+            String d = Util.getdata(hostURL+"/thirdparty/api/getOrderID?login_id="+userId+"&password="+pswd+"&amount="+netAmount);
 
             JSONObject reader = new JSONObject(d);
             String orderIDD = "0";

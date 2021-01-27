@@ -26,10 +26,10 @@ class CCAvenuePaymentDisplayVC: UIViewController {
    // call api
     
     
-  @objc func openPaymentView(_ userData: Dictionary<String, Any>, netAmount: String, cred:Dictionary<String, String>) -> Void {
+  @objc func openPaymentView(_ hostURL:String, userData: Dictionary<String, Any>, netAmount: String, cred:Dictionary<String, String>) -> Void {
         let userId = cred["user_id"]
         let pswd = cred["pswd"]
-        var urlStr = "https://myxenius.com/thirdparty/api/getOrderID?login_id=" + userId! + "&password=" + pswd! + "&amount="
+        var urlStr = hostURL+"/thirdparty/api/getOrderID?login_id=" + userId! + "&password=" + pswd! + "&amount="
         urlStr = urlStr + netAmount
 
         let url = URL(string: urlStr)!

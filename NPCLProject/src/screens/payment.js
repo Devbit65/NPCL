@@ -81,7 +81,11 @@ class Payment extends Component {
     payByOnline(netAmount) {
         this.spinner.startActivity()
         var userObj = new UserData();
-        paymentVC.openPaymentView(this.userData.resource, netAmount.toString(), userObj.getUserCredential())
+        var hostURL = userObj.getBaseURL()
+        if(!hostURL.includes('https://')){
+            hostURL = 'https://'+hostURL
+        }
+        paymentVC.openPaymentView(hostURL, this.userData.resource, netAmount.toString(), userObj.getUserCredential())
         setTimeout(() => {
             this.spinner.stopActivity()
         }, 2000);
