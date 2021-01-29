@@ -68,7 +68,7 @@ class SideMenu extends Component {
 
     render() {
         return (
-            <ScrollView> 
+            <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} > 
             <View style={{ flex:1, backgroundColor:'red'}} >
                 
                 <View style={{ flex: this.state.selectedMenu === 1?1.5:1,  backgroundColor:'#fff',  }} >
