@@ -53,7 +53,7 @@ class CurrentTarrif extends Component {
                 }
                 this.setState({
                     tarifData : response.resource
-                },()=>{console.log("Done")})
+                })
             }
             else{
                 this.setState({

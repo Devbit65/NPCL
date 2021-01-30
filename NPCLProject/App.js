@@ -11,6 +11,8 @@ import {
   SafeAreaView,
   View,
   StatusBar,
+  Dimensions,
+  Platform
 } from 'react-native';
 
 import UserData from './src/utilities/models/user-data'
@@ -26,6 +28,11 @@ import PushNotification from "react-native-push-notification";
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 const store = createStoreWithMiddleware(reducer);
+
+const {height, width} = Dimensions.get('window'); 
+const aspectRatio = height/width;
+const isIphone = (aspectRatio>1.6 && Platform.OS === "ios")
+let lIsIOSXCategory = (height>=812 && isIphone)
 
 
 const registerPushNotificaiton = () => {
@@ -87,11 +94,11 @@ const App = () => {
         
         <StatusBar barStyle="dark-content" />
       
-        <SafeAreaView  style={{flex:1}}>
-          <Route >
-          </Route>
-          <Spinner />
-        </SafeAreaView>
+          <SafeAreaView  style={{flex: 1,marginBottom:lIsIOSXCategory ?-35:0}}>
+            <Route >
+            </Route>
+            <Spinner />
+          </SafeAreaView>
       </View>
     </Provider>
   );

@@ -20,6 +20,7 @@ import Spinner from '../components/activity-indicator'
 import UserData from '../utilities/models/user-data'
 import * as Keychain from 'react-native-keychain';
 import {SCREENTYPE} from '../utilities/utilities-methods'
+import { Platform } from 'react-native';
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -164,9 +165,9 @@ class Login extends Component {
 
     render() {
         return (
-            <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()} style={{flex:1}}>
-                <View style={{ flex: 1}} >
-                    <ImageBackground source={require('../resources/login_page_bg.png')} style={{flex:1}} resizeMode={'stretch'}>
+            <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()} style={{flex:1, backgroundColor:'#fff'}}>
+                <View style={{ flex: 1, backgroundColor:'#fff'}} >
+                    <ImageBackground source={require('../resources/login_page_bg.png')} style={{flex:1, backgroundColor:'#fff'}} resizeMode={'stretch'}>
                         <View style={{flex:1, maxHeight:75, marginLeft:20}}>
                             <View style={{flex:1, justifyContent:'center'}}>
                                 <Text style={{fontSize:30, fontWeight:'bold', color:kThemeRedColor}}> HELLO </Text>
@@ -229,8 +230,8 @@ class Login extends Component {
                         </View>
                         
                     </ImageBackground>
-                    <View style={{flex:1, maxHeight:20,  alignItems:'center', justifyContent:'center'}}>
-                        <View style={{width:'100%', height:20, backgroundColor:'#fff', alignItems:'center', justifyContent:'center', flexDirection:'row',}}>
+                    <View style={{flex:1, maxHeight:Platform.OS === 'ios'? 45:25,  alignItems:'center', justifyContent:'center'}}>
+                        <View style={{width:'100%', height:Platform.OS === 'ios'? 50:25, backgroundColor:'#fff', alignItems:'center', justifyContent:'center', flexDirection:'row',}}>
                             <Text style={{fontSize:11, color:kThemeRedColor}}> PREPAID METERING SOLUTION BY</Text>
                             
                             <Image style={{width:90, height:20, resizeMode:'contain'}} source={require("../resources/radius-logo.png")}></Image>
