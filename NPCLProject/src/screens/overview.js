@@ -282,17 +282,18 @@ class Overview extends Component {
                                             dividerSize={2}
                                             strokeCap={'butt'}
                                         />}
-                                     <View style={{flexDirection:'row'}}>
-                                        <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                            <Icon size={9} name="check-box-outline-blank" color={kThemeBlueColor} />
-                                            <Text style={{color:kThemeBlueColor, fontSize:8, alignSelf:'center', textAlign:'center'}}> GRID({Number(dataResouces.daily_grid_unit).toFixed(2)} {this.state.load_unit}) </Text>
-                                        </View>
-                                        <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                            <Icon size={9} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
-                                            <Text style={{color:kThemeRedColor, fontSize:8, alignSelf:'center', textAlign:'center'}}> DG({Number(dataResouces.daily_dg_unit).toFixed(2)} {this.state.load_unit}) </Text>
-                                        </View>
-                                    </View>
+                                    
 
+                                </View>
+                                <View style={{flexDirection:'row'}}>
+                                    <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                        <Icon size={9} name="check-box-outline-blank" color={kThemeBlueColor} />
+                                        <Text style={{color:kThemeBlueColor, fontSize:8, alignSelf:'center', textAlign:'center'}}> GRID({Number(dataResouces.daily_grid_unit).toFixed(2)} {this.state.load_unit}) </Text>
+                                    </View>
+                                    <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                        <Icon size={9} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
+                                        <Text style={{color:kThemeRedColor, fontSize:8, alignSelf:'center', textAlign:'center'}}> DG({Number(dataResouces.daily_dg_unit).toFixed(2)} {this.state.load_unit}) </Text>
+                                    </View>
                                 </View>
                                 <View style={{flex:1, maxHeight:150, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
                                     <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>

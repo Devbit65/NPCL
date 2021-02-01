@@ -80,7 +80,7 @@ class Profile extends Component {
                     
                     <View style={[{flex:1, margin:25, maxHeight:350, backgroundColor:'#FFF', borderRadius:5},style.cardShadow]}>
                         <View style={{width:140, height:140, borderRadius:150, alignSelf:'center', alignItems:'center', justifyContent:'center', position:'absolute', top:-75, backgroundColor:'#fff'}}>
-                            <Image style={{width:140, height:140, resizeMode:'center' }}  source={require("../resources/profile_pic.png")}/>
+                            <Image style={{width:140, height:140, resizeMode:'contain' }}  source={require("../resources/profile_pic.png")}/>
                         </View>
                         <View style={{height:75}}>
                         </View>
@@ -89,7 +89,7 @@ class Profile extends Component {
                         <View style={{flex:1, alignSelf:'center', alignItems:'center'}}>
                             <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
                                 <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}} >
-                                    <Image style={{width:15, height:15, resizeMode:'center'}} source={require('../resources/meter.png')} />
+                                    <Image style={{width:15, height:15, resizeMode:'contain'}} source={require('../resources/meter.png')} />
                                 </View>
                                 <View style={{width:20}} />
                                 <View style={{flex:2, alignItems:'flex-start', justifyContent:'center'}} >
@@ -99,7 +99,7 @@ class Profile extends Component {
 
                             <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
                                 <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}} >
-                                    <Image style={{width:15, height:15, resizeMode:'center'}} source={require('../resources/locId.png')} />
+                                    <Image style={{width:15, height:15, resizeMode:'contain'}} source={require('../resources/locId.png')} />
                                 </View>
                                 <View style={{width:20}} />
                                 <View style={{flex:2, alignItems:'flex-start', justifyContent:'center'}} >
@@ -109,7 +109,7 @@ class Profile extends Component {
 
                             <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
                                 <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}} >
-                                    <Image style={{width:15, height:15, resizeMode:'center'}} source={require('../resources/phone.png')} />
+                                    <Image style={{width:15, height:15, resizeMode:'contain'}} source={require('../resources/phone.png')} />
                                 </View>
                                 <View style={{width:20}} />
                                 <View style={{flex:2, alignItems:'flex-start', justifyContent:'center'}} >
@@ -119,7 +119,7 @@ class Profile extends Component {
 
                             <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
                                 <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}} >
-                                    <Image style={{width:15, height:15, resizeMode:'center'}} source={require('../resources/email.png')} />
+                                    <Image style={{width:15, height:15, resizeMode:'contain'}} source={require('../resources/email.png')} />
                                 </View>
                                 <View style={{width:20}} />
                                 <View style={{flex:2, alignItems:'flex-start', justifyContent:'center'}} >
@@ -130,16 +130,16 @@ class Profile extends Component {
                        
                         <View style={{alignItems:'center', justifyContent:'center'}}>
                             <TouchableOpacity style={[{width:175, borderRadius:5, height:25, flexDirection:'row', alignItems:'center', justifyContent:'center', backgroundColor:'#fff'},style.cardShadow]} onPress={()=>this.onClickConnectUs(this.userData.resource.site_support_contact_no)}>
-                                <Image style={{width:20, height:20, resizeMode:'center'}} source={require('../resources/help_support.png')} />
+                                <Image style={{width:20, height:20, resizeMode:'contain'}} source={require('../resources/help_support.png')} />
                                 <Text style={{fontSize:12}}>  Help & Support</Text>
                             </TouchableOpacity>
                         </View>
                         
                         <View style={{alignItems:'center', marginTop:20, marginBottom:10, justifyContent:'center'}}>
                             <TouchableOpacity style={[{width:175, borderRadius:5, height:25, flexDirection:'row', alignItems:'center', justifyContent:'center', backgroundColor:'#fff'},style.cardShadow]} onPress={()=>this.onClickForgotPassword()}>
-                                <Image style={{width:20, height:20, resizeMode:'center'}} source={require('../resources/change_password.png')} />
+                                <Image style={{width:20, height:20, resizeMode:'contain'}} source={require('../resources/change_password.png')} />
                                 <Text style={{fontSize:11}}>  CHANGE PASSWORD </Text>
-                                <Image style={{width:15, height:15, resizeMode:'center'}} source={require('../resources/arrow.png')} />
+                                <Image style={{width:15, height:15, resizeMode:'contain'}} source={require('../resources/arrow.png')} />
                             </TouchableOpacity>
                         </View>
 

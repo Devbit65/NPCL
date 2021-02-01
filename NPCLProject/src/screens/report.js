@@ -213,14 +213,14 @@ class Report extends Component {
                     <View style={{flexDirection:'row', margin:5}}>
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                             <TouchableOpacity onPress={()=>this.onPressDaily()} style={[{ width:100, height:100, margin:5, borderRadius:5, backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
-                                <Image style={{width:75, height:75, resizeMode:'center' }}  source={require("../resources/daily.png")}/>
+                                <Image style={{width:75, height:75, resizeMode:'contain' }}  source={require("../resources/daily.png")}/>
                                 <Text style={{marginTop:5, fontSize:11, fontWeight:'bold', color:kThemeBlueColor}}>DAILY</Text>
                             </TouchableOpacity>
                         </View>
                         
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                             <TouchableOpacity onPress={()=>this.onPressMonthly()} style={[{ width:100, height:100, margin:5, borderRadius:5, backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
-                                <Image style={{width:75, height:75, resizeMode:'center' }}  source={require("../resources/monthly.jpg")}/>
+                                <Image style={{width:75, height:75, resizeMode:'contain' }}  source={require("../resources/monthly.jpg")}/>
                                 <Text style={{marginTop:5, fontSize:11, fontWeight:'bold', color:kThemeBlueColor}}>MONTHLY</Text>
                             </TouchableOpacity>
                         </View>
@@ -229,14 +229,14 @@ class Report extends Component {
                     <View style={{flexDirection:'row', margin:5, marginTop:20}}>
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                             <TouchableOpacity onPress={()=>this.onPressComparative()} style={[{ width:100, height:100, margin:5, borderRadius:5, backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
-                                <Image style={{width:75, height:75, resizeMode:'center' }}  source={require("../resources/comparative.png")}/>
+                                <Image style={{width:75, height:75, resizeMode:'contain' }}  source={require("../resources/comparative.png")}/>
                                 <Text style={{marginTop:5, fontSize:11, fontWeight:'bold', color:kThemeBlueColor}}>COMPARATIVE</Text>
                             </TouchableOpacity>
                         </View>
                         
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                             <TouchableOpacity onPress={()=>this.onPressCurrentTarrif()} style={[{ width:100, height:100, margin:5, borderRadius:5, backgroundColor:'#fff', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
-                                <Image style={{width:75, height:75, resizeMode:'center' }}  source={require("../resources/current-tariff.png")}/>
+                                <Image style={{width:75, height:75, resizeMode:'contain' }}  source={require("../resources/current-tariff.png")}/>
                                 <Text style={{marginTop:5, fontSize:11, fontWeight:'bold', color:kThemeBlueColor}}>CURRENT TARRIF</Text>
                             </TouchableOpacity>
                         </View>
@@ -245,7 +245,7 @@ class Report extends Component {
                     {this.state.monthly_bill_enable === 'Y' && <View style={{flexDirection:'row', margin:15, marginTop:20}}>
                         <TouchableOpacity onPress={()=>this.onPressBillDownload()} style={[{flex:1, height:54, margin:5, borderRadius:5, backgroundColor:'#fff', flexDirection:'row', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
                             <View style={{flex:1, marginLeft:10, alignItems:'flex-start', justifyContent:'center'}}>
-                            <Image style={{ width:45, height:45, resizeMode:'center' }}  source={require("../resources/bill-download.png")}/>
+                            <Image style={{ width:45, height:45, resizeMode:'contain' }}  source={require("../resources/bill-download.png")}/>
                             </View>
                             <Text style={{ flex:1, marginTop:5, fontSize:11, fontWeight:'bold', color:kThemeBlueColor}}>BILL DOWNLOAD</Text>
                         </TouchableOpacity>

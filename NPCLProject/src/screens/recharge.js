@@ -328,7 +328,7 @@ class Recharge extends Component {
                                                         </View>
                                                         <View style={{flex:1, flexDirection:'row',alignItems:'center', marginLeft:5}}>
                                                             {/* <Icon size={10} name="currency-inr" color="rgb(206, 0, 57)" /> */}
-                                                            <Image style={{width:8, height:8, resizeMode:'center'}}  source={require('../resources/rupee24.png')} />
+                                                            <Image style={{width:8, height:8, resizeMode:'contain'}}  source={require('../resources/rupee24.png')} />
                                                             <Text style={{ color:kThemeRedColor, fontWeight:'bold', fontSize:10}}>{item.amount}</Text>
                                                         </View>
                                                         
