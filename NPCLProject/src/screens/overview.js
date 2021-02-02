@@ -42,7 +42,8 @@ class Overview extends Component {
             consumption_total : dataResouces ? dataResouces.monthly_grid_amount : '',
             load_unit : dataResouces ? dataResouces.load_unit : '',
             currency : dataResouces ? dataResouces.currency : '',
-            willShowResetButton : dataResouces ? (Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm)) : ''
+            willShowResetButton : dataResouces ? (Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm)) : '',
+            radius:50
         }
 
         this.spinner = new Spinner()
@@ -248,10 +249,17 @@ class Overview extends Component {
                                     <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>TODAY'S CONSUMPTION</Text>
                                 </View>
 
-                                <View style={{flex:1,  alignItems:'center', justifyContent:'center'}}>
+                                <View style={{flex:1,  alignItems:'center', justifyContent:'center'}} onLayout={(event)=>{
+                                    var radius  = event.nativeEvent.layout.height
+                                    radius = radius < 50 ? 50 : radius*40/100
+                                    
+                                    this.setState({
+                                        radius : radius
+                                    })
+                                }} >
                                     {gridPer ? <Pie
-                                        radius={50}
-                                        innerRadius={25}
+                                        radius={this.state.radius}
+                                        innerRadius={this.state.radius/2}
                                         sections={
                                             [
                                                 {
@@ -268,8 +276,8 @@ class Overview extends Component {
                                             strokeCap={'butt'}
                                         />
                                     :   <Pie
-                                            radius={50}
-                                            innerRadius={25}
+                                            radius={this.state.radius}
+                                            innerRadius={this.state.radius/2}
                                             sections={
                                                 [
                                                 

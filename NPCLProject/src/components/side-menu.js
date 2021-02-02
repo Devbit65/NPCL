@@ -85,7 +85,7 @@ class SideMenu extends Component {
                             return  <View style={{ height: this.state.selectedMenu === index?this.state.height+50 : this.state.height,  backgroundColor:'#fff',  }} >
                             {this.state.selectedMenu === index?(
                                 <View style={{flex:1, backgroundColor: kThemeBlueColor, flex:1,borderTopEndRadius:1000,  borderBottomEndRadius:1000, alignItems:'center', justifyContent:'center'}}>
-                                    <Image style={{width:50, height:50}} resizeMode='contain' source={item.selImage} />
+                                    <Image style={{width:"75%", height:"75%"}} resizeMode='contain' source={item.selImage} />
                                 </View>
                             ):( 
                                 <TouchableOpacity style={{ flex:1, flexDirection:'row', backgroundColor:'#fff'}} onPress={()=>{this.navigateToNext(index)}}>
