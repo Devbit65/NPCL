@@ -182,7 +182,27 @@ class Overview extends Component {
         var totalUnit = dataResouces ? Number(dataResouces.daily_dg_unit) + Number(dataResouces.daily_grid_unit):0
         var gridPer = dataResouces ? dataResouces.daily_grid_unit*100/totalUnit : 0
         var dgPer = dataResouces ? dataResouces.daily_dg_unit*100/totalUnit : 0
-        var emptyGraph = gridPer > 0 ? 0 : 100;
+        var graphSection = []
+        if(gridPer > 0) {
+            graphSection.push({
+                percentage: gridPer,
+                color:kThemeBlueColor,
+            })
+
+            if(dgPer > 0) {
+                graphSection.push({
+                    percentage: dgPer,
+                    color:kThemeRedColor,
+                })
+            }
+        }
+        else {
+            //Empty Graph
+            graphSection.push({
+                percentage: 100,
+                color:"#D3D3D3",
+            })
+        }
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     
                     <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
@@ -257,40 +277,13 @@ class Overview extends Component {
                                         radius : radius
                                     })
                                 }} >
-                                    {gridPer ? <Pie
+                                    <Pie
                                         radius={this.state.radius}
                                         innerRadius={this.state.radius/2}
-                                        sections={
-                                            [
-                                                {
-                                                    percentage: gridPer,
-                                                    color:kThemeBlueColor,
-                                                },
-                                                {
-                                                    percentage: dgPer,
-                                                    color:kThemeRedColor,
-                                                },
-                                            
-                                            ]}
-                                            dividerSize={2}
-                                            strokeCap={'butt'}
-                                        />
-                                    :   <Pie
-                                            radius={this.state.radius}
-                                            innerRadius={this.state.radius/2}
-                                            sections={
-                                                [
-                                                
-                                                    {
-                                                        percentage: emptyGraph,
-                                                        color:"#D3D3D3",
-                                                    }
-                                                
-                                            ]}
-                                            dividerSize={2}
-                                            strokeCap={'butt'}
-                                        />}
-                                    
+                                        sections={ graphSection }
+                                        dividerSize={1}
+                                        strokeCap={'butt'}
+                                    />
 
                                 </View>
                                 <View style={{flexDirection:'row'}}>

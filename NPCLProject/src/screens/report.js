@@ -198,7 +198,7 @@ class Report extends Component {
                         <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
                             <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> REPORT </Text>
                         </View>
-                        <TouchableOpacity style={{backgroundColor:'#ededed', marginRight:10}} onPress={()=>this.openCallendar()}>
+                        {/* <TouchableOpacity style={{backgroundColor:'#ededed', marginRight:10}} onPress={()=>this.openCallendar()}>
                             <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
                                 <Text style={{color:kThemeBlueColor, fontWeight:'bold', fontSize:11, textAlign:'right'}}> {newDate.day} </Text>
                             </View>
@@ -208,7 +208,7 @@ class Report extends Component {
                             <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
                                 <Text style={{color:kThemeBlueColor, fontWeight:'bold', fontSize:11, textAlign:'right'}}> {newDate.year} </Text>
                             </View>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                     <View style={{flexDirection:'row', margin:5}}>
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
