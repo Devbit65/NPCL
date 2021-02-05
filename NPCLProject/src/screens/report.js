@@ -7,7 +7,8 @@ import {
     StyleSheet,
     Modal,
     Platform,
-    PermissionsAndroid
+    PermissionsAndroid,
+    FlatList
 } from 'react-native';
 
 import moment from 'moment';
@@ -34,11 +35,46 @@ class Report extends Component {
         var curDate = moment(new Date()).format('DD-MMM-YYYY');
         
         this.state={
-            monthly_bill_enable : dataResouces ? dataResouces.monthly_bill_enable : 'Y', //'N'
+            monthly_bill_enable : dataResouces ? dataResouces.monthly_bill_enable : 'N',
             date : curDate,
-            willShowCallendar : false
+            willShowCallendar : false,
+            monthlyBillList : []
         }
         this.spinner = new Spinner()
+    }
+
+    componentDidMount() {
+
+        var dataResouces = this.userData ? this.userData.resource : null
+        var monthly_bill_no_of_month =  this.state.monthly_bill_enable ? dataResouces.monthly_bill_no_of_month : 0
+        
+        const newDate = new Date()
+        var currentMonth = newDate.getMonth()+1
+        var currentYear = newDate.getFullYear()
+        var monthlyBillList = []
+        for(var idx = 0; idx < monthly_bill_no_of_month; idx++){
+
+            currentMonth = Number(currentMonth) - 1
+            
+            if(currentMonth === 0){
+                currentMonth = 12
+                currentYear = Number(currentYear) - 1
+            }
+            var date = moment(new Date(currentMonth+"/"+"01"+"/"+currentYear)).format('DD-MMMM-YYYY');
+            var dateArray = date.split("-")
+
+            var pdfData = {
+                month : currentMonth,
+                monthName : dateArray[1],
+                year : dateArray[2]
+            }
+
+            monthlyBillList.push(pdfData)
+        }
+
+        this.setState({
+            monthlyBillList:monthlyBillList
+        })
     }
 
     onPressDaily() {
@@ -57,7 +93,7 @@ class Report extends Component {
         this.props.navigation.navigate("CurrentTarrif")
     }
 
-    async onPressBillDownload() {
+    async onPressBillDownload(pdfData) {
 
         if(Platform.OS === 'android'){
 
@@ -99,13 +135,12 @@ class Report extends Component {
             return;
         }
 
-        const newDate = new Date(this.state.date)  
-        const month = newDate.getMonth()+1
-        const year = newDate.getFullYear()
+        const month = pdfData.month
+        const monthName = pdfData.monthName
+        const year = pdfData.year
+
         const monthlyBillURL = fetchMonthlyBillURL(month, year)
-        var dateArray = this.state.date.split('-')
-        
-        const pdfName = "Monthly_Bill_"+dateArray[1]+"_"+year+".pdf"
+        const pdfName = "Monthly_Bill_"+monthName+"_"+year+".pdf"
 
         const { dirs } = RNFetchBlob.fs;
         const dirToSave = Platform.OS == 'ios' ? dirs.DocumentDir : dirs.DownloadDir
@@ -152,7 +187,7 @@ class Report extends Component {
         })
         .catch((error)=>{
             this.spinner.stopActivity()
-            alert("Unable to download bill for Month : "+month+" Year : "+year+". Please try again.")
+            alert("Unable to download bill for Month : "+monthName+" Year : "+year+". Please try again.")
         })
 
     }
@@ -242,14 +277,32 @@ class Report extends Component {
                         </View>
                     </View>
 
-                    {this.state.monthly_bill_enable === 'Y' && <View style={{flexDirection:'row', margin:15, marginTop:20}}>
-                        <TouchableOpacity onPress={()=>this.onPressBillDownload()} style={[{flex:1, height:54, margin:5, borderRadius:5, backgroundColor:'#fff', flexDirection:'row', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
-                            <View style={{flex:1, marginLeft:10, alignItems:'flex-start', justifyContent:'center'}}>
-                            <Image style={{ width:45, height:45, resizeMode:'contain' }}  source={require("../resources/bill-download.png")}/>
-                            </View>
-                            <Text style={{ flex:1, marginTop:5, fontSize:11, fontWeight:'bold', color:kThemeBlueColor}}>BILL DOWNLOAD</Text>
-                        </TouchableOpacity>
-                    </View>}
+                    {this.state.monthly_bill_enable === 'Y' && 
+                        <View style={{flex:1, marginTop:20}}>
+                            <FlatList
+                                data={this.state.monthlyBillList}
+                                renderItem={({ item, index, separators })=>{
+                                    return  <View style={{flexDirection:'row', margin:15, marginTop:5, marginBottom:0}}>
+                                        <TouchableOpacity onPress={()=>this.onPressBillDownload(item)} style={[{flex:1, height:54, margin:5, borderRadius:5, backgroundColor:'#fff', flexDirection:'row', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
+                                            <View style={{flex:1, marginLeft:10, alignItems:'flex-start', justifyContent:'center'}}>
+                                                <Image style={{ width:45, height:45, resizeMode:'contain' }}  source={require("../resources/bill-download.png")}/>
+                                            </View>
+                                            
+                                            <View style={{ flex:1, margin:5}}>
+                                                <View style={{ flex:1, alignItems:'flex-start', justifyContent:'center'}}>
+                                                    <Text style={{textAlign:'justify', fontSize:12, fontWeight:'bold', color:kThemeBlueColor}}>{item.monthName} - {item.year}</Text>
+                                                </View>
+                                                
+                                                <View style={{ flex:1, alignItems:'flex-start', justifyContent:'center'}}>
+                                                    <Text style={{fontSize:11, fontWeight:'bold', color:kThemeBlueColor}}>BILL DOWNLOAD</Text>
+                                                </View>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                }}
+                            />
+                        </View>
+                    }
 
                     {this.state.willShowCallendar && Platform.OS === 'ios' &&(
                         <Modal
