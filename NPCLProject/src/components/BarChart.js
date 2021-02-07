@@ -12,12 +12,13 @@ import RNFS from 'react-native-fs';
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
 
-class PieChart extends Component {
+class BarChart extends Component {
 
     render(){
         const localPath = Platform.OS === 'ios' ? `${RNFS.MainBundlePath}`:"file:///android_asset"
         const baseUrl = Platform.OS === 'ios' ? "/highcharts":"file:///android_asset/"
-        console.log("Chart height : ", this.props.chartHeight)
+
+        console.log("load_unit ",this.props.load_unit)
         var PieChartHtml =    `<!DOCTYPE HTML>
                                     <html>
                                         <head>
@@ -28,49 +29,57 @@ class PieChart extends Component {
                                                 <script type="text/javascript">
                                                     $(function () {
                                                         $('#container').highcharts({
+                                                            colors: [
+                                                                '${kThemeBlueColor}',
+                                                                '${kThemeRedColor}',
+                                                                
+                                                              ],
                                                             chart: {
-                                                                type: 'pie',
-                                                                margin: 0,
-                                                                options3d: {
-                                                                    enabled: true,
-                                                                    alpha: 45,
-                                                                    beta: 0
+                                                                type: 'column'
+                                                            },
+                                                            xAxis: {
+                                                                categories: [${this.props.chartData.Month}],
+                                                                title: {
+                                                                    text: null
+                                                                }
+                                                            },
+                                                            yAxis: {
+                                                                min: 0,
+                                                                title: {
+                                                                    text: '(${this.props.load_unit})',
+                                                                    align: 'high'
+                                                                },
+                                                                labels: {
+                                                                    overflow: 'justify'
                                                                 }
                                                             },
                                                             tooltip: {
-                                                                pointFormat: '{series.name}: <b>{point.y:.2f} ${this.props.data.load_unit}</b>'
+                                                                valueSuffix: ' ${this.props.load_unit}'
                                                             },
                                                             plotOptions: {
-                                                                pie: {
-                                                                    colors: [
-                                                                        '${kThemeRedColor}',
-                                                                        '${kThemeBlueColor}',
-                                                                      ],
-                                                                    size:'100%',
-                                                                    allowPointSelect: true,
-                                                                    cursor: 'pointer',
-                                                                    depth: 50,
+                                                                bar: {
                                                                     dataLabels: {
-                                                                        enabled: false,
-                                                                    },
-                                                                    showInLegend: true,
+                                                                        enabled: true
+                                                                    }
                                                                 }
                                                             },
                                                             legend: {
                                                                 layout: 'vertical',
                                                                 align: 'right',
-                                                                verticalAlign: 'bottom',
-                                                                itemMarginTop: 10,
-                                                                itemMarginBottom: 10,
+                                                                verticalAlign: 'top',
+                                                                x: -40,
+                                                                y: 100,
+                                                                floating: true,
+                                                                borderWidth: 1,
+                                                                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#EFEFF4'),
+                                                                shadow: true
                                                             },
-                                                            series: [{
-                                                                type: 'pie',
-                                                                name: 'Power Usage',
-                                                                data:  [
-                                                                    ['DG',${this.props.data.daily_dg_unit}],
-                                                                    ['GRID', ${this.props.data.daily_grid_unit}],
-                                                                ]
-                                                            }]
+                                                            credits: {
+                                                                enabled: false
+                                                            },
+                                                            series: [{name: 'GRID',data: [${this.props.chartData.GRID}]},
+                                                                    {name: 'DG',data: [${this.props.chartData.DG}]},
+                                                            ]
                                                         });
                                                     });
                                                 </script>
@@ -97,5 +106,5 @@ class PieChart extends Component {
     }
 }
 
-export default PieChart
+export default BarChart
 

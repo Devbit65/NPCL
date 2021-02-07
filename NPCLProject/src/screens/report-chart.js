@@ -18,10 +18,11 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import { ActionCreators } from '../redux/action';
 
-import { StackedAreaChart, YAxis, XAxis, Grid, BarChart } from 'react-native-svg-charts'
+import { StackedAreaChart, YAxis, XAxis, Grid } from 'react-native-svg-charts'
 import * as shape from 'd3-shape'
 import moment from 'moment';
 import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED, ACTION_NEUTRAL } from 'react-native-month-year-picker';
+import BarChart from '../components/BarChart'
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -37,6 +38,8 @@ class ReportChart extends Component {
             date:params["selecteDate"],
             willShowCallendar : false,
             xAxisDate:[],
+            chartWidth:0,
+            chartHeight:0
         }
         this.period = ""
         this.chart1UnitYAxis = []
@@ -194,62 +197,29 @@ class ReportChart extends Component {
                 }
                 else{
                     var data = {
-                            "Unit":[],
-                            "Amount":[]
+                            "Unit":{
+                                DG:[],
+                                GRID:[],
+                                "Month":[]
+                            },
+                            "Amount":{
+                                DG:[],
+                                GRID:[],
+                                "Month":[]
+                            },
+                            
                         }
-                    var maxUnit = 0
-                    var maxAmount = 0
                     for(var i = 0; i<_this.state.chartData.length; i++){
 
-                        var unit =  Number(_this.state.chartData[i]["grid_unit"])
-                        var amount = Number(_this.state.chartData[i]["grid_amt"])
-                        if(unit > maxUnit)
-                            maxUnit = unit
 
-                        if(amount > maxAmount)
-                            maxAmount = amount
-                        data["Unit"] = [
-                            ...data["Unit"],
-                            {
-                                value:0,
-                            },
-                            {
-                                value:Number(_this.state.chartData[i]["grid_unit"]),
-                                svg: {
-                                    fill: kThemeBlueColor,
-                                },
-                            },
-                            {
-                                value:Number(_this.state.chartData[i]["dg_unit"]),
-                                svg: {
-                                    fill: kThemeRedColor
-                                },
-                            }
-                            
-                        ]
+                        data["Unit"]["Month"].push(_this.state.chartData[i]["month"])
+                        data["Unit"]['DG'].push(Number(_this.state.chartData[i]["dg_unit"]))
+                        data["Unit"]['GRID'].push(Number(_this.state.chartData[i]["grid_unit"]))
+                        data["Amount"]['DG'].push(Number(_this.state.chartData[i]["dg_amt"]))
+                        data["Amount"]['GRID'].push(Number(_this.state.chartData[i]["grid_amt"]))
+                        data["Amount"]["Month"].push(_this.state.chartData[i]["month"])
 
-                        data["Amount"] = [
-                            ...data["Amount"],
-                            {
-                                value:0,
-                            },
-                            {
-                                value:Number(_this.state.chartData[i]["grid_amt"]),
-                                svg: {
-                                    fill: kThemeBlueColor,
-                                },
-                            },
-                            {
-                                value:Number(_this.state.chartData[i]["dg_amt"]),
-                                svg: {
-                                    fill: kThemeRedColor
-                                },
-                            }
-                            
-                        ]
                     }
-                    this.chart1UnitYAxis = [0, maxUnit];
-                    this.chart1AmountYAxis = [0, maxAmount];
                     _this.setState({
                         chartData : data
                     },()=>{
@@ -313,28 +283,19 @@ class ReportChart extends Component {
         if(!this.state.chartData[key])
             return null
         return (
-            <View style={{ flex:1, flexDirection:'row'}}>
-                <YAxis
-                    style={{width:25}}
-                    data={key === 'Unit' ? this.chart1UnitYAxis : this.chart1AmountYAxis}
-                    contentInset={contentInset}
-                    svg={{
-                        fill: 'grey',
-                        fontSize: 10,
-                    }}
-                    numberOfTicks={10}
-                    formatLabel={(value) => `${value}`}
-                />
-                <BarChart
-                    style={{ flex:1 }}
-                    data={this.state.chartData[key]}
-                    gridMin={0}
-                    svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
-                    yAccessor={({ item }) => item.value}
-                    contentInset={{ top: 20, bottom: 20 }}
-                >
-                    <Grid/>
-                </BarChart>
+            <View style={{ flex:1, flexDirection:'row'}} onLayout={(event)=>{
+                this.setState({
+                    chartWidth:event.nativeEvent.layout.width,
+                    chartHeight:event.nativeEvent.layout.height
+                })
+            }}>
+                 <BarChart  
+                    chartWidth={this.state.chartWidth}
+                    chartHeight={this.state.chartHeight}
+                    chartData={this.state.chartData[key]}
+                    load_unit ={this.userData.resource.load_unit}
+                 />
+
             </View>            
         )
     }
@@ -447,32 +408,12 @@ class ReportChart extends Component {
                             <View style={{flex:1}}>
                                 {this.state.chartData && this.state.period === "COMPARATIVE"? this.getComparativeReportChart("Unit"):this.state.chartData.length>0 ?this.getDailyMonthlyReportChart(['dg_unit','grid_unit']):null}
                             </View>
-                            <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                    <Icon size={10} name="check-box-outline-blank" color={kThemeBlueColor} />
-                                    <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', textAlign:'center'}}> GRID {dataResouces.reading_unit} </Text>
-                                </View>
-                                <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                    <Icon size={10} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
-                                    <Text style={{color:kThemeRedColor, fontSize:9, alignSelf:'center', textAlign:'center'}}> DG {dataResouces.reading_unit} </Text>
-                                </View>
-                            </View>
                         </View>
 
                         <View style={[{ flex:1, margin:15, padding:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                             <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> COST CONSUMPTION </Text>
                             <View style={{flex:1}}>
                                 {this.state.chartData && this.state.period === "COMPARATIVE"? this.getComparativeReportChart("Amount"):this.state.chartData.length>0 ?this.getDailyMonthlyReportChart(['dg_amt','grid_amt']):null}
-                            </View>
-                            <View style={{flexDirection:'row'}}>
-                                <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                    <Icon size={10} name="check-box-outline-blank" color={kThemeBlueColor} />
-                                    <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', textAlign:'center'}}> GRID {dataResouces.currency} </Text>
-                                </View>
-                                <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                    <Icon size={10} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
-                                    <Text style={{color:kThemeRedColor, fontSize:9, alignSelf:'center', textAlign:'center'}}> DG {dataResouces.currency} </Text>
-                                </View>
                             </View>
                         </View>
                     </View>
