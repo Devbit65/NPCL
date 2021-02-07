@@ -8,11 +8,11 @@ import {
 } from 'react-native';
 
 import UserData from '../utilities/models/user-data'
-import Pie from 'react-native-pie'
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Spinner from '../components/activity-indicator'
 import {fethcLogin, fetchVerifyBalance, fetchRestoreAPI} from '../utilities/webservices'
 import { INITIATE_REFRESH } from '../redux/constants';
+
+import PieChart from '../components/PieChart'
 
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
@@ -43,7 +43,8 @@ class Overview extends Component {
             load_unit : dataResouces ? dataResouces.load_unit : '',
             currency : dataResouces ? dataResouces.currency : '',
             willShowResetButton : dataResouces ? (Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm)) : '',
-            radius:50
+            chartWidth : 0,
+            chartHeight : 0,
         }
 
         this.spinner = new Spinner()
@@ -179,30 +180,6 @@ class Overview extends Component {
 
     render() {
         var dataResouces = this.userData ? this.userData.resource : null
-        var totalUnit = dataResouces ? Number(dataResouces.daily_dg_unit) + Number(dataResouces.daily_grid_unit):0
-        var gridPer = dataResouces ? dataResouces.daily_grid_unit*100/totalUnit : 0
-        var dgPer = dataResouces ? dataResouces.daily_dg_unit*100/totalUnit : 0
-        var graphSection = []
-        if(gridPer > 0) {
-            graphSection.push({
-                percentage: gridPer,
-                color:kThemeBlueColor,
-            })
-
-            if(dgPer > 0) {
-                graphSection.push({
-                    percentage: dgPer,
-                    color:kThemeRedColor,
-                })
-            }
-        }
-        else {
-            //Empty Graph
-            graphSection.push({
-                percentage: 100,
-                color:"#D3D3D3",
-            })
-        }
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     
                     <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
@@ -270,32 +247,23 @@ class Overview extends Component {
                                 </View>
 
                                 <View style={{flex:1,  alignItems:'center', justifyContent:'center'}} onLayout={(event)=>{
-                                    var radius  = event.nativeEvent.layout.height
-                                    radius = radius < 50 ? 50 : radius*40/100
-                                    
                                     this.setState({
-                                        radius : radius
+                                        chartWidth:event.nativeEvent.layout.width,
+                                        chartHeight:event.nativeEvent.layout.height
                                     })
                                 }} >
-                                    <Pie
-                                        radius={this.state.radius}
-                                        innerRadius={this.state.radius/2}
-                                        sections={ graphSection }
-                                        dividerSize={1}
-                                        strokeCap={'butt'}
+                                    <PieChart  
+                                        chartWidth={this.state.chartWidth}
+                                        chartHeight={this.state.chartHeight}
+                                        data = {{
+                                            daily_dg_unit : dataResouces.daily_dg_unit,
+                                            daily_grid_unit : dataResouces.daily_grid_unit,
+                                            load_unit : this.state.load_unit
+                                        }}
                                     />
 
                                 </View>
-                                <View style={{flexDirection:'row'}}>
-                                    <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                        <Icon size={9} name="check-box-outline-blank" color={kThemeBlueColor} />
-                                        <Text style={{color:kThemeBlueColor, fontSize:8, alignSelf:'center', textAlign:'center'}}> GRID({Number(dataResouces.daily_grid_unit).toFixed(2)} {this.state.load_unit}) </Text>
-                                    </View>
-                                    <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                        <Icon size={9} name="check-box-outline-blank" color="rgb(206, 0, 57)" />
-                                        <Text style={{color:kThemeRedColor, fontSize:8, alignSelf:'center', textAlign:'center'}}> DG({Number(dataResouces.daily_dg_unit).toFixed(2)} {this.state.load_unit}) </Text>
-                                    </View>
-                                </View>
+                                
                                 <View style={{flex:1, maxHeight:150, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
                                     <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                                         <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>

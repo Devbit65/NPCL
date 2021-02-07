@@ -29,6 +29,7 @@
 		867362AF08BF4512AF4CF49E /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AED404317C54BB7A265AA8A /* Entypo.ttf */; };
 		91EB5A6B8B9245AFA7A77F83 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75FC45BF2D1945E3A8041592 /* Octicons.ttf */; };
 		954E281EFC6B45E6BA69F060 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E6CDD07ADC4C06B4A65BB9 /* FontAwesome5_Solid.ttf */; };
+		B01BC97925D0217000A693EB /* highcharts in Resources */ = {isa = PBXBuildFile; fileRef = B01BC97825D0217000A693EB /* highcharts */; };
 		B05CB2CA259D4DF800F7FF60 /* App-Launch-Icon-640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = B05CB2C9259D4DF800F7FF60 /* App-Launch-Icon-640x1136.png */; };
 		B08F67C625C86E9900A32DA4 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		B0E4D7A525BD667200E6AF92 /* NPCLPaymentBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D7A425BD667200E6AF92 /* NPCLPaymentBridge.m */; };
@@ -114,6 +115,7 @@
 		A00C59033058494FA43A93C7 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		A0C3D9D82BE69583CD7F1357 /* Pods-NPCLProject-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NPCLProject-tvOS.release.xcconfig"; path = "Target Support Files/Pods-NPCLProject-tvOS/Pods-NPCLProject-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		A68C493CD33A5B898491848D /* Pods-NPCLProject-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NPCLProject-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-NPCLProject-tvOSTests/Pods-NPCLProject-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B01BC97825D0217000A693EB /* highcharts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = highcharts; sourceTree = "<group>"; };
 		B05CB2C9259D4DF800F7FF60 /* App-Launch-Icon-640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Launch-Icon-640x1136.png"; path = "NPCLProject/App-Launch-Icon-640x1136.png"; sourceTree = "<group>"; };
 		B091DBE625BD48160099FF48 /* NPCLProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NPCLProject-Bridging-Header.h"; sourceTree = "<group>"; };
 		B0E4D7A425BD667200E6AF92 /* NPCLPaymentBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NPCLPaymentBridge.m; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				B01BC97825D0217000A693EB /* highcharts */,
 				B0E4D82625BD805B00E6AF92 /* include */,
 				B0E4D7F525BD7FA100E6AF92 /* CCAvenure */,
 				13B07FAE1A68108700A75B9A /* NPCLProject */,
@@ -506,6 +509,7 @@
 				91EB5A6B8B9245AFA7A77F83 /* Octicons.ttf in Resources */,
 				4C42488A1B4E40ADB31BED0A /* SimpleLineIcons.ttf in Resources */,
 				354D5078981B4FF1B03D6AAB /* Zocial.ttf in Resources */,
+				B01BC97925D0217000A693EB /* highcharts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
