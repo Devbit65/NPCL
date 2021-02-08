@@ -373,14 +373,12 @@ class ReportChart extends Component {
                     style={{flex:1, backgroundColor:'#fff'}} 
                     onLayout={(e)=>{{
                         var chartData = this.state.chartData
-                        this.spinner.startActivity()
                         this.setState({
                             chartData:null
                         },()=>{
                             this.setState({
                                 chartData:chartData
                             },()=>{
-                                this.spinner.stopActivity()
                             }) 
                         })
                     }}}

@@ -43,7 +43,15 @@ class BarChart extends Component {
                                                                 }
                                                             },
                                                             yAxis: {
-                                                                
+                                                                title: {
+                                                                    text: '(${this.props.load_unit})'
+                                                                },
+                                                                labels: {
+                                                                    formatter: function () {
+                                                                        return this.value;
+                                                                    }
+                                                                },
+                                                                min: 0
                                                             },
                                                             tooltip: {
                                                                 valueSuffix: ' ${this.props.load_unit}'
