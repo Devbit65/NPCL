@@ -18,8 +18,7 @@ class BarChart extends Component {
         const localPath = Platform.OS === 'ios' ? `${RNFS.MainBundlePath}`:"file:///android_asset"
         const baseUrl = Platform.OS === 'ios' ? "/highcharts":"file:///android_asset/"
 
-        console.log("load_unit ",this.props.load_unit)
-        var PieChartHtml =    `<!DOCTYPE HTML>
+        var BarChartHtml =    `<!DOCTYPE HTML>
                                     <html>
                                         <head>
                                             <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -97,7 +96,7 @@ class BarChart extends Component {
                     <WebView 
                         style={{flex:1, backgroundColor:'#EFEFF4'}}
                         originWhitelist={["*"]} 
-                        source={{html:PieChartHtml, baseUrl:baseUrl}}
+                        source={{html:BarChartHtml, baseUrl:baseUrl}}
                         javaScriptEnabled={true}
                         domStorageEnabled={true}
                         scrollEnabled={false}
