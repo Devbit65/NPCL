@@ -87,7 +87,6 @@ class AreaChart extends Component {
 
                                             <script  src="${localPath}/highcharts/highcharts.js"></script>
                                             <script  src="${localPath}/highcharts/highcharts-3d.js"></script>
-                                            <script  src="${localPath}/highcharts/exporting.js"></script>
                                                         
                                             <div id="container" style="height:97%;width:97%;position:absolute;"></div>
                                         </body>

@@ -82,7 +82,6 @@ class PieChart extends Component {
 
                                             <script  src="${localPath}/highcharts/highcharts.js"></script>
                                             <script  src="${localPath}/highcharts/highcharts-3d.js"></script>
-                                            <script  src="${localPath}/highcharts/exporting.js"></script>
                                                         
                                             <div id="container" style="height:100%;width:100%;position:absolute;"></div>
                                         </body>
