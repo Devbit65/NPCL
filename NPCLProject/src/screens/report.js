@@ -78,6 +78,7 @@ class Report extends Component {
     }
 
     onPressDaily() {
+        this.spinner.startActivity()
         this.props.navigation.navigate("ReportChart",{ "period":"DAILY", "selecteDate":this.state.date })
     }
 

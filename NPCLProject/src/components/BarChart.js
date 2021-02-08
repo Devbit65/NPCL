@@ -37,20 +37,13 @@ class BarChart extends Component {
                                                                 type: 'column'
                                                             },
                                                             xAxis: {
-                                                                categories: [${this.props.chartData.Month}],
+                                                                categories: ${JSON.stringify(this.props.chartData.Month)},
                                                                 title: {
                                                                     text: null
                                                                 }
                                                             },
                                                             yAxis: {
-                                                                min: 0,
-                                                                title: {
-                                                                    text: '(${this.props.load_unit})',
-                                                                    align: 'high'
-                                                                },
-                                                                labels: {
-                                                                    overflow: 'justify'
-                                                                }
+                                                                
                                                             },
                                                             tooltip: {
                                                                 valueSuffix: ' ${this.props.load_unit}'
@@ -66,8 +59,8 @@ class BarChart extends Component {
                                                                 layout: 'vertical',
                                                                 align: 'right',
                                                                 verticalAlign: 'top',
-                                                                x: -40,
-                                                                y: 100,
+                                                                x: 0,
+                                                                y: 10,
                                                                 floating: true,
                                                                 borderWidth: 1,
                                                                 backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#EFEFF4'),
@@ -89,7 +82,7 @@ class BarChart extends Component {
                                             <script  src="${localPath}/highcharts/highcharts-3d.js"></script>
                                             <script  src="${localPath}/highcharts/exporting.js"></script>
                                                         
-                                            <div id="container" style="height:100%;width:100%;position:absolute;"></div>
+                                            <div id="container" style="height:97%;width:97%;position:absolute;"></div>
                                         </body>
                                     </html>`
         return  <View style={{width:this.props.chartWidth, height:this.props.chartHeight}}>

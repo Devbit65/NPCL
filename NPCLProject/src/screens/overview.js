@@ -12,7 +12,7 @@ import Spinner from '../components/activity-indicator'
 import {fethcLogin, fetchVerifyBalance, fetchRestoreAPI} from '../utilities/webservices'
 import { INITIATE_REFRESH } from '../redux/constants';
 
-import PieChart from '../components/PieChart'
+import PieChart from '../components/pieChart'
 
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';

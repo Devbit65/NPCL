@@ -18,11 +18,10 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import { ActionCreators } from '../redux/action';
 
-import { StackedAreaChart, YAxis, XAxis, Grid } from 'react-native-svg-charts'
-import * as shape from 'd3-shape'
 import moment from 'moment';
 import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED, ACTION_NEUTRAL } from 'react-native-month-year-picker';
-import BarChart from '../components/BarChart'
+import BarChart from '../components/barChart'
+import AreaChart from '../components/areaChart'
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
@@ -33,7 +32,7 @@ class ReportChart extends Component {
 
         const { params } = this.props.route;
         this.state={
-            chartData : [],
+            chartData : null,
             period : "",
             date:params["selecteDate"],
             willShowCallendar : false,
@@ -60,6 +59,8 @@ class ReportChart extends Component {
     }
 
     fetchReport(newDate) {
+
+        this.spinner.startActivity()
 
         var curDate = moment(newDate).format('DD-MM-YYYY');
         var dateArray = curDate.split('-')
@@ -93,17 +94,31 @@ class ReportChart extends Component {
                 response.resource = response.resource.sort(this.GetSortOrder("date"))
                 var maxUnit = 0
                 var maxAmount = 0
+                var data = {
+                    "Unit":{
+                        DG:[],
+                        GRID:[],
+                        "Month":[]
+                    },
+                    "Amount":{
+                        DG:[],
+                        GRID:[],
+                        "Month":[]
+                    },
+                    
+                }
                 for(var i=0; i<response.resource.length; i++){
-                    if(Number(response.resource[i].grid_unit) > maxUnit)
-                        maxUnit = Number(response.resource[i].grid_unit)
-
-                    if(Number(response.resource[i].grid_amt) > maxAmount)
-                        maxAmount = Number(response.resource[i].grid_amt)
+                    data["Unit"]["Month"].push(response.resource[i]["date"])
+                    data["Unit"]['DG'].push(Number(response.resource[i]["dg_unit"]))
+                    data["Unit"]['GRID'].push(Number(response.resource[i]["grid_unit"]))
+                    data["Amount"]['DG'].push(Number(response.resource[i]["dg_amt"]))
+                    data["Amount"]['GRID'].push(Number(response.resource[i]["grid_amt"]))
+                    data["Amount"]["Month"].push(response.resource[i]["date"])
                 }
                 this.chart1UnitYAxis = [0, maxUnit];
                 this.chart1AmountYAxis = [0, maxAmount];
                 this.setState({
-                    chartData : response.resource
+                    chartData : data
                 })
             }
             else {
@@ -144,20 +159,30 @@ class ReportChart extends Component {
             if(response && response.rc === 0 && response.resource){
 
                 response.resource = response.resource.sort(this.GetSortOrder("date"))
-                var maxUnit = 0
-                var maxAmount = 0
-                for(var i=0; i<response.resource.length; i++){
-                    if(Number(response.resource[i].grid_unit) > maxUnit)
-                        maxUnit = Number(response.resource[i].grid_unit)
-
-                    if(Number(response.resource[i].grid_amt) > maxAmount)
-                        maxAmount = Number(response.resource[i].grid_amt)
+                var data = {
+                    "Unit":{
+                        DG:[],
+                        GRID:[],
+                        "Month":[]
+                    },
+                    "Amount":{
+                        DG:[],
+                        GRID:[],
+                        "Month":[]
+                    },
+                    
                 }
-                this.chart1UnitYAxis = [0, maxUnit];
-                this.chart1AmountYAxis = [0, maxAmount];
+                for(var i=0; i<response.resource.length; i++){
+                    data["Unit"]["Month"].push(response.resource[i]["month"])
+                    data["Unit"]['DG'].push(Number(response.resource[i]["dg_unit"]))
+                    data["Unit"]['GRID'].push(Number(response.resource[i]["grid_unit"]))
+                    data["Amount"]['DG'].push(Number(response.resource[i]["dg_amt"]))
+                    data["Amount"]['GRID'].push(Number(response.resource[i]["grid_amt"]))
+                    data["Amount"]["Month"].push(response.resource[i]["month"])
+                }
                 if(response.resource) {
                     this.setState({
-                        chartData : response.resource
+                        chartData : data
                     })
                 }
             }
@@ -239,40 +264,21 @@ class ReportChart extends Component {
         })
     }
 
-    getDailyMonthlyReportChart(keys) {
+    getDailyMonthlyReportChart(key) {
 
         const contentInset = { bottom: 20 }
-        return  <View style={{ flex:1, flexDirection:'row'}}>
-                    <YAxis
-                        style={{width:25}}
-                        data={keys[1] === 'grid_unit' ? this.chart1UnitYAxis : this.chart1AmountYAxis}
-                        contentInset={contentInset}
-                        svg={{
-                            fill: 'grey',
-                            fontSize: 10,
-                        }}
-                        numberOfTicks={10}
-                        formatLabel={(value) => `${value}`}
+        return  <View style={{ flex:1, flexDirection:'row'}} onLayout={(event)=>{
+                    this.setState({
+                        chartWidth:event.nativeEvent.layout.width,
+                        chartHeight:event.nativeEvent.layout.height
+                    })
+                }}>
+                    <AreaChart  
+                        chartWidth={this.state.chartWidth}
+                        chartHeight={this.state.chartHeight}
+                        chartData={this.state.chartData[key]}
+                        load_unit ={key === "Unit"?this.userData.resource.load_unit:this.userData.resource.currency}
                     />
-                    <View style={{ flex:1}}>
-                        <StackedAreaChart
-                            style={{ height: '90%', paddingVertical: 1, paddingHorizontal:10}}
-                            data={this.state.chartData}
-                            keys={keys}
-                            colors={[kThemeRedColor,kThemeBlueColor]}
-                            curve={shape.curveNatural}
-                            showGrid={true}
-                        >
-                            <Grid />
-                        </StackedAreaChart>
-                        <XAxis
-                            data={this.state.chartData}
-                            style={{width:'100%', height:20}}
-                            formatLabel={(value, index) => index+1}
-                            contentInset={{ left: 10, right: 10 }}
-                            svg={{ fontSize: 6, fill: 'grey',  rotation: -90,originY: 10, y:10 }}
-                        />
-                    </View>
                     
                 </View>
     }
@@ -293,7 +299,7 @@ class ReportChart extends Component {
                     chartWidth={this.state.chartWidth}
                     chartHeight={this.state.chartHeight}
                     chartData={this.state.chartData[key]}
-                    load_unit ={this.userData.resource.load_unit}
+                    load_unit ={key === "Unit"?this.userData.resource.load_unit:this.userData.resource.currency}
                  />
 
             </View>            
@@ -369,7 +375,7 @@ class ReportChart extends Component {
                         var chartData = this.state.chartData
                         this.spinner.startActivity()
                         this.setState({
-                            chartData:[]
+                            chartData:null
                         },()=>{
                             this.setState({
                                 chartData:chartData
@@ -406,14 +412,14 @@ class ReportChart extends Component {
                                 <Text style={{ color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> GRID CONSUMPTION </Text>
                             </View>
                             <View style={{flex:1}}>
-                                {this.state.chartData && this.state.period === "COMPARATIVE"? this.getComparativeReportChart("Unit"):this.state.chartData.length>0 ?this.getDailyMonthlyReportChart(['dg_unit','grid_unit']):null}
+                                {this.state.chartData && this.state.period === "COMPARATIVE"? this.getComparativeReportChart("Unit"):this.state.chartData ?this.getDailyMonthlyReportChart("Unit"):null}
                             </View>
                         </View>
 
                         <View style={[{ flex:1, margin:15, padding:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                             <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> COST CONSUMPTION </Text>
                             <View style={{flex:1}}>
-                                {this.state.chartData && this.state.period === "COMPARATIVE"? this.getComparativeReportChart("Amount"):this.state.chartData.length>0 ?this.getDailyMonthlyReportChart(['dg_amt','grid_amt']):null}
+                                {this.state.chartData && this.state.period === "COMPARATIVE"? this.getComparativeReportChart("Amount"):this.state.chartData ?this.getDailyMonthlyReportChart("Amount"):null}
                             </View>
                         </View>
                     </View>

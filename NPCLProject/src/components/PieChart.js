@@ -17,7 +17,6 @@ class PieChart extends Component {
     render(){
         const localPath = Platform.OS === 'ios' ? `${RNFS.MainBundlePath}`:"file:///android_asset"
         const baseUrl = Platform.OS === 'ios' ? "/highcharts":"file:///android_asset/"
-        console.log("Chart height : ", this.props.chartHeight)
         var PieChartHtml =    `<!DOCTYPE HTML>
                                     <html>
                                         <head>
@@ -59,9 +58,13 @@ class PieChart extends Component {
                                                             legend: {
                                                                 layout: 'vertical',
                                                                 align: 'right',
-                                                                verticalAlign: 'bottom',
-                                                                itemMarginTop: 10,
-                                                                itemMarginBottom: 10,
+                                                                verticalAlign: 'top',
+                                                                x: 0,
+                                                                y: 10,
+                                                                floating: true,
+                                                                borderWidth: 1,
+                                                                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#EFEFF4'),
+                                                                shadow: true
                                                             },
                                                             series: [{
                                                                 type: 'pie',
