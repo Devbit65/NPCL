@@ -37,6 +37,7 @@ class AreaChart extends Component {
                                                           ],
                                                         chart: {
                                                             type: 'area',
+                                                            inverted:true
                                                         },
                                                         subtitle: {
                                                             style: {
