@@ -184,10 +184,10 @@ class Login extends Component {
                         </View>
                         
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                            <View style={{width:225, height:275, backgroundColor:'#FFF', borderRadius:5}}>
+                            <View style={{width:275, height:350, backgroundColor:'#FFF', borderRadius:5}}>
                                 <View style={{flex:3}}>
                                     <TextInput
-                                        style={{paddingLeft:5, fontSize:11, height: 25, borderWidth:0.5, borderRadius:5, margin:25,  marginTop:30, borderColor:kThemeBlueColor, padding:0}}
+                                        style={{paddingLeft:5, fontSize:11, height: 35, borderWidth:0.5, borderRadius:5, margin:25,  marginTop:30, borderColor:kThemeBlueColor, padding:0}}
                                         textAlign={'left'}
                                         placeholder="USER ID"
                                         onChangeText={text => this.setState({userid:text},()=>this.userData.setUserCredential(this.state.userid, this.state.password))}
@@ -195,7 +195,7 @@ class Login extends Component {
                                     />
 
                                     <TextInput
-                                        style={{paddingLeft:5, fontSize:11, height: 25, borderWidth:0.5, borderRadius:5, margin:25, marginTop:0, marginBottom:5, borderColor:kThemeBlueColor, padding:0}}
+                                        style={{paddingLeft:5, fontSize:11, height: 35, borderWidth:0.5, borderRadius:5, margin:25, marginTop:0, marginBottom:5, borderColor:kThemeBlueColor, padding:0}}
                                         textAlign={'left'}
                                         placeholder="PASSWORD"
                                         secureTextEntry={this.state.securePassword}
@@ -213,7 +213,7 @@ class Login extends Component {
                                 </View>
                                 
                                 <View style={{flex:2, alignItems:'center', justifyContent:'center'}}>
-                                    <TouchableOpacity onPress={()=>this.onClickLogin()} style={{width:150, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
+                                    <TouchableOpacity onPress={()=>this.onClickLogin()} style={{width:150, height:35,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
                                         <Text style={{color:'#FFF', fontWeight:'bold'}}>SIGN IN</Text>
                                     </TouchableOpacity>
                                     

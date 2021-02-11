@@ -20,7 +20,7 @@ import { ActionCreators } from '../redux/action';
 
 import moment from 'moment';
 import MonthPicker, { ACTION_DATE_SET, ACTION_DISMISSED, ACTION_NEUTRAL } from 'react-native-month-year-picker';
-import BarChart from '../components/barChart'
+import BarChart from '../components/BarChart'
 import AreaChart from '../components/areaChart'
 
 const kThemeRedColor = 'rgb(206, 0, 57)'

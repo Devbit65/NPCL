@@ -72,8 +72,8 @@ class EventLogging extends Component {
             var logData = {
                 id:i.toString(),
                 "date":date,
-                "dg_start_date":startDate,
-                "dg_end_date":endDate
+                "dg_start_date":date+":: "+startDate,
+                "dg_end_date":date+":: "+endDate
             }
 
             logMessages.push(logData)
