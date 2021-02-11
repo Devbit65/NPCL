@@ -23,6 +23,10 @@ class PieChart extends Component {
                                             <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
                                                 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
                                                 <style type="text/css">
+                                                    .highcharts-tooltip span {
+                                                        height:100px !important;
+                                                    }
+
                                                 </style>
                                                 <script type="text/javascript">
                                                     $(function () {
@@ -37,7 +41,10 @@ class PieChart extends Component {
                                                                 }
                                                             },
                                                             tooltip: {
-                                                                pointFormat: '{series.name}: <b>{point.y:.2f} ${this.props.data.load_unit}</b>'
+                                                                shared: true,
+                                                                useHTML: true,
+                                                                headerFormat: '<span style="font-size: 40px;">{point.key}</span><br/>',
+                                                                pointFormat: '<span style="font-size: 40px">{series.name}:  <b>{point.y:.1f} ${this.props.data.load_unit}</b></span>',
                                                             },
                                                             plotOptions: {
                                                                 pie: {
@@ -56,15 +63,13 @@ class PieChart extends Component {
                                                                 }
                                                             },
                                                             legend: {
-                                                                layout: 'vertical',
-                                                                align: 'right',
-                                                                verticalAlign: 'top',
-                                                                x: 0,
-                                                                y: 10,
-                                                                floating: true,
-                                                                borderWidth: 1,
-                                                                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#EFEFF4'),
-                                                                shadow: true
+                                                                shadow: true,
+                                                                symbolHeight: 40,
+                                                                symbolWidth: 40,
+                                                                itemStyle: {
+                                                                    fontSize:'40px',
+                                                                 },
+
                                                             },
                                                             series: [{
                                                                 type: 'pie',
@@ -83,7 +88,7 @@ class PieChart extends Component {
                                             <script  src="${localPath}/highcharts/highcharts.js"></script>
                                             <script  src="${localPath}/highcharts/highcharts-3d.js"></script>
                                                         
-                                            <div id="container" style="height:100%;width:100%;position:absolute;"></div>
+                                            <div id="container" style="height: 100vh; margin: 0 auto"></div>
                                         </body>
                                     </html>`
         return  <View style={{width:this.props.chartWidth, height:this.props.chartHeight}}>
