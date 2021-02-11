@@ -24,6 +24,9 @@ class BarChart extends Component {
                                             <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
                                                 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
                                                 <style type="text/css">
+                                                    .highcharts-tooltip span {
+                                                        height:100px !important;
+                                                    }
                                                 </style>
                                                 <script type="text/javascript">
                                                     $(function () {
@@ -39,22 +42,39 @@ class BarChart extends Component {
                                                             xAxis: {
                                                                 categories: ${JSON.stringify(this.props.chartData.Month)},
                                                                 title: {
-                                                                    text: null
-                                                                }
+                                                                    text: null,
+                                                                    style: {
+                                                                        fontSize: '40px',
+                                                                    }
+                                                                },
+                                                                labels: {
+                                                                    style: {
+                                                                        fontSize: '40px',
+                                                                    }
+                                                                },
                                                             },
                                                             yAxis: {
                                                                 title: {
-                                                                    text: '(${this.props.load_unit})'
+                                                                    text: '(${this.props.load_unit})',
+                                                                    style: {
+                                                                        fontSize: '40px',
+                                                                    }
                                                                 },
                                                                 labels: {
                                                                     formatter: function () {
                                                                         return this.value;
+                                                                    },
+                                                                    style: {
+                                                                        fontSize: '40px',
                                                                     }
                                                                 },
                                                                 min: 0
                                                             },
                                                             tooltip: {
-                                                                valueSuffix: ' ${this.props.load_unit}'
+                                                                shared: false, //true,
+                                                                useHTML: true,
+                                                                headerFormat: '<span style="font-size: 40px;">{point.key}</span><br/>',
+                                                                pointFormat: '<span style="font-size: 40px">{series.name}:  <b>{point.y:.1f} ${this.props.load_unit}</b></span>',
                                                             },
                                                             plotOptions: {
                                                                 bar: {
@@ -64,15 +84,17 @@ class BarChart extends Component {
                                                                 }
                                                             },
                                                             legend: {
-                                                                layout: 'vertical',
-                                                                align: 'right',
-                                                                verticalAlign: 'top',
                                                                 x: 0,
-                                                                y: 10,
-                                                                floating: true,
-                                                                borderWidth: 1,
+                                                                y: 0,
                                                                 backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#EFEFF4'),
-                                                                shadow: true
+                                                                shadow: true,
+                                                                symbolHeight: 40,
+                                                                symbolWidth: 40,
+                                                                itemStyle: {
+                                                                    fontSize:'40px',
+                                                                    width: 10
+                                                                 },
+
                                                             },
                                                             credits: {
                                                                 enabled: false
@@ -89,7 +111,7 @@ class BarChart extends Component {
                                             <script  src="${localPath}/highcharts/highcharts.js"></script>
                                             <script  src="${localPath}/highcharts/highcharts-3d.js"></script>
                                                         
-                                            <div id="container" style="height:97%;width:97%;position:absolute;"></div>
+                                            <div id="container" style="height: 100vh; margin: 0 auto"></div>
                                         </body>
                                     </html>`
         return  <View style={{width:this.props.chartWidth, height:this.props.chartHeight}}>
