@@ -85,7 +85,8 @@ class AreaChart extends Component {
                                                                 },
                                                                 style: {
                                                                     fontSize: '40px',
-                                                                }
+                                                                },
+                                                                rotation: -90
                                                             },
                                                             min: 0
                                                         },

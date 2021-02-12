@@ -50,32 +50,35 @@ cd ..
 ##########
 echo '###################################'
 echo '############### Android Build Started ################'
-#react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
-#cd android/
-#
-#rm -rf app/build
-#rm -rf build
-#
-##rm -rf $HOME/.gradle/caches/
-#
-#./gradlew clean
-#./gradlew assembleRelease
-#
-#cd ..
-#
-#
-##cp ./android/app/build/outputs/apk/"$UNSINGED_APK_NAME" "$targetFolder"/
-#
-##Tmporary fix for android build issue
-#cp ./android/app/build/outputs/apk/release/"$UNSINGED_APK_NAME" "$targetFolder"/
-#
-#ANDROID_BUILD_TOOL=~/Library/Android/sdk/build-tools/29.0.2
-#
-#"$ANDROID_BUILD_TOOL"/zipalign -v -p 4 "$targetFolder"/"$UNSINGED_APK_NAME" "$ALIGNED_APK_NAME"
-#
-#"$ANDROID_BUILD_TOOL"/apksigner sign --ks "$KEY_STORE" --ks-pass pass:"$password" --out "$RELEASE_APK_NAME" "$ALIGNED_APK_NAME"
-#
-#"$ANDROID_BUILD_TOOL"/apksigner verify "$RELEASE_APK_NAME"
+react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+rm -rf ./android/app/src/main/res/drawable-*
+
+rm -rf ./android/app/src/main/res/raw
+cd android/
+
+rm -rf app/build
+rm -rf build
+
+#rm -rf $HOME/.gradle/caches/
+
+./gradlew clean
+./gradlew assembleRelease
+
+cd ..
+
+
+#cp ./android/app/build/outputs/apk/"$UNSINGED_APK_NAME" "$targetFolder"/
+
+#Tmporary fix for android build issue
+cp ./android/app/build/outputs/apk/release/"$UNSINGED_APK_NAME" "$targetFolder"/
+
+ANDROID_BUILD_TOOL=~/Library/Android/sdk/build-tools/29.0.2
+
+"$ANDROID_BUILD_TOOL"/zipalign -v -p 4 "$targetFolder"/"$UNSINGED_APK_NAME" "$ALIGNED_APK_NAME"
+
+"$ANDROID_BUILD_TOOL"/apksigner sign --ks "$KEY_STORE" --ks-pass pass:"$password" --out "$RELEASE_APK_NAME" "$ALIGNED_APK_NAME"
+
+"$ANDROID_BUILD_TOOL"/apksigner verify "$RELEASE_APK_NAME"
 
 
 cd "$targetFolder"

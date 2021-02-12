@@ -32,12 +32,32 @@ export const fethcLogin = () => {
   if(!url.includes('https://')){
     url = 'https://'+url
   }
-  var req_url = url+kLoginURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd
-  if(devToken){
-    req_url = req_url + '&device_token='+devToken+'&device_OS='+Platform.OS
+  var req_url = url+kLoginURL
+
+  var reqBody = {
+    "login_id" : userCred.user_id,
+    "password" : userCred.pswd,
   }
-  return fetch(req_url)
-    .then((response) => response.json())
+
+  if(devToken){
+    alert("Loging with Push Notification Device Token : "+devToken)
+    reqBody = {
+      ...reqBody,
+      device_token : devToken,
+      device_OS : Platform.OS
+    }
+  }
+
+  return fetch(req_url,{
+    
+    method: 'POST',
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(reqBody), 
+  })
+  .then((response) => response.json())
     .then((json) => {
         return json;
     })
