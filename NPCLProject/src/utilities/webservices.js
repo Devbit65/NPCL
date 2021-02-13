@@ -40,7 +40,7 @@ export const fethcLogin = () => {
   }
 
   if(devToken){
-    alert("Loging with Push Notification Device Token : "+devToken)
+    // alert("Loging with Push Notification Device Token : "+devToken)
     reqBody = {
       ...reqBody,
       device_token : devToken,
