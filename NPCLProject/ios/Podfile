@@ -14,7 +14,7 @@ target 'NPCLProject' do
 
   pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
 
-  pod 'RNFS', :path => '../node_modules/react-native-fs'
+  # pod 'RNFS', :path => '../node_modules/react-native-fs'
 
   target 'NPCLProjectTests' do
     inherit! :complete

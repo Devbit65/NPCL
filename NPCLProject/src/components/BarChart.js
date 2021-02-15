@@ -3,11 +3,9 @@
 import React, { Component } from 'react';
 import {
     View,
-    Platform
 } from 'react-native';
 
 import { WebView } from 'react-native-webview';
-import RNFS from 'react-native-fs';
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
 const kThemeBlueColor = 'rgb(19,69,113)'
