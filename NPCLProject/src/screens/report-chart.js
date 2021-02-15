@@ -38,7 +38,9 @@ class ReportChart extends Component {
             willShowCallendar : false,
             xAxisDate:[],
             chartWidth:0,
-            chartHeight:0
+            chartHeight:0,
+            showChartInFullScreen : false,
+            fullScreenChartType :null,
         }
         this.period = ""
         this.chart1UnitYAxis = []
@@ -266,7 +268,6 @@ class ReportChart extends Component {
 
     getDailyMonthlyReportChart(key) {
 
-        const contentInset = { bottom: 20 }
         return  <View style={{ flex:1, flexDirection:'row'}} onLayout={(event)=>{
                     this.setState({
                         chartWidth:event.nativeEvent.layout.width,
@@ -285,7 +286,6 @@ class ReportChart extends Component {
 
     getComparativeReportChart(key) {
 
-        const contentInset = { bottom: 20 }
         if(!this.state.chartData[key])
             return null
         return (
@@ -358,10 +358,26 @@ class ReportChart extends Component {
         }
     }
 
-    render(){
-        var dataResouces = this.userData.resource
-        const contentInset = { bottom: 20 }
+    willShowFullScreen(chartType) {
+        this.setState({
+            showChartInFullScreen:true,
+            fullScreenChartType : chartType
+        })
+    }
 
+    closeFullScreen() {
+        var chartData = this.state.chartData
+        this.setState({
+            chartData:null,
+            showChartInFullScreen : false
+        },()=>{
+            this.setState({
+                chartData:chartData
+            })
+        })
+    }
+
+    render(){
         var newDate = {day:"-", month:"-", year:"-"}
         if(this.state.date) {
 
@@ -406,8 +422,14 @@ class ReportChart extends Component {
                     <View style={{flex:1, backgroundColor:'#fff'}}>
 
                         <View style={[{ flex:1, margin:15, padding:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
-                            <View style={{width:'100%', height:20, alignItems:'center', justifyContent:'center'}}>
+                            <View style={{width:'100%', height:20, alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
+                                <View style={{flex:1}}/>
+                                
                                 <Text style={{ color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> GRID CONSUMPTION </Text>
+                                
+                                <TouchableOpacity onPress={()=>this.willShowFullScreen("Unit")} style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
+                                    <Icon size={18} name="open-in-full" color={kThemeBlueColor} />
+                                </TouchableOpacity>
                             </View>
                             <View style={{flex:1}}>
                                 {this.state.chartData && this.state.period === "COMPARATIVE"? this.getComparativeReportChart("Unit"):this.state.chartData ?this.getDailyMonthlyReportChart("Unit"):null}
@@ -415,7 +437,15 @@ class ReportChart extends Component {
                         </View>
 
                         <View style={[{ flex:1, margin:15, padding:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
-                            <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> COST CONSUMPTION </Text>
+                            <View style={{width:'100%', height:20, alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
+                                <View style={{flex:1}}/>
+                                
+                                <Text style={{color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> COST CONSUMPTION </Text>
+                                
+                                <TouchableOpacity onPress={()=>this.willShowFullScreen("Amount")} style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
+                                    <Icon size={18} name="open-in-full" color={kThemeBlueColor} />
+                                </TouchableOpacity>
+                            </View>
                             <View style={{flex:1}}>
                                 {this.state.chartData && this.state.period === "COMPARATIVE"? this.getComparativeReportChart("Amount"):this.state.chartData ?this.getDailyMonthlyReportChart("Amount"):null}
                             </View>
@@ -451,6 +481,19 @@ class ReportChart extends Component {
                             locale="en"
                         />
                     )}
+
+                    {this.state.showChartInFullScreen && <Modal animated={true} animationType={"slide"} isVisible={true} >
+                        <View style={{ flex: 1, margin:20, marginTop:44, }}>
+                            <View style={{margin:5, alignSelf:'flex-end'}}>
+                                <TouchableOpacity onPress={()=>this.closeFullScreen()} style={{ alignItems:'center', justifyContent:'center', borderRadius:5}}>
+                                    <Icon size={21} name="close-fullscreen" color={kThemeRedColor} />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{flex:1, backgroundColor:'rgb(242,242,242)', padding:10, borderRadius:10,}}>
+                                {this.state.chartData && this.state.period === "COMPARATIVE"? this.getComparativeReportChart(this.state.fullScreenChartType):this.state.chartData ?this.getDailyMonthlyReportChart(this.state.fullScreenChartType):null}
+                            </View>
+                        </View>
+                    </Modal>}
                 </View>
     }
 }
