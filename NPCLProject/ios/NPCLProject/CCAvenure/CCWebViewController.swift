@@ -106,82 +106,39 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         
         //fill the required values to be passes to the payment web page
-      BILLING_NAME_Val = userData["consumer_name"] as! String
-      BILLING_ADDRESS_Val = userData["flat_number"] as! String
-      BILLING_CITY_Val = userData["site_city"] as! String
-      BILLING_STATE_Val = userData["site_state"] as! String
-      BILLING_COUNTRY_Val = userData["site_country"] as! String
-      BILLING_ZIP_Val = userData["site_zipcode"] as! String
-      BILLING_TEL_Val = userData["consumer_mobile_no"] as! String
-      BILLING_EMAIL_Val = userData["consumer_email_id"] as! String
-      DELIVERY_NAME_Val = userData["consumer_name"] as! String
-      DELIVERY_ADDRESS_Val = userData["flat_number"] as! String
-      DELIVERY_CITY_Val = userData["site_city"] as! String
-      DELIVERY_STATE_Val = userData["site_state"] as! String
-      DELIVERY_COUNTRY_Val = userData["site_country"] as! String
-      DELIVERY_ZIP_Val = userData["site_zipcode"] as! String
-      DELIVERY_TEL_Val = userData["consumer_mobile_no"] as! String
-      DELIVERY_EMAIL_Val = userData["consumer_email_id"] as! String
+      BILLING_NAME_Val = (userData["consumer_name"]as? String) ?? ""
+      BILLING_ADDRESS_Val = (userData["flat_number"]as? String) ?? ""
+      BILLING_CITY_Val = (userData["site_city"]as? String) ?? ""
+      BILLING_STATE_Val = (userData["site_state"]as? String) ?? ""
+      BILLING_COUNTRY_Val = (userData["site_country"]as? String) ?? ""
+      BILLING_ZIP_Val = (userData["site_zipcode"]as? String) ?? ""
+      BILLING_TEL_Val = (userData["consumer_mobile_no"]as? String) ?? ""
+      BILLING_EMAIL_Val = (userData["consumer_email_id"]as? String) ?? ""
+      DELIVERY_NAME_Val = (userData["consumer_name"]as? String) ?? ""
+      DELIVERY_ADDRESS_Val = (userData["flat_number"]as? String) ?? ""
+      DELIVERY_CITY_Val = (userData["site_city"]as? String) ?? ""
+      DELIVERY_STATE_Val = (userData["site_state"]as? String) ?? ""
+      DELIVERY_COUNTRY_Val = (userData["site_country"]as? String) ?? ""
+      DELIVERY_ZIP_Val = (userData["site_zipcode"]as? String) ?? ""
+      DELIVERY_TEL_Val = (userData["consumer_mobile_no"]as? String) ?? ""
+      DELIVERY_EMAIL_Val = (userData["consumer_email_id"]as? String) ?? ""
       MERCHANT_PARAM1_Val = "Radius Synergies Int. Pvt. ltd."
-      MERCHANT_PARAM2_Val = userData["location_id"] as! String
-      MERCHANT_PARAM3_Val = userData["flat_number"] as! String
-      MERCHANT_PARAM4_Val = userData["site_id"] as! String
-      MERCHANT_PARAM5_Val = (userData["site_code"] as? String)! + ":" + (userData["site_name"] as? String)!
-      CUSTOMER_IDENTIFIER_Val = (userData["site_code"] as? String)! + ":" + (userData["flat_number"] as? String)!
+      MERCHANT_PARAM2_Val = (userData["location_id"]as? String) ?? ""
+      MERCHANT_PARAM3_Val = (userData["flat_number"]as? String) ?? ""
+      MERCHANT_PARAM4_Val = (userData["site_id"]as? String) ?? ""
       
-//      BILLING_NAME_Val = "ISC1"
-//      BILLING_ADDRESS_Val = "ISC1"
-//      BILLING_CITY_Val = "Vrindavan Yojna, Lucknow"
-//      BILLING_STATE_Val = "UP"
-//      BILLING_COUNTRY_Val = "India"
-//      BILLING_ZIP_Val = "201301"
-//      BILLING_TEL_Val =  "9663899697"
-//      BILLING_EMAIL_Val = "indrajeet.prajapati@radius.co.in"
-//      DELIVERY_NAME_Val = "ISC1"
-//      DELIVERY_ADDRESS_Val = "ISC1"
-//      DELIVERY_CITY_Val = "Vrindavan Yojna, Lucknow"
-//      DELIVERY_STATE_Val = "UP"
-//      DELIVERY_COUNTRY_Val = "India"
-//      DELIVERY_ZIP_Val = "201301"
-//      DELIVERY_TEL_Val = "9663899697"
-//      DELIVERY_EMAIL_Val = "indrajeet.prajapati@radius.co.in"
-//      MERCHANT_PARAM1_Val = "Radius Synergies Int. Pvt. ltd."
-//      MERCHANT_PARAM2_Val = "2121101"
-//      MERCHANT_PARAM3_Val = "ISC1"
-//      MERCHANT_PARAM4_Val = "54acdb8751ca65.28087018"
-//      MERCHANT_PARAM5_Val = "2121" + ":" + "H-98 AMR DL Demo"
-//      CUSTOMER_IDENTIFIER_Val = "2121" + ":" + "ISC1"
-        
-//      print("BILLING_NAME_Val : ",BILLING_NAME_Val)
-//      print("BILLING_NAME_Val : ",BILLING_ADDRESS_Val)
-//      print("BILLING_NAME_Val : ",BILLING_CITY_Val)
-//      print("BILLING_NAME_Val : ",BILLING_STATE_Val)
-//      print("BILLING_NAME_Val : ",BILLING_COUNTRY_Val)
-//      print("BILLING_NAME_Val : ",BILLING_ZIP_Val)
-//      print("BILLING_NAME_Val : ",BILLING_TEL_Val)
-//      print("BILLING_NAME_Val : ",BILLING_EMAIL_Val)
-//      print("BILLING_NAME_Val : ",DELIVERY_NAME_Val)
-//      print("BILLING_NAME_Val : ",DELIVERY_ADDRESS_Val)
-//      print("BILLING_NAME_Val : ",DELIVERY_CITY_Val)
-//      print("BILLING_NAME_Val : ",DELIVERY_STATE_Val)
-//      print("BILLING_NAME_Val : ",DELIVERY_COUNTRY_Val)
-//      print("BILLING_NAME_Val : ",DELIVERY_ZIP_Val)
-//      print("BILLING_NAME_Val : ",DELIVERY_TEL_Val)
-//      print("BILLING_NAME_Val : ",DELIVERY_EMAIL_Val)
-//      print("BILLING_NAME_Val : ",MERCHANT_PARAM1_Val)
-//      print("BILLING_NAME_Val : ",MERCHANT_PARAM2_Val)
-//      print("BILLING_NAME_Val : ",MERCHANT_PARAM3_Val)
-//      print("BILLING_NAME_Val : ",MERCHANT_PARAM4_Val)
-//      print("BILLING_NAME_Val : ",MERCHANT_PARAM5_Val)
-//      print("BILLING_NAME_Val : ",CUSTOMER_IDENTIFIER_Val)
+      let siteCode = (userData["site_code"]as? String) ?? ""
+      let siteName = (userData["site_name"]as? String) ?? ""
       
+      MERCHANT_PARAM5_Val = siteCode + ":" + siteName
+      
+      let flatNumber = (userData["flat_number"]as? String) ?? ""
+      
+      CUSTOMER_IDENTIFIER_Val = siteCode + ":" + flatNumber
 
         /**
          * In viewWillAppear we will call gettingRsaKey method to generate RSA Key for the transaction and use the same to encrypt data
          */
-        
-        
-        
         self.gettingRsaKey(){
             (success, object) -> () in
             DispatchQueue.main.sync {

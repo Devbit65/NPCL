@@ -41,32 +41,37 @@ public class CCAvenuePaymentDisplayVC extends ReactContextBaseJavaModule {
 
             int rc = reader.getInt("rc");
             if (rc == 0) {
-                orderIDD = reader.getString("order_id");
+                orderIDD = reader.getString("order_id") != null ? reader.getString("order_id") : "";
 
-                String BILLING_NAME_Val = userData.getString("consumer_name");
-                String BILLING_ADDRESS_Val = userData.getString("flat_number");
-                String BILLING_CITY_Val = userData.getString("site_city");
-                String BILLING_STATE_Val = userData.getString("site_state");
-                String BILLING_COUNTRY_Val = userData.getString("site_country");
-                String BILLING_ZIP_Val = userData.getString("site_zipcode");
-                String BILLING_TEL_Val = userData.getString("consumer_mobile_no");
-                String BILLING_EMAIL_Val = userData.getString("consumer_email_id");
-                String DELIVERY_NAME_Val = userData.getString("consumer_name");
+                String BILLING_NAME_Val = userData.getString("consumer_name") != null ? userData.getString("consumer_name") : "";
+                String BILLING_ADDRESS_Val = userData.getString("flat_number") != null ? userData.getString("flat_number") : "";
+                String BILLING_CITY_Val = userData.getString("site_city") != null ? userData.getString("site_city") : "";
+                String BILLING_STATE_Val = userData.getString("site_state") != null ? userData.getString("site_state") : "";
+                String BILLING_COUNTRY_Val = userData.getString("site_country") != null ? userData.getString("site_country") : "";
+                String BILLING_ZIP_Val = userData.getString("site_zipcode") != null ? userData.getString("site_zipcode") : "";
+                String BILLING_TEL_Val = userData.getString("consumer_mobile_no") != null ? userData.getString("consumer_mobile_no") : "";
+                String BILLING_EMAIL_Val = userData.getString("consumer_email_id") != null ? userData.getString("consumer_email_id") : "";
+                String DELIVERY_NAME_Val = userData.getString("consumer_name") != null ? userData.getString("consumer_name") : "";
 
-                String DELIVERY_ADDRESS_Val = userData.getString("flat_number");
-                String DELIVERY_CITY_Val = userData.getString("site_city");
-                String DELIVERY_STATE_Val = userData.getString("site_state");
-                String DELIVERY_COUNTRY_Val = userData.getString("site_country");
-                String DELIVERY_ZIP_Val = userData.getString("site_zipcode");
-                String DELIVERY_TEL_Val = userData.getString("consumer_mobile_no");
-                String DELIVERY_EMAIL_Val = userData.getString("consumer_email_id");
+                String DELIVERY_ADDRESS_Val = userData.getString("flat_number") != null ? userData.getString("flat_number") : "";
+                String DELIVERY_CITY_Val = userData.getString("site_city") != null ? userData.getString("site_city") : "";
+                String DELIVERY_STATE_Val = userData.getString("site_state") != null ? userData.getString("site_state") : "";
+                String DELIVERY_COUNTRY_Val = userData.getString("site_country") != null ? userData.getString("site_country") : "";
+                String DELIVERY_ZIP_Val = userData.getString("site_zipcode") != null ? userData.getString("site_zipcode") : "";
+                String DELIVERY_TEL_Val = userData.getString("consumer_mobile_no") != null ? userData.getString("consumer_mobile_no") : "";
+                String DELIVERY_EMAIL_Val = userData.getString("consumer_email_id") != null ? userData.getString("consumer_email_id") : "";
 
                 String MERCHANT_PARAM1_Val = "Radius Synergies Int. Pvt. ltd.";
-                String MERCHANT_PARAM2_Val = userData.getString("location_id");
-                String MERCHANT_PARAM3_Val = userData.getString("flat_number");
-                String MERCHANT_PARAM4_Val = userData.getString("site_id");
-                String MERCHANT_PARAM5_Val = (userData.getString("site_code") + ":" + userData.getString("site_name"));
-                String CUSTOMER_IDENTIFIER_Val = (userData.getString("site_code") + ":" + userData.getString("flat_number"));
+                String MERCHANT_PARAM2_Val = userData.getString("location_id") != null ? userData.getString("location_id") : "";
+                String MERCHANT_PARAM3_Val = userData.getString("flat_number") != null ? userData.getString("flat_number") : "";
+                String MERCHANT_PARAM4_Val = userData.getString("site_id") != null ? userData.getString("site_id") : "";
+
+                String siteCode = userData.getString("site_code") != null ? userData.getString("site_code") : "";
+                String siteName = userData.getString("site_name") != null ? userData.getString("site_name") : "";
+                String flatNumber = userData.getString("flat_number") != null ? userData.getString("flat_number") : "";
+
+                String MERCHANT_PARAM5_Val = (siteCode + ":" + siteName);
+                String CUSTOMER_IDENTIFIER_Val = (siteCode + ":" + flatNumber);
 
                 Intent intent = new Intent(getReactApplicationContext(), WebViewActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
