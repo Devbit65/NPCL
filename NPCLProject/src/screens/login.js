@@ -87,7 +87,9 @@ class Login extends Component {
             return;
         }
 
-        fethcLogin()
+        var devToken = this.userData.getDeviceToken()
+
+        fethcLogin(devToken)
         .then(response=>{
 
             this.spinner.stopActivity();

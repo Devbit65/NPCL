@@ -23,10 +23,9 @@ const baseURL = "myxenius.com"
 import { Platform } from 'react-native'
 import UserData from '../utilities/models/user-data'
 
-export const fethcLogin = () => {
+export const fethcLogin = (devToken) => {
   var userData = new UserData()
   var userCred = userData.getUserCredential()
-  var devToken = userData.getDeviceToken()
   
   var url = userData.getBaseURL()
   if(!url.includes('https://')){
@@ -34,18 +33,12 @@ export const fethcLogin = () => {
   }
   var req_url = url+kLoginURL
 
+  // alert("Loging with Push Notification Device Token : "+devToken)
   var reqBody = {
     "login_id" : userCred.user_id,
     "password" : userCred.pswd,
-  }
-
-  if(devToken){
-    // alert("Loging with Push Notification Device Token : "+devToken)
-    reqBody = {
-      ...reqBody,
-      device_token : devToken,
-      device_OS : Platform.OS
-    }
+    device_token : devToken,
+    device_OS : Platform.OS
   }
 
   return fetch(req_url,{
@@ -65,6 +58,25 @@ export const fethcLogin = () => {
       return null
     });
 };
+
+export const fetchLoginToRefresh = () => {
+  var userData = new UserData()
+  var userCred = userData.getUserCredential()
+  
+  var url = userData.getBaseURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+  var req_url = url+kLoginURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  return fetch(req_url)
+    .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+}
 
 export const fethchMessages = () => {
   var userData = new UserData()

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import UserData from '../utilities/models/user-data'
-import {fetchSaveSettings, fethcLogin} from '../utilities/webservices'
+import {fetchSaveSettings, fetchLoginToRefresh} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 import { INITIATE_REFRESH } from '../redux/constants';
 
@@ -50,7 +50,7 @@ class Settings extends Component {
             return;
         }
 
-        fethcLogin()
+        fetchLoginToRefresh()
         .then(response=>{
 
             this.spinner.stopActivity();

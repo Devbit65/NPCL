@@ -14,6 +14,7 @@ import UserData from '../utilities/models/user-data'
 import Icon from 'react-native-vector-icons/Entypo';
 import * as Keychain from 'react-native-keychain';
 import { SHOW_PDF_VIEW, SHOW_PAYMENT_VIEW } from '../redux/constants';
+import {fethcLogin} from '../utilities/webservices';
 
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
@@ -53,6 +54,7 @@ class AppRouteConfig extends Component {
         try {
             const credentials = await Keychain.resetGenericPassword();
             var userData = new UserData()
+            fethcLogin(null)
             userData.setUserData(null)
             this.props.navigation.reset({
                 index: 0,

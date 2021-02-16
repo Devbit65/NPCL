@@ -9,7 +9,7 @@ import {
 
 import UserData from '../utilities/models/user-data'
 import Spinner from '../components/activity-indicator'
-import {fethcLogin, fetchVerifyBalance, fetchRestoreAPI} from '../utilities/webservices'
+import {fetchLoginToRefresh, fetchVerifyBalance, fetchRestoreAPI} from '../utilities/webservices'
 import { INITIATE_REFRESH } from '../redux/constants';
 
 import PieChart from '../components/PieChart'
@@ -62,7 +62,7 @@ class Overview extends Component {
             return;
         }
 
-        fethcLogin()
+        fetchLoginToRefresh()
         .then(response=>{
 
             this.spinner.stopActivity();
