@@ -4,7 +4,8 @@ import {
     View,
     Image,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    ScrollView
 } from 'react-native';
 
 import UserData from '../utilities/models/user-data'
@@ -28,6 +29,12 @@ class Overview extends Component {
         this.userData = new UserData().getUserData();
 
         var dataResouces = this.userData ? this.userData.resource:null
+        var daily_totalConsumption = 0
+        var monthly_totalConsumption = 0
+        if(dataResouces) {
+            daily_totalConsumption = Number(dataResouces.daily_dg_amount) + Number(dataResouces.daily_grid_amount) + Number(dataResouces.fix_charges)
+            monthly_totalConsumption = Number(dataResouces.monthly_dg_amount) + Number(dataResouces.monthly_grid_amount) + Number(dataResouces.fix_charges_monthly)
+        }
         this.state = {
             balance_inr : dataResouces ? Number(dataResouces.balance_amount).toFixed(2) : "",
             balance_updated_on : dataResouces ? dataResouces.last_reading_updated : '',
@@ -36,15 +43,26 @@ class Overview extends Component {
             dg_kwh : dataResouces ? Number(dataResouces.dg_reading).toFixed(2) : '',
             sectioned_grid : dataResouces ? dataResouces.grid_sanctioned_load : '',
             sectioned_dg : dataResouces ? dataResouces.dg_sanctioned_load : '',
-            consumption_grid : dataResouces ? dataResouces.monthly_grid_unit : '',
-            consumption_dg : dataResouces ? dataResouces.monthly_dg_unit : '',
-            consumption_fixed_charged : dataResouces ? dataResouces.fix_charges : '',
-            consumption_total : dataResouces ? dataResouces.monthly_grid_amount : '',
+            daily_consumption_grid : dataResouces ? dataResouces.daily_grid_amount : '',
+            daily_consumption_dg : dataResouces ? dataResouces.daily_dg_amount : '',
+            monthly_consumption_grid : dataResouces ? dataResouces.monthly_grid_amount : '',
+            monthly_consumption_dg : dataResouces ? dataResouces.monthly_dg_amount : '',
+            daily_consumption_grid_unit : dataResouces ? dataResouces.daily_grid_unit : '',
+            daily_consumption_dg_unit : dataResouces ? dataResouces.daily_dg_unit : '',
+            monthly_consumption_grid_unit : dataResouces ? dataResouces.monthly_grid_unit : '',
+            monthly_consumption_dg_unit : dataResouces ? dataResouces.monthly_dg_unit : '',
+            daily_consumption_fixed_charged : dataResouces ? dataResouces.fix_charges : '',
+            monthly_consumption_fixed_charged : dataResouces ? dataResouces.fix_charges_monthly : '',
+            dialy_consumption_total : daily_totalConsumption,
+            monthly_consumption_total : monthly_totalConsumption,
             load_unit : dataResouces ? dataResouces.load_unit : '',
+            reading_unit : dataResouces ? dataResouces.reading_unit : '',
             currency : dataResouces ? dataResouces.currency : '',
             willShowResetButton : dataResouces ? (Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm)) : '',
             chartWidth : 0,
             chartHeight : 0,
+            chartViewWidth:0,
+            chartViewHeight:0
         }
 
         this.spinner = new Spinner()
@@ -76,6 +94,14 @@ class Overview extends Component {
             this.userData = new UserData().getUserData();;
 
             var dataResouces = this.userData.resource
+
+            var daily_totalConsumption = 0
+            var monthly_totalConsumption = 0
+            if(dataResouces) {
+                daily_totalConsumption = Number(dataResouces.daily_dg_amount) + Number(dataResouces.daily_grid_amount) + Number(dataResouces.fix_charges)
+                monthly_totalConsumption = Number(dataResouces.monthly_dg_amount) + Number(dataResouces.monthly_grid_amount) + Number(dataResouces.fix_charges_monthly)
+            }
+    
             this.setState({
                 balance_inr:Number(dataResouces.balance_amount).toFixed(2),
                 balance_updated_on:dataResouces.last_reading_updated,
@@ -84,11 +110,20 @@ class Overview extends Component {
                 dg_kwh:Number(dataResouces.dg_reading).toFixed(2),
                 sectioned_grid:dataResouces.grid_sanctioned_load,
                 sectioned_dg:dataResouces.dg_sanctioned_load,
-                consumption_grid:dataResouces.monthly_grid_unit,
-                consumption_dg:dataResouces.monthly_dg_unit,
-                consumption_fixed_charged:dataResouces.fix_charges,
-                consumption_total:dataResouces.monthly_grid_amount,
+                daily_consumption_grid : dataResouces.daily_grid_amount,
+                daily_consumption_dg : dataResouces.daily_dg_amount,
+                monthly_consumption_grid : dataResouces.monthly_grid_amount,
+                monthly_consumption_dg : dataResouces.monthly_dg_amount,
+                daily_consumption_fixed_charged : dataResouces.fix_charges,
+                monthly_consumption_fixed_charged : dataResouces.fix_charges_monthly,
+                daily_consumption_grid_unit : dataResouces.daily_grid_unit,
+                daily_consumption_dg_unit : dataResouces.daily_dg_unit,
+                monthly_consumption_grid_unit : dataResouces.monthly_grid_unit,
+                monthly_consumption_dg_unit : dataResouces.monthly_dg_unit,
+                dialy_consumption_total : daily_totalConsumption,
+                monthly_consumption_total : monthly_totalConsumption,
                 load_unit:dataResouces.load_unit,
+                reading_unit : dataResouces.reading_unit,
                 currency:dataResouces.currency
             })
         })
@@ -178,6 +213,123 @@ class Overview extends Component {
         }
     }
 
+    getMonthlyConsumtionView() {
+        var dataResouces = this.userData ? this.userData.resource : null
+        return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}>
+
+                    <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
+                        <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>MONTH'S CONSUMPTION</Text>
+                    </View>
+
+                    <View style={{flex:1,  alignItems:'center', justifyContent:'center'}} onLayout={(event)=>{
+                        this.setState({
+                            chartWidth:event.nativeEvent.layout.width,
+                            chartHeight:event.nativeEvent.layout.height
+                        })
+                    }} >
+                        <PieChart  
+                            chartWidth={this.state.chartWidth}
+                            chartHeight={this.state.chartHeight}
+                            data = {{
+                                daily_dg_unit : this.state.monthly_consumption_dg_unit,
+                                daily_grid_unit : this.state.monthly_consumption_grid_unit,
+                                load_unit : this.state.reading_unit
+                            }}
+                        />
+
+                    </View>
+
+                    <View style={{flex:1, maxHeight:150, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
+                        <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                            <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
+                            
+                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_grid}</Text>
+                        </View>
+                        
+                        <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                            <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>DG</Text>
+                            
+                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_dg}</Text>
+                        </View>
+                        <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                            <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
+                            
+                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_fixed_charged}</Text>
+                        </View>
+                        <View style={[{flex:1, maxHeight:25, margin:5,  borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                            <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>TOTAL</Text>
+                            
+                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_total}</Text>
+                        </View>
+
+                        <View style={{flex:0.5, flexDirection:'row'}}>
+                            <Text style={{flex:1, fontSize:12}}></Text>
+                            
+                            <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {dataResouces ? dataResouces.currency : 'RS'}</Text>
+                        </View>
+                    </View>
+                </View> 
+    }
+
+
+    getDailyConsumtionView() {
+        var dataResouces = this.userData ? this.userData.resource : null
+        return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}>
+
+                    <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
+                        <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>TODAY'S CONSUMPTION</Text>
+                    </View>
+
+                    <View style={{flex:1,  alignItems:'center', justifyContent:'center'}} onLayout={(event)=>{
+                        this.setState({
+                            chartWidth:event.nativeEvent.layout.width,
+                            chartHeight:event.nativeEvent.layout.height
+                        })
+                    }} >
+                        <PieChart  
+                            chartWidth={this.state.chartWidth}
+                            chartHeight={this.state.chartHeight}
+                            data = {{
+                                daily_dg_unit : this.state.daily_consumption_dg_unit,
+                                daily_grid_unit : this.state.daily_consumption_grid_unit,
+                                load_unit : this.state.reading_unit
+                            }}
+                        />
+
+                    </View>
+
+                    <View style={{flex:1, maxHeight:150, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
+                        <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexWrap: 'wrap', flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                            <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
+                            
+                            <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_grid}</Text>
+                        </View>
+                        
+                        <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                            <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>DG</Text>
+                            
+                            <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_dg}</Text>
+                        </View>
+                        <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                            <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
+                            
+                            <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_fixed_charged}</Text>
+                        </View>
+                        <View style={[{flex:1, maxHeight:25, margin:5,  borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                            <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>TOTAL</Text>
+                            
+                            <Text style={{width:75, fontSize:11}}>{this.state.dialy_consumption_total}</Text>
+                        </View>
+
+                        <View style={{flex:0.5, flexDirection:'row'}}>
+                            <Text style={{flex:1, fontSize:12}}></Text>
+                            
+                            <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {dataResouces ? dataResouces.currency : 'RS'}</Text>
+                        </View>
+                    </View>
+                </View> 
+    }
+
     render() {
         var dataResouces = this.userData ? this.userData.resource : null
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
@@ -241,58 +393,23 @@ class Overview extends Component {
                                 
                             </View>
                             
-                            <View style={[{flex:1, margin:10, marginBottom:5, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
-                                <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
-                                    <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>TODAY'S CONSUMPTION</Text>
-                                </View>
-
-                                <View style={{flex:1,  alignItems:'center', justifyContent:'center'}} onLayout={(event)=>{
-                                    this.setState({
-                                        chartWidth:event.nativeEvent.layout.width,
-                                        chartHeight:event.nativeEvent.layout.height
-                                    })
-                                }} >
-                                    <PieChart  
-                                        chartWidth={this.state.chartWidth}
-                                        chartHeight={this.state.chartHeight}
-                                        data = {{
-                                            daily_dg_unit : dataResouces.daily_dg_unit,
-                                            daily_grid_unit : dataResouces.daily_grid_unit,
-                                            load_unit : this.state.load_unit
-                                        }}
-                                    />
-
-                                </View>
-                                
-                                <View style={{flex:1, maxHeight:150, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
-                                    <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
-                                        <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
-                                        
-                                        <Text style={{width:75, fontSize:11}}>{this.state.consumption_grid}</Text>
-                                    </View>
+                            <View style={[{flex:1, margin:10, marginBottom:5, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]} onLayout={(event)=>{
+                                this.setState({
+                                    chartViewWidth : event.nativeEvent.layout.width,
+                                    chartViewHeight : event.nativeEvent.layout.height
+                                })
+                            }}>
+                            <ScrollView
+                                style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}
+                                horizontal={true}
+                                pagingEnabled={true}
+                                showsHorizontalScrollIndicator={false}
+                                alwaysBounceHorizontal={false}
+                                automaticallyAdjustContentInsets={false}>
                                     
-                                    <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
-                                        <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>DG</Text>
-                                        
-                                        <Text style={{width:75, fontSize:11}}>{this.state.consumption_dg}</Text>
-                                    </View>
-                                    <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
-                                        <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
-                                        
-                                        <Text style={{width:75, fontSize:11}}>{this.state.consumption_fixed_charged}</Text>
-                                    </View>
-                                    <View style={[{flex:1, maxHeight:25, margin:5,  borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
-                                        <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>TOTAL</Text>
-                                        
-                                        <Text style={{width:75, fontSize:11}}>{this.state.consumption_total}</Text>
-                                    </View>
-
-                                    <View style={{flex:0.5, flexDirection:'row'}}>
-                                        <Text style={{flex:1, fontSize:12}}></Text>
-                                        
-                                        <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {dataResouces ? dataResouces.currency : 'RS'}</Text>
-                                    </View>
-                                </View>
+                                    {this.getDailyConsumtionView()}
+                                    {this.getMonthlyConsumtionView()}
+                                </ScrollView>
                             </View>
                             
                             <View style={[{flex:1, maxHeight:70, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>

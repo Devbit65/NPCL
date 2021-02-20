@@ -59,7 +59,7 @@ class PieChart extends Component {
                                                     }
                                                 },
                                                 tooltip: {
-                                                    pointFormat: '{series.name}: <b>{point.y:.1f} ${this.props.data.load_unit}</b>'
+                                                    pointFormat: '{series.name}: <b>{point.y:.2f} ${this.props.data.load_unit}</b>'
                                                 },
                                                 plotOptions: {
                                                     pie: {
