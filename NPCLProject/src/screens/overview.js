@@ -62,7 +62,8 @@ class Overview extends Component {
             chartWidth : 0,
             chartHeight : 0,
             chartViewWidth:0,
-            chartViewHeight:0
+            chartViewHeight:0,
+            isShowingDaily : true,
         }
 
         this.spinner = new Spinner()
@@ -124,7 +125,12 @@ class Overview extends Component {
                 monthly_consumption_total : monthly_totalConsumption,
                 load_unit:dataResouces.load_unit,
                 reading_unit : dataResouces.reading_unit,
-                currency:dataResouces.currency
+                currency:dataResouces.currency,
+                isShowingDaily : true,
+            },()=>{
+                if(this._scrollView) {
+                    this._scrollView.scrollTo({x:0, animated:true})
+                }
             })
         })
     }
@@ -215,7 +221,7 @@ class Overview extends Component {
 
     getMonthlyConsumtionView() {
         var dataResouces = this.userData ? this.userData.resource : null
-        return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}>
+        return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight-30}}>
 
                     <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
                         <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>MONTH'S CONSUMPTION</Text>
@@ -274,7 +280,7 @@ class Overview extends Component {
 
     getDailyConsumtionView() {
         var dataResouces = this.userData ? this.userData.resource : null
-        return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}>
+        return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight-30}}>
 
                     <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
                         <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>TODAY'S CONSUMPTION</Text>
@@ -299,7 +305,7 @@ class Overview extends Component {
                     </View>
 
                     <View style={{flex:1, maxHeight:150, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
-                        <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexWrap: 'wrap', flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                        <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
                             
                             <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_grid}</Text>
@@ -328,6 +334,17 @@ class Overview extends Component {
                         </View>
                     </View>
                 </View> 
+    }
+
+    moveToNextPage(willMoveToDaily) {
+
+        this.setState({
+            isShowingDaily : willMoveToDaily
+        },()=>{
+            if(this._scrollView) {
+                this._scrollView.scrollTo({x:willMoveToDaily?0:this.state.chartViewWidth, animated:true})
+            }
+        })
     }
 
     render() {
@@ -399,17 +416,28 @@ class Overview extends Component {
                                     chartViewHeight : event.nativeEvent.layout.height
                                 })
                             }}>
-                            <ScrollView
-                                style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}
-                                horizontal={true}
-                                pagingEnabled={true}
-                                showsHorizontalScrollIndicator={false}
-                                alwaysBounceHorizontal={false}
-                                automaticallyAdjustContentInsets={false}>
-                                    
+                                <ScrollView
+                                    style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight-30}}
+                                    ref={el => this._scrollView = el}
+                                    horizontal={true}
+                                    pagingEnabled={true}
+                                    showsHorizontalScrollIndicator={false}
+                                    alwaysBounceHorizontal={false}
+                                    automaticallyAdjustContentInsets={false}
+                                    onMomentumScrollEnd={(event)=>{
+                                        this.setState({
+                                            isShowingDaily : event.nativeEvent.contentOffset.x === 0 
+                                        })
+                                    }}
+                                >
                                     {this.getDailyConsumtionView()}
                                     {this.getMonthlyConsumtionView()}
                                 </ScrollView>
+                                <View style={{flex:1, height:15, flexDirection:'row', alignItems:'center', justifyContent:'center', overflow:'hidden'}}>
+                                    <TouchableOpacity onPress={()=>this.moveToNextPage(true)} style={{width:10, height:10, backgroundColor:this.state.isShowingDaily?kThemeBlueColor:'gray', borderRadius:10}} />
+                                    <View style={{width:10, height:10, borderRadius:5}} />
+                                    <TouchableOpacity onPress={()=>this.moveToNextPage(false)} style={{width:10, height:10, backgroundColor:this.state.isShowingDaily?'gray':kThemeBlueColor, borderRadius:10}} />
+                                </View>
                             </View>
                             
                             <View style={[{flex:1, maxHeight:70, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
