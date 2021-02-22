@@ -221,7 +221,7 @@ class Overview extends Component {
 
     getMonthlyConsumtionView() {
         var dataResouces = this.userData ? this.userData.resource : null
-        return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight-30}}>
+        return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}>
 
                     <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
                         <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>MONTH'S CONSUMPTION</Text>
@@ -249,23 +249,23 @@ class Overview extends Component {
                         <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
                             
-                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_grid}</Text>
+                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_grid.toFixed(2)}</Text>
                         </View>
                         
                         <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>DG</Text>
                             
-                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_dg}</Text>
+                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_dg.toFixed(2)}</Text>
                         </View>
                         <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
-                            <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
+                            <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor, flexWrap:'wrap'}}>FIXED CHARGES</Text>
                             
-                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_fixed_charged}</Text>
+                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_fixed_charged.toFixed(2)}</Text>
                         </View>
                         <View style={[{flex:1, maxHeight:25, margin:5,  borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>TOTAL</Text>
                             
-                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_total}</Text>
+                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_total.toFixed(2)}</Text>
                         </View>
 
                         <View style={{flex:0.5, flexDirection:'row'}}>
@@ -280,7 +280,7 @@ class Overview extends Component {
 
     getDailyConsumtionView() {
         var dataResouces = this.userData ? this.userData.resource : null
-        return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight-30}}>
+        return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}>
 
                     <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
                         <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>TODAY'S CONSUMPTION</Text>
@@ -308,23 +308,23 @@ class Overview extends Component {
                         <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
                             
-                            <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_grid}</Text>
+                            <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_grid.toFixed(2)}</Text>
                         </View>
                         
                         <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>DG</Text>
                             
-                            <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_dg}</Text>
+                            <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_dg.toFixed(2)}</Text>
                         </View>
                         <View style={[{flex:1, maxHeight:25, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
-                            <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
+                            <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor, flexWrap:'wrap'}}>FIXED CHARGES</Text>
                             
-                            <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_fixed_charged}</Text>
+                            <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_fixed_charged.toFixed(2)}</Text>
                         </View>
                         <View style={[{flex:1, maxHeight:25, margin:5,  borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>TOTAL</Text>
                             
-                            <Text style={{width:75, fontSize:11}}>{this.state.dialy_consumption_total}</Text>
+                            <Text style={{width:75, fontSize:11}}>{this.state.dialy_consumption_total.toFixed(2)}</Text>
                         </View>
 
                         <View style={{flex:0.5, flexDirection:'row'}}>
@@ -417,7 +417,7 @@ class Overview extends Component {
                                 })
                             }}>
                                 <ScrollView
-                                    style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight-30}}
+                                    style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}
                                     ref={el => this._scrollView = el}
                                     horizontal={true}
                                     pagingEnabled={true}
@@ -433,16 +433,18 @@ class Overview extends Component {
                                     {this.getDailyConsumtionView()}
                                     {this.getMonthlyConsumtionView()}
                                 </ScrollView>
-                                <View style={{flex:1, height:15, flexDirection:'row', alignItems:'center', justifyContent:'center', overflow:'hidden'}}>
-                                    <TouchableOpacity onPress={()=>this.moveToNextPage(true)} style={{width:10, height:10, backgroundColor:this.state.isShowingDaily?kThemeBlueColor:'gray', borderRadius:10}} />
-                                    <View style={{width:10, height:10, borderRadius:5}} />
-                                    <TouchableOpacity onPress={()=>this.moveToNextPage(false)} style={{width:10, height:10, backgroundColor:this.state.isShowingDaily?'gray':kThemeBlueColor, borderRadius:10}} />
-                                </View>
+                                <TouchableOpacity onPress={()=>this.moveToNextPage(true)} style={{width:25, height:25, position:'absolute', bottom:0, left:this.state.chartViewWidth/2-11, alignItems:'center', justifyContent:'flex-end'}} >
+                                    <View style={{width:10, height:10, backgroundColor:this.state.isShowingDaily?kThemeBlueColor:'gray', borderRadius:10}} ></View>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity onPress={()=>this.moveToNextPage(false)} style={{width:25, height:25, position:'absolute', bottom:0, left:this.state.chartViewWidth/2+11, alignItems:'center', justifyContent:'flex-end'}} >
+                                    <View style={{width:10, height:10, backgroundColor:this.state.isShowingDaily?'gray' : kThemeBlueColor, borderRadius:10}} ></View>
+                                </TouchableOpacity>
                             </View>
                             
                             <View style={[{flex:1, maxHeight:70, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                                 <View style={{flex:1, backgroundColor:kThemeBlueColor, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
-                                    <Text style={{fontWeight:'bold', color:'#fff'}}>SECTIONED LOAD</Text>
+                                    <Text style={{fontWeight:'bold', color:'#fff'}}>SANCTIONED LOAD</Text>
                                 </View>
                                 
                                 <View style={{flex:2, marginRight:25, marginLeft:25, alignItems:'center', justifyContent:'center'}}>
