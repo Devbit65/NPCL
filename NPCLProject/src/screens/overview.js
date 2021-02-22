@@ -433,11 +433,11 @@ class Overview extends Component {
                                     {this.getDailyConsumtionView()}
                                     {this.getMonthlyConsumtionView()}
                                 </ScrollView>
-                                <TouchableOpacity onPress={()=>this.moveToNextPage(true)} style={{width:25, height:25, position:'absolute', bottom:5, left:this.state.chartViewWidth/2-11, alignItems:'center', justifyContent:'flex-end'}} >
+                                <TouchableOpacity onPress={()=>this.moveToNextPage(true)} style={{width:24, height:24, position:'absolute', bottom:5, left:(this.state.chartViewWidth-12)/2-10, alignItems:'center', justifyContent:'flex-end'}} >
                                     <View style={{width:10, height:10, backgroundColor:this.state.isShowingDaily?kThemeBlueColor:'gray', borderRadius:10}} ></View>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={()=>this.moveToNextPage(false)} style={{width:25, height:25, position:'absolute', bottom:5, left:this.state.chartViewWidth/2+11, alignItems:'center', justifyContent:'flex-end'}} >
+                                <TouchableOpacity onPress={()=>this.moveToNextPage(false)} style={{width:24, height:24, position:'absolute', bottom:5, left:(this.state.chartViewWidth-12)/2+10, alignItems:'center', justifyContent:'flex-end'}} >
                                     <View style={{width:10, height:10, backgroundColor:this.state.isShowingDaily?'gray' : kThemeBlueColor, borderRadius:10}} ></View>
                                 </TouchableOpacity>
                             </View>
