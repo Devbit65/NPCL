@@ -19,7 +19,7 @@ class NoticeHeader extends Component {
         this.userData = new UserData().getUserData();
         this.state = {
           unit:this.userData && this.userData.resource.flat_number?this.userData.resource.flat_number:'--',
-          headerNoticeText : this.userData && this.userData.resource.msg?this.userData.resource.msg:'',
+          headerNoticeText : this.userData && this.userData.resource.msg?this.userData.resource.msg:null,
         }
       }
 
@@ -29,7 +29,7 @@ class NoticeHeader extends Component {
                         <Text style={{fontSize:10, fontWeight:'bold'}} >UNIT {this.state.unit}</Text>
                     </View>
 
-                    <View style={{flex:1,backgroundColor:kThemeRedColor}}>
+                    {this.state.headerNoticeText && <View style={{flex:1,backgroundColor:kThemeRedColor}}>
                         <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
                             <MarqueeText
                                 style={{color:'#FFF', fontWeight:'bold',}}
@@ -42,7 +42,7 @@ class NoticeHeader extends Component {
                                 {this.state.headerNoticeText}
                             </MarqueeText>
                         </View>
-                    </View>
+                    </View>}
                 </View>
     }
 }

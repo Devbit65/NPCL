@@ -40,11 +40,11 @@ class PieChart extends Component {
                                                 chart: {
                                                     type: 'pie',
                                                     margin: 0,
-                                                    options3d: {
-                                                        enabled: true,
-                                                        alpha: 45,
-                                                        beta: 0
-                                                    },
+                                                    // options3d: {
+                                                    //     enabled: true,
+                                                    //     alpha: 45,
+                                                    //     beta: 0
+                                                    // },
                                                     backgroundColor:'#EFEFF4'
                                                 },
                                                 title: {
@@ -73,6 +73,7 @@ class PieChart extends Component {
                                                         dataLabels: {
                                                             enabled: false,
                                                         },
+                                                        innerSize: '${this.props.chartWidth*1/2}',
                                                         showInLegend: true,
                                                     }
                                                 },

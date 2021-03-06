@@ -36,6 +36,7 @@ class Payment extends Component {
             amount : 0,
             transCharges : dataResouces?Number(dataResouces.recharge_transitional_charge):0.00,
             transitionalName:dataResouces?dataResouces.recharge_transitional_name:"IGST",
+            gstValue : dataResouces && dataResouces.recharge_tax ? dataResouces.recharge_tax:0.00,
             paymentMethod : params["paymentMethod"],
             paymentURL : null
         }
@@ -104,7 +105,7 @@ class Payment extends Component {
 
     render() {
         const { params } = this.props.route;
-        var gstValue = 0.00
+        var gstValue = this.state.gstValue
         var netAmount = Number(this.state.amount) + Number(this.state.transCharges)+Number(gstValue)
         return <View style={{flex:1, backgroundColor:'#fff'}}>
                     <View style={{ flex: 1, maxHeight:64, justifyContent:'center', flexDirection:'row', backgroundColor:'#fff'}} >

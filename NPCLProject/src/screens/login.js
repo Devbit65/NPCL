@@ -102,6 +102,11 @@ class Login extends Component {
                 alert(response.message)
                 return;
             }
+            else if(response.resource && response.resource.mobile_app_status != 'Y') {
+
+                alert("Login restricted. Please contact support team !!!")
+                return;
+            }
 
             this.userData.setUserData(response)
 
