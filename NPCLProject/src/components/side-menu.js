@@ -30,7 +30,7 @@ class SideMenu extends Component {
 
     navigateToNext(menuIndex){
 
-        if(menuIndex === 8) {
+        if(menuIndex === 9) {
             Alert.alert(
                 "Logout Confirmation!",
                 "Are you sure want to logout?",
@@ -39,7 +39,7 @@ class SideMenu extends Component {
                         text: "Cancel",
                         onPress: () => {
                             this.setState({
-                                menuIndex:3
+                                menuIndex:1
                             })
                         },
                         style: "cancel"
@@ -72,7 +72,7 @@ class SideMenu extends Component {
         return (
             <View style={{ flex:1}} onLayout={(event)=>{
                 var height  = (event.nativeEvent.layout.height-50)/(this.sideMenu.length+1)
-                height = height < 60 ? 60 : height
+                height = height < 75 ? 75 : height
                 
                 this.setState({
                     height : height
@@ -82,7 +82,7 @@ class SideMenu extends Component {
                     <FlatList
                         data={this.sideMenu}
                         renderItem={({ item, index, separators })=>{
-                            return  <View style={{ height: this.state.selectedMenu === index?this.state.height+50 : this.state.height,  backgroundColor:'#fff',  }} >
+                            return  <View style={{ minHeight: this.state.selectedMenu === index?this.state.height+50 : this.state.height,  backgroundColor:'#fff',  }} >
                             {this.state.selectedMenu === index?(
                                 <View style={{flex:1, backgroundColor: kThemeBlueColor, flex:1,borderTopEndRadius:1000,  borderBottomEndRadius:1000, alignItems:'center', justifyContent:'center'}}>
                                     <Image style={{width:"75%", height:"75%"}} resizeMode='contain' source={item.selImage} />
@@ -106,7 +106,7 @@ class SideMenu extends Component {
                     />
                 
                     <View style={{ height: this.state.height}} >
-                        <TouchableOpacity style={{ flex:1, maxHeight:this.state.height,flexDirection:'row'}} onPress={()=>{this.navigateToNext(8)}}>
+                        <TouchableOpacity style={{ flex:1, maxHeight:this.state.height,flexDirection:'row'}} onPress={()=>{this.navigateToNext(9)}}>
                                 
                             <View style={{ flex:1, alignItems:'center', justifyContent:'center', backgroundColor: kThemeBlueColor}} >
                                 <Icon size={40} name="dots-vertical" color="#fff" />

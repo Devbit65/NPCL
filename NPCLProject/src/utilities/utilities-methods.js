@@ -14,6 +14,11 @@ export function getSideMenu() {
             selImage:require("../resources/overview1.png"),
         },
         {
+            title:"EVCD",
+            image:require("../resources/EV.png"),
+            selImage:require("../resources/EV.png"),
+        },
+        {
             title:"RECHARGE",
             image:require("../resources/recharge.png"),
             selImage:require("../resources/recharge1.png"),

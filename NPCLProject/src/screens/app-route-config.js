@@ -38,7 +38,7 @@ class AppRouteConfig extends Component {
         this.updateHambugerMenuWidth = this.updateHambugerMenuWidth.bind(this)
     }
     navigateToNext(menuIndex){
-        if(menuIndex === 8){
+        if(menuIndex === 9){
             this.logoutApp()
         }
         else{
