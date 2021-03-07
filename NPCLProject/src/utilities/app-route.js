@@ -25,66 +25,66 @@ class AppRoute extends Component {
         return (
             <NavigationContainer independent={true}>
                 <Stack.Navigator>
-                    {this.props.nextScreenIndex === 1 && <Stack.Screen
+                    {this.props.nextScreenTitle === "OVERVIEW" && <Stack.Screen
                         name="Overview"
                         component={Overview}
                         options={{ title: 'Overview',headerShown: false }}
                     />}
 
-                    {this.props.nextScreenIndex === 2 && <Stack.Screen
+                    {this.props.nextScreenTitle === "EVCD" && <Stack.Screen
                         name="EVCD"
                         component={EVCD}
                         options={{ title: 'EVCD',headerShown: false }}
                     />}
-                    {this.props.nextScreenIndex === 3 && <Stack.Screen
+                    {this.props.nextScreenTitle === "RECHARGE" && <Stack.Screen
                         name="Recharge"
                         component={Recharge}
                         options={{ title: 'Recharge',headerShown: false }}
                     />}
                     
-                    {this.props.nextScreenIndex === 4 && <Stack.Screen
+                    {this.props.nextScreenTitle === "REPORT" && <Stack.Screen
                         name="Report"
                         component={Report}
                         options={{ title: 'Report',headerShown: false }}
                     />}
 
-                    {this.props.nextScreenIndex === 4 && <Stack.Screen
+                    {this.props.nextScreenTitle === "REPORT" && <Stack.Screen
                       name="ReportChart"
                       component={ReportChart}
                       options={{ title: 'ReportChart',headerShown: false }}
                     />}
 
-                    {this.props.nextScreenIndex === 4 && <Stack.Screen
+                    {this.props.nextScreenTitle === "REPORT" && <Stack.Screen
                       name="CurrentTarrif"
                       component={CurrentTarrif}
                       options={{ title: 'CurrentTarrif',headerShown: false }}
                     />}
 
-                    {this.props.nextScreenIndex === 5 && <Stack.Screen
+                    {this.props.nextScreenTitle === "SETTINGS" && <Stack.Screen
                         name="Settings"
                         component={Settings}
                         options={{ title: 'Settings',headerShown: false }}
                     />}
 
-                    {this.props.nextScreenIndex === 6 && <Stack.Screen
+                    {this.props.nextScreenTitle === "PROFILE" && <Stack.Screen
                         name="Profile"
                         component={Profile}
                         options={{ title: 'Profile',headerShown: false }}
                     />}
 
-                    {this.props.nextScreenIndex === 6 && <Stack.Screen
+                    {this.props.nextScreenTitle === "Profile" && <Stack.Screen
                         name="PasswordReset"
                         component={PasswordReset}
                         options={{ title: 'Change Password', headerShown: false }}
                     />}
 
-                    {this.props.nextScreenIndex === 7 && <Stack.Screen
+                    {this.props.nextScreenTitle === "NOTICE" && <Stack.Screen
                       name="Notice"
                       component={Notice}
                       options={{ title: 'Notice',headerShown: false }}
                     />}
         
-                    {this.props.nextScreenIndex === 8 && <Stack.Screen
+                    {this.props.nextScreenTitle === "EVENT-LOG" && <Stack.Screen
                       name="EventLogging"
                       component={EventLogging}
                       options={{ title: 'EventLogging',headerShown: false }}

@@ -32,19 +32,21 @@ class AppRouteConfig extends Component {
             menuIndex : 1,
             refreshing:false,
             willShowSideMenu:true,
-            hambugerMenuWidth:50
+            hambugerMenuWidth:50,
+            menuTitle : "OVERVIEW"
         }
 
         this.updateHambugerMenuWidth = this.updateHambugerMenuWidth.bind(this)
     }
-    navigateToNext(menuIndex){
-        if(menuIndex === 9){
+    navigateToNext(menuIndex, willLogout, menuTitle){
+        if(willLogout){
             this.logoutApp()
         }
         else{
 
             this.setState({
-                menuIndex
+                menuIndex,
+                menuTitle
             })
         }
     }
@@ -147,7 +149,7 @@ class AppRouteConfig extends Component {
                     
                     <View style={{ flex: 3, backgroundColor:'#fff'}} >
                     
-                        <AppRoute nextScreenIndex={this.state.menuIndex} >
+                        <AppRoute nextScreenIndex={this.state.menuIndex} nextScreenTitle={this.state.menuTitle} >
                         </AppRoute>
                     </View>  
                 </View>   

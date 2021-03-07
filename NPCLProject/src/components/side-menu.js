@@ -28,9 +28,9 @@ class SideMenu extends Component {
     }
 
 
-    navigateToNext(menuIndex){
+    navigateToNext(menuIndex, willLogout, menuTitle){
 
-        if(menuIndex === 9) {
+        if(willLogout) {
             Alert.alert(
                 "Logout Confirmation!",
                 "Are you sure want to logout?",
@@ -48,9 +48,9 @@ class SideMenu extends Component {
                         text: "OK", 
                         onPress: () => {
 
-                            this.setState({selectedMenu:menuIndex})
+                            // this.setState({selectedMenu:menuIndex})
                             if(this.props.navigateToNext){
-                                this.props.navigateToNext(menuIndex)
+                                this.props.navigateToNext(menuIndex, willLogout, menuTitle)
                             }
                         } 
                     }
@@ -62,7 +62,7 @@ class SideMenu extends Component {
 
             this.setState({selectedMenu:menuIndex})
             if(this.props.navigateToNext){
-                this.props.navigateToNext(menuIndex+1)
+                this.props.navigateToNext(menuIndex+1, willLogout, menuTitle)
             }
         }
         
@@ -84,11 +84,11 @@ class SideMenu extends Component {
                         renderItem={({ item, index, separators })=>{
                             return  <View style={{ minHeight: this.state.selectedMenu === index?this.state.height+50 : this.state.height,  backgroundColor:'#fff',  }} >
                             {this.state.selectedMenu === index?(
-                                <View style={{flex:1, backgroundColor: kThemeBlueColor, flex:1,borderTopEndRadius:1000,  borderBottomEndRadius:1000, alignItems:'center', justifyContent:'center'}}>
+                                <View style={{flex:1, backgroundColor: kThemeBlueColor, borderTopEndRadius:1000,  borderBottomEndRadius:1000, alignItems:'center', justifyContent:'center'}}>
                                     <Image style={{width:"75%", height:"75%"}} resizeMode='contain' source={item.selImage} />
                                 </View>
                             ):( 
-                                <TouchableOpacity style={{ flex:1, flexDirection:'row', backgroundColor:'#fff'}} onPress={()=>{this.navigateToNext(index)}}>
+                                <TouchableOpacity style={{ flex:1, flexDirection:'row', backgroundColor:'#fff'}} onPress={()=>{this.navigateToNext(index, false, item.title)}}>
                                     
                                     <View style={{ flex:1, alignItems:'center', justifyContent:'center', backgroundColor: kThemeBlueColor}} onLayout={(event)=>{
                                         this.props.updateHambugerMenuWidth ? this.props.updateHambugerMenuWidth(event.nativeEvent.layout.width):null
@@ -106,7 +106,7 @@ class SideMenu extends Component {
                     />
                 
                     <View style={{ height: this.state.height}} >
-                        <TouchableOpacity style={{ flex:1, maxHeight:this.state.height,flexDirection:'row'}} onPress={()=>{this.navigateToNext(9)}}>
+                        <TouchableOpacity style={{ flex:1, maxHeight:this.state.height,flexDirection:'row'}} onPress={()=>{this.navigateToNext(-1, true, null)}}>
                                 
                             <View style={{ flex:1, alignItems:'center', justifyContent:'center', backgroundColor: kThemeBlueColor}} >
                                 <Icon size={40} name="dots-vertical" color="#fff" />
