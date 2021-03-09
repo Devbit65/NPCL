@@ -40,6 +40,7 @@ class PieChart extends Component {
                                                 chart: {
                                                     type: 'pie',
                                                     margin: 0,
+                                                    marginBottom: 35,
                                                     // options3d: {
                                                     //     enabled: true,
                                                     //     alpha: 45,
@@ -79,9 +80,9 @@ class PieChart extends Component {
                                                 },
                                                 legend: {
                                                     shadow: true,
-                                                    layout: 'vertical',
-                                                    align: 'right',
-                                                    verticalAlign: 'top',
+                                                    // layout: 'vertical',
+                                                    align: 'center',
+                                                    verticalAlign: 'bottom',
                                                     floating: true,
                                                     borderWidth: 1,
                                                     backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#EFEFF4'

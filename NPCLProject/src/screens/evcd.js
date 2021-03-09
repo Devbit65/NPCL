@@ -400,7 +400,7 @@ class EVCD extends Component {
 
     render() {
         var dataResouces = this.userData ? this.userData.resource : null
-        return  <View style={{flex:1, backgroundColor:'#fff'}}>
+        return  <ScrollView style={{flex:1, marginBottom:10, backgroundColor:'#fff'}}>
                     
                     <View style={{height:40, margin:5, flexDirection:'row'}}>
                         <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
@@ -427,7 +427,7 @@ class EVCD extends Component {
                                 <View style={{flex:1, flexDirection:'row'}}>
                                     <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
                                         <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image>
-                                        <Text style={{color:kThemeBlueColor, fontWeight:'bold', marginLeft:5,}} numberOfLines={2}>DOCKER COVER</Text>
+                                        <Text style={{color:kThemeBlueColor, fontWeight:'bold', marginLeft:5,}} numberOfLines={2}>DOC COVER</Text>
                                     </View>
                                     <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
                                         <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image>
@@ -437,7 +437,7 @@ class EVCD extends Component {
                                 </View>
                             </View>
 
-                            <View style={[{height:200, padding:5, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                            <View style={[{minHeight:160, padding:5, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                                 <Text style={{ fontWeight:'bold', margin:5, color:kThemeBlueColor}}>CHARGE MY EV</Text>
 
                                 <View style={[{flex:1, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
@@ -461,7 +461,7 @@ class EVCD extends Component {
                                     
                                 </View>
 
-                                <View style={[{flex:1, marginTop:5, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
+                                {/* <View style={[{flex:1, marginTop:5, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
                                     <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                                         <View style={{flex:2, flexDirection:'row', alignItems:'center'}}>
                                             <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>DG</Text>
@@ -481,21 +481,21 @@ class EVCD extends Component {
                                         <Text style={{ fontWeight:'bold', fontSize:10}}>{this.state.grid_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
                                     </View>
                                     
-                                </View>
+                                </View> */}
 
-                                <View style={{height:44, marginTop:5,  flexDirection:'row', alignItems:'center' }}>
-                                    <TouchableOpacity style={{width:75, height:40, backgroundColor:kThemeBlueColor, alignItems:'center', justifyContent:'center', borderRadius:10}} onPress={()=>this.onStartService()}>
-                                        <Text> START </Text>
+                                <View style={{height:50, marginTop:5,  flexDirection:'row', alignItems:'center' }}>
+                                    <TouchableOpacity disabled={!this.state.evcdId} style={{width:75, height:40, backgroundColor:kThemeBlueColor, alignItems:'center', justifyContent:'center', borderRadius:10, opacity:this.state.evcdId?1:0.5}} onPress={()=>this.onStartService()}>
+                                        <Text style={{color:'#fff'}}> START </Text>
                                     </TouchableOpacity>
 
                                     <View style={{flex:1}} />
-                                    <TouchableOpacity style={{width:75, height:40, backgroundColor:kThemeRedColor, alignItems:'center', justifyContent:'center', borderRadius:10}} onPress={()=>this.onStopService()}>
-                                        <Text> STOP </Text>
+                                    <TouchableOpacity disabled={!this.state.evcdId} style={{width:75, height:40, backgroundColor:kThemeRedColor, alignItems:'center', justifyContent:'center', borderRadius:10, opacity:this.state.evcdId?1:0.5}} onPress={()=>this.onStopService()}>
+                                        <Text style={{color:'#fff'}}> STOP </Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
                             
-                            <View style={[{flex:1, margin:10, marginBottom:5, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]} onLayout={(event)=>{
+                            <View style={[{flex:1, minHeight:375, margin:5,  borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]} onLayout={(event)=>{
                                 this.setState({
                                     chartViewWidth : event.nativeEvent.layout.width,
                                     chartViewHeight : event.nativeEvent.layout.height
@@ -530,7 +530,7 @@ class EVCD extends Component {
                         
                     </View>
                     
-                </View>
+                </ScrollView>
     }
 }
 
