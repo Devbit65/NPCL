@@ -391,11 +391,11 @@ export const payByCoupon = (coupon) => {
     });
 }
 
-export const startEVCDService = (deviceId) => {
+export const startEVCDService = (evcdId) => {
   
   var url = "http://radiusm2m.com"
   
-  var req_url = url+kEVCDStartService+'?device_id='+deviceId
+  var req_url = url+kEVCDStartService+'?device_id='+evcdId
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {
@@ -406,11 +406,11 @@ export const startEVCDService = (deviceId) => {
     });
 }
 
-export const stopEVCDService = (deviceId) => {
+export const stopEVCDService = (evcdId) => {
   
   var url = "http://radiusm2m.com"
   
-  var req_url = url+kEVCDStopService+'?device_id='+deviceId
+  var req_url = url+kEVCDStopService+'?device_id='+evcdId
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {

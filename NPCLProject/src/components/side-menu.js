@@ -26,7 +26,7 @@ class SideMenu extends Component {
         }
 
         this.userData = new UserData().getUserData();
-        var willAddEVCD = this.userData.resource.consumer_name.includes("EVCD")
+        var willAddEVCD = this.userData.resource.evcdIntegration === 'Y' || this.userData.resource.evcdIntegration === 'y'
         this.sideMenu = getSideMenu(willAddEVCD)
     }
 

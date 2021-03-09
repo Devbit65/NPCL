@@ -66,6 +66,7 @@ class EVCD extends Component {
             chartViewWidth:0,
             chartViewHeight:0,
             isShowingDaily : true,
+            evcdId : dataResouces ? dataResouces.evcdId : null,
         }
 
         this.spinner = new Spinner()
@@ -129,6 +130,7 @@ class EVCD extends Component {
                 reading_unit : dataResouces.reading_unit,
                 currency:dataResouces.currency,
                 isShowingDaily : true,
+                evcdId : dataResouces ? dataResouces.evcdId : null,
             },()=>{
                 if(this._scrollView) {
                     this._scrollView.scrollTo({x:0, animated:true})
@@ -348,8 +350,7 @@ class EVCD extends Component {
             return;
         }
 
-        var deviceId = "30-30-34-30-36-35-38-33-33-32"
-        startEVCDService(deviceId)
+        startEVCDService(this.state.evcdId)
         .then(response=>{
 
             var msg = response.message
@@ -372,8 +373,7 @@ class EVCD extends Component {
             return;
         }
 
-        var deviceId = "30-30-34-30-36-35-38-33-33-32"
-        stopEVCDService(deviceId)
+        stopEVCDService(this.state.evcdId)
         .then(response=>{
 
             var msg = response.message
