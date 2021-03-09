@@ -6,17 +6,12 @@ export const SCREENTYPE = {
     CHANGEPASSWORD : "CHANGEPASSWORD"
 } 
 
-export function getSideMenu() {
-    return [
+export function getSideMenu(willAddEVCD) {
+    var sideMenuArray = [
         {
             title:"OVERVIEW",
             image:require("../resources/overview.png"),
             selImage:require("../resources/overview1.png"),
-        },
-        {
-            title:"EVCD",
-            image:require("../resources/EV.png"),
-            selImage:require("../resources/EV.png"),
         },
         {
             title:"RECHARGE",
@@ -49,4 +44,16 @@ export function getSideMenu() {
             selImage:require("../resources/DG1.png"),
         },
     ]
+
+    if(willAddEVCD) {
+        var evceMenuItem =  {
+                                title:"EVCD",
+                                image:require("../resources/EV.png"),
+                                selImage:require("../resources/EV.png"),
+                            }
+
+        sideMenuArray.splice(1, 0, evceMenuItem)
+    }
+
+    return sideMenuArray
 }

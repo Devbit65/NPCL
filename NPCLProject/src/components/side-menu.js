@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import UserData from '../utilities/models/user-data'
 
 import {getSideMenu} from '../utilities/utilities-methods'
 
@@ -24,7 +25,9 @@ class SideMenu extends Component {
             height:100
         }
 
-        this.sideMenu = getSideMenu()
+        this.userData = new UserData().getUserData();
+        var willAddEVCD = this.userData.resource.consumer_name.includes("EVCD")
+        this.sideMenu = getSideMenu(willAddEVCD)
     }
 
 
