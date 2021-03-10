@@ -74,7 +74,7 @@ class PieChart extends Component {
                                                         dataLabels: {
                                                             enabled: false,
                                                         },
-                                                        innerSize: '${this.props.chartWidth*1/4}',
+                                                        innerSize: 40,
                                                         showInLegend: true,
                                                     }
                                                 },
