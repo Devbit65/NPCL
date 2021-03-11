@@ -72,6 +72,7 @@ class EVCD extends Component {
 
         }
 
+        this.textBlinkingInterval = null
         this.spinner = new Spinner()
     }
 
@@ -100,7 +101,6 @@ class EVCD extends Component {
             else {
                 alert(response["message"])
             }
-            console.log("response ",response)
             this.spinner.stopActivity();
         })
         .catch(error=>{
@@ -111,6 +111,10 @@ class EVCD extends Component {
 
     fetchEVCDStatus() {
 
+        if(this.textBlinkingInterval) {
+            clearInterval(this.textBlinkingInterval)
+            this.textBlinkingInterval = null
+        }
         this.spinner.startActivity();
 
         if(!this.spinner.isNetConnected()){
@@ -127,13 +131,34 @@ class EVCD extends Component {
                 this.setState({
                     grid_start_time : response.resource.StartTime,
                     gridAmount : response.resource.amount,
-                    gridUnit : response.resource.voltage
+                    voltage : response.resource.voltage,
+                    load : response.resource.load,
+                    current : response.resource.current,
+                    docCover: Number(response.resource.docCover),
+                    highVol: Number(response.resource.highVol),
+                    lowVoltage: Number(response.resource.lowVoltage),
+                    power: Number(response.resource.power),
+                    serverLink: Number(response.resource.serverLink),
+                    gridStatus: Number(response.resource.gridStatus),
+                    balance_amt: response.resource.balance_amt ? response.resource.balance_amt : 0.00,
+                    kwh: response.resource.kwh ? response.resource.kwh : "--",
+                    chargingState : Number(response.resource.chargingState),
+                    showCharging : true
+                },()=>{
+                    if(this.state.chargingState) {
+
+                        this.textBlinkingInterval = setInterval(() => {
+                        
+                            this.setState({
+                                showCharging : !this.state.showCharging
+                            })
+                        }, 500);
+                    }
                 })
             }
             else {
                 alert(response["message"])
             }
-            console.log("response ",response)
             this.spinner.stopActivity();
         })
         .catch(error=>{
@@ -485,38 +510,59 @@ class EVCD extends Component {
                             <View style={[{height:75, padding:5, margin:10, marginBottom:0, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                                 <View style={{flex:1, flexDirection:'row'}}>
                                     <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-                                        <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/RedLEDIcon.png")}></Image>
+                                        <Image style={{width:15, height:15, resizeMode:'contain'}} source={this.state.power === 0 ? require("../resources/GreenLEDIcon.png") : require("../resources/RedLEDIcon.png")}></Image>
                                         <Text style={{color:kThemeBlueColor, fontWeight:'bold', marginLeft:5}}>POWER</Text>
                                     </View>
                                     <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-                                        <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image>
+                                        <Image style={{width:15, height:15, resizeMode:'contain'}} source={this.state.serverLink === 0 ? require("../resources/GreenLEDIcon.png") : require("../resources/RedLEDIcon.png")}></Image>
                                         <Text style={{color:kThemeBlueColor, fontWeight:'bold', marginLeft:5,}}>SERVER LINK</Text>
                                     </View>
                                 </View>
                                 <View style={{flex:1, flexDirection:'row'}}>
                                     <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-                                        <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image>
+                                        <Image style={{width:15, height:15, resizeMode:'contain'}} source={this.state.docCover === 0 ? require("../resources/GreenLEDIcon.png") : require("../resources/RedLEDIcon.png")}></Image>
                                         <Text style={{color:kThemeBlueColor, fontWeight:'bold', marginLeft:5,}} numberOfLines={2}>DOC COVER</Text>
                                     </View>
                                     <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
-                                        <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image>
+                                        <Image style={{width:15, height:15, resizeMode:'contain'}} source={this.state.highVol === 0 && this.state.lowVoltage === 0 ? require("../resources/GreenLEDIcon.png") : require("../resources/RedLEDIcon.png")}></Image>
                                         <Text style={{color:kThemeBlueColor, fontWeight:'bold', marginLeft:5}}>VOLTAGE</Text>
                                     </View>
                                     
                                 </View>
                             </View>
 
+                            <View style={[{height:100, padding:5, margin:10, marginBottom:0, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                                <View style={[{flex:1, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
+                                    <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+                                        <Text style={{flex:1, color:kThemeBlueColor, fontWeight:'bold', marginRight:5}}>VOLTAGE </Text>
+                                        <Text style={{flex:1, color:kThemeBlueColor, fontWeight:'bold', marginRight:5}}> : {this.state.voltage} V </Text>
+                                    </View>
+                                    <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+                                        <Text style={{flex:1, color:kThemeBlueColor, fontWeight:'bold', marginRight:5}} numberOfLines={2}>CURRENT </Text>
+                                        <Text style={{flex:1, color:kThemeBlueColor, fontWeight:'bold', marginRight:5}}> : {this.state.current} A </Text>
+                                    </View>
+                                    <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+                                        <Text style={{flex:1, color:kThemeBlueColor, fontWeight:'bold', marginRight:5, }}>LOAD </Text>
+                                        <Text style={{flex:1, color:kThemeBlueColor, fontWeight:'bold', marginRight:5}}> : {this.state.load} kW </Text>
+                                    </View>
+                                </View>
+                                    
+                            </View>
+
                             <View style={[{minHeight:160, padding:5, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
-                                <Text style={{ fontWeight:'bold', margin:5, color:kThemeBlueColor}}>CHARGE MY EV</Text>
+                                <View style={{flexDirection:'row', alignItems:'center'}}>
+                                    <Text style={{ flex:1, fontWeight:'bold', margin:5, color:kThemeBlueColor}}>CHARGE MY EV</Text>
+                                    {this.state.showCharging && <Text style={{fontWeight:'bold', fontSize:11, color:this.state.chargingState === 1?"#62c649":kThemeBlueColor}}>{this.state.chargingState === 1? "CHARGING" : "AVAILABLE"} </Text>}
+                                </View>
 
                                 <View style={[{flex:1, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
                                     <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                                         <View style={{flex:2, flexDirection:'row', alignItems:'center'}}>
                                             <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>GRID</Text>
                                             
-                                            {dataResouces && dataResouces.energy_source === 'GRID' && <Image style={{marginLeft:10, width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image>}
+                                            <Image style={{marginLeft:10, width:15, height:15, resizeMode:'contain'}} source={this.state.gridStatus === 1 ? require("../resources/GreenLEDIcon.png") : require("../resources/RedLEDIcon.png")}></Image>
                                         </View>
-                                        <Text style={{ fontWeight:'bold', fontSize:10, }}> {dataResouces ? dataResouces.reading_unit : ''} {this.state.gridUnit} </Text>
+                                        <Text style={{ fontWeight:'bold', fontSize:10, }}> {dataResouces ? dataResouces.reading_unit : ''} {this.state.kwh} </Text>
                                     </View>
                                     
                                     <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
@@ -525,7 +571,7 @@ class EVCD extends Component {
                                             
                                             <Text style={{flex:1, fontSize:8}}>{this.state.grid_start_time}</Text>
                                         </View>
-                                        <Text style={{ fontWeight:'bold', fontSize:10, color:kThemeRedColor}}> {dataResouces ? dataResouces.currency : ''} {this.state.gridAmount}</Text>
+                                        <Text style={{ fontWeight:'bold', fontSize:10, color:kThemeRedColor}}> {dataResouces ? dataResouces.currency : ''} {this.state.balance_amt}</Text>
                                     </View>
                                     
                                 </View>
