@@ -12,7 +12,7 @@ import {
 
 import UserData from '../utilities/models/user-data'
 import Spinner from '../components/activity-indicator'
-import {fetchLoginToRefresh, fetchVerifyBalance, fetchRestoreAPI, startEVCDService, stopEVCDService} from '../utilities/webservices'
+import {fetchLoginToRefresh, fetchVerifyBalance, fetchRestoreAPI, evcdLogin, evcdStatus, startEVCDService, stopEVCDService} from '../utilities/webservices'
 import { INITIATE_REFRESH } from '../redux/constants';
 
 import PieChart from '../components/PieChart'
@@ -67,11 +67,80 @@ class EVCD extends Component {
             chartViewHeight:0,
             isShowingDaily : true,
             evcdId : dataResouces ? dataResouces.evcdId : null,
+            gridAmount : 0.00,
+            gridUnit : 0
+
         }
 
         this.spinner = new Spinner()
     }
 
+    componentDidMount() {
+
+        // this.fetchEVCDLogin()
+        this.fetchEVCDStatus()
+    }
+
+    fetchEVCDLogin() {
+
+        this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
+        evcdLogin()
+        .then(response=>{
+
+            if(response && response["message"] === "Success"){
+
+            }
+            else {
+                alert(response["message"])
+            }
+            console.log("response ",response)
+            this.spinner.stopActivity();
+        })
+        .catch(error=>{
+            alert("Unable to fetch the data");
+            this.spinner.stopActivity();
+        })
+    }
+
+    fetchEVCDStatus() {
+
+        this.spinner.startActivity();
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
+        evcdStatus(this.state.evcdId)
+        .then(response=>{
+
+            if(response && response["message"] === "Success"){
+
+                this.setState({
+                    grid_start_time : response.resource.StartTime,
+                    gridAmount : response.resource.amount,
+                    gridUnit : response.resource.voltage
+                })
+            }
+            else {
+                alert(response["message"])
+            }
+            console.log("response ",response)
+            this.spinner.stopActivity();
+        })
+        .catch(error=>{
+            alert("Unable to fetch the data");
+            this.spinner.stopActivity();
+        })
+    }
 
 
     onRefreshClicked() {
@@ -447,7 +516,7 @@ class EVCD extends Component {
                                             
                                             {dataResouces && dataResouces.energy_source === 'GRID' && <Image style={{marginLeft:10, width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image>}
                                         </View>
-                                        <Text style={{ fontWeight:'bold', fontSize:10, }}>{this.state.grid_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
+                                        <Text style={{ fontWeight:'bold', fontSize:10, }}> {dataResouces ? dataResouces.reading_unit : ''} {this.state.gridUnit} </Text>
                                     </View>
                                     
                                     <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
@@ -456,7 +525,7 @@ class EVCD extends Component {
                                             
                                             <Text style={{flex:1, fontSize:8}}>{this.state.grid_start_time}</Text>
                                         </View>
-                                        <Text style={{ fontWeight:'bold', fontSize:10}}>{this.state.grid_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
+                                        <Text style={{ fontWeight:'bold', fontSize:10, color:kThemeRedColor}}> {dataResouces ? dataResouces.currency : ''} {this.state.gridAmount}</Text>
                                     </View>
                                     
                                 </View>

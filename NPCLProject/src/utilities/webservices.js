@@ -17,6 +17,8 @@ const kNotice = "/thirdparty/api/notice"
 const kHistory = "/thirdparty/api/recharge_history"
 const kCurrentRates = "/thirdparty/api/current_applicable_rates"
 const kMonthlyBill = "/thirdparty/api/report"
+const kEVCDLogin = "/thirdparty/ev_login"
+const kEVCDStatus = "/ev_api/api/status"
 const kEVCDStartService = "/ev_api/api/start"
 const kEVCDStopService = "/ev_api/api/stop"
 
@@ -381,6 +383,41 @@ export const payByCoupon = (coupon) => {
     url = 'https://'+url
   }
   var req_url = url+kRechargeCouponURL+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&coupon_id='+coupon
+  return fetch(req_url)
+    .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+}
+
+export const evcdLogin = () => {
+
+  var userData = new UserData()
+  var userCred = userData.getUserCredential()
+  
+  var url = userData.getBaseURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+  var req_url = url+kEVCDLogin+'?login_id='+userCred.user_id+'&password='+userCred.pswd
+  return fetch(req_url)
+    .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+}
+
+export const evcdStatus = (deviceId) => {
+
+  var url = "http://radiusm2m.com"
+  
+  var req_url = url+kEVCDStatus+'?device_id='+deviceId
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {
