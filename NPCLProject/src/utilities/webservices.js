@@ -415,7 +415,11 @@ export const evcdLogin = () => {
 
 export const evcdStatus = (deviceId) => {
 
-  var url = "http://radiusm2m.com"
+  var userData = new UserData()
+  var url = userData.getEVCDURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
   
   var req_url = url+kEVCDStatus+'?device_id='+deviceId
   return fetch(req_url)
@@ -430,7 +434,11 @@ export const evcdStatus = (deviceId) => {
 
 export const startEVCDService = (evcdId) => {
   
-  var url = "http://radiusm2m.com"
+  var userData = new UserData()
+  var url = userData.getEVCDURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
   
   var req_url = url+kEVCDStartService+'?device_id='+evcdId
   return fetch(req_url)
@@ -445,7 +453,11 @@ export const startEVCDService = (evcdId) => {
 
 export const stopEVCDService = (evcdId) => {
   
-  var url = "http://radiusm2m.com"
+  var userData = new UserData()
+  var url = userData.getEVCDURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
   
   var req_url = url+kEVCDStopService+'?device_id='+evcdId
   return fetch(req_url)

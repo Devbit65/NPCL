@@ -349,7 +349,7 @@ class Overview extends Component {
 
     render() {
         var dataResouces = this.userData ? this.userData.resource : null
-        return  <View style={{flex:1, backgroundColor:'#fff'}}>
+        return  <ScrollView style={{flex:1, marginBottom:10, backgroundColor:'#fff'}}>
                     
                     <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
                         <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
@@ -410,7 +410,7 @@ class Overview extends Component {
                                 
                             </View>
                             
-                            <View style={[{flex:1, margin:10, marginBottom:5, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]} onLayout={(event)=>{
+                            <View style={[{flex:1, minHeight:375, margin:10, marginBottom:5, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]} onLayout={(event)=>{
                                 this.setState({
                                     chartViewWidth : event.nativeEvent.layout.width,
                                     chartViewHeight : event.nativeEvent.layout.height
@@ -442,7 +442,7 @@ class Overview extends Component {
                                 </TouchableOpacity>
                             </View>
                             
-                            <View style={[{flex:1, maxHeight:70, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                            <View style={[{flex:1, height:75, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                                 <View style={{flex:1, backgroundColor:kThemeBlueColor, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
                                     <Text style={{fontWeight:'bold', color:'#fff'}}>SANCTIONED LOAD</Text>
                                 </View>
@@ -480,7 +480,7 @@ class Overview extends Component {
                         </View>:null}
                     </View>
                     
-                </View>
+                </ScrollView>
     }
 }
 

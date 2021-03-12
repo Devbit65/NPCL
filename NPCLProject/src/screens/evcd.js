@@ -12,7 +12,7 @@ import {
 
 import UserData from '../utilities/models/user-data'
 import Spinner from '../components/activity-indicator'
-import {fetchLoginToRefresh, fetchVerifyBalance, fetchRestoreAPI, evcdLogin, evcdStatus, startEVCDService, stopEVCDService} from '../utilities/webservices'
+import { evcdLogin, evcdStatus, startEVCDService, stopEVCDService} from '../utilities/webservices'
 import { INITIATE_REFRESH } from '../redux/constants';
 
 import PieChart from '../components/PieChart'
@@ -38,13 +38,7 @@ class EVCD extends Component {
             monthly_totalConsumption = Number(dataResouces.monthly_dg_amount) + Number(dataResouces.monthly_grid_amount) + Number(dataResouces.fix_charges_monthly)
         }
         this.state = {
-            balance_inr : dataResouces ? Number(dataResouces.balance_amount).toFixed(2) : "",
-            balance_updated_on : dataResouces ? dataResouces.last_reading_updated : '',
             grid_start_time : dataResouces ? dataResouces.last_reading_updated_dg : '',
-            grid_kwh : dataResouces ? Number(dataResouces.grid_reading).toFixed(2) : '',
-            dg_kwh : dataResouces ? Number(dataResouces.dg_reading).toFixed(2) : '',
-            sectioned_grid : dataResouces ? dataResouces.grid_sanctioned_load : '',
-            sectioned_dg : dataResouces ? dataResouces.dg_sanctioned_load : '',
             daily_consumption_grid : dataResouces ? dataResouces.daily_grid_amount : '',
             daily_consumption_dg : dataResouces ? dataResouces.daily_dg_amount : '',
             monthly_consumption_grid : dataResouces ? dataResouces.monthly_grid_amount : '',
@@ -60,7 +54,6 @@ class EVCD extends Component {
             load_unit : dataResouces ? dataResouces.load_unit : '',
             reading_unit : dataResouces ? dataResouces.reading_unit : '',
             currency : dataResouces ? dataResouces.currency : '',
-            willShowResetButton : dataResouces ? (Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm)) : '',
             chartWidth : 0,
             chartHeight : 0,
             chartViewWidth:0,
@@ -68,7 +61,20 @@ class EVCD extends Component {
             isShowingDaily : true,
             evcdId : dataResouces ? dataResouces.evcdId : null,
             gridAmount : 0.00,
-            gridUnit : 0
+            gridUnit : 0,
+            voltage : 0,
+            load : 0,
+            current : 0,
+            docCover: 0,
+            highVol: 0,
+            lowVoltage: 0,
+            power: 0,
+            serverLink: 0,
+            gridStatus: 0,
+            balance_amt: 0.00,
+            kwh:  "--",
+            chargingState : 0,
+            showCharging : true
 
         }
 
@@ -172,135 +178,9 @@ class EVCD extends Component {
 
         this.spinner.startActivity();
 
-        if(!this.spinner.isNetConnected()){
-            alert("Please check you internet connection.")
-            this.spinner.stopActivity()
-            return;
-        }
-
-        fetchLoginToRefresh()
-        .then(response=>{
-
-            this.spinner.stopActivity();
-
-            if(response && !response.message.includes('SUCCESS')){
-                alert(response.message)
-                return;
-            }
-
-            new UserData().setUserData(response);
-            this.userData = new UserData().getUserData();;
-
-            var dataResouces = this.userData.resource
-
-            var daily_totalConsumption = 0
-            var monthly_totalConsumption = 0
-            if(dataResouces) {
-                daily_totalConsumption = Number(dataResouces.daily_dg_amount) + Number(dataResouces.daily_grid_amount) + Number(dataResouces.fix_charges)
-                monthly_totalConsumption = Number(dataResouces.monthly_dg_amount) + Number(dataResouces.monthly_grid_amount) + Number(dataResouces.fix_charges_monthly)
-            }
-    
-            this.setState({
-                balance_inr:Number(dataResouces.balance_amount).toFixed(2),
-                balance_updated_on:dataResouces.last_reading_updated,
-                grid_start_time:dataResouces.last_reading_updated_dg,
-                grid_kwh:Number(dataResouces.grid_reading).toFixed(2),
-                dg_kwh:Number(dataResouces.dg_reading).toFixed(2),
-                sectioned_grid:dataResouces.grid_sanctioned_load,
-                sectioned_dg:dataResouces.dg_sanctioned_load,
-                daily_consumption_grid : dataResouces.daily_grid_amount,
-                daily_consumption_dg : dataResouces.daily_dg_amount,
-                monthly_consumption_grid : dataResouces.monthly_grid_amount,
-                monthly_consumption_dg : dataResouces.monthly_dg_amount,
-                daily_consumption_fixed_charged : dataResouces.fix_charges,
-                monthly_consumption_fixed_charged : dataResouces.fix_charges_monthly,
-                daily_consumption_grid_unit : dataResouces.daily_grid_unit,
-                daily_consumption_dg_unit : dataResouces.daily_dg_unit,
-                monthly_consumption_grid_unit : dataResouces.monthly_grid_unit,
-                monthly_consumption_dg_unit : dataResouces.monthly_dg_unit,
-                dialy_consumption_total : daily_totalConsumption,
-                monthly_consumption_total : monthly_totalConsumption,
-                load_unit:dataResouces.load_unit,
-                reading_unit : dataResouces.reading_unit,
-                currency:dataResouces.currency,
-                isShowingDaily : true,
-                evcdId : dataResouces ? dataResouces.evcdId : null,
-            },()=>{
-                if(this._scrollView) {
-                    this._scrollView.scrollTo({x:0, animated:true})
-                }
-            })
-        })
+       this.fetchEVCDStatus()
     }
 
-    cancelReset() {
-
-        this.setState({
-            willShowResetButton : false
-        })
-    }
-
-    verifyBalance() {
-
-        this.spinner.startActivity();
-
-        if(!this.spinner.isNetConnected()){
-            alert("Please check you internet connection.")
-            this.spinner.stopActivity()
-            return;
-        }
-
-        fetchVerifyBalance()
-        .then(response=>{
-
-            if(response.rc === -1) {
-                var msg = response.message
-                alert(msg)
-            }
-            else{
-                
-                var balance = Number(response.message)
-                if(balance < 0){
-                    alert("Unable to Re-store due to low balance !!!")
-                }
-                else {
-                    this.restoreApi()
-                }
-            }
-            this.spinner.stopActivity();
-        })
-        .catch(error=>{
-            alert('Data not found')
-            this.spinner.stopActivity();
-        })
-    }
-
-    restoreApi() {
-
-        this.spinner.startActivity();
-
-        if(!this.spinner.isNetConnected()){
-            alert("Please check you internet connection.")
-            this.spinner.stopActivity()
-            return;
-        }
-
-        fetchRestoreAPI()
-        .then(response=>{
-
-            var msg = response.message
-            alert(msg)
-            this.setState({
-                willShowResetButton:false
-            })
-
-            this.spinner.stopActivity();
-        })
-        .catch(error=>{
-            alert('Data not found')
-            this.spinner.stopActivity();
-        })
-    }
 
     componentDidUpdate() {
 

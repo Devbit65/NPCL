@@ -10,6 +10,7 @@ export default class UserData {
             this.userCred = null;
             this.deviceToken = null;
             this.baseURL = "myxenius.com";
+            this.evcdURL = "radiusm2m.com"
             UserData.singletonObject = this;
         }
         
@@ -46,6 +47,7 @@ export default class UserData {
         if(userData){
 
             this.setBaseURL(userData.app_base_url)
+            this.setEVCDURL(userData.evcdURL)
         }
         this.userData = userData;
     }
@@ -62,6 +64,16 @@ export default class UserData {
 
     getBaseURL(){
         return this.baseURL;
+    }
+
+    setEVCDURL(url){
+        if(url){
+            this.evcdURL = url;
+        }
+    }
+
+    getEVCDURL(){
+        return this.evcdURL;
     }
 
     getUserName(){
