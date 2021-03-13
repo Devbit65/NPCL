@@ -3,7 +3,9 @@ import {
     Text, 
     View,
     FlatList,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity,
+    Image
 } from 'react-native';
 
 import {fethchMessages} from '../utilities/webservices'
@@ -99,8 +101,13 @@ class EventLogging extends Component {
     render() {
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     
-                    <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
-                        <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:26}}> DG EVENT LOGGING </Text>
+                    <View style={{flex:1, maxHeight:80, margin:5}}>
+                        <View style={{flex:1, margin:5, alignItems:'flex-start', justifyContent:'center'}}>
+                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:26}}> DG EVENT LOGGING </Text>
+                        </View>
+                        <TouchableOpacity style={{ flex:1, width:40, height:40, marginRight:10, alignItems:'center', justifyContent:'center', alignSelf:'flex-end'}} onPress={()=>this.fethchMessages()}>
+                            <Image style={{width:25, height:25, resizeMode:'stretch'}} source={require("../resources/Refresh_icon.png")}></Image>
+                        </TouchableOpacity>
                     </View>
                     
                     <FlatList

@@ -64,6 +64,8 @@ class Overview extends Component {
             chartViewWidth:0,
             chartViewHeight:0,
             isShowingDaily : true,
+            current_status : dataResouces ? dataResouces.current_status : "--",
+            overview_fc_name : dataResouces ? dataResouces.overview_fc_name : "Fixed Charges"
         }
 
         this.spinner = new Spinner()
@@ -127,6 +129,8 @@ class Overview extends Component {
                 reading_unit : dataResouces.reading_unit,
                 currency:dataResouces.currency,
                 isShowingDaily : true,
+                current_status : dataResouces ? dataResouces.current_status : "--",
+                overview_fc_name : dataResouces ? dataResouces.overview_fc_name: "Fixed Charges"
             },()=>{
                 if(this._scrollView) {
                     this._scrollView.scrollTo({x:0, animated:true})
@@ -258,7 +262,7 @@ class Overview extends Component {
                             <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_dg.toFixed(2)}</Text>
                         </View>
                         <View style={[{minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
-                            <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
+                            <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>{this.state.overview_fc_name}</Text>
                             
                             <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_fixed_charged.toFixed(2)}</Text>
                         </View>
@@ -317,7 +321,7 @@ class Overview extends Component {
                             <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_dg.toFixed(2)}</Text>
                         </View>
                         <View style={[{ minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
-                            <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
+                            <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>{this.state.overview_fc_name}</Text>
                             
                             <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_fixed_charged.toFixed(2)}</Text>
                         </View>
@@ -362,7 +366,7 @@ class Overview extends Component {
 
                     <View style={{flex:1}}>
                         <View style={{flex:4, marginLeft:10, marginRight:10}}>
-                            <View style={[{flex:1, maxHeight:155, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                            <View style={[{flex:1, maxHeight:210, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                                 <View style={[{height:60, margin:10, marginBottom:5, padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
                                     <View style={{flex:1}}>
                                         <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>AVAILABLE BALANCE</Text>
@@ -408,6 +412,15 @@ class Overview extends Component {
                                     </View>
                                 </View>
                                 
+                                <View style={[{height:40, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
+                                    
+                                    <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+                                        <Text style={{flex:2, fontWeight:'bold', color:kThemeBlueColor, fontSize:12}}>CURRENT STATUS</Text>
+                                        
+                                        <Text style={{flex:1, fontWeight:'bold', color:kThemeBlueColor, fontSize:12}}>{this.state.current_status}</Text>
+                                    </View>
+                                    
+                                </View>
                             </View>
                             
                             <View style={[{flex:1, minHeight:375, margin:10, marginBottom:5, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]} onLayout={(event)=>{

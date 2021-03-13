@@ -70,8 +70,13 @@ class Notice extends Component {
     render() {
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     
-                    <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
-                        <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> NOTICE </Text>
+                    <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
+                        <View style={{flex:1, margin:5, alignItems:'flex-start', justifyContent:'center'}}>
+                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> NOTICE </Text>
+                        </View>
+                        <TouchableOpacity style={{ width:40, height:40, marginRight:10, alignItems:'center', justifyContent:'center'}} onPress={()=>this.fetchNotice()}>
+                            <Image style={{width:25, height:25, resizeMode:'stretch'}} source={require("../resources/Refresh_icon.png")}></Image>
+                        </TouchableOpacity>
                     </View>
                     
                     <FlatList
