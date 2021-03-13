@@ -12,7 +12,7 @@ import {
 
 import UserData from '../utilities/models/user-data'
 import Spinner from '../components/activity-indicator'
-import { evcdLogin, evcdStatus, startEVCDService, stopEVCDService} from '../utilities/webservices'
+import { evcdLogin, evcdStatus, startEVCDService, stopEVCDService, fetchEVDailyConsumption, fetchEVMonthlyConsumption} from '../utilities/webservices'
 import { INITIATE_REFRESH } from '../redux/constants';
 
 import PieChart from '../components/PieChart'
@@ -77,11 +77,13 @@ class EVCD extends Component {
             showCharging : true,
             evcdDGIntegration : dataResouces ? dataResouces.evcdDGIntegration === 'Y' : false,
             autorefresh : dataResouces && dataResouces.autorefresh ? Number(dataResouces.autorefresh) : 0,
+            daily_total_charging_hour : null,
+            monthly_total_charging_hour : null
         }
 
         if(this.state.autorefresh > 0) {
             this.autoRefreshInterval = setInterval(() => {
-                this.fetchEVCDStatus()
+                this.fetchEVCDStatus(true)
             }, this.state.autorefresh*1000);
         }
 
@@ -134,7 +136,7 @@ class EVCD extends Component {
         })
     }
 
-    fetchEVCDStatus() {
+    fetchEVCDStatus(isCalledFromAutoRefresh = false) {
 
         if(this.textBlinkingInterval) {
             clearInterval(this.textBlinkingInterval)
@@ -183,7 +185,12 @@ class EVCD extends Component {
             else {
                 alert(response["message"])
             }
-            this.spinner.stopActivity();
+            if(isCalledFromAutoRefresh) {
+                this.spinner.stopActivity();
+            }
+            else {
+                this.fetchEVDailyConsumption();
+            }
         })
         .catch(error=>{
             alert("Unable to fetch the data");
@@ -191,6 +198,66 @@ class EVCD extends Component {
         })
     }
 
+    fetchEVDailyConsumption() {
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
+        fetchEVDailyConsumption(this.state.evcdId)
+        .then(response=>{
+
+            if(response && response["message"] === "Success"){
+
+                this.setState({
+                    daily_consumption_grid_unit : response.resource.grid_consumption,
+                    daily_consumption_grid : response.resource.grid_amt,
+                    daily_consumption_dg_unit : this.state.evcdDGIntegration ? response.resource.dg_consumption : '',
+                    daily_consumption_dg : this.state.evcdDGIntegration && response.resource.dg_amt ? response.resource.dg_amt : 0,
+                    daily_total_charging_hour : response.resource.total_charging_hour ? response.resource.total_charging_hour : "00:00:00"
+                })
+            }
+            this.fetchEVMonthlyConsumption()
+        })
+        .catch(error=>{
+            alert("Unable to fetch the data");
+            this.spinner.stopActivity();
+        })
+    }
+
+    fetchEVMonthlyConsumption() {
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
+        fetchEVMonthlyConsumption(this.state.evcdId)
+        .then(response=>{
+
+            if(response && response["message"] === "Success"){
+
+                this.setState({
+                    monthly_consumption_grid_unit : response.resource.grid_consumption,
+                    monthly_consumption_grid : response.resource.grid_amt,
+                    monthly_consumption_dg_unit : this.state.evcdDGIntegration ? response.resource.dg_consumption : '',
+                    monthly_consumption_dg : this.state.evcdDGIntegration && response.resource.dg_amt ? response.resource.dg_amt : 0,
+                    monthly_total_charging_hour : response.resource.total_charging_hour ? response.resource.total_charging_hour : "00:00:00"
+                })
+            }
+            else {
+                alert(response["message"])
+            }
+            this.spinner.stopActivity();
+        })
+        .catch(error=>{
+            alert("Unable to fetch the data");
+            this.spinner.stopActivity();
+        })
+    }
 
     onRefreshClicked() {
 
@@ -253,15 +320,15 @@ class EVCD extends Component {
                             
                             <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_dg.toFixed(2)}</Text>
                         </View> }
-                        <View style={[{minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                        {/* <View style={[{minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
                             
                             <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_fixed_charged.toFixed(2)}</Text>
-                        </View>
-                        <View style={[{height:20, margin:5,  borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
-                            <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>TOTAL</Text>
+                        </View> */}
+                        <View style={[{ minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                            <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>TOTAL CHARGING HOUR</Text>
                             
-                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_total.toFixed(2)}</Text>
+                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_total_charging_hour}</Text>
                         </View>
 
                         <View style={{flex:0.5, flexDirection:'row'}}>
@@ -312,21 +379,20 @@ class EVCD extends Component {
                             
                             <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_dg.toFixed(2)}</Text>
                         </View>}
-                        <View style={[{ minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                        {/* <View style={[{ minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
                             
                             <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_fixed_charged.toFixed(2)}</Text>
-                        </View>
-                        <View style={[{height:20, margin:5,  borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
-                            <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>TOTAL</Text>
+                        </View> */}
+                        <View style={[{ minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                            <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>TOTAL CHARGING HOUR</Text>
                             
-                            <Text style={{width:75, fontSize:11}}>{this.state.dialy_consumption_total.toFixed(2)}</Text>
+                            <Text style={{width:75, fontSize:11}}>{this.state.daily_total_charging_hour}</Text>
                         </View>
 
                         <View style={{flex:0.5, flexDirection:'row'}}>
                             <Text style={{flex:1, fontSize:12}}></Text>
                             
-                            <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {dataResouces ? dataResouces.currency : 'RS'}</Text>
                         </View>
                     </View>
                 </View> 
