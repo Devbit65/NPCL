@@ -74,8 +74,15 @@ class EVCD extends Component {
             balance_amt: 0.00,
             kwh:  "--",
             chargingState : 0,
-            showCharging : true
+            showCharging : true,
+            evcdDGIntegration : dataResouces ? dataResouces.evcdDGIntegration === 'Y' : false,
+            autorefresh : dataResouces && dataResouces.autorefresh ? Number(dataResouces.autorefresh) : 0,
+        }
 
+        if(this.state.autorefresh > 0) {
+            this.autoRefreshInterval = setInterval(() => {
+                this.fetchEVCDStatus()
+            }, this.state.autorefresh*1000);
         }
 
         this.textBlinkingInterval = null
@@ -85,7 +92,19 @@ class EVCD extends Component {
     componentDidMount() {
 
         // this.fetchEVCDLogin()
+
+        this.spinner.startActivity();
         this.fetchEVCDStatus()
+    }
+
+    componentWillUnmount() {
+        if(this.autoRefreshInterval) {
+            clearInterval(this.autoRefreshInterval)
+        }
+
+        if(this.textBlinkingInterval) {
+            clearInterval(this.textBlinkingInterval)
+        }
     }
 
     fetchEVCDLogin() {
@@ -121,7 +140,6 @@ class EVCD extends Component {
             clearInterval(this.textBlinkingInterval)
             this.textBlinkingInterval = null
         }
-        this.spinner.startActivity();
 
         if(!this.spinner.isNetConnected()){
             alert("Please check you internet connection.")
@@ -230,11 +248,11 @@ class EVCD extends Component {
                             <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_grid.toFixed(2)}</Text>
                         </View>
                         
-                        <View style={[{height:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                        {this.state.evcdDGIntegration && <View style={[{height:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>DG</Text>
                             
                             <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_dg.toFixed(2)}</Text>
-                        </View>
+                        </View> }
                         <View style={[{minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
                             
@@ -289,11 +307,11 @@ class EVCD extends Component {
                             <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_grid.toFixed(2)}</Text>
                         </View>
                         
-                        <View style={[{height:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
+                        {this.state.evcdDGIntegration && <View style={[{height:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>DG</Text>
                             
                             <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_dg.toFixed(2)}</Text>
-                        </View>
+                        </View>}
                         <View style={[{ minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
                             
