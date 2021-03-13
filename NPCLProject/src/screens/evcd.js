@@ -31,12 +31,6 @@ class EVCD extends Component {
         this.userData = new UserData().getUserData();
 
         var dataResouces = this.userData ? this.userData.resource:null
-        var daily_totalConsumption = 0
-        var monthly_totalConsumption = 0
-        if(dataResouces) {
-            daily_totalConsumption = Number(dataResouces.daily_dg_amount) + Number(dataResouces.daily_grid_amount) + Number(dataResouces.fix_charges)
-            monthly_totalConsumption = Number(dataResouces.monthly_dg_amount) + Number(dataResouces.monthly_grid_amount) + Number(dataResouces.fix_charges_monthly)
-        }
         this.state = {
             grid_start_time : dataResouces ? dataResouces.last_reading_updated_dg : '',
             daily_consumption_grid : dataResouces ? dataResouces.daily_grid_amount : '',
@@ -47,10 +41,7 @@ class EVCD extends Component {
             daily_consumption_dg_unit : dataResouces ? dataResouces.daily_dg_unit : '',
             monthly_consumption_grid_unit : dataResouces ? dataResouces.monthly_grid_unit : '',
             monthly_consumption_dg_unit : dataResouces ? dataResouces.monthly_dg_unit : '',
-            daily_consumption_fixed_charged : dataResouces ? dataResouces.fix_charges : '',
             monthly_consumption_fixed_charged : dataResouces ? dataResouces.fix_charges_monthly : '',
-            dialy_consumption_total : daily_totalConsumption,
-            monthly_consumption_total : monthly_totalConsumption,
             load_unit : dataResouces ? dataResouces.load_unit : '',
             reading_unit : dataResouces ? dataResouces.reading_unit : '',
             currency : dataResouces ? dataResouces.currency : '',
@@ -77,8 +68,8 @@ class EVCD extends Component {
             showCharging : true,
             evcdDGIntegration : dataResouces ? dataResouces.evcdDGIntegration === 'Y' : false,
             autorefresh : dataResouces && dataResouces.autorefresh ? Number(dataResouces.autorefresh) : 0,
-            daily_total_charging_hour : null,
-            monthly_total_charging_hour : null
+            daily_total_charging_hour : "00:00:00",
+            monthly_total_charging_hour : "00:00:00"
         }
 
         if(this.state.autorefresh > 0) {
@@ -171,7 +162,7 @@ class EVCD extends Component {
                     chargingState : Number(response.resource.chargingState),
                     showCharging : true
                 },()=>{
-                    if(this.state.chargingState) {
+                    if(this.state.chargingState && !this.textBlinkingInterval) {
 
                         this.textBlinkingInterval = setInterval(() => {
                         
@@ -283,7 +274,6 @@ class EVCD extends Component {
     }
 
     getMonthlyConsumtionView() {
-        var dataResouces = this.userData ? this.userData.resource : null
         return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}>
 
                     <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
@@ -308,7 +298,7 @@ class EVCD extends Component {
 
                     </View>
 
-                    <View style={{ height:150, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
+                    <View style={{ height:125, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
                         <View style={[{height:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
                             
@@ -334,7 +324,6 @@ class EVCD extends Component {
                         <View style={{flex:0.5, flexDirection:'row'}}>
                             <Text style={{flex:1, fontSize:12}}></Text>
                             
-                            <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {dataResouces ? dataResouces.currency : 'RS'}</Text>
                         </View>
                     </View>
                 </View> 
@@ -342,7 +331,6 @@ class EVCD extends Component {
 
 
     getDailyConsumtionView() {
-        var dataResouces = this.userData ? this.userData.resource : null
         return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}>
 
                     <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
@@ -367,7 +355,7 @@ class EVCD extends Component {
 
                     </View>
 
-                    <View style={{height:150, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
+                    <View style={{height:125, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
                         <View style={[{height:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
                             
@@ -379,11 +367,6 @@ class EVCD extends Component {
                             
                             <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_dg.toFixed(2)}</Text>
                         </View>}
-                        {/* <View style={[{ minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
-                            <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
-                            
-                            <Text style={{width:75, fontSize:11}}>{this.state.daily_consumption_fixed_charged.toFixed(2)}</Text>
-                        </View> */}
                         <View style={[{ minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>TOTAL CHARGING HOUR</Text>
                             
@@ -539,28 +522,6 @@ class EVCD extends Component {
                                     </View>
                                     
                                 </View>
-
-                                {/* <View style={[{flex:1, marginTop:5, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
-                                    <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                        <View style={{flex:2, flexDirection:'row', alignItems:'center'}}>
-                                            <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>DG</Text>
-                                            
-                                            {dataResouces && dataResouces.energy_source === 'DG' && <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/RedLEDIcon.png")}></Image>}
-                                            <Text style={{flex:1, fontSize:11, marginLeft:10}}>OFF</Text>
-                                        </View>
-                                        <Text style={{ fontWeight:'bold', fontSize:10, }}>{this.state.grid_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
-                                    </View>
-                                    
-                                    <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                                        <View style={{flex:1}}>
-                                            <Text style={{flex:1, fontSize:11}}>START TIME</Text>
-                                            
-                                            <Text style={{flex:1, fontSize:8}}>{this.state.grid_start_time}</Text>
-                                        </View>
-                                        <Text style={{ fontWeight:'bold', fontSize:10}}>{this.state.grid_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
-                                    </View>
-                                    
-                                </View> */}
 
                                 <View style={{height:50, marginTop:5,  flexDirection:'row', alignItems:'center' }}>
                                     <TouchableOpacity disabled={!this.state.evcdId} style={{width:75, height:40, backgroundColor:kThemeBlueColor, alignItems:'center', justifyContent:'center', borderRadius:10, opacity:this.state.evcdId?1:0.5}} onPress={()=>this.onStartService()}>
