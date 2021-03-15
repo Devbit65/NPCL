@@ -40,9 +40,9 @@ echo '############### IOS Build Started ################'
 #react-native bundle --minify --entry-file index.js --platform ios --dev false --bundle-output ./ios/main.jsbundle --assets-dest ./ios
 cd ./ios
 
-xcodebuild -workspace NPCLProject.xcworkspace -scheme NPCLProject -sdk iphoneos -configuration AppStoreDistribution archive -archivePath "$archivePath"
-
-xcodebuild -exportArchive -archivePath "$archivePath" -exportOptionsPlist "$exportOptionsPlistPath" -exportPath "$targetFolder"/
+#xcodebuild -workspace NPCLProject.xcworkspace -scheme NPCLProject -sdk iphoneos -configuration AppStoreDistribution archive -archivePath "$archivePath"
+#
+#xcodebuild -exportArchive -archivePath "$archivePath" -exportOptionsPlist "$exportOptionsPlistPath" -exportPath "$targetFolder"/
 
 cd ..
 

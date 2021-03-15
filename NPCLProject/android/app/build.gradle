@@ -138,7 +138,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.Synergy.Xenius"
+        applicationId "com.e.xeniusapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

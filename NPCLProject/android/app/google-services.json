@@ -1,44 +1,34 @@
 {
   "project_info": {
-    "project_number": "1084678128491",
-    "project_id": "xenius-test",
-    "storage_bucket": "xenius-test.appspot.com"
+    "project_number": "430503428245",
+    "firebase_url": "https://xeniasems-d9183.firebaseio.com",
+    "project_id": "xeniasems-d9183",
+    "storage_bucket": "xeniasems-d9183.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1084678128491:android:10cb1111ab53072024c22e",
+        "mobilesdk_app_id": "1:430503428245:android:2031f800966b0dc1",
         "android_client_info": {
-          "package_name": "com.Synergy.Xenius"
+          "package_name": "com.e.xeniusapp"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "1084678128491-1559bqnec5kvvc0dtimi9ajjk9es3k3p.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.Synergy.Xenius",
-            "certificate_hash": "a6c6000fd6484233f92a51852c9b5062c6c405b6"
-          }
-        },
-        {
-          "client_id": "1084678128491-1gqn8bm756q5k3hlkhagg91kcabo4fdh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCStbhouixAFP38BadSrCNPRuwr2ndYvj4"
+          "current_key": "AIzaSyAcaJ-sWoWLpKEHvgZUsiylp0ZYhV9jNIw"
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 1
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1084678128491-1gqn8bm756q5k3hlkhagg91kcabo4fdh.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
         }
       }
     }

@@ -63,7 +63,8 @@ class EVCD extends Component {
             serverLink: 0,
             gridStatus: 0,
             balance_amt: 0.00,
-            kwh:  "--",
+            kwh:  0,
+            dgKwh: 0,
             chargingState : 0,
             showCharging : true,
             evcdDGIntegration : dataResouces ? dataResouces.evcdDGIntegration === 'Y' : false,
@@ -147,6 +148,7 @@ class EVCD extends Component {
 
                 this.setState({
                     grid_start_time : response.resource.StartTime,
+                    dg_StartTime : response.resource.dg_StartTime,
                     gridAmount : response.resource.amount,
                     voltage : response.resource.voltage,
                     load : response.resource.load,
@@ -158,7 +160,9 @@ class EVCD extends Component {
                     serverLink: Number(response.resource.serverLink),
                     gridStatus: Number(response.resource.gridStatus),
                     balance_amt: response.resource.balance_amt ? response.resource.balance_amt : 0.00,
+                    dg_balance_amt: response.resource.dg_balance_amt ? response.resource.dg_balance_amt : 0.00,
                     kwh: response.resource.kwh ? response.resource.kwh : "--",
+                    dgKwh: response.resource.dgKwh ? response.resource.dgKwh : 0,
                     chargingState : Number(response.resource.chargingState),
                     showCharging : true
                 },()=>{
@@ -298,7 +302,7 @@ class EVCD extends Component {
 
                     </View>
 
-                    <View style={{ height:125, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
+                    <View style={{ height:125, paddingLeft:10, paddingRight:10, alignItems:'center', justifyContent:'center'}}>
                         <View style={[{height:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
                             
@@ -310,11 +314,6 @@ class EVCD extends Component {
                             
                             <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_dg.toFixed(2)}</Text>
                         </View> }
-                        {/* <View style={[{minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
-                            <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>FIXED CHARGES</Text>
-                            
-                            <Text style={{width:75, fontSize:11}}>{this.state.monthly_consumption_fixed_charged.toFixed(2)}</Text>
-                        </View> */}
                         <View style={[{ minHeight:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text numberOfLines={2} style={{flex:1, fontSize:11, color:kThemeBlueColor}}>TOTAL CHARGING HOUR</Text>
                             
@@ -355,7 +354,7 @@ class EVCD extends Component {
 
                     </View>
 
-                    <View style={{height:125, paddingLeft:20, paddingRight:20, alignItems:'center', justifyContent:'center'}}>
+                    <View style={{height:125, paddingLeft:10, paddingRight:10, alignItems:'center', justifyContent:'center'}}>
                         <View style={[{height:20, margin:5, borderRadius:5, paddingLeft:10, flexDirection:'row', backgroundColor:'#fff', alignItems:'center'}, style.cardShadow]}>
                             <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>GRID</Text>
                             
@@ -523,6 +522,27 @@ class EVCD extends Component {
                                     
                                 </View>
 
+                                {this.state.evcdDGIntegration &&<View style={[{flex:1, marginTop:10, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
+                                    <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                        <View style={{flex:2, flexDirection:'row', alignItems:'center'}}>
+                                            <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>DG</Text>
+                                            
+                                            <Image style={{marginLeft:10, width:15, height:15, resizeMode:'contain'}} source={this.state.gridStatus === 1 ? require("../resources/GreenLEDIcon.png") : require("../resources/RedLEDIcon.png")}></Image>
+                                        </View>
+                                        <Text style={{ fontWeight:'bold', fontSize:10, }}> {dataResouces ? dataResouces.reading_unit : ''} {this.state.dgKwh} </Text>
+                                    </View>
+                                    
+                                    <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                                        <View style={{flex:1}}>
+                                            <Text style={{flex:1, fontSize:11}}>START TIME</Text>
+                                            
+                                            <Text style={{flex:1, fontSize:8}}>{this.state.dg_StartTime}</Text>
+                                        </View>
+                                        <Text style={{ fontWeight:'bold', fontSize:10, color:kThemeRedColor}}> {dataResouces ? dataResouces.currency : ''} {this.state.dg_balance_amt}</Text>
+                                    </View>
+                                    
+                                </View>}
+
                                 <View style={{height:50, marginTop:5,  flexDirection:'row', alignItems:'center' }}>
                                     <TouchableOpacity disabled={!this.state.evcdId} style={{width:75, height:40, backgroundColor:kThemeBlueColor, alignItems:'center', justifyContent:'center', borderRadius:10, opacity:this.state.evcdId?1:0.5}} onPress={()=>this.onStartService()}>
                                         <Text style={{color:'#fff'}}> START </Text>
@@ -535,7 +555,7 @@ class EVCD extends Component {
                                 </View>
                             </View>
                             
-                            <View style={[{flex:1, minHeight:375, margin:5,  borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]} onLayout={(event)=>{
+                            <View style={[{flex:1, minHeight:375, margin:10,  borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]} onLayout={(event)=>{
                                 this.setState({
                                     chartViewWidth : event.nativeEvent.layout.width,
                                     chartViewHeight : event.nativeEvent.layout.height
