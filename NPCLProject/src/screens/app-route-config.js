@@ -56,7 +56,7 @@ class AppRouteConfig extends Component {
         try {
             const credentials = await Keychain.resetGenericPassword();
             var userData = new UserData()
-            fethcLogin(null)
+            fethcLogin(" ")
             userData.setUserData(null)
             this.props.navigation.reset({
                 index: 0,

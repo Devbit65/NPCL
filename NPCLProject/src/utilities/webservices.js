@@ -44,7 +44,7 @@ export const fethcLogin = (devToken) => {
     "login_id" : userCred.user_id,
     "password" : userCred.pswd,
     device_token : devToken,
-    device_OS : Platform.OS
+    device_OS : devToken === " " ? " " : Platform.OS
   }
 
   return fetch(req_url,{

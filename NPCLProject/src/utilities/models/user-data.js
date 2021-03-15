@@ -1,4 +1,5 @@
-
+const kBaseURL = "myxenius.com"
+const kEVCDURL = "radiusm2m.com"
 
 export default class UserData {
 
@@ -9,8 +10,8 @@ export default class UserData {
             this.userData = null
             this.userCred = null;
             this.deviceToken = null;
-            this.baseURL = "myxenius.com";
-            this.evcdURL = "radiusm2m.com"
+            this.baseURL = kBaseURL;
+            this.evcdURL = kEVCDURL;
             UserData.singletonObject = this;
         }
         
@@ -48,6 +49,11 @@ export default class UserData {
 
             this.setBaseURL(userData.app_base_url)
             this.setEVCDURL(userData.evcdURL)
+        }
+        else {
+
+            this.setBaseURL(kBaseURL)
+            this.setEVCDURL(kEVCDURL)
         }
         this.userData = userData;
     }
