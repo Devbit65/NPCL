@@ -64,6 +64,14 @@ static void InitializeFlipper(UIApplication *application) {
 // Required for the register event.
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+  
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert" message:[NSString stringWithFormat:@"Device Token %@",[[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding]] preferredStyle:UIAlertControllerStyleAlert];
+  UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                          //button click event
+                      }];
+  [alert addAction:ok];
+  [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+
  [RNCPushNotificationIOS didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 // Required for the notification event. You must call the completion handler after handling the remote notification.

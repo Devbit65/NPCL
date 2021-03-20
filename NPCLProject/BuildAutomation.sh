@@ -40,9 +40,9 @@ echo '############### IOS Build Started ################'
 #react-native bundle --minify --entry-file index.js --platform ios --dev false --bundle-output ./ios/main.jsbundle --assets-dest ./ios
 cd ./ios
 
-#xcodebuild -workspace NPCLProject.xcworkspace -scheme NPCLProject -sdk iphoneos -configuration AppStoreDistribution archive -archivePath "$archivePath"
-#
-#xcodebuild -exportArchive -archivePath "$archivePath" -exportOptionsPlist "$exportOptionsPlistPath" -exportPath "$targetFolder"/
+xcodebuild -workspace NPCLProject.xcworkspace -scheme NPCLProject -sdk iphoneos -configuration AppStoreDistribution archive -archivePath "$archivePath"
+
+xcodebuild -exportArchive -archivePath "$archivePath" -exportOptionsPlist "$exportOptionsPlistPath" -exportPath "$targetFolder"/
 
 cd ..
 
@@ -50,40 +50,40 @@ cd ..
 ##########
 echo '###################################'
 echo '############### Android Build Started ################'
-react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
-rm -rf ./android/app/src/main/res/drawable-*
-
-rm -rf ./android/app/src/main/res/raw
-cd android/
-
-rm -rf app/build
-rm -rf build
-
-#rm -rf $HOME/.gradle/caches/
-
-./gradlew clean
-./gradlew assembleRelease
-
-cd ..
-
-
-#cp ./android/app/build/outputs/apk/"$UNSINGED_APK_NAME" "$targetFolder"/
-
-#Tmporary fix for android build issue
-cp ./android/app/build/outputs/apk/release/"$UNSINGED_APK_NAME" "$targetFolder"/
-
-ANDROID_BUILD_TOOL=~/Library/Android/sdk/build-tools/29.0.2
-
-"$ANDROID_BUILD_TOOL"/zipalign -v -p 4 "$targetFolder"/"$UNSINGED_APK_NAME" "$ALIGNED_APK_NAME"
-
-"$ANDROID_BUILD_TOOL"/apksigner sign --ks "$KEY_STORE" --ks-pass pass:"$password" --out "$RELEASE_APK_NAME" "$ALIGNED_APK_NAME"
-
-"$ANDROID_BUILD_TOOL"/apksigner verify "$RELEASE_APK_NAME"
-
-
-cd "$targetFolder"
-
-echo "BUILD PATH : ";pwd
+#react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+#rm -rf ./android/app/src/main/res/drawable-*
+#
+#rm -rf ./android/app/src/main/res/raw
+#cd android/
+#
+#rm -rf app/build
+#rm -rf build
+#
+##rm -rf $HOME/.gradle/caches/
+#
+#./gradlew clean
+#./gradlew assembleRelease
+#
+#cd ..
+#
+#
+##cp ./android/app/build/outputs/apk/"$UNSINGED_APK_NAME" "$targetFolder"/
+#
+##Tmporary fix for android build issue
+#cp ./android/app/build/outputs/apk/release/"$UNSINGED_APK_NAME" "$targetFolder"/
+#
+#ANDROID_BUILD_TOOL=~/Library/Android/sdk/build-tools/29.0.2
+#
+#"$ANDROID_BUILD_TOOL"/zipalign -v -p 4 "$targetFolder"/"$UNSINGED_APK_NAME" "$ALIGNED_APK_NAME"
+#
+#"$ANDROID_BUILD_TOOL"/apksigner sign --ks "$KEY_STORE" --ks-pass pass:"$password" --out "$RELEASE_APK_NAME" "$ALIGNED_APK_NAME"
+#
+#"$ANDROID_BUILD_TOOL"/apksigner verify "$RELEASE_APK_NAME"
+#
+#
+#cd "$targetFolder"
+#
+#echo "BUILD PATH : ";pwd
 
 #ls | grep -v "$APP_NAME".*$| xargs rm
 

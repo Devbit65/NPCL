@@ -31,6 +31,7 @@
 		954E281EFC6B45E6BA69F060 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E6CDD07ADC4C06B4A65BB9 /* FontAwesome5_Solid.ttf */; };
 		B01BC97925D0217000A693EB /* highcharts in Resources */ = {isa = PBXBuildFile; fileRef = B01BC97825D0217000A693EB /* highcharts */; };
 		B05CB2CA259D4DF800F7FF60 /* App-Launch-Icon-640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = B05CB2C9259D4DF800F7FF60 /* App-Launch-Icon-640x1136.png */; };
+		B08518E72605AD9900A26FAB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B08518E62605AD9800A26FAB /* GoogleService-Info.plist */; };
 		B08F67C625C86E9900A32DA4 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		B0E4D7A525BD667200E6AF92 /* NPCLPaymentBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D7A425BD667200E6AF92 /* NPCLPaymentBridge.m */; };
 		B0E4D7AE25BD7AC100E6AF92 /* CCAvenuePaymentDisplayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D7AD25BD7AC100E6AF92 /* CCAvenuePaymentDisplayVC.swift */; };
@@ -117,6 +118,8 @@
 		A68C493CD33A5B898491848D /* Pods-NPCLProject-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NPCLProject-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-NPCLProject-tvOSTests/Pods-NPCLProject-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B01BC97825D0217000A693EB /* highcharts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = highcharts; sourceTree = "<group>"; };
 		B05CB2C9259D4DF800F7FF60 /* App-Launch-Icon-640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "App-Launch-Icon-640x1136.png"; path = "NPCLProject/App-Launch-Icon-640x1136.png"; sourceTree = "<group>"; };
+		B08518E62605AD9800A26FAB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "NPCLProject/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B08518EC2605AE5700A26FAB /* Xenius SEMS X.0.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Xenius SEMS X.0.entitlements"; path = "NPCLProject/Xenius SEMS X.0.entitlements"; sourceTree = "<group>"; };
 		B091DBE625BD48160099FF48 /* NPCLProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NPCLProject-Bridging-Header.h"; sourceTree = "<group>"; };
 		B0E4D7A425BD667200E6AF92 /* NPCLPaymentBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NPCLPaymentBridge.m; sourceTree = "<group>"; };
 		B0E4D7AD25BD7AC100E6AF92 /* CCAvenuePaymentDisplayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCAvenuePaymentDisplayVC.swift; path = NPCLProject/CCAvenuePaymentDisplayVC.swift; sourceTree = "<group>"; };
@@ -212,6 +215,8 @@
 		13B07FAE1A68108700A75B9A /* NPCLProject */ = {
 			isa = PBXGroup;
 			children = (
+				B08518EC2605AE5700A26FAB /* Xenius SEMS X.0.entitlements */,
+				B08518E62605AD9800A26FAB /* GoogleService-Info.plist */,
 				B0E4D7AD25BD7AC100E6AF92 /* CCAvenuePaymentDisplayVC.swift */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -507,6 +512,7 @@
 				07F54904EF2D4AE6ADA6AD39 /* MaterialCommunityIcons.ttf in Resources */,
 				2E2AC15724DE469F893D4EB9 /* MaterialIcons.ttf in Resources */,
 				91EB5A6B8B9245AFA7A77F83 /* Octicons.ttf in Resources */,
+				B08518E72605AD9900A26FAB /* GoogleService-Info.plist in Resources */,
 				4C42488A1B4E40ADB31BED0A /* SimpleLineIcons.ttf in Resources */,
 				354D5078981B4FF1B03D6AAB /* Zocial.ttf in Resources */,
 				B01BC97925D0217000A693EB /* highcharts in Resources */,
@@ -892,6 +898,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "NPCLProject/Xenius SEMS X.0.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Radius Synergies International Private Limited (4U38KR6C24)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -973,6 +980,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "NPCLProject/Xenius SEMS X.0.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Distribution: Radius Synergies International Private Limited (4U38KR6C24)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;

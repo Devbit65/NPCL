@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>430503428245-da897bf9klm7f9q7785gadb9o0m9m90d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.430503428245-da897bf9klm7f9q7785gadb9o0m9m90d</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>430503428245-rkat4irbhe0ogh0j3ce19f6j0ar7lvg5.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDEI-E4hV4WNJJeqdJx_uFqzY5R58xzC4o</string>
+	<key>GCM_SENDER_ID</key>
+	<string>430503428245</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.Synergy.Xenius</string>
+	<key>PROJECT_ID</key>
+	<string>xeniasems-d9183</string>
+	<key>STORAGE_BUCKET</key>
+	<string>xeniasems-d9183.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:430503428245:ios:92acb440a3cd1e9eab9b9c</string>
+	<key>DATABASE_URL</key>
+	<string>https://xeniasems-d9183.firebaseio.com</string>
+</dict>
+</plist>
