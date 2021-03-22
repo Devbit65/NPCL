@@ -49,7 +49,7 @@ class AppRoute extends Component {
     PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
       onRegister: function (token) {
-        alert("PushNotification :: Token :: "+JSON.stringify(token))
+        // alert("PushNotification :: Token :: "+JSON.stringify(token))
         var userData = new UserData();
         const devToken = token?token.token:''
         userData.setDeviceToken(devToken)

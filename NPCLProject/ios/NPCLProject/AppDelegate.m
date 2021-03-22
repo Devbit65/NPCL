@@ -65,12 +65,12 @@ static void InitializeFlipper(UIApplication *application) {
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
   
-  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert" message:[NSString stringWithFormat:@"Device Token %@",[[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding]] preferredStyle:UIAlertControllerStyleAlert];
-  UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                          //button click event
-                      }];
-  [alert addAction:ok];
-  [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+  // UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert" message:[NSString stringWithFormat:@"Device Token %@",[[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding]] preferredStyle:UIAlertControllerStyleAlert];
+  // UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+  //                         //button click event
+  //                     }];
+  // [alert addAction:ok];
+  // [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
 
  [RNCPushNotificationIOS didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }

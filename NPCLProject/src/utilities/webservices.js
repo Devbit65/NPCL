@@ -39,7 +39,7 @@ export const fethcLogin = (devToken) => {
   }
   var req_url = url+kLoginURL
 
-  alert("Loging with Push Notification Device Token : "+devToken)
+  // alert("Loging with Push Notification Device Token : "+devToken)
   var reqBody = {
     "login_id" : userCred.user_id,
     "password" : userCred.pswd,
