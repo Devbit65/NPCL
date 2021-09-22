@@ -26,7 +26,7 @@ class Profile extends Component {
         var dataResouces = this.userData.resource
         this.state = {
             userName:dataResouces.consumer_name,
-            meterId:dataResouces.tp_token_id,
+            meterId:dataResouces.meter_serial_no,
             customerId:dataResouces.location_id,
             phone:dataResouces.consumer_mobile_no,
             email:dataResouces.consumer_email_id
@@ -78,7 +78,7 @@ class Profile extends Component {
                 </View>
                 <View style={{flex:1, marginTop:50}}>
                     
-                    <View style={[{flex:1, margin:25, maxHeight:350, backgroundColor:'#FFF', borderRadius:5},style.cardShadow]}>
+                    <View style={[{flex:1, margin:5, marginTop:25, maxHeight:350, backgroundColor:'rgb(242,242,242)', borderRadius:5},style.cardShadow]}>
                         <View style={{width:140, height:140, borderRadius:150, alignSelf:'center', alignItems:'center', justifyContent:'center', position:'absolute', top:-75, backgroundColor:'#fff'}}>
                             <Image style={{width:140, height:140, resizeMode:'contain' }}  source={require("../resources/profile_pic.png")}/>
                         </View>

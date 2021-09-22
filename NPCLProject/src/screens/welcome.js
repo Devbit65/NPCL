@@ -56,7 +56,7 @@ class Welcome extends Component {
 
                 <View style={{flex:5}}>
                   <View style={{flex:1,}}>
-                    <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                       <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> WELCOME </Text>
                     </View>
 

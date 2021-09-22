@@ -5,7 +5,8 @@ import {
     Image,
     TouchableOpacity,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    Platform
 } from 'react-native';
 
 import UserData from '../utilities/models/user-data'

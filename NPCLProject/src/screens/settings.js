@@ -155,7 +155,7 @@ class Settings extends Component {
                                     
                                 <View style={{width:50, justifyContent:'center' }}>
                                     <Switch
-                                        style={{ transform: [{ scaleX: .6 }, { scaleY: .6 }] }}
+                                        style={{ transform: [{ scaleX: 1}, { scaleY: 1 }] }}
                                         trackColor={{ false: "gray", true: 'rgba(19,69,113,0.4)' }}
                                         thumbColor={kThemeBlueColor}
                                         onValueChange={()=>{this.setState({nofity:!this.state.nofity})}}
@@ -220,7 +220,7 @@ class Settings extends Component {
                                     </View>
                                     <View style={{width:50, justifyContent:'center' }}>
                                         <Switch
-                                            style={{ transform: [{ scaleX: .6 }, { scaleY: .6 }] }}
+                                            style={{ transform: [{ scaleX: 1 }, { scaleY: 1 }] }}
                                             trackColor={{ false: "gray", true: 'rgba(19,69,113,0.4)' }}
                                             thumbColor={kThemeBlueColor}
                                             onValueChange={()=>{this.setState({low_balance:!this.state.low_balance})}}
@@ -237,7 +237,7 @@ class Settings extends Component {
                                     </View>
                                     <View style={{width:50, justifyContent:'center' }}>
                                         <Switch
-                                            style={{ transform: [{ scaleX: .6 }, { scaleY: .6 }] }}
+                                            style={{ transform: [{ scaleX: 1 }, { scaleY: 1 }] }}
                                             trackColor={{ false: "gray", true: 'rgba(19,69,113,0.4)' }}
                                             thumbColor={kThemeBlueColor}
                                             onValueChange={()=>{this.setState({power_cut_restore:!this.state.power_cut_restore})}}
@@ -254,7 +254,7 @@ class Settings extends Component {
                                     </View>
                                     <View style={{width:50, justifyContent:'center' }}>
                                         <Switch
-                                            style={{ transform: [{ scaleX: .6 }, { scaleY: .6 }] }}
+                                            style={{ transform: [{ scaleX: 1 }, { scaleY: 1 }] }}
                                             trackColor={{ false: "gray", true: 'rgba(19,69,113,0.4)' }}
                                             thumbColor={kThemeBlueColor}
                                             onValueChange={()=>{this.setState({notify_recharge:!this.state.notify_recharge})}}

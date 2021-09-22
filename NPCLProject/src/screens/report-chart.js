@@ -418,9 +418,9 @@ class ReportChart extends Component {
                             <TouchableOpacity onPress={()=>this.onPressBackButton()} style={{width:25, alignItems:'center', justifyContent:'center'}}>
                                 <Icon size={21} name="arrow-back-ios" color="rgb(206, 0, 57)" />
                             </TouchableOpacity>
-                            <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
+                            <View style={{flex:1, height:40, flexDirection:'row'}}>
                                 <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
-                                    <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> REPORT </Text>
+                                    <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:this.state.period === "COMPARATIVE"?18:22}}>REPORT {'>'} {this.state.period}</Text>
                                 </View>
                                 <TouchableOpacity style={{backgroundColor:'#ededed', marginRight:10}} onPress={()=>this.openCallendar()}>
                                     {(this.state.period === "DAILY" || this.state.period === "COMPARATIVE") && <View style={{flex:1, backgroundColor:kThemeRedColor, alignItems:'center', justifyContent:'center'}}>

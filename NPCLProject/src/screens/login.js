@@ -191,10 +191,10 @@ class Login extends Component {
                         </View>
                         
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                            <View style={{width:'85%', height:'70%', backgroundColor:'#FFF', borderRadius:5}}>
+                            <View style={{width:'85%', height:400, backgroundColor:'#FFF', borderRadius:5}}>
                                 <View style={{flex:3}}>
                                     <TextInput
-                                        style={{paddingLeft:5, fontSize:11, height: 35, borderWidth:0.5, borderRadius:5, margin:25,  marginTop:30, borderColor:kThemeBlueColor, padding:0}}
+                                        style={{paddingLeft:5, height: 35, borderWidth:0.5, borderRadius:5, margin:25,  marginTop:30, borderColor:kThemeBlueColor, padding:0}}
                                         textAlign={'left'}
                                         placeholder="USER ID"
                                         onChangeText={text => this.setState({userid:text},()=>this.userData.setUserCredential(this.state.userid, this.state.password))}
@@ -202,7 +202,7 @@ class Login extends Component {
                                     />
 
                                     <TextInput
-                                        style={{paddingLeft:5, fontSize:11, height: 35, borderWidth:0.5, borderRadius:5, margin:25, marginTop:0, marginBottom:5, borderColor:kThemeBlueColor, padding:0}}
+                                        style={{paddingLeft:5, height: 35, borderWidth:0.5, borderRadius:5, margin:25, marginTop:0, marginBottom:5, borderColor:kThemeBlueColor, padding:0}}
                                         textAlign={'left'}
                                         placeholder="PASSWORD"
                                         secureTextEntry={this.state.securePassword}

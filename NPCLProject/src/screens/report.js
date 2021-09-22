@@ -230,6 +230,7 @@ class Report extends Component {
         var dateArray = this.state.date.split('-')
         var newDate = {day:dateArray[0], month:dateArray[1], year:dateArray[2]}
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
+        <View style={{flex:1, backgroundColor:'rgb(242,242,242)', marginBottom:25, margin:5}}>
                     <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
                         <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
                             <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> REPORT </Text>
@@ -335,6 +336,7 @@ class Report extends Component {
                                 locale="en"
                             />
                     )}
+                    </View>
                 </View>
     }
 }

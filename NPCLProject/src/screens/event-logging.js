@@ -113,7 +113,7 @@ class EventLogging extends Component {
                     <FlatList
                         data={this.state.logDate}
                         renderItem={({ item, index, separators })=>{
-                            return  <View key={index} style={{flex:1, height:75, marginLeft:10, marginRight:10, alignItems:'center', justifyContent:'center'}}>
+                            return  <View key={index} style={{flex:1, height:75, marginLeft:10, marginRight:10, alignItems:'center', justifyContent:'center', backgroundColor:'rgb(242,242,242)'}}>
                                         <Text style={{fontSize:11, color:kThemeBlueColor}}> Date - {item.date} </Text>
                                         
                                         <View style={[{flex:1, maxHeight:40, margin:10, marginTop:5, borderRadius:5, backgroundColor:'#fff', flexDirection:'row'},style.cardShadow]}>
