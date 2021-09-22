@@ -75,6 +75,22 @@ class CCAvenuePaymentDisplayVC: UIViewController {
                     controller.redirectUrl = "https://myxenius.com/Pg_responseController/responseMobileAPP/success".trimmingCharacters(in: .whitespacesAndNewlines)
                     controller.cancelUrl = "https://myxenius.com/Pg_responseController/responseMobileAPP/cancel".trimmingCharacters(in: .whitespacesAndNewlines)
                     controller.rsaKeyUrl = "https://myxenius.com/pg/android_response_handler/GetRSA.php".trimmingCharacters(in: .whitespacesAndNewlines)
+                  
+                    let resourceValue = jsonResult.value(forKey: "resource") as! NSDictionary
+                    var KeyValueFromResponse : String = "";
+                    for (key, value) in  resourceValue{
+                      var valueForKey : String = "";
+                      if value as? String != nil {
+                        valueForKey = (value as! String).trimmingCharacters(in: .whitespacesAndNewlines);
+                        valueForKey = valueForKey.trimmingCharacters(in: .punctuationCharacters);
+                        
+                      }
+                      KeyValueFromResponse = "\(KeyValueFromResponse)&\(key)=\(valueForKey)"
+                        
+                    }
+
+                    controller.KeyValueFromResponse = KeyValueFromResponse
+                  
                     //self.navigationController?.pushViewController(controller, animated: false)
 //                    self.present(controller, animated: true, completion: nil)
                     let appDelegate = UIApplication.shared.delegate as! AppDelegate

@@ -219,7 +219,7 @@ class Recharge extends Component {
                                 </View>
                                                                     
                                 <View style={{ height:20, flexDirection:'row', alignItems:'center',justifyContent:'center'}}>
-                                    <Text style={{flex:1, fontSize:12}}>UPDATED ON</Text>
+                                    <Text style={{flex:1, fontSize:12}}>LAST UPDATED ON</Text>
                                     
                                     <Text style={{fontSize:10}}>{this.state.balance_updated_on}</Text>
                                 </View>
@@ -257,7 +257,7 @@ class Recharge extends Component {
                                     </TouchableOpacity>}
                                 </View>
 
-                                <View style={{flex:1,alignItems:'center', justifyContent:'center',}}>
+                                <View style={{flex:1,alignItems:'flex-end', justifyContent:'flex-end', marginRight:5, marginBottom:5}}>
                                     <TouchableOpacity onPress={()=>this.payByOnline()} disabled={this.state.paymentMethod === null} style={{ width:60, height:25, backgroundColor:kThemeBlueColor, borderRadius:5,}}>
                                         <View style={{flex:1, opacity:this.state.paymentMethod?1:0.5, alignItems:'center', justifyContent:'center',}}>
                                             <Text style={{color:'#fff'}}>PAY</Text>

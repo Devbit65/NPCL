@@ -227,8 +227,14 @@ class Overview extends Component {
         var dataResouces = this.userData ? this.userData.resource : null
         return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}>
 
-                    <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
-                        <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>MONTH'S CONSUMPTION</Text>
+                    <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
+                        <TouchableOpacity onPress={()=>this.moveToNextPage(true)} style={{width:25, height:25, alignItems:'center', justifyContent:'center'}} >
+                            <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>{'<'}</Text>
+                        </TouchableOpacity>
+                        <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                            <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>MONTH'S CONSUMPTION</Text>
+                        </View>
+                        
                     </View>
 
                     <View style={{flex:1,  alignItems:'center', justifyContent:'center'}} onLayout={(event)=>{
@@ -286,8 +292,13 @@ class Overview extends Component {
         var dataResouces = this.userData ? this.userData.resource : null
         return  <View style={{width:this.state.chartViewWidth, height:this.state.chartViewHeight}}>
 
-                    <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
-                        <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>TODAY'S CONSUMPTION</Text>
+                    <View style={{flex:1, maxHeight:25, borderRadius:5, alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
+                        <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                            <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>TODAY'S CONSUMPTION</Text>
+                        </View>
+                        <TouchableOpacity onPress={()=>this.moveToNextPage(false)} style={{width:25, height:25, alignItems:'center', justifyContent:'center'}} >
+                            <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>{'>'}</Text>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={{flex:1,  alignItems:'center', justifyContent:'center'}} onLayout={(event)=>{
@@ -366,49 +377,82 @@ class Overview extends Component {
 
                     <View style={{flex:1}}>
                         <View style={{flex:4, marginLeft:10, marginRight:10}}>
-                            <View style={[{flex:1, maxHeight:210, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
-                                <View style={[{height:60, margin:10, marginBottom:5, padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
+                            <View style={[{flex:1, margin:10, marginBottom:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                                <View style={[{height:60, margin:10,  padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
                                     <View style={{flex:1}}>
-                                        <Text style={{fontWeight:'bold', color:kThemeBlueColor}}>AVAILABLE BALANCE</Text>
+                                        <Text style={{fontWeight:'bold', fontSize:12, color:kThemeBlueColor}}>AVAILABLE BALANCE</Text>
                                     </View>
                                     
                                     <View style={{flex:1, flexDirection:'row'}}>
-                                        <Text style={{flex:1, color:kThemeRedColor, fontSize:12}}>{dataResouces ? dataResouces.currency : 'RS'}</Text>
-                                        
-                                        <Text style={{flex:1, color:kThemeRedColor, fontSize:12}}>{this.state.balance_inr}</Text>
+                                        <View style={{flex:2, paddingRight:5}}>
+                                            <Text style={{flex:1, color:kThemeRedColor, fontSize:11, textAlign:'right'}}>{dataResouces ? dataResouces.currency : 'RS'}</Text>
+                                        </View>
+                                        <View style={{flex:3}}>
+                                            <Text style={{flex:1, color:kThemeRedColor, fontSize:10}}>{this.state.balance_inr}</Text>
+                                        </View>
                                     </View>
                                     
                                     <View style={{flex:1, flexDirection:'row'}}>
-                                        <Text style={{flex:1, fontSize:12}}>UPDATED ON</Text>
-                                        
-                                        <Text style={{flex:1, fontSize:10}}>{this.state.balance_updated_on}</Text>
+                                        <View style={{flex:2, paddingRight:5}}>
+                                            <Text style={{flex:1, fontSize:11, textAlign:'right'}}>UPDATED ON</Text>
+                                        </View>
+                                        <View style={{flex:3}}>
+                                            <Text style={{flex:1, fontSize:10}}>{this.state.balance_updated_on}</Text>
+                                        </View>
                                     </View>
                                 </View>
                                 
-                                <View style={{height:80, flexDirection:'row'}}>
+                                <View style={{height:150}}>
                                     <View style={[{flex:1, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
-                                        <View style={{flexDirection:'row'}}>
+                                        <View style={{flex:1, flexDirection:'row'}}>
                                             <Text style={{flex:1, fontWeight:'bold', color:kThemeBlueColor}}>GRID</Text>
                                             
-                                            {dataResouces && dataResouces.energy_source === 'GRID' && <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image>}
+                                            {dataResouces && dataResouces.energy_source === 'GRID' ? <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image> : <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/RedLEDIcon.png")}></Image>}
                                         </View>
                                         
-                                        <Text style={{flex:1, fontSize:11}}>START TIME</Text>
-                                        
-                                        <Text style={{flex:1, fontSize:8}}>{this.state.grid_start_time}</Text>
-                                        
-                                        <Text style={{flex:1, fontWeight:'bold', fontSize:10}}>{this.state.grid_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
+                                        <View style={{flex:1, flexDirection:'row'}}>
+                                            <View style={{flex:2, paddingRight:5}}>
+                                                <Text style={{flex:1, fontSize:11, textAlign:'right'}}>START TIME</Text>
+                                            </View>
+                                            <View style={{flex:3}}>
+                                                <Text style={{flex:1, fontSize:10}}>{this.state.grid_start_time}</Text>
+                                            </View>
+                                        </View>
+
+                                        <View style={{flex:1, flexDirection:'row'}}>
+                                            <View style={{flex:2, paddingRight:5}}>
+                                                <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Consumed Unit</Text>
+                                            </View>
+                                            <View style={{flex:3}}>
+                                                <Text style={{flex:1, fontWeight:'bold', fontSize:10}}>{this.state.grid_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
+                                            </View>
+                                        </View>
                                     </View>
                                     
                                     <View style={[{flex:1, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'}, style.cardShadow]}>
-                                        <View style={{flexDirection:'row'}}>
+                                        <View style={{flex:1, flexDirection:'row'}}>
                                             <Text style={{flex:1, fontWeight:'bold', color:kThemeBlueColor}}>DG</Text>
                                             
-                                            {dataResouces && dataResouces.energy_source === 'DG' && <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/RedLEDIcon.png")}></Image>}
+                                            {dataResouces && dataResouces.energy_source === 'DG' ? <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image> : <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/RedLEDIcon.png")}></Image>}
                                         </View>
-                                        <Text style={{flex:1, fontSize:11}}>OFF</Text>
-                                        <Text style={{flex:1, fontSize:8}}></Text>
-                                        <Text style={{flex:1, fontWeight:'bold', fontSize:10}}>{this.state.dg_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
+                                        
+                                        <View style={{flex:1, flexDirection:'row'}}>
+                                            <View style={{flex:2, paddingRight:5}}>
+                                                <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Status</Text>
+                                            </View>
+                                            <View style={{flex:3}}>
+                                                <Text style={{flex:1, fontSize:11}}>{dataResouces && dataResouces.energy_source === 'DG' ? 'ON' : 'OFF'}</Text>
+                                            </View>
+                                        </View>
+
+                                        <View style={{flex:1, flexDirection:'row'}}>
+                                            <View style={{flex:2, paddingRight:5}}>
+                                                <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Consumed Unit</Text>
+                                            </View>
+                                            <View style={{flex:3}}>
+                                                <Text style={{flex:1, fontWeight:'bold', fontSize:10}}>{this.state.dg_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
+                                            </View>
+                                        </View>
                                     </View>
                                 </View>
                                 

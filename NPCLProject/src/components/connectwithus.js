@@ -37,28 +37,28 @@ class ConnectWithUs extends Component {
 
     render() {
         return  <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                    <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:12}}>CONNECT WITH US ON</Text>
+                    <Text style={{color:kThemeRedColor, fontWeight:'bold'}}>CONNECT WITH US ON</Text>
                     
-                    <View style={{width:150, height:35,alignItems:'center', justifyContent:'center'}}>
-                        <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
-                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.FACEBOOK])} style={{width:30, height:30, padding:5}}>
-                                <Image style={{width:20, height:20}} source={require("../resources/FB.png")}></Image>
+                    <View style={{width:'85%', height:50,alignItems:'center', justifyContent:'center'}}>
+                        <View style={{ flexDirection:'row'}}>
+                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.FACEBOOK])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
+                                <Image style={{width:30, height:30}} resizeMode="contain" source={require("../resources/FB.png")}></Image>
                             </TouchableOpacity>
                             
-                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.INSTAGRAM])} style={{width:30, height:30, padding:5}}>
-                                <Image style={{width:20, height:20}} source={require("../resources/Instagram.png")}></Image>
+                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.INSTAGRAM])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
+                                <Image style={{width:30, height:30}} resizeMode="contain" source={require("../resources/Instagram.png")}></Image>
                             </TouchableOpacity>
                             
-                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.YOUTUBE])} style={{width:30, height:30, padding:5}}>
-                                <Image style={{width:20, height:20}} source={require("../resources/Youtube.png")}></Image>
+                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.YOUTUBE])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
+                                <Image style={{width:30, height:30}} resizeMode="contain" source={require("../resources/Youtube.png")}></Image>
                             </TouchableOpacity>
                             
-                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.TWITTER])} style={{width:30, height:30, padding:5}}>
-                                <Image style={{width:20, height:20}} source={require("../resources/Twitter.png")}></Image>
+                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.TWITTER])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
+                                <Image style={{width:30, height:30}} resizeMode="contain" source={require("../resources/Twitter.png")}></Image>
                             </TouchableOpacity>
                             
-                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.LINKDIN])} style={{width:30, height:30, padding:5}}>
-                                <Image style={{width:20, height:20}} source={require("../resources/Linkdin.png")}></Image>
+                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.LINKDIN])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
+                                <Image style={{width:30, height:30}} resizeMode="contain" source={require("../resources/Linkdin.png")}></Image>
                             </TouchableOpacity>
                         </View>
                     </View>

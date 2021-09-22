@@ -41,6 +41,7 @@ class ReportChart extends Component {
             chartHeight:0,
             showChartInFullScreen : false,
             fullScreenChartType :null,
+            prevDate:null
         }
         this.period = ""
         this.chart1UnitYAxis = []
@@ -56,6 +57,7 @@ class ReportChart extends Component {
 
         this.setState({
             period : params["period"],
+            prevDate : this.state.date,
             date: params["selecteDate"]
         },()=>this.fetchReport(params["selecteDate"]))
     }
@@ -126,6 +128,10 @@ class ReportChart extends Component {
             else {
                 var msg = response.message
                 alert(msg)
+                this.setState({
+                    date : this.state.prevDate,
+                    prevDate : ''
+                })
             }
             this.spinner.stopActivity();
         })
@@ -191,6 +197,10 @@ class ReportChart extends Component {
             else {
                 var msg = response.message
                 alert(msg)
+                this.setState({
+                    date : this.state.prevDate,
+                    prevDate : ''
+                })
             }
             this.spinner.stopActivity();
         })
@@ -257,6 +267,10 @@ class ReportChart extends Component {
             else {
                 var msg = response.message
                 alert(msg)
+                _this.setState({
+                    date : this.state.prevDate,
+                    prevDate : ''
+                })
                 this.spinner.stopActivity();
             }
         })

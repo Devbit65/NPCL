@@ -77,7 +77,9 @@ class Welcome extends Component {
                     </TouchableOpacity>
                   </View>
 
-                  <ConnectWithUs callback={this.onClickConnectUs.bind(this)} />
+                  <View style={{flex:1}}>
+                    <ConnectWithUs callback={this.onClickConnectUs.bind(this)} />
+                  </View>
 
                   <View style={{flex:2}}>
                   </View>

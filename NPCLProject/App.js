@@ -73,7 +73,7 @@ class AppRoute extends Component {
       // (optional) Called when the user fails to register for remote notifications. Typically occurs when APNS is having issues, or the device is a simulator. (iOS)
       onRegistrationError: function(err) {
         // alert("PushNotification :: ERRor :: ",JSON.stringify(err))
-        alert("onRegistrationError "+JSON.stringify(err))
+        // alert("onRegistrationError "+JSON.stringify(err))
         console.error(err.message, err);
       },
     

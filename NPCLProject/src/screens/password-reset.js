@@ -208,9 +208,9 @@ class PasswordReset extends Component {
                                 <View style={{ flex:1, alignItems:'center', justifyContent:'center'}}>
                                     <View style={[{width:225, backgroundColor:'#FFF', borderRadius:5}, style.cardShadow]}>
                                         <View style={{margin:25, }}>
-                                            <Text style={{ fontSize:10, color:kThemeBlueColor}}>Password</Text>
+                                            <Text style={{ fontSize:12, color:kThemeBlueColor}}>Password</Text>
                                             <TextInput
-                                                style={{paddingLeft:5, fontSize:11, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
+                                                style={{paddingLeft:5, fontSize:12, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
                                                 textAlign={'left'}
                                                 placeholder="Password"
                                                 secureTextEntry = {true}
@@ -220,9 +220,9 @@ class PasswordReset extends Component {
                                         </View>
 
                                         <View style={{margin:25, marginTop:0}}>
-                                            <Text style={{ fontSize:10, color:kThemeBlueColor}}>New Password</Text>
+                                            <Text style={{ fontSize:12, color:kThemeBlueColor}}>New Password</Text>
                                             <TextInput
-                                                style={{paddingLeft:5, fontSize:11, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
+                                                style={{paddingLeft:5, fontSize:12, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
                                                 textAlign={'left'}
                                                 placeholder="New Password"
                                                 secureTextEntry = {true}
@@ -245,12 +245,12 @@ class PasswordReset extends Component {
 
                             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                 <View style={{ flex:1, alignItems:'center', justifyContent:'center'}}>
-                                    <View style={[{width:225, backgroundColor:'#FFF', borderRadius:5}, style.cardShadow]}>
+                                    <View style={[{minWidth:'85%', height:'60%', backgroundColor:'#FFF', borderRadius:5}, style.cardShadow]}>
 
                                         <View style={{margin:25,}}>
-                                            <Text style={{ fontSize:10, color:kThemeBlueColor}}>LOGIN ID</Text>
+                                            <Text style={{ fontSize:12, color:kThemeBlueColor}}>LOGIN ID</Text>
                                             <TextInput
-                                                style={{paddingLeft:5, fontSize:11, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
+                                                style={{paddingLeft:5, fontSize:12, height: 35, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
                                                 textAlign={'left'}
                                                 placeholder="LOGIN ID"
                                                 editable={this.state.screenType === SCREENTYPE.FORGETPASSWORD}
@@ -260,9 +260,9 @@ class PasswordReset extends Component {
                                         </View>
 
                                         {this.state.screenType === SCREENTYPE.VERIFYOTP&& <View style={{margin:25, marginTop:0}}>
-                                            <Text style={{ fontSize:10, color:kThemeBlueColor}}>VERIFY OTP</Text>
+                                            <Text style={{ fontSize:12, color:kThemeBlueColor}}>VERIFY OTP</Text>
                                             <TextInput
-                                                style={{paddingLeft:5, fontSize:11, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
+                                                style={{paddingLeft:5, fontSize:12, height: 35, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
                                                 textAlign={'left'}
                                                 placeholder="VERIFY OTP"
                                                 secureTextEntry = {true}
@@ -272,9 +272,9 @@ class PasswordReset extends Component {
                                         </View>}
 
                                         {this.state.screenType === SCREENTYPE.SETNEWPASSWORD && <View style={{margin:25, marginTop:0}}>
-                                            <Text style={{ fontSize:10, color:kThemeBlueColor}}>NEW PASSWORD</Text>
+                                            <Text style={{ fontSize:12, color:kThemeBlueColor}}>NEW PASSWORD</Text>
                                             <TextInput
-                                                style={{paddingLeft:5, fontSize:11, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
+                                                style={{paddingLeft:5, fontSize:12, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
                                                 textAlign={'left'}
                                                 placeholder="NEW PASSWORD"
                                                 secureTextEntry = {true}
@@ -283,7 +283,7 @@ class PasswordReset extends Component {
                                             />
                                         </View>}
                                         
-                                        <View style={{margin:25, marginTop:0, alignItems:'center', justifyContent:'center'}}>
+                                        <View style={{flex:1, margin:25, marginBottom:10, alignItems:'center', justifyContent:"flex-end"}}>
                                             <TouchableOpacity onPress={()=>this.onSubmitPress()} style={{width:150, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
                                                 <Text style={{color:'#FFF', fontWeight:'bold'}}>{this.state.submitBtnTitle}</Text>
                                             </TouchableOpacity>

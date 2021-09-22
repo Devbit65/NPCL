@@ -85,6 +85,8 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
     var MERCHANT_PARAM4_Val = String()
     var MERCHANT_PARAM5_Val = String()
     var CUSTOMER_IDENTIFIER_Val = String()
+    var KeyValueFromResponse = String()
+  
     
     
     lazy var viewWeb: UIWebView = {
@@ -126,6 +128,8 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
       MERCHANT_PARAM2_Val = (userData["location_id"]as? String) ?? ""
       MERCHANT_PARAM3_Val = (userData["flat_number"]as? String) ?? ""
       MERCHANT_PARAM4_Val = (userData["site_id"]as? String) ?? ""
+      
+//      KeyValueFromResponse = (userData["KeyValueFromResponse"]as? String) ?? ""
       
       let siteCode = (userData["site_code"]as? String) ?? ""
       let siteName = (userData["site_name"]as? String) ?? ""
@@ -264,6 +268,8 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
             //let urlAsString = "https://secure.ccavenue.com/transaction/initTrans"
            let urlAsString = "https://secure.ccavenue.com/transaction/initTrans"
             let encryptedStr = "merchant_id=\(merchantId)&order_id=\(orderId)&redirect_url=\(redirectUrl)&cancel_url=\(cancelUrl)&enc_val=\(encVal!)&access_code=\(accessCode)&\(BILLING_NAME)=\(BILLING_NAME_Val)&\(BILLING_ADDRESS)=\(BILLING_ADDRESS_Val)&\(BILLING_CITY)=\(BILLING_CITY_Val)&\(BILLING_STATE)=\(BILLING_STATE_Val)&\(BILLING_COUNTRY)=\(BILLING_COUNTRY_Val)&\(BILLING_ZIP)=\(BILLING_ZIP_Val)&\(BILLING_TEL)=\(BILLING_TEL_Val)&\(BILLING_EMAIL)=\(BILLING_EMAIL_Val)&\(DELIVERY_NAME)=\(DELIVERY_NAME_Val)&\(DELIVERY_ADDRESS)=\(DELIVERY_ADDRESS_Val)&\(DELIVERY_CITY)=\(DELIVERY_CITY_Val)&\(DELIVERY_STATE)=\(DELIVERY_STATE_Val)&\(DELIVERY_COUNTRY)=\(DELIVERY_COUNTRY_Val)&\(DELIVERY_ZIP)=\(DELIVERY_ZIP_Val)&\(DELIVERY_TEL)=\(DELIVERY_TEL_Val)&\(DELIVERY_EMAIL)=\(DELIVERY_EMAIL_Val)&\(MERCHANT_PARAM1)=\(MERCHANT_PARAM1_Val)&\(MERCHANT_PARAM2)=\(MERCHANT_PARAM2_Val)&\(MERCHANT_PARAM3)=\(MERCHANT_PARAM3_Val)&\(MERCHANT_PARAM4)=\(MERCHANT_PARAM4_Val)&\(MERCHANT_PARAM5)=\(MERCHANT_PARAM5_Val)&\(CUSTOMER_IDENTIFIER)=\(CUSTOMER_IDENTIFIER_Val)"
+          
+//          let encryptedStr = "redirect_url=\(redirectUrl)&cancel_url=\(cancelUrl)&enc_val=\(encVal!)&access_code=\(accessCode)\(KeyValueFromResponse)&\(CUSTOMER_IDENTIFIER)=\(CUSTOMER_IDENTIFIER_Val)"
             
             print("encValue :: \(encVal ?? "No val for encVal")")
             

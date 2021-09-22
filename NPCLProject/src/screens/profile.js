@@ -107,7 +107,7 @@ class Profile extends Component {
                                 </View>
                             </View>
 
-                            <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
+                            {this.state.phone && <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
                                 <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}} >
                                     <Image style={{width:15, height:15, resizeMode:'contain'}} source={require('../resources/phone.png')} />
                                 </View>
@@ -115,9 +115,9 @@ class Profile extends Component {
                                 <View style={{flex:2, alignItems:'flex-start', justifyContent:'center'}} >
                                     <Text style={{ fontSize:12}}>{this.state.phone}</Text>
                                 </View>
-                            </View>
+                            </View>}
 
-                            <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
+                            {this.state.email && <View style={{ height:30, flexDirection:'row', alignItems:'center'}}>
                                 <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}} >
                                     <Image style={{width:15, height:15, resizeMode:'contain'}} source={require('../resources/email.png')} />
                                 </View>
@@ -125,7 +125,7 @@ class Profile extends Component {
                                 <View style={{flex:2, alignItems:'flex-start', justifyContent:'center'}} >
                                     <Text style={{ fontSize:12}}>{this.state.email}</Text>
                                 </View>
-                            </View>
+                            </View>}
                         </View>
                        
                         <View style={{alignItems:'center', justifyContent:'center'}}>

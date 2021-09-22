@@ -177,7 +177,7 @@ class Login extends Component {
                     <ImageBackground source={require('../resources/login_page_bg.png')} style={{flex:1, backgroundColor:'#fff'}} resizeMode={'stretch'}>
                         <View style={{flex:1, maxHeight:75, marginLeft:20}}>
                             <View style={{flex:1, justifyContent:'center'}}>
-                                <Text style={{fontSize:30, fontWeight:'bold', color:kThemeRedColor}}> HELLO </Text>
+                                <Text style={{fontSize:30, fontWeight:'bold', color:kThemeRedColor}}> {`HELLO\n`} </Text>
                             </View>
 
                             <View style={{flex:1, alignItems:'center', flexDirection:'row'}}>
@@ -191,7 +191,7 @@ class Login extends Component {
                         </View>
                         
                         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                            <View style={{width:275, height:350, backgroundColor:'#FFF', borderRadius:5}}>
+                            <View style={{width:'85%', height:'70%', backgroundColor:'#FFF', borderRadius:5}}>
                                 <View style={{flex:3}}>
                                     <TextInput
                                         style={{paddingLeft:5, fontSize:11, height: 35, borderWidth:0.5, borderRadius:5, margin:25,  marginTop:30, borderColor:kThemeBlueColor, padding:0}}
@@ -215,7 +215,7 @@ class Login extends Component {
                                     <TouchableOpacity onPress={()=>this.onClickShowPassword()} style={{marginLeft:25, marginRight:25,marginTop:5, flexDirection:'row', alignItems:'center', justifyContent:'flex-start'}}>
                                         <Icon size={10} name={this.state.securePassword?"checkbox-passive":"checkbox-active"} color={kThemeBlueColor} />
                                         
-                                        <Text style={{ fontSize:8, marginLeft:5, color:kThemeBlueColor}}>SHOW PASSWORD</Text>
+                                        <Text style={{ marginLeft:5, color:kThemeBlueColor}}>SHOW PASSWORD</Text>
                                     </TouchableOpacity>
                                 </View>
                                 
@@ -225,7 +225,7 @@ class Login extends Component {
                                     </TouchableOpacity>
                                     
                                     <TouchableOpacity onPress={()=>this.onClickForgotPassword(SCREENTYPE.FORGETPASSWORD)} >
-                                        <Text style={{ fontSize:8, marginTop:5, color:kThemeBlueColor}}>FORGOT PASSWORD?</Text>
+                                        <Text style={{ marginTop:5, color:kThemeBlueColor}}>FORGOT PASSWORD?</Text>
                                     </TouchableOpacity>
 
                                 </View>
