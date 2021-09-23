@@ -41,23 +41,23 @@ class ConnectWithUs extends Component {
                     
                     <View style={{width:'85%', height:50,alignItems:'center', justifyContent:'center'}}>
                         <View style={{ flexDirection:'row'}}>
-                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.FACEBOOK])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
+                            <TouchableOpacity onPress={()=>this.onClickConnectUs(this.props.socialMediaURLs['facebook'])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
                                 <Image style={{width:30, height:30}} resizeMode="contain" source={require("../resources/FB.png")}></Image>
                             </TouchableOpacity>
                             
-                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.INSTAGRAM])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
+                            <TouchableOpacity onPress={()=>this.onClickConnectUs(this.props.socialMediaURLs['instagram'])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
                                 <Image style={{width:30, height:30}} resizeMode="contain" source={require("../resources/Instagram.png")}></Image>
                             </TouchableOpacity>
                             
-                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.YOUTUBE])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
+                            <TouchableOpacity onPress={()=>this.onClickConnectUs(this.props.socialMediaURLs['youtube'])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
                                 <Image style={{width:30, height:30}} resizeMode="contain" source={require("../resources/Youtube.png")}></Image>
                             </TouchableOpacity>
                             
-                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.TWITTER])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
+                            <TouchableOpacity onPress={()=>this.onClickConnectUs(this.props.socialMediaURLs['twitter'])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
                                 <Image style={{width:30, height:30}} resizeMode="contain" source={require("../resources/Twitter.png")}></Image>
                             </TouchableOpacity>
                             
-                            <TouchableOpacity onPress={()=>this.onClickConnectUs(SocialMediaURL[SocialMediaType.LINKDIN])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
+                            <TouchableOpacity onPress={()=>this.onClickConnectUs(this.props.socialMediaURLs['linked_in'])} style={{flex:1, alignItems:'center', justifyContent:'center',}}>
                                 <Image style={{width:30, height:30}} resizeMode="contain" source={require("../resources/Linkdin.png")}></Image>
                             </TouchableOpacity>
                         </View>

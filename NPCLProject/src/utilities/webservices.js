@@ -23,6 +23,7 @@ const kEVCDStartService = "/ev_api/api/start"
 const kEVCDStopService = "/ev_api/api/stop"
 const kEVDailyConsumption = "/ev_api/api/ev_daily"
 const kEVMonthlyConsumption = "/ev_api/api/ev_monthly"
+const kSocialMediaURL = "/thirdparty/api/social_media_url"
 
 const baseURL = "myxenius.com"
 
@@ -504,6 +505,25 @@ export const fetchEVMonthlyConsumption = (evcdId) => {
   var userCred = userData.getUserCredential()
   
   var req_url = url+kEVMonthlyConsumption+'?login='+userCred.user_id+'&password='+userCred.pswd+'&device_id='+evcdId
+  return fetch(req_url)
+    .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+}
+
+export const fetchSocialMediaURLs = () => {
+  
+  var userData = new UserData()
+  var url = userData.getBaseURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+
+  var req_url = url+kSocialMediaURL
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {

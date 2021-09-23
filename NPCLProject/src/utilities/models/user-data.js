@@ -12,6 +12,7 @@ export default class UserData {
             this.deviceToken = null;
             this.baseURL = kBaseURL;
             this.evcdURL = kEVCDURL;
+            this.socialMediaURLs = null
             UserData.singletonObject = this;
         }
         
@@ -85,5 +86,13 @@ export default class UserData {
     getUserName(){
 
         return this.userData ? this.userData.resource.consumer_name:"";
+    }
+
+    setSocialMediaURLs(mediaURLs) {
+        this.socialMediaURLs = mediaURLs
+    }
+
+    getSocialMediaURLs() {
+        return this.socialMediaURLs
     }
 }

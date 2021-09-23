@@ -27,6 +27,10 @@ class Welcome extends Component {
     this.spinner = new Spinner()
   }
 
+  fetchWelcomeMessage() {
+
+  }
+
   onClickGetStarted() {
 
     this.props.navigation.reset({
@@ -78,7 +82,7 @@ class Welcome extends Component {
                   </View>
 
                   <View style={{flex:1}}>
-                    <ConnectWithUs callback={this.onClickConnectUs.bind(this)} />
+                    <ConnectWithUs socialMediaURLs={this.userData.getSocialMediaURLs()} callback={this.onClickConnectUs.bind(this)} />
                   </View>
 
                   <View style={{flex:2}}>

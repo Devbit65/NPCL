@@ -132,11 +132,13 @@ class Payment extends Component {
                             
                             {this.state.paymentMethod === 'HDFC' && <View style={{flex:1, margin:25, borderRadius:10}}>
                                 <View style={{margin:25,}}>
-                                    <Text style={{ fontSize:10, color:kThemeBlueColor}}>AMOUNT</Text>
+                                    <Text style={{ color:kThemeBlueColor}}>AMOUNT</Text>
                                     <TextInput
-                                        style={{paddingLeft:5, marginTop:5, fontSize:11, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
+                                        value={this.state.amount.toString()}
+                                        style={{paddingLeft:5, marginTop:5, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
                                         textAlign={'left'}
                                         placeholder="AMOUNT"
+                                        keyboardType = 'numeric'
                                         onChangeText={text => this.setState({amount:text},()=>{})}
                                         defaultValue={this.state.amount.toString()}
                                     />
@@ -199,7 +201,7 @@ class Payment extends Component {
                                     </View>
 
                                     <View style={{alignItems:'center', justifyContent:'center',}}>
-                                        <TouchableOpacity onPress={()=>this.payByOnline(netAmount)} style={{ width:120, height:25, backgroundColor:kThemeBlueColor, borderRadius:5,}}>
+                                        <TouchableOpacity disabled={this.state.amount<=0} onPress={()=>this.payByOnline(netAmount)} style={{ width:120, height:25, backgroundColor:kThemeBlueColor, borderRadius:5, opacity:this.state.amount<=0?0.5:1}}>
                                             <View style={{flex:1, alignItems:'center', justifyContent:'center',}}>
                                                 <Text style={{color:'#fff'}}>PAY</Text>
                                             </View>

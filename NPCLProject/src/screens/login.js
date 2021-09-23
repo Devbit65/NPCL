@@ -15,7 +15,7 @@ import {
 
 import ConnectWithUs from "../components/connectwithus";
 import Icon from 'react-native-vector-icons/Fontisto';
-import {fethcLogin} from '../utilities/webservices'
+import {fetchSocialMediaURLs, fethcLogin} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 import UserData from '../utilities/models/user-data'
 import * as Keychain from 'react-native-keychain';
@@ -32,7 +32,7 @@ class Login extends Component {
         this.state = {
             userid:'',//101210007 //2121101 //900201502
             password:'',
-            securePassword:true
+            securePassword:true,
         }
         this.spinner = new Spinner()
         this.userData = new UserData()
@@ -46,7 +46,21 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        this.getCredFromKeyChain()
+        this.spinner.startActivity();
+        this.getSocialMediaURLs()
+    }
+
+    getSocialMediaURLs() {
+
+        fetchSocialMediaURLs()
+        .then(response=>{
+
+            console.log("response ",response)
+            this.userData.setSocialMediaURLs(response)
+            this.spinner.stopActivity();
+            this.getCredFromKeyChain()
+            
+        })
     }
 
 
@@ -231,7 +245,7 @@ class Login extends Component {
                                 </View>
                                 
                                 <View style={{flex:1}}>
-                                    <ConnectWithUs callback={this.onClickConnectUs.bind(this)}/>
+                                    <ConnectWithUs socialMediaURLs={this.userData.getSocialMediaURLs()} callback={this.onClickConnectUs.bind(this)}/>
                                 </View>
                             </View>
                         </View>
