@@ -2,6 +2,7 @@ package com.npclproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -9,6 +10,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -74,6 +76,22 @@ public class CCAvenuePaymentDisplayVC extends ReactContextBaseJavaModule {
                 String CUSTOMER_IDENTIFIER_Val = (siteCode + ":" + flatNumber);
 
                 Intent intent = new Intent(getReactApplicationContext(), WebViewActivity.class);
+                JSONObject resourceObject = new JSONObject(reader.getString ("resource"));
+                JSONArray keys = resourceObject.names ();
+
+                for (int i = 0; i < keys.length (); i++) {
+
+                    String key = keys.getString (i);
+                    String value = resourceObject.getString (key) != null ? resourceObject.getString (key) : "";;
+                    if(key.toString().equals("billing_address") || key.toString().equals("delivery_address")) {
+                        value = BILLING_ADDRESS_Val;
+                    }
+                    else if(key.toString().equals("amount")) {
+                        value = value.toString().trim();
+                    }
+                    intent.putExtra(key, value);
+                }
+
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -81,32 +99,32 @@ public class CCAvenuePaymentDisplayVC extends ReactContextBaseJavaModule {
                 intent.putExtra(AvenuesParams.ACCESS_CODE, Constants.ACCESS_CODE);
                 intent.putExtra(AvenuesParams.MERCHANT_ID, Constants.MERCHANT_ID);
                 intent.putExtra(AvenuesParams.CURRENCY, Constants.CURRENCY);
-                intent.putExtra(AvenuesParams.ORDER_ID, orderIDD);
-                intent.putExtra(AvenuesParams.AMOUNT, netAmount.toString().trim());
-
-                intent.putExtra(AvenuesParams.BILLING_NAME, BILLING_NAME_Val);
-                intent.putExtra(AvenuesParams.BILLING_ADDRESS, BILLING_ADDRESS_Val);
-                intent.putExtra(AvenuesParams.BILLING_CITY, BILLING_CITY_Val);
-                intent.putExtra(AvenuesParams.BILLING_STATE, BILLING_STATE_Val);
-                intent.putExtra(AvenuesParams.BILLING_COUNTRY, BILLING_COUNTRY_Val);
-                intent.putExtra(AvenuesParams.BILLING_ZIP, BILLING_ZIP_Val);
-                intent.putExtra(AvenuesParams.BILLING_TEL, BILLING_TEL_Val);
-                intent.putExtra(AvenuesParams.BILLING_EMAIL, BILLING_EMAIL_Val);
-
-                intent.putExtra(AvenuesParams.DELIVERY_NAME, DELIVERY_NAME_Val);
-                intent.putExtra(AvenuesParams.DELIVERY_ADDRESS, DELIVERY_ADDRESS_Val);
-                intent.putExtra(AvenuesParams.DELIVERY_CITY, DELIVERY_CITY_Val);
-                intent.putExtra(AvenuesParams.DELIVERY_STATE, DELIVERY_STATE_Val);
-                intent.putExtra(AvenuesParams.DELIVERY_COUNTRY, DELIVERY_COUNTRY_Val);
-                intent.putExtra(AvenuesParams.DELIVERY_ZIP, DELIVERY_ZIP_Val);
-                intent.putExtra(AvenuesParams.DELIVERY_TEL, DELIVERY_TEL_Val);
-                intent.putExtra(AvenuesParams.DELIVERY_EMAIL, DELIVERY_EMAIL_Val);
-
-                intent.putExtra(AvenuesParams.MERCHANT_PARAM1, MERCHANT_PARAM1_Val);
-                intent.putExtra(AvenuesParams.MERCHANT_PARAM2, MERCHANT_PARAM2_Val);
-                intent.putExtra(AvenuesParams.MERCHANT_PARAM3, MERCHANT_PARAM3_Val);
-                intent.putExtra(AvenuesParams.MERCHANT_PARAM4, MERCHANT_PARAM4_Val);
-                intent.putExtra(AvenuesParams.MERCHANT_PARAM5, MERCHANT_PARAM5_Val);
+//                intent.putExtra(AvenuesParams.ORDER_ID, orderIDD);
+//                intent.putExtra(AvenuesParams.AMOUNT, netAmount.toString().trim());
+//
+//                intent.putExtra(AvenuesParams.BILLING_NAME, BILLING_NAME_Val);
+//                intent.putExtra(AvenuesParams.BILLING_ADDRESS, BILLING_ADDRESS_Val);
+//                intent.putExtra(AvenuesParams.BILLING_CITY, BILLING_CITY_Val);
+//                intent.putExtra(AvenuesParams.BILLING_STATE, BILLING_STATE_Val);
+//                intent.putExtra(AvenuesParams.BILLING_COUNTRY, BILLING_COUNTRY_Val);
+//                intent.putExtra(AvenuesParams.BILLING_ZIP, BILLING_ZIP_Val);
+//                intent.putExtra(AvenuesParams.BILLING_TEL, BILLING_TEL_Val);
+//                intent.putExtra(AvenuesParams.BILLING_EMAIL, BILLING_EMAIL_Val);
+//
+//                intent.putExtra(AvenuesParams.DELIVERY_NAME, DELIVERY_NAME_Val);
+//                intent.putExtra(AvenuesParams.DELIVERY_ADDRESS, DELIVERY_ADDRESS_Val);
+//                intent.putExtra(AvenuesParams.DELIVERY_CITY, DELIVERY_CITY_Val);
+//                intent.putExtra(AvenuesParams.DELIVERY_STATE, DELIVERY_STATE_Val);
+//                intent.putExtra(AvenuesParams.DELIVERY_COUNTRY, DELIVERY_COUNTRY_Val);
+//                intent.putExtra(AvenuesParams.DELIVERY_ZIP, DELIVERY_ZIP_Val);
+//                intent.putExtra(AvenuesParams.DELIVERY_TEL, DELIVERY_TEL_Val);
+//                intent.putExtra(AvenuesParams.DELIVERY_EMAIL, DELIVERY_EMAIL_Val);
+//
+//                intent.putExtra(AvenuesParams.MERCHANT_PARAM1, MERCHANT_PARAM1_Val);
+//                intent.putExtra(AvenuesParams.MERCHANT_PARAM2, MERCHANT_PARAM2_Val);
+//                intent.putExtra(AvenuesParams.MERCHANT_PARAM3, MERCHANT_PARAM3_Val);
+//                intent.putExtra(AvenuesParams.MERCHANT_PARAM4, MERCHANT_PARAM4_Val);
+//                intent.putExtra(AvenuesParams.MERCHANT_PARAM5, MERCHANT_PARAM5_Val);
                 intent.putExtra(AvenuesParams.CUSTOMER_IDENTIFIER, CUSTOMER_IDENTIFIER_Val);
 
                 intent.putExtra(AvenuesParams.REDIRECT_URL, Constants.REDIRECT_URL);
