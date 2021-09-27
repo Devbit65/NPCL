@@ -33,6 +33,7 @@ class Login extends Component {
             userid:'',//101210007 //2121101 //900201502
             password:'',
             securePassword:true,
+            socialMediaURLs : null
         }
         this.spinner = new Spinner()
         this.userData = new UserData()
@@ -56,10 +57,13 @@ class Login extends Component {
         .then(response=>{
 
             console.log("response ",response)
-            this.userData.setSocialMediaURLs(response)
-            this.spinner.stopActivity();
-            this.getCredFromKeyChain()
-            
+            this.setState({
+                socialMediaURLs : response
+            },()=>{
+                this.userData.setSocialMediaURLs(response)
+                this.spinner.stopActivity();
+                this.getCredFromKeyChain()
+            })
         })
     }
 
@@ -245,7 +249,7 @@ class Login extends Component {
                                 </View>
                                 
                                 <View style={{flex:1}}>
-                                    <ConnectWithUs socialMediaURLs={this.userData.getSocialMediaURLs()} callback={this.onClickConnectUs.bind(this)}/>
+                                    <ConnectWithUs socialMediaURLs={this.state.socialMediaURLs} callback={this.onClickConnectUs.bind(this)}/>
                                 </View>
                             </View>
                         </View>

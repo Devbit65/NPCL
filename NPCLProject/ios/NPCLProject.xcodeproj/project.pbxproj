@@ -995,7 +995,7 @@
 					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
 				);
 				INFOPLIST_FILE = NPCLProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1077,7 +1077,7 @@
 					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
 				);
 				INFOPLIST_FILE = NPCLProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

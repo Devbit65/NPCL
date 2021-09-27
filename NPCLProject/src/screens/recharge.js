@@ -202,7 +202,7 @@ class Recharge extends Component {
         
         
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
-                    <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
+                    <View style={{height:50, margin:5, flexDirection:'row'}}>
                         <View style={{flex:1, margin:5, alignItems:'flex-start', justifyContent:'center'}}>
                             <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> RECHARGE </Text>
                         </View>

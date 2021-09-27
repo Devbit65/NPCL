@@ -82,32 +82,33 @@ class SideMenu extends Component {
                 })
             }} >
                 <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} style={{flex:1}} > 
-                    <FlatList
-                        data={this.sideMenu}
-                        renderItem={({ item, index, separators })=>{
-                            return  <View style={{ minHeight: this.state.selectedMenu === index?this.state.height+50 : this.state.height,  backgroundColor:'#fff',  }} >
-                            {this.state.selectedMenu === index?(
-                                <View style={{flex:1, backgroundColor: kThemeBlueColor, borderTopEndRadius:1000,  borderBottomEndRadius:1000, alignItems:'center', justifyContent:'center'}}>
-                                    <Image style={{width:"75%", height:"75%"}} resizeMode='contain' source={item.selImage} />
-                                </View>
-                            ):( 
-                                <TouchableOpacity style={{ flex:1, flexDirection:'row', backgroundColor:'#fff'}} onPress={()=>{this.navigateToNext(index, false, item.title)}}>
+                    {
+                        this.sideMenu.map((item, index) =>
+                            <View key={index} style={{ minHeight: this.state.selectedMenu === index?this.state.height+50 : this.state.height,  backgroundColor:'#fff',  }} >
+                                {
+                                    this.state.selectedMenu === index?(
+                                        <View style={{flex:1, backgroundColor: kThemeBlueColor, borderTopEndRadius:1000,  borderBottomEndRadius:1000, alignItems:'center', justifyContent:'center'}}>
+                                            <Image style={{width:"75%", height:"75%"}} resizeMode='contain' source={item.selImage} />
+                                        </View>
+                                    ):( 
+                                        <TouchableOpacity style={{ flex:1, flexDirection:'row', backgroundColor:'#fff'}} onPress={()=>{this.navigateToNext(index, false, item.title)}}>
                                     
-                                    <View style={{ flex:1, alignItems:'center', justifyContent:'center', backgroundColor: kThemeBlueColor}} onLayout={(event)=>{
-                                        this.props.updateHambugerMenuWidth ? this.props.updateHambugerMenuWidth(event.nativeEvent.layout.width):null
-                                    }} >
-                                        <Image style={{width:30, height:30}} resizeMode='contain' source={item.image} />
+                                            <View style={{ flex:1, alignItems:'center', justifyContent:'center', backgroundColor: kThemeBlueColor}} onLayout={(event)=>{
+                                                this.props.updateHambugerMenuWidth ? this.props.updateHambugerMenuWidth(event.nativeEvent.layout.width):null
+                                            }} >
+                                                <Image style={{width:30, height:30}} resizeMode='contain' source={item.image} />
         
-                                    </View>
-                                    <View style={{ flex:1,backgroundColor:'#fff',  }} >
+                                            </View>
+                                            
+                                            <View style={{ flex:1,backgroundColor:'#fff',  }} >
         
-                                    </View>
-                                </TouchableOpacity>
-                            )}
-                        </View>
-                        }}
-                    />
-                
+                                            </View>
+                                        </TouchableOpacity>
+                                    )
+                                }
+                            </View>
+                        )
+                    }
                     <View style={{ height: this.state.height}} >
                         <TouchableOpacity style={{ flex:1, maxHeight:this.state.height,flexDirection:'row'}} onPress={()=>{this.navigateToNext(-1, true, null)}}>
                                 

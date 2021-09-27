@@ -85,6 +85,17 @@ class CCAvenuePaymentDisplayVC: UIViewController {
                         valueForKey = valueForKey.trimmingCharacters(in: .punctuationCharacters);
                         
                       }
+                      
+                      let keyObj : String = key as! String;
+                      if keyObj.caseInsensitiveCompare("billing_address") == .orderedSame || keyObj.caseInsensitiveCompare("delivery_address") == .orderedSame {
+                        valueForKey = (userData["flat_number"]as? String) ?? ""
+                      }
+                      else if keyObj.caseInsensitiveCompare("amount") == .orderedSame  {
+                        valueForKey = netAmount.trimmingCharacters(in: .whitespacesAndNewlines)
+                      }
+                      else if keyObj.caseInsensitiveCompare("tid") == .orderedSame {
+                        continue;
+                      }
                       KeyValueFromResponse = "\(KeyValueFromResponse)&\(key)=\(valueForKey)"
                         
                     }
