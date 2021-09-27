@@ -231,7 +231,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-analytics'
 
-    implementation files('libs/volley.jar')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
 }
