@@ -72,7 +72,7 @@ class AppRoute extends Component {
                         options={{ title: 'Profile',headerShown: false }}
                     />}
 
-                    {this.props.nextScreenTitle === "Profile" && <Stack.Screen
+                    {this.props.nextScreenTitle === "PROFILE" && <Stack.Screen
                         name="PasswordReset"
                         component={PasswordReset}
                         options={{ title: 'Change Password', headerShown: false }}

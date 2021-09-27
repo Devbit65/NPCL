@@ -245,7 +245,7 @@ class PasswordReset extends Component {
 
                             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                 <View style={{ flex:1, alignItems:'center', justifyContent:'center'}}>
-                                    <View style={[{minWidth:'85%', height:'60%', backgroundColor:'#FFF', borderRadius:5}, style.cardShadow]}>
+                                    <View style={[{minWidth:'75%', height:275, backgroundColor:'#FFF', borderRadius:5}, style.cardShadow]}>
 
                                         <View style={{margin:25,}}>
                                             <Text style={{ fontSize:12, color:kThemeBlueColor}}>LOGIN ID</Text>
