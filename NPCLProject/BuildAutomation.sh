@@ -37,7 +37,7 @@ KEY_STORE="$targetFolder"/"$keyStoreFile"
 
 echo '###################################'
 echo '############### IOS Build Started ################'
-#react-native bundle --minify --entry-file index.js --platform ios --dev false --bundle-output ./ios/main.jsbundle --assets-dest ./ios
+react-native bundle --minify --entry-file index.js --platform ios --dev false --bundle-output ./ios/main.jsbundle --assets-dest ./ios
 cd ./ios
 
 xcodebuild -workspace NPCLProject.xcworkspace -scheme NPCLProject -sdk iphoneos -configuration AppStoreDistribution archive -archivePath "$archivePath"
@@ -85,27 +85,7 @@ cd "$targetFolder"
 
 echo "BUILD PATH : ";pwd
 
-# ls | grep -v "$APP_NAME".*$| xargs rm
-
-#for RELEASE_BUILD in *
-#    do
-#        echo "Request initiated for $RELEASE_BUILD"
-#        
-#        if [[ "$RELEASE_BUILD" == *.ipa ]] || [[ "$RELEASE_BUILD" == *.apk ]]; then
-#            echo "Publishing $RELEASE_BUILD to App Center"
-#            
-#            appcenter distribute release \
-#                --app devbit65-l4ye/Sportstoon \
-#                --group Collaborators \
-#                --file ${RELEASE_BUILD} \
-#                --release-notes "Release build for testing" \
-#                --token f82611ed2adcdebcbbdb6275176132be62d8c407 \
-#                --quiet
-#            echo "Published $RELEASE_BUILD to App Center successfully!"
-#        else
-#            echo "$RELEASE_BUILD is not required to upload."
-#            echo " "
-#        fi
-#    done
+# ls | grep -v Xenius.*$| xargs rm
+ls | grep -v Xenius.*$| xargs rm
 
 open .
