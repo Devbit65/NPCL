@@ -14,6 +14,7 @@ import Spinner from '../components/activity-indicator'
 import {fetchReSendOTP, fetchVerifyOTP, fetchSetPassword, fetchChangePassword} from '../utilities/webservices'
 import {SCREENTYPE} from '../utilities/utilities-methods'
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon_Fontisto from 'react-native-vector-icons/Fontisto';
 import UserData from '../utilities/models/user-data'
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
@@ -34,7 +35,8 @@ class PasswordReset extends Component {
             registeredMobile:"",
             screenType : params["type"],
             otp:'',
-            submitBtnTitle :params["type"] === SCREENTYPE.FORGETPASSWORD ? "SEND OTP" : 'SUBMIT'
+            submitBtnTitle :params["type"] === SCREENTYPE.FORGETPASSWORD ? "SEND OTP" : 'SUBMIT',
+            securePassword:true,
         }
     }
 
@@ -176,7 +178,7 @@ class PasswordReset extends Component {
                 var userCred = this.userData.getUserCredential()
                 this.userData.setUserCredential(userCred.user_id, this.state.newPassword)
                 var msg = response.message
-                alert(msg)
+                alert("Your password has changed successfully.")
                 this.props.navigation.pop()
             }
             this.spinner.stopActivity();
@@ -185,6 +187,12 @@ class PasswordReset extends Component {
 
     onPressBackButton() {
         this.props.navigation.pop()
+    }
+
+    onClickShowPassword() {
+        this.setState({
+            securePassword:!this.state.securePassword
+        })
     }
 
     render() {
@@ -205,33 +213,40 @@ class PasswordReset extends Component {
                                 
                             </View>
                             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                                <View style={{ flex:1, alignItems:'center', justifyContent:'center'}}>
-                                    <View style={[{width:225, backgroundColor:'#FFF', borderRadius:5}, style.cardShadow]}>
-                                        <View style={{margin:25, }}>
-                                            <Text style={{ fontSize:12, color:kThemeBlueColor}}>Password</Text>
-                                            <TextInput
-                                                style={{paddingLeft:5, fontSize:12, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
-                                                textAlign={'left'}
-                                                placeholder="Password"
-                                                secureTextEntry = {true}
-                                                onChangeText={text => this.setState({password:text},()=>{})}
-                                                defaultValue={this.state.password}
-                                            />
-                                        </View>
+                                <View style={{ flex:1, alignItems:'center', justifyContent:'flex-start'}}>
+                                    <View style={[{minWidth:'75%', height:275, backgroundColor:'#FFF', borderRadius:5, marginTop:100}, style.cardShadow]}>
+                                        <View style={{flex:1}}>
+                                            <View style={{ margin:25, }}>
+                                                <Text style={{ color:kThemeBlueColor}}>Password</Text>
+                                                <TextInput
+                                                    style={{paddingLeft:5, height: 35, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
+                                                    textAlign={'left'}
+                                                    placeholder="Password"
+                                                    secureTextEntry = {this.state.securePassword}
+                                                    onChangeText={text => this.setState({password:text},()=>{})}
+                                                    defaultValue={this.state.password}
+                                                />
+                                            </View>
 
-                                        <View style={{margin:25, marginTop:0}}>
-                                            <Text style={{ fontSize:12, color:kThemeBlueColor}}>New Password</Text>
-                                            <TextInput
-                                                style={{paddingLeft:5, fontSize:12, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
-                                                textAlign={'left'}
-                                                placeholder="New Password"
-                                                secureTextEntry = {true}
-                                                onChangeText={text => this.setState({newPassword:text},()=>{})}
-                                                defaultValue={this.state.newPassword}
-                                            />
+                                            <View style={{margin:25, marginTop:0, marginBottom:0}}>
+                                                <Text style={{ color:kThemeBlueColor}}>New Password</Text>
+                                                <TextInput
+                                                    style={{paddingLeft:5,  height: 35, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
+                                                    textAlign={'left'}
+                                                    placeholder="New Password"
+                                                    secureTextEntry = {this.state.securePassword}
+                                                    onChangeText={text => this.setState({newPassword:text},()=>{})}
+                                                    defaultValue={this.state.newPassword}
+                                                />
+                                            </View>
+
+                                            <TouchableOpacity onPress={()=>this.onClickShowPassword()} style={{margin: 25, marginTop:5, flexDirection:'row', alignItems:'center', justifyContent:'flex-start'}}>
+                                                <Icon_Fontisto size={10} name={this.state.securePassword?"checkbox-passive":"checkbox-active"} color={kThemeBlueColor} />
+                                            
+                                                <Text style={{ marginLeft:5, fontSize:11, color:kThemeBlueColor}}>SHOW PASSWORD</Text>
+                                            </TouchableOpacity>
                                         </View>
-                                    
-                                        <View style={{ alignItems:'center', justifyContent:'center', margin:25, marginTop:0}}>
+                                        <View style={{ alignItems:'center', justifyContent:'center', margin:25, marginTop:0, marginBottom:10}}>
                                             <TouchableOpacity onPress={()=>this.onSubmitPress()} style={{width:150, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
                                                 <Text style={{color:'#FFF', fontWeight:'bold'}}>SUBMIT</Text>
                                             </TouchableOpacity>

@@ -33,7 +33,7 @@ class Payment extends Component {
         this.userData = new UserData().getUserData();
         var dataResouces = this.userData ? this.userData.resource:null
         this.state = {
-            amount : 0,
+            amount : "",
             transCharges : dataResouces?Number(dataResouces.recharge_transitional_charge):0.00,
             transitionalName:dataResouces?dataResouces.recharge_transitional_name:"IGST",
             gstValue : dataResouces && dataResouces.recharge_tax ? dataResouces.recharge_tax:0.00,
@@ -92,6 +92,14 @@ class Payment extends Component {
             return;
         }
 
+        var reg = /^\d+(?:\.\d{0,2})$/;
+
+        if(!reg.test(netAmount) || Number(netAmount) < Number(this.userData.resource.min_recharge) || Number(netAmount) > Number(this.userData.resource.max_recharge)) {
+            alert("Please enter valid amount between "+this.userData.resource.min_recharge+" to "+this.userData.resource.max_recharge)
+            this.spinner.stopActivity()
+            return;
+        }
+        
         var userObj = new UserData();
         var hostURL = userObj.getBaseURL()
         if(!hostURL.includes('https://')){
@@ -116,11 +124,11 @@ class Payment extends Component {
 
                     </View>
                     <View style={{ flex: 1, backgroundColor:'#fff'}} >
-                        <View style={{height:44, flexDirection:'row', marginLeft:10,}}>
+                        <View style={{height:50, flexDirection:'row', marginLeft:10,}}>
                             <TouchableOpacity onPress={()=>this.onPressBackButton()} style={{width:25, alignItems:'center', justifyContent:'center'}}>
                                 <Icon size={21} name="arrow-back-ios" color="rgb(206, 0, 57)" />
                             </TouchableOpacity>
-                            <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
+                            <View style={{flex:1, height:50, margin:5, flexDirection:'row'}}>
                                 <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                     <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> Online Recharge </Text>
                                 </View>
@@ -137,7 +145,7 @@ class Payment extends Component {
                                         value={this.state.amount.toString()}
                                         style={{paddingLeft:5, marginTop:5, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
                                         textAlign={'left'}
-                                        placeholder="AMOUNT"
+                                        placeholder="Amount"
                                         keyboardType = 'numeric'
                                         onChangeText={text => this.setState({amount:text},()=>{})}
                                         defaultValue={this.state.amount.toString()}
@@ -154,7 +162,7 @@ class Payment extends Component {
                                                 <Text style={{ fontSize:12, fontWeight:'bold'}}>Net Amount :</Text>
                                             </View>
                                             <View style={{flex:1, flexDirection:'row',alignItems:'center', marginLeft:5}}>
-                                                <Text style={{ fontSize:12, color:kThemeBlueColor}}>{this.state.amount}</Text>
+                                                <Text style={{ fontSize:12, color:kThemeBlueColor}}>{Number(this.state.amount)?this.state.amount:0}</Text>
                                             </View>
                                             
                                         </View>

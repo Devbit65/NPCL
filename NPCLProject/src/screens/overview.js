@@ -434,7 +434,7 @@ class Overview extends Component {
                                         <View style={{flex:1, flexDirection:'row'}}>
                                             <Text style={{flex:1, fontWeight:'bold', color:kThemeBlueColor}}>DG</Text>
                                             
-                                            {dataResouces && dataResouces.energy_source === 'DG' ? <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image> : null}
+                                            {dataResouces && dataResouces.energy_source === 'DG' ? <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/RedLEDIcon.png")}></Image> : null}
                                         </View>
                                         
                                         <View style={{flex:1, flexDirection:'row'}}>
@@ -442,7 +442,7 @@ class Overview extends Component {
                                                 <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Status</Text>
                                             </View>
                                             <View style={{flex:3}}>
-                                                <Text style={{flex:1, fontSize:11}}> : {dataResouces && dataResouces.energy_source === 'DG' ? 'ON' : 'OFF'}</Text>
+                                                <Text style={{flex:1, fontSize:11, fontWeight:'bold'}}> : {dataResouces && dataResouces.energy_source === 'DG' ? 'ON' : 'OFF'}</Text>
                                             </View>
                                         </View>
 

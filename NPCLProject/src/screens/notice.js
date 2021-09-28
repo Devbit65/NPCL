@@ -24,7 +24,8 @@ class Notice extends Component {
         super(props)
         this.spinner = new Spinner()
         this.state = {
-            logDate : []
+            logDate : [],
+            dataNotFound : "Loading notice..."
         }
     }
 
@@ -35,7 +36,10 @@ class Notice extends Component {
     fetchNotice() {
 
         this.spinner.startActivity();
-
+        this.setState({
+            dataNotFound: "Loading notice..."
+        }) 
+        
         if(!this.spinner.isNetConnected()){
             alert("Please check you internet connection.")
             this.spinner.stopActivity()
@@ -45,9 +49,16 @@ class Notice extends Component {
         fethchNotice()
         .then(response=>{
 
-            this.setState({
-                logDate:response.resources
-            })
+            if(response.resource) {
+                this.setState({
+                    logDate:response.resources
+                })
+            }
+            else {
+                this.setState({
+                    dataNotFound:"No Notice Found."
+                })   
+            }
             this.spinner.stopActivity();
         })
     }
@@ -79,7 +90,7 @@ class Notice extends Component {
                         </TouchableOpacity>
                     </View>
                     
-                    <FlatList
+                    {this.state.logDate && this.state.logDate.length > 0 ? <FlatList
                         data={this.state.logDate}
                         renderItem={({ item, index, separators })=>{
                             return  <View key={index} style={{flex:1, height:60, marginLeft:10, marginRight:10, alignItems:'center', justifyContent:'center'}}>
@@ -103,7 +114,10 @@ class Notice extends Component {
                                         </View>
                                     </View>
                         }}
-                    />
+                    />:<View style={{flex:1, alignItems:'center', justifyContent:'flex-start', marginTop:150}}>
+                            <Text style={{ fontWeight:'bold'}}>{this.state.dataNotFound}</Text>
+                        </View>
+                    }
 
                     
                 </View>
