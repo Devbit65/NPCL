@@ -11,7 +11,7 @@ import {
 
 import UserData from '../utilities/models/user-data'
 import Spinner from '../components/activity-indicator'
-import {fetchLoginToRefresh, fetchVerifyBalance, fetchRestoreAPI} from '../utilities/webservices'
+import {fetchLoginToRefresh, fetchVerifyBalance, fetchRestoreAPI, fetchCRCRStatus} from '../utilities/webservices'
 import { INITIATE_REFRESH } from '../redux/constants';
 
 import PieChart from '../components/PieChart'
@@ -66,13 +66,50 @@ class Overview extends Component {
             chartViewHeight:0,
             isShowingDaily : true,
             current_status : dataResouces ? dataResouces.current_status : "--",
-            overview_fc_name : dataResouces ? dataResouces.overview_fc_name : "Fixed Charges"
+            overview_fc_name : dataResouces ? dataResouces.overview_fc_name : "Fixed Charges",
+            drCrStatusValue : null
         }
 
         this.spinner = new Spinner()
     }
 
+    componentDidMount() {
+        this.spinner.startActivity();
+        this.fetchCRCRStatus()
+    }
 
+
+    fetchCRCRStatus() {
+
+        if(!this.spinner.isNetConnected()){
+            alert("Please check you internet connection.")
+            this.spinner.stopActivity()
+            return;
+        }
+
+        this.spinner.startActivity();
+        fetchCRCRStatus()
+        .then(response=>{
+
+            this.spinner.stopActivity();
+
+            if(response && Number(response.rc) === 0 && (response.status === 'Y' || response.status === 'y')){
+                this.setState({
+                    drCrStatusValue : {
+                        name:response.name,
+                        amount:response.amount,
+                        type:response.type,
+                        date:response.date
+                    }
+                })
+            }
+            else {
+                this.setState({
+                    drCrStatusValue : null
+                })
+            }
+        })
+    }
 
     onRefreshClicked() {
 
@@ -133,6 +170,7 @@ class Overview extends Component {
                 current_status : dataResouces ? dataResouces.current_status : "--",
                 overview_fc_name : dataResouces ? dataResouces.overview_fc_name: "Fixed Charges"
             },()=>{
+                this.fetchCRCRStatus()
                 if(this._scrollView) {
                     this._scrollView.scrollTo({x:0, animated:true})
                 }
@@ -408,17 +446,27 @@ class Overview extends Component {
                                         <View style={{flex:1, flexDirection:'row'}}>
                                             <Text style={{flex:1, fontWeight:'bold', color:kThemeBlueColor}}>GRID</Text>
                                             
-                                            {dataResouces && dataResouces.energy_source === 'GRID' ? <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image> : <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/RedLEDIcon.png")}></Image>}
+                                            {dataResouces && dataResouces.energy_source === 'GRID' ? <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/GreenLEDIcon.png")}></Image> : null}
                                         </View>
                                         
-                                        <View style={{flex:1, flexDirection:'row'}}>
-                                            <View style={{flex:2, paddingRight:5}}>
-                                                <Text style={{flex:1, fontSize:11, textAlign:'right'}}>START TIME</Text>
+                                        {dataResouces && dataResouces.energy_source === 'GRID' ?
+                                            <View style={{flex:1, flexDirection:'row'}}>
+                                                <View style={{flex:2, paddingRight:5}}>
+                                                    <Text style={{flex:1, fontSize:11, textAlign:'right'}}>START TIME</Text>
+                                                </View>
+                                                <View style={{flex:3}}>
+                                                    <Text style={{flex:1, fontSize:10}}> : {this.state.grid_start_time}</Text>
+                                                </View>
+                                            </View> : 
+                                            <View style={{flex:1, flexDirection:'row'}}>
+                                                <View style={{flex:2, paddingRight:5}}>
+                                                    <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Status</Text>
+                                                </View>
+                                                <View style={{flex:3}}>
+                                                    <Text style={{flex:1, fontSize:11, fontWeight:'bold'}}> : {dataResouces && dataResouces.energy_source === 'GRID' ? 'ON' : 'OFF'}</Text>
+                                                </View>
                                             </View>
-                                            <View style={{flex:3}}>
-                                                <Text style={{flex:1, fontSize:10}}> : {this.state.grid_start_time}</Text>
-                                            </View>
-                                        </View>
+                                        }
 
                                         <View style={{flex:1, flexDirection:'row'}}>
                                             <View style={{flex:2, paddingRight:5}}>
@@ -437,14 +485,24 @@ class Overview extends Component {
                                             {dataResouces && dataResouces.energy_source === 'DG' ? <Image style={{width:15, height:15, resizeMode:'contain'}} source={require("../resources/RedLEDIcon.png")}></Image> : null}
                                         </View>
                                         
-                                        <View style={{flex:1, flexDirection:'row'}}>
-                                            <View style={{flex:2, paddingRight:5}}>
-                                                <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Status</Text>
+                                        {dataResouces && dataResouces.energy_source === 'DG' ?
+                                            <View style={{flex:1, flexDirection:'row'}}>
+                                                <View style={{flex:2, paddingRight:5}}>
+                                                    <Text style={{flex:1, fontSize:11, textAlign:'right'}}>START TIME</Text>
+                                                </View>
+                                                <View style={{flex:3}}>
+                                                    <Text style={{flex:1, fontSize:10}}> : {this.state.grid_start_time}</Text>
+                                                </View>
+                                            </View> : 
+                                            <View style={{flex:1, flexDirection:'row'}}>
+                                                <View style={{flex:2, paddingRight:5}}>
+                                                    <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Status</Text>
+                                                </View>
+                                                <View style={{flex:3}}>
+                                                    <Text style={{flex:1, fontSize:11, fontWeight:'bold'}}> : {dataResouces && dataResouces.energy_source === 'DG' ? 'ON' : 'OFF'}</Text>
+                                                </View>
                                             </View>
-                                            <View style={{flex:3}}>
-                                                <Text style={{flex:1, fontSize:11, fontWeight:'bold'}}> : {dataResouces && dataResouces.energy_source === 'DG' ? 'ON' : 'OFF'}</Text>
-                                            </View>
-                                        </View>
+                                        }
 
                                         <View style={{flex:1, flexDirection:'row'}}>
                                             <View style={{flex:2, paddingRight:5}}>
@@ -500,6 +558,20 @@ class Overview extends Component {
                                 </TouchableOpacity>
                             </View>
                             
+                            {this.state.drCrStatusValue && <View style={[{flex:1, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
+                                <View style={{flex:1, backgroundColor:kThemeBlueColor, borderRadius:5, height:25, alignItems:'center', justifyContent:'center'}}>
+                                    <Text style={{fontWeight:'bold', color:'#fff'}}>{this.state.drCrStatusValue.name}</Text>
+                                </View>
+                                
+                                <View style={{flex:2, marginTop:5, marginBottom:5, marginRight:25, marginLeft:25, alignItems:'center', justifyContent:'center'}}>
+                                    <View style={{flex:1, flexDirection:'row'}}>
+                                        <Text style={{flex:1, fontSize:11, color:kThemeBlueColor}}>{this.state.drCrStatusValue.type}</Text>
+                                        
+                                        <Text style={{flex:1, fontSize:11, textAlign:'right'}}>{this.state.drCrStatusValue.amount}</Text>
+                                    </View>
+
+                                </View>
+                            </View>}
                             <View style={[{flex:1, height:80, margin:10, marginTop:5, borderRadius:5, backgroundColor:'rgb(242,242,242)'}, style.cardShadow]}>
                                 <View style={{flex:1, backgroundColor:kThemeBlueColor, borderRadius:5, alignItems:'center', justifyContent:'center'}}>
                                     <Text style={{fontWeight:'bold', color:'#fff'}}>SANCTIONED LOAD</Text>

@@ -17,6 +17,7 @@ const kNotice = "/thirdparty/api/notice"
 const kHistory = "/thirdparty/api/recharge_history"
 const kCurrentRates = "/thirdparty/api/current_applicable_rates"
 const kMonthlyBill = "/thirdparty/api/report"
+const kCRCRStatus = "/thirdparty/api/dr_cr"
 const kEVCDLogin = "/thirdparty/ev_login"
 const kEVCDStatus = "/ev_api/api/status"
 const kEVCDStartService = "/ev_api/api/start"
@@ -505,6 +506,27 @@ export const fetchEVMonthlyConsumption = (evcdId) => {
   var userCred = userData.getUserCredential()
   
   var req_url = url+kEVMonthlyConsumption+'?login='+userCred.user_id+'&password='+userCred.pswd+'&device_id='+evcdId
+  return fetch(req_url)
+    .then((response) => response.json())
+    .then((json) => {
+        return json;
+    })
+    .catch((error) => {
+      return null
+    });
+}
+
+export const fetchCRCRStatus = () => {
+  
+  var userData = new UserData()
+  var url = userData.getEVCDURL()
+  if(!url.includes('https://')){
+    url = 'https://'+url
+  }
+
+  var userCred = userData.getUserCredential()
+  
+  var req_url = url+kCRCRStatus+'?login_id='+userCred.user_id+'&password='+userCred.pswd
   return fetch(req_url)
     .then((response) => response.json())
     .then((json) => {

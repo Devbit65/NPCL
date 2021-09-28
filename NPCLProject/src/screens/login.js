@@ -56,7 +56,6 @@ class Login extends Component {
         fetchSocialMediaURLs()
         .then(response=>{
 
-            console.log("response ",response)
             this.setState({
                 socialMediaURLs : response
             },()=>{
