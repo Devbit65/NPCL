@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import UserData from '../utilities/models/user-data'
-import {fethchRechargeHistory, payByCoupon} from '../utilities/webservices'
+import {fethchRechargeHistory, payByCoupon, fetchLoginToRefresh} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -33,8 +33,6 @@ class Recharge extends Component {
         this.state = {
             balance_inr:Number(dataResouces.balance_amount).toFixed(2),
             balance_updated_on:dataResouces.last_reading_updated,
-            sectioned_grid:dataResouces.grid_sanctioned_load,
-            sectioned_dg:dataResouces.dg_sanctioned_load,
             recent_recharge: dataResouces.last_recharge_time,
             history:null,
             isOpenOnline:true,
@@ -46,7 +44,35 @@ class Recharge extends Component {
     }
 
     componentDidMount() {
-        this.fetchRechargeHisory();
+        this.onRefreshClicked();
+    }
+
+
+    onRefreshClicked() {
+        this.spinner.startActivity();
+        let _this = this
+        fetchLoginToRefresh()
+        .then(response=>{
+
+            this.spinner.stopActivity();
+
+            if(response && !response.message.includes('SUCCESS')){
+                alert(response.message)
+                return;
+            }
+
+            new UserData().setUserData(response);
+            this.userData = response
+
+            var dataResouces = this.userData.resource
+            this.setState({
+                balance_inr:Number(dataResouces.balance_amount).toFixed(2),
+                balance_updated_on:dataResouces.last_reading_updated,
+                recent_recharge: dataResouces.last_recharge_time,
+            },()=>{
+                _this.fetchRechargeHisory();
+            })
+        })
     }
 
     fetchRechargeHisory() {
@@ -206,7 +232,7 @@ class Recharge extends Component {
                         <View style={{flex:1, margin:5, alignItems:'flex-start', justifyContent:'center'}}>
                             <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> RECHARGE </Text>
                         </View>
-                        <TouchableOpacity style={{ width:40, height:40, marginRight:10, alignItems:'center', justifyContent:'center'}} onPress={()=>this.fetchRechargeHisory()}>
+                        <TouchableOpacity style={{ width:40, height:40, marginRight:10, alignItems:'center', justifyContent:'center'}} onPress={()=>this.onRefreshClicked()}>
                             <Image style={{width:25, height:25, resizeMode:'stretch'}} source={require("../resources/Refresh_icon.png")}></Image>
                         </TouchableOpacity>
                     </View>

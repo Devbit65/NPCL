@@ -25,7 +25,8 @@ class EventLogging extends Component {
         super(props)
         this.spinner = new Spinner()
         this.state = {
-            logDate : null
+            logDate : null,
+            dataNotFound : "Loading DG EVENT LOGGING..."
         }
     }
 
@@ -37,6 +38,9 @@ class EventLogging extends Component {
     fethchMessages() {
 
         this.spinner.startActivity();
+        this.setState({
+            dataNotFound : "Loading DG EVENT LOGGING..."
+        }) 
 
         if(!this.spinner.isNetConnected()){
             alert("Please check you internet connection.")
@@ -55,6 +59,9 @@ class EventLogging extends Component {
         })
         .catch(error=>{
             this.spinner.stopActivity();
+            this.setState({
+                dataNotFound:"No Data Found."
+            }) 
         })
     }
 
@@ -110,7 +117,7 @@ class EventLogging extends Component {
                         </TouchableOpacity>
                     </View>
                     
-                    <FlatList
+                    {this.state.logDate && this.state.logDate.length > 0 ?<FlatList
                         data={this.state.logDate}
                         renderItem={({ item, index, separators })=>{
                             return  <View key={index} style={{flex:1, height:75, marginLeft:10, marginRight:10, alignItems:'center', justifyContent:'center', backgroundColor:'rgb(242,242,242)'}}>
@@ -132,7 +139,9 @@ class EventLogging extends Component {
                                         </View>
                                     </View>
                         }}
-                    />
+                    />:<View style={{flex:1, alignItems:'center', justifyContent:'flex-start', marginTop:150}}>
+                    <Text style={{ fontWeight:'bold'}}>{this.state.dataNotFound}</Text>
+                </View>}
 
                     
                 </View>

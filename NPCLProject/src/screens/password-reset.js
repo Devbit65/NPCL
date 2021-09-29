@@ -37,6 +37,7 @@ class PasswordReset extends Component {
             otp:'',
             submitBtnTitle :params["type"] === SCREENTYPE.FORGETPASSWORD ? "SEND OTP" : 'SUBMIT',
             securePassword:true,
+            secureOTP : true
         }
     }
 
@@ -172,7 +173,7 @@ class PasswordReset extends Component {
 
             if(response.rc === -1){
                 var msg = response.message
-                alert(msg)
+                alert("Invalid Password")
             }
             else{
                 var userCred = this.userData.getUserCredential()
@@ -195,6 +196,12 @@ class PasswordReset extends Component {
         })
     }
 
+    onClickShowOTP() {
+        this.setState({
+            secureOTP:!this.state.secureOTP
+        })
+    }
+
     render() {
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     {this.state.screenType === SCREENTYPE.CHANGEPASSWORD ?  
@@ -214,7 +221,7 @@ class PasswordReset extends Component {
                             </View>
                             <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                                 <View style={{ flex:1, alignItems:'center', justifyContent:'flex-start'}}>
-                                    <View style={[{minWidth:'75%', height:275, backgroundColor:'#FFF', borderRadius:5, marginTop:100}, style.cardShadow]}>
+                                    <View style={[{minWidth:'75%', height:275, backgroundColor:'rgb(242,242,242)', borderRadius:5, marginTop:100}, style.cardShadow]}>
                                         <View style={{flex:1}}>
                                             <View style={{ margin:25, }}>
                                                 <Text style={{ color:kThemeBlueColor}}>Password</Text>
@@ -263,9 +270,9 @@ class PasswordReset extends Component {
                                     <View style={[{minWidth:'75%', height:275, backgroundColor:'#FFF', borderRadius:5}, style.cardShadow]}>
 
                                         <View style={{margin:25,}}>
-                                            <Text style={{ fontSize:12, color:kThemeBlueColor}}>LOGIN ID</Text>
+                                            <Text style={{ color:kThemeBlueColor}}>LOGIN ID</Text>
                                             <TextInput
-                                                style={{paddingLeft:5, fontSize:12, height: 35, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
+                                                style={{paddingLeft:5, height: 35, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
                                                 textAlign={'left'}
                                                 placeholder="LOGIN ID"
                                                 editable={this.state.screenType === SCREENTYPE.FORGETPASSWORD}
@@ -274,28 +281,40 @@ class PasswordReset extends Component {
                                             />
                                         </View>
 
-                                        {this.state.screenType === SCREENTYPE.VERIFYOTP&& <View style={{margin:25, marginTop:0}}>
-                                            <Text style={{ fontSize:12, color:kThemeBlueColor}}>VERIFY OTP</Text>
+                                        {this.state.screenType === SCREENTYPE.VERIFYOTP&& <View style={{margin:25}}>
+                                            <Text style={{ color:kThemeBlueColor}}>VERIFY OTP</Text>
                                             <TextInput
-                                                style={{paddingLeft:5, fontSize:12, height: 35, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
+                                                style={{paddingLeft:5, height: 35, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
                                                 textAlign={'left'}
                                                 placeholder="VERIFY OTP"
-                                                secureTextEntry = {true}
+                                                secureTextEntry = {this.state.secureOTP}
                                                 onChangeText={text => this.setState({otp:text},()=>{})}
                                                 defaultValue={this.state.otp}
                                             />
+
+                                            <TouchableOpacity onPress={()=>this.onClickShowOTP()} style={{marginTop:10, flexDirection:'row', alignItems:'center', justifyContent:'flex-start'}}>
+                                                <Icon_Fontisto size={10} name={this.state.secureOTP?"checkbox-passive":"checkbox-active"} color={kThemeBlueColor} />
+                                            
+                                                <Text style={{ marginLeft:5, fontSize:11, color:kThemeBlueColor}}>SHOW OTP</Text>
+                                            </TouchableOpacity>
                                         </View>}
 
                                         {this.state.screenType === SCREENTYPE.SETNEWPASSWORD && <View style={{margin:25, marginTop:0}}>
-                                            <Text style={{ fontSize:12, color:kThemeBlueColor}}>NEW PASSWORD</Text>
+                                            <Text style={{ color:kThemeBlueColor}}>NEW PASSWORD</Text>
                                             <TextInput
-                                                style={{paddingLeft:5, fontSize:12, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
+                                                style={{paddingLeft:5, height: 35, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
                                                 textAlign={'left'}
                                                 placeholder="NEW PASSWORD"
-                                                secureTextEntry = {true}
+                                                secureTextEntry = {this.state.securePassword}
                                                 onChangeText={text => this.setState({newPassword:text},()=>{})}
                                                 defaultValue={this.state.newPassword}
                                             />
+
+                                            <TouchableOpacity onPress={()=>this.onClickShowPassword()} style={{marginTop:10, flexDirection:'row', alignItems:'center', justifyContent:'flex-start'}}>
+                                                <Icon_Fontisto size={10} name={this.state.securePassword?"checkbox-passive":"checkbox-active"} color={kThemeBlueColor} />
+                                            
+                                                <Text style={{ marginLeft:5, fontSize:11, color:kThemeBlueColor}}>SHOW PASSWORD</Text>
+                                            </TouchableOpacity>
                                         </View>}
                                         
                                         <View style={{flex:1, margin:25, marginBottom:10, alignItems:'center', justifyContent:"flex-end"}}>

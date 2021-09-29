@@ -59,7 +59,7 @@ class Overview extends Component {
             load_unit : dataResouces ? dataResouces.load_unit : '',
             reading_unit : dataResouces ? dataResouces.reading_unit : '',
             currency : dataResouces ? dataResouces.currency : '',
-            willShowResetButton : dataResouces ? (Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm)) : '',
+            willShowResetButton : dataResouces && (dataResouces.current_status === "Overload GRID" || dataResouces.current_status === "Overload DG" || dataResouces.power_cut_restore_notification === 'Y'),//(Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm)) : '',
             chartWidth : 0,
             chartHeight : 0,
             chartViewWidth:0,
@@ -75,7 +75,7 @@ class Overview extends Component {
 
     componentDidMount() {
         this.spinner.startActivity();
-        this.fetchCRCRStatus()
+        this.onRefreshClicked()
     }
 
 
@@ -168,7 +168,8 @@ class Overview extends Component {
                 currency:dataResouces.currency,
                 isShowingDaily : true,
                 current_status : dataResouces ? dataResouces.current_status : "--",
-                overview_fc_name : dataResouces ? dataResouces.overview_fc_name: "Fixed Charges"
+                overview_fc_name : dataResouces ? dataResouces.overview_fc_name: "Fixed Charges",
+                willShowResetButton : dataResouces && (dataResouces.current_status === "Overload GRID" || dataResouces.current_status === "Overload DG" || dataResouces.power_cut_restore_notification === 'Y'),
             },()=>{
                 this.fetchCRCRStatus()
                 if(this._scrollView) {
@@ -515,13 +516,22 @@ class Overview extends Component {
                                     </View>
                                 </View>
                                 
-                                <View style={[{height:40, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
+                                <View style={[{maxHeight:75, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
                                     
-                                    <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+                                    <View style={{marginTop:5, flexDirection:'row', alignItems:'center'}}>
                                         <Text style={{flex:2, fontWeight:'bold', color:kThemeBlueColor, fontSize:12}}>CURRENT STATUS</Text>
                                         
-                                        <Text style={{flex:1, fontWeight:'bold', color:kThemeBlueColor, fontSize:12}}>{this.state.current_status}</Text>
+                                        <Text style={{flex:1, fontWeight:'bold', color:this.state.willShowResetButton ? kThemeRedColor : kThemeBlueColor, fontSize:12}}>{this.state.current_status}</Text>
                                     </View>
+                                    {this.state.willShowResetButton ? <View style={{alignItems:'center', justifyContent:'flex-end', flexDirection:'row', bottom:5 }}>
+                                        {/* <TouchableOpacity onPress={()=>this.cancelReset()} style={{margin:10, width:80, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
+                                            <Text style={{color:'#FFF', fontWeight:'bold'}}>CANCEL</Text>
+                                        </TouchableOpacity> */}
+                                        
+                                        <TouchableOpacity onPress={()=>this.verifyBalance()} style={{margin:10, width:75, height:20,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
+                                            <Text style={{color:'#FFF', fontSize:12, fontWeight:'bold'}}>RE-STORE</Text>
+                                        </TouchableOpacity>
+                                    </View>:null}
                                     
                                 </View>
                             </View>
@@ -599,7 +609,7 @@ class Overview extends Component {
                                 </View>
                             </View>
                         </View>
-                        {this.state.willShowResetButton ? <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', position:'absolute', bottom:0 }}>
+                        {/* {this.state.willShowResetButton ? <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', position:'absolute', bottom:0 }}>
                             <TouchableOpacity onPress={()=>this.cancelReset()} style={{margin:10, width:80, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
                                 <Text style={{color:'#FFF', fontWeight:'bold'}}>CANCEL</Text>
                             </TouchableOpacity>
@@ -607,7 +617,7 @@ class Overview extends Component {
                             <TouchableOpacity onPress={()=>this.verifyBalance()} style={{margin:10, width:80, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
                                 <Text style={{color:'#FFF', fontWeight:'bold'}}>RE-STORE</Text>
                             </TouchableOpacity>
-                        </View>:null}
+                        </View>:null} */}
                     </View>
                     
                 </ScrollView>

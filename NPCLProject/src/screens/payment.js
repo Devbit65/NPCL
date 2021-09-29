@@ -92,9 +92,7 @@ class Payment extends Component {
             return;
         }
 
-        var reg = /^\d+(?:\.\d{0,2})$/;
-
-        if(!reg.test(netAmount) || Number(netAmount) < Number(this.userData.resource.min_recharge) || Number(netAmount) > Number(this.userData.resource.max_recharge)) {
+        if(!Number(this.state.amount) || Number(this.state.amount) < Number(this.userData.resource.min_recharge) || Number(this.state.amount) > Number(this.userData.resource.max_recharge)) {
             alert("Please enter valid amount between "+this.userData.resource.min_recharge+" to "+this.userData.resource.max_recharge)
             this.spinner.stopActivity()
             return;
@@ -115,6 +113,7 @@ class Payment extends Component {
         const { params } = this.props.route;
         var gstValue = this.state.gstValue
         var netAmount = Number(this.state.amount) + Number(this.state.transCharges)+Number(gstValue)
+        netAmount = parseFloat(netAmount).toFixed(2)
         return <View style={{flex:1, backgroundColor:'#fff'}}>
                     <View style={{ flex: 1, maxHeight:64, justifyContent:'center', flexDirection:'row', backgroundColor:'#fff'}} >
                         
@@ -142,13 +141,13 @@ class Payment extends Component {
                                 <View style={{margin:25,}}>
                                     <Text style={{ color:kThemeBlueColor}}>AMOUNT</Text>
                                     <TextInput
-                                        value={this.state.amount.toString()}
+                                        value={this.state.amount}
                                         style={{paddingLeft:5, marginTop:5, height: 25, borderWidth:0.5, borderRadius:5, borderColor:kThemeBlueColor, padding:0}}
                                         textAlign={'left'}
                                         placeholder="Amount"
                                         keyboardType = 'numeric'
                                         onChangeText={text => this.setState({amount:text},()=>{})}
-                                        defaultValue={this.state.amount.toString()}
+                                        defaultValue={this.state.amount}
                                     />
                                 </View>
                                 <View style={{marginLeft:25, marginRight:25, alignItems:'center', justifyContent:'center'}}>
@@ -209,7 +208,7 @@ class Payment extends Component {
                                     </View>
 
                                     <View style={{alignItems:'center', justifyContent:'center',}}>
-                                        <TouchableOpacity disabled={this.state.amount<=0} onPress={()=>this.payByOnline(netAmount)} style={{ width:120, height:25, backgroundColor:kThemeBlueColor, borderRadius:5, opacity:this.state.amount<=0?0.5:1}}>
+                                        <TouchableOpacity disabled={isNaN(this.state.amount) || Number(this.state.amount)<=0} onPress={()=>this.payByOnline(netAmount)} style={{ width:120, height:25, backgroundColor:kThemeBlueColor, borderRadius:5, opacity:isNaN(this.state.amount) || this.state.amount<=0?0.5:1}}>
                                             <View style={{flex:1, alignItems:'center', justifyContent:'center',}}>
                                                 <Text style={{color:'#fff'}}>PAY</Text>
                                             </View>
