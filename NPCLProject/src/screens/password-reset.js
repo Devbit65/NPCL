@@ -117,6 +117,7 @@ class PasswordReset extends Component {
                 var msg = response.message
                 msg = msg.replace("login_id", "LOGIN ID");
                 msg = msg.replace("!!!", ":");
+                msg = msg.replace("ERROR :: ", "");
                 alert(msg)
             }
             else{

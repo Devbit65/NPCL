@@ -59,7 +59,7 @@ class Overview extends Component {
             load_unit : dataResouces ? dataResouces.load_unit : '',
             reading_unit : dataResouces ? dataResouces.reading_unit : '',
             currency : dataResouces ? dataResouces.currency : '',
-            willShowResetButton : dataResouces && (dataResouces.current_status === "Overload GRID" || dataResouces.current_status === "Overload DG" || dataResouces.power_cut_restore_notification === 'Y'),//(Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm)) : '',
+            willShowResetButton : dataResouces && (dataResouces.current_status === "Overload GRID" || dataResouces.current_status === "Overload DG"),//(Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm)) : '',
             chartWidth : 0,
             chartHeight : 0,
             chartViewWidth:0,
@@ -93,7 +93,7 @@ class Overview extends Component {
 
             this.spinner.stopActivity();
 
-            if(response && Number(response.rc) === 0 && (response.status === 'Y' || response.status === 'y')){
+            if(response && (response.status === 'Y' || response.status === 'y')){
                 this.setState({
                     drCrStatusValue : {
                         name:response.name,
@@ -169,7 +169,7 @@ class Overview extends Component {
                 isShowingDaily : true,
                 current_status : dataResouces ? dataResouces.current_status : "--",
                 overview_fc_name : dataResouces ? dataResouces.overview_fc_name: "Fixed Charges",
-                willShowResetButton : dataResouces && (dataResouces.current_status === "Overload GRID" || dataResouces.current_status === "Overload DG" || dataResouces.power_cut_restore_notification === 'Y'),
+                willShowResetButton : dataResouces && (dataResouces.current_status === "Overload GRID" || dataResouces.current_status === "Overload DG"),
             },()=>{
                 this.fetchCRCRStatus()
                 if(this._scrollView) {
@@ -471,7 +471,7 @@ class Overview extends Component {
 
                                         <View style={{flex:1, flexDirection:'row'}}>
                                             <View style={{flex:2, paddingRight:5}}>
-                                                <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Consumed Unit</Text>
+                                                <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Unit</Text>
                                             </View>
                                             <View style={{flex:3}}>
                                                 <Text style={{flex:1, fontWeight:'bold', fontSize:10}}> : {this.state.grid_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
@@ -507,7 +507,7 @@ class Overview extends Component {
 
                                         <View style={{flex:1, flexDirection:'row'}}>
                                             <View style={{flex:2, paddingRight:5}}>
-                                                <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Consumed Unit</Text>
+                                                <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Unit</Text>
                                             </View>
                                             <View style={{flex:3}}>
                                                 <Text style={{flex:1, fontWeight:'bold', fontSize:10}}> : {this.state.dg_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
@@ -603,7 +603,7 @@ class Overview extends Component {
                                     <View style={{flex:0.5, flexDirection:'row'}}>
                                         <Text style={{flex:1, fontSize:12}}></Text>
                                         
-                                        <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {this.state.load_unit}</Text>
+                                        <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {this.state.reading_unit}</Text>
                                     </View>
 
                                 </View>
