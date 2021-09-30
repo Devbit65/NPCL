@@ -521,7 +521,7 @@ class Overview extends Component {
                                     <View style={{marginTop:5, flexDirection:'row', alignItems:'center'}}>
                                         <Text style={{flex:2, fontWeight:'bold', color:kThemeBlueColor, fontSize:12}}>CURRENT STATUS</Text>
                                         
-                                        <Text style={{flex:1, fontWeight:'bold', color:this.state.willShowResetButton ? kThemeRedColor : kThemeBlueColor, fontSize:12}}>{this.state.current_status}</Text>
+                                        <Text style={{flex:1, fontWeight:'bold', color:this.state.willShowResetButton || this.state.current_status === 'Disconnect' ? kThemeRedColor : kThemeBlueColor, fontSize:12}}>{this.state.current_status}</Text>
                                     </View>
                                     {this.state.willShowResetButton ? <View style={{alignItems:'center', justifyContent:'flex-end', flexDirection:'row', bottom:5 }}>
                                         {/* <TouchableOpacity onPress={()=>this.cancelReset()} style={{margin:10, width:80, height:25,alignItems:'center', justifyContent:'center', backgroundColor:kThemeRedColor, borderRadius:5}}>
