@@ -230,7 +230,7 @@ class Recharge extends Component {
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     <View style={{height:50, margin:5, flexDirection:'row'}}>
                         <View style={{flex:1, margin:5, alignItems:'flex-start', justifyContent:'center'}}>
-                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> RECHARGE </Text>
+                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:22}}> RECHARGE </Text>
                         </View>
                         <TouchableOpacity style={{ width:40, height:40, marginRight:10, alignItems:'center', justifyContent:'center'}} onPress={()=>this.onRefreshClicked()}>
                             <Image style={{width:25, height:25, resizeMode:'stretch'}} source={require("../resources/Refresh_icon.png")}></Image>

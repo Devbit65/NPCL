@@ -129,7 +129,7 @@ class Payment extends Component {
                             </TouchableOpacity>
                             <View style={{flex:1, height:50, margin:5, flexDirection:'row'}}>
                                 <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-                                    <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> Online Recharge </Text>
+                                    <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:22}}> Online Recharge </Text>
                                 </View>
                             </View>
                         </View>

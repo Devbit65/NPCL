@@ -74,7 +74,7 @@ class Profile extends Component {
             <View style={{ flex: 1, backgroundColor:'#fff'}} >
                 
                 <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
-                    <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> PROFILE </Text>
+                    <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:22}}> PROFILE </Text>
                 </View>
                 <View style={{flex:1, marginTop:50}}>
                     

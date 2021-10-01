@@ -408,7 +408,7 @@ class Overview extends Component {
                     
                     <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
                         <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
-                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> OVERVIEW </Text>
+                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:22}}> OVERVIEW </Text>
                         </View>
                         <TouchableOpacity style={{ width:40, height:40, marginRight:10, alignItems:'center', justifyContent:'center'}} onPress={()=>this.onRefreshClicked()}>
                             <Image style={{width:25, height:25, resizeMode:'stretch'}} source={require("../resources/Refresh_icon.png")}></Image>
@@ -518,7 +518,7 @@ class Overview extends Component {
                                 
                                 <View style={[{maxHeight:75, margin:10, marginTop:0, padding:5, borderRadius:5, backgroundColor:'#FFF'},style.cardShadow]}>
                                     
-                                    <View style={{marginTop:5, flexDirection:'row', alignItems:'center'}}>
+                                    <View style={{marginTop:5, marginBottom:5, flexDirection:'row', alignItems:'center'}}>
                                         <Text style={{flex:2, fontWeight:'bold', color:kThemeBlueColor, fontSize:12}}>CURRENT STATUS</Text>
                                         
                                         <Text style={{flex:1, fontWeight:'bold', color:this.state.willShowResetButton || this.state.current_status === 'Disconnect' ? kThemeRedColor : kThemeBlueColor, fontSize:12}}>{this.state.current_status}</Text>

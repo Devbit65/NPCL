@@ -25,9 +25,7 @@ class NoticeHeader extends Component {
 
     render() {
         return  <View style={{ height:44}}>
-                    <View style={{flex:1, marginEnd:20, justifyContent:'center', alignItems:'flex-end'}}>
-                        <Text style={{fontSize:10, fontWeight:'bold'}} >UNIT {this.state.unit}</Text>
-                    </View>
+                    
 
                     {this.state.headerNoticeText && <View style={{flex:1,backgroundColor:kThemeRedColor}}>
                         <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
@@ -43,6 +41,9 @@ class NoticeHeader extends Component {
                             </MarqueeText>
                         </View>
                     </View>}
+                    <View style={{flex:1, marginEnd:20, justifyContent:'center', alignItems:'flex-end'}}>
+                        <Text style={{fontSize:16, fontWeight:'bold'}} >UNIT {this.state.unit}</Text>
+                    </View>
                 </View>
     }
 }

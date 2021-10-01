@@ -119,6 +119,7 @@ class Report extends Component {
                     // }
                 );
                 if (granted[READ_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED && granted[WRITE_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED) {
+                    this.initiateDownload(pdfData);
                 } else {
                     
                     return;
@@ -128,6 +129,12 @@ class Report extends Component {
                 return;
             }
         }
+        else {
+            this.initiateDownload(pdfData);
+        }
+    }
+
+    initiateDownload(pdfData) {
 
         this.spinner.startActivity();
         if(!this.spinner.isNetConnected()){
@@ -152,6 +159,13 @@ class Report extends Component {
             mediaScannable: true,
             title: pdfName,
             path: `${dirToSave}/${pdfName}`,
+            addAndroidDownloads: {
+                useDownloadManager: true,
+                notification: true,
+                mediaScannable: true,
+                title: pdfName,
+                path: `${dirToSave}/${pdfName}`,
+            },
         }
         const configOptions = Platform.select({
             ios: {
@@ -233,7 +247,7 @@ class Report extends Component {
         <View style={{flex:1, backgroundColor:'rgb(242,242,242)', marginBottom:25, margin:5}}>
                     <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
                         <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
-                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> REPORT </Text>
+                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:22}}> REPORT </Text>
                         </View>
                         {/* <TouchableOpacity style={{backgroundColor:'#ededed', marginRight:10}} onPress={()=>this.openCallendar()}>
                             <View style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>

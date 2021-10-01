@@ -134,7 +134,7 @@ class AppRouteConfig extends Component {
                     <View style={{ flex: 1,}} >
                      
                         <NoticeHeader />
-                        {!this.state.willShowSideMenu &&<View style={{width:this.state.hambugerMenuWidth,  position:'absolute'}} >
+                        {!this.state.willShowSideMenu &&<View style={{width:this.state.hambugerMenuWidth,  position:'absolute', top:20}} >
                             <TouchableOpacity style={{flex:1, alignItems:'center', justifyContent:'center'}} onPress={()=>this.onPressHamburgerMenu()}>
                                 <Icon size={30} name="menu" color={kThemeRedColor} />
                             </TouchableOpacity>

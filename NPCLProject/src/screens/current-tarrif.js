@@ -93,7 +93,7 @@ class CurrentTarrif extends Component {
                             <Icon size={16} name="arrow-back-ios" color="rgb(206, 0, 57)" />
                         </TouchableOpacity>
                         <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
-                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:24}}> CURRENT TARRIF </Text>
+                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:22}}> CURRENT TARRIF </Text>
                         </View>
                     </View>
                     <View style={[{ borderWidth:1, borderColor:kThemeBlueColor, margin:5, borderRadius:5, padding:5},style.cardShadow]}>

@@ -214,7 +214,7 @@ class PasswordReset extends Component {
                                     </TouchableOpacity>
                                     <View style={{flex:1, maxHeight:40, margin:5, flexDirection:'row'}}>
                                         <View style={{flex:1, alignItems:'flex-start', justifyContent:'center'}}>
-                                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:24}}> Change Password </Text>
+                                            <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:22}}> Change Password </Text>
                                         </View>
                                     </View>
                                 </View>

@@ -138,7 +138,7 @@ class Settings extends Component {
         return  <View style={{flex:1, backgroundColor:'#fff'}}>
                     
                     <View style={{margin:5, alignItems:'flex-start', justifyContent:'center'}}>
-                        <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:30}}> SETTINGS </Text>
+                        <Text style={{color:kThemeRedColor, fontWeight:'bold', fontSize:22}}> SETTINGS </Text>
                     </View>
 
                     <View style={{flex:1,}}>
