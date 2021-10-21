@@ -439,7 +439,7 @@ class ReportChart extends Component {
                             <View style={{width:'100%', height:20, alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
                                 <View style={{flex:1}}/>
                                 
-                                <Text style={{ color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> GRID CONSUMPTION </Text>
+                                <Text style={{ color:kThemeBlueColor, fontSize:9, alignSelf:'center', fontWeight:'bold'}}> GRID/DG CONSUMPTION </Text>
                                 
                                 <TouchableOpacity onPress={()=>this.willShowFullScreen("Unit")} style={{flex:1, alignItems:'flex-end', justifyContent:'center'}}>
                                     <Icon size={18} name="open-in-full" color={kThemeBlueColor} />

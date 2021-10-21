@@ -41,7 +41,7 @@ class AppRoute extends Component {
 
   componentDidMount(){
 
-    this.registerPushNotificaiton()
+    // this.registerPushNotificaiton()
   }
 
   registerPushNotificaiton() {

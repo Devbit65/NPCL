@@ -1005,6 +1005,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NPCLProject/CCAvenure/**",
 				);
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1087,6 +1088,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NPCLProject/CCAvenure/**",
 				);
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

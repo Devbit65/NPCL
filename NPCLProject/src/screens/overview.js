@@ -66,7 +66,7 @@ class Overview extends Component {
             chartViewHeight:0,
             isShowingDaily : true,
             current_status : dataResouces ? dataResouces.current_status : "--",
-            overview_fc_name : dataResouces ? dataResouces.overview_fc_name : "Fixed Charges",
+            overview_fc_name : dataResouces && dataResouces.overview_fc_name ? dataResouces.overview_fc_name : "Fixed Charges",
             drCrStatusValue : null
         }
 
@@ -168,7 +168,7 @@ class Overview extends Component {
                 currency:dataResouces.currency,
                 isShowingDaily : true,
                 current_status : dataResouces ? dataResouces.current_status : "--",
-                overview_fc_name : dataResouces ? dataResouces.overview_fc_name: "Fixed Charges",
+                overview_fc_name : dataResouces && dataResouces.overview_fc_name ? dataResouces.overview_fc_name : "Fixed Charges",
                 willShowResetButton : dataResouces && (dataResouces.current_status === "Overload GRID" || dataResouces.current_status === "Overload DG"),
             },()=>{
                 this.fetchCRCRStatus()

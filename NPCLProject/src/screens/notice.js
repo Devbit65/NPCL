@@ -49,7 +49,7 @@ class Notice extends Component {
         fethchNotice()
         .then(response=>{
 
-            if(response.resource) {
+            if(response.resources && response.resources.length>0) {
                 this.setState({
                     logDate:response.resources
                 })
