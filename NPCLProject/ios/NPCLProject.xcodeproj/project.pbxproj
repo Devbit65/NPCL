@@ -1011,7 +1011,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Synergy.Xenius;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xenius.plus;
 				PRODUCT_NAME = "Xenius SEMS X.0";
 				PROVISIONING_PROFILE_SPECIFIER = Xenius_SEMS_Adhoc;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NPCLProject/CCAvenure/CCIntegrationKit_swift+bridging.h";
@@ -1094,7 +1094,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Synergy.Xenius;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xenius.plus;
 				PRODUCT_NAME = "Xenius SEMS X.0";
 				PROVISIONING_PROFILE_SPECIFIER = Xenius_SEMS_Adhoc;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/NPCLProject/CCAvenure/CCIntegrationKit_swift+bridging.h";
