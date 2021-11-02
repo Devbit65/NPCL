@@ -22,7 +22,7 @@ mkdir -p  "$targetFolder"
 cp "$exportOptionsPlist" "$targetFolder"/
 cp "$keyStoreFile" "$targetFolder"/
 
-APP_NAME=Xenius_X.O_"$DATE"
+APP_NAME=Xenius_Plus_"$DATE"
 
 archivePath="$targetFolder"/"$APP_NAME".xcarchive
 exportOptionsPlistPath="$targetFolder"/"$exportOptionsPlist"
@@ -37,14 +37,14 @@ KEY_STORE="$targetFolder"/"$keyStoreFile"
 
 echo '###################################'
 echo '############### IOS Build Started ################'
-react-native bundle --minify --entry-file index.js --platform ios --dev false --bundle-output ./ios/main.jsbundle --assets-dest ./ios
-cd ./ios
+# react-native bundle --minify --entry-file index.js --platform ios --dev false --bundle-output ./ios/main.jsbundle --assets-dest ./ios
+# cd ./ios
 
-xcodebuild -workspace NPCLProject.xcworkspace -scheme NPCLProject -sdk iphoneos -configuration AppStoreDistribution archive -archivePath "$archivePath"
+# xcodebuild -workspace NPCLProject.xcworkspace -scheme NPCLProject -sdk iphoneos -configuration AppStoreDistribution archive -archivePath "$archivePath"
 
-xcodebuild -exportArchive -archivePath "$archivePath" -exportOptionsPlist "$exportOptionsPlistPath" -exportPath "$targetFolder"/
+# xcodebuild -exportArchive -archivePath "$archivePath" -exportOptionsPlist "$exportOptionsPlistPath" -exportPath "$targetFolder"/
 
-cd ..
+# cd ..
 
 
 ##########
