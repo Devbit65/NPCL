@@ -104,7 +104,7 @@ class Report extends Component {
                 
                 const granted = await PermissionsAndroid.requestMultiple(
                         [
-                            READ_PERMISSION,
+                            // READ_PERMISSION,
                             WRITE_PERMISSION
                         ]
                         
@@ -118,7 +118,8 @@ class Report extends Component {
                     //     buttonPositive: "OK"
                     // }
                 );
-                if (granted[READ_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED && granted[WRITE_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED) {
+                // if (granted[READ_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED && granted[WRITE_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED) {
+                if (granted[WRITE_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED) {
                     this.initiateDownload(pdfData);
                 } else {
                     
