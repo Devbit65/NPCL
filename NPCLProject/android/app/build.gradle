@@ -138,10 +138,10 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.xenius.plus"
+        applicationId "com.xenius.pro"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
+        versionCode 1
         versionName "1.0.0"
         multiDexEnabled true
 

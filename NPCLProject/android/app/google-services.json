@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "831773425844",
-    "project_id": "xenius-plus",
-    "storage_bucket": "xenius-plus.appspot.com"
+    "project_number": "779504723345",
+    "project_id": "xenius-sems-pro",
+    "storage_bucket": "xenius-sems-pro.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:831773425844:android:c76c8d914d0e3bbb2497e1",
+        "mobilesdk_app_id": "1:779504723345:android:6df03839aca2d09802e630",
         "android_client_info": {
-          "package_name": "com.xenius.plus"
+          "package_name": "com.xenius.pro"
         }
       },
       "oauth_client": [
         {
-          "client_id": "831773425844-115anijk11h6rve4v1mftjg7k54b250j.apps.googleusercontent.com",
+          "client_id": "779504723345-3ckjenhml66j9vf5ft533a1uak1n3a9i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCMixHs8M6WsGcGBS0gFpz_i7wF2ynN2sw"
+          "current_key": "AIzaSyDhUPd1jqLSvybpO--YNzrV32kiUdlYp2c"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "831773425844-115anijk11h6rve4v1mftjg7k54b250j.apps.googleusercontent.com",
+              "client_id": "779504723345-3ckjenhml66j9vf5ft533a1uak1n3a9i.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
