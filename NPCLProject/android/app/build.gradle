@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 //import com.android.build.OutputFile
 
 /**
@@ -138,7 +139,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.xenius.pro"
+        applicationId "com.Synergy.Xenius"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -165,6 +166,16 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            firebaseCrashlytics {
+                // Enable processing and uploading of native symbols to Firebase servers.
+                // By default, this is disabled to improve build speeds.
+                // This flag must be enabled to see properly-symbolicated native
+                // stack traces in the Crashlytics dashboard.
+                nativeSymbolUploadEnabled true
+                strippedNativeLibsDir 'build/intermediates/stripped_native_libs/release/out/lib'
+                unstrippedNativeLibsDir 'build/intermediates/merged_native_libs/release/out/lib'
+
+            }
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -172,6 +183,16 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            firebaseCrashlytics {
+                // Enable processing and uploading of native symbols to Firebase servers.
+                // By default, this is disabled to improve build speeds.
+                // This flag must be enabled to see properly-symbolicated native
+                // stack traces in the Crashlytics dashboard.
+                nativeSymbolUploadEnabled true
+                strippedNativeLibsDir 'build/intermediates/stripped_native_libs/release/out/lib'
+                unstrippedNativeLibsDir 'build/intermediates/merged_native_libs/release/out/lib'
+
+            }
         }
     }
 
@@ -223,20 +244,28 @@ dependencies {
         implementation jscFlavor
     }
 
-    implementation 'com.google.firebase:firebase-analytics:17.3.0'
+//    implementation 'com.google.firebase:firebase-analytics:17.3.0'
     implementation project(':react-native-push-notification')
 
     implementation 'com.google.firebase:firebase-core:17.2.1'
 
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
 
-    implementation platform('com.google.firebase:firebase-bom:26.3.0')
+//    implementation platform('com.google.firebase:firebase-bom:26.3.0')
 
-    implementation 'com.google.firebase:firebase-analytics'
+//    implementation 'com.google.firebase:firebase-analytics'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
+
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:29.0.3')
+
+    // Declare the dependencies for the Crashlytics NDK and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics-ndk'
+    implementation 'com.google.firebase:firebase-analytics'
 }
 
 // Run this once to be able to run the application with BUCK

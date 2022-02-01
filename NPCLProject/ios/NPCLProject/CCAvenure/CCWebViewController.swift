@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import WebKit
 
 //new keys to be added
 let BILLING_NAME = "billing_name";
@@ -46,7 +47,7 @@ let CUSTOMER_IDENTIFIER = "customer_identifier";
  */
 
 
-class CCWebViewController: UIViewController,UIWebViewDelegate {
+class CCWebViewController: UIViewController, WKNavigationDelegate {
     
     var accessCode = String()
     var merchantId = String()
@@ -88,16 +89,12 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
     var KeyValueFromResponse = String()
   
     
-    
-    lazy var viewWeb: UIWebView = {
-        let webView = UIWebView()
-        webView.backgroundColor = .white
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.delegate = self
-        webView.scalesPageToFit = true
-        webView.contentMode = UIView.ContentMode.scaleAspectFill
-        return webView
-    }()
+  
+  var viewWeb:WKWebView {
+        let configuration = WKWebViewConfiguration()
+        let webView = WKWebView(frame: .zero, configuration: configuration)
+    ;   return webView
+  }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -300,7 +297,7 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
                         return
                     }
                     DispatchQueue.main.async {
-                        self.viewWeb.loadRequest(self.request! as URLRequest)
+                      self.viewWeb.load(self.request! as URLRequest)
                     }
                     print("data :: ",data)
                 }
@@ -333,108 +330,208 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
         
     }
     
-    
-    //MARK:
-    //MARK: WebviewDelegate Methods
-    
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        print("webViewDidStartLoad",webView.request!)
-        print(viewWeb.isLoading)
-        print(request?.httpBodyStream as Any)
-        print(request?.httpBody as Any)
-        
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
-    
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-        print("Failed to load  webview")
-    }
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        print("webview should start",request)
-        let urlString = (request.url?.absoluteString)!
-        if(urlString.contains("http://google.com")){
-            self.dismiss(animated: true, completion: nil);
-            return false
-        }
-        return true
-    }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        LoadingOverlay.shared.hideOverlayView()
+  
+  func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+      print("Start Request")
+      print("webViewDidStartLoad")
+      print(viewWeb.isLoading)
+      print(request?.httpBodyStream as Any)
+      print(request?.httpBody as Any)
+  }
+  
+  func webView(_ webView: WKWebView, decidePolicyFor navigation: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+      print("webview should start",navigation.request)
+      let urlString = (navigation.request.url?.absoluteString)!
+      if(urlString.contains("http://google.com")){
+          self.dismiss(animated: true, completion: nil);
+          decisionHandler(.cancel)
+      }
+      decisionHandler(.allow)
+  }
+  
+  func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+      print("Failed Request")
+      print("Failed to load  webview")
+  }
+  
+  func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+      LoadingOverlay.shared.hideOverlayView()
 
-        //covert the response url to the string and check for that the response url contains the redirect/cancel url if true then chceck for the transaction status and pass the response to the result controller(ie. CCResultViewController)
-        let string = (webView.request?.url?.absoluteString)!
-        print("String :: \(string)")
-        
-        if(string.contains(redirectUrl)) //("http://122.182.6.216/merchant/ccavResponseHandler.jsp"))//
-        {
-            print(viewWeb.isLoading)
-            guard let htmlTemp:NSString = webView.stringByEvaluatingJavaScript(from: "document.documentElement.outerHTML") as NSString? else{
-                print("failed to evaluate javaScript")
-                return
-            }
-            
-            let html = htmlTemp
-            print("html :: ",html)
-            var transStatus = "Not Known"
-            
-            if ((html ).range(of: "Aborted").location != NSNotFound) || ((html ).range(of: "Cancel").location != NSNotFound) {
-                transStatus = "Transaction Cancelled"
-                let controller: CCResultViewController = CCResultViewController()
-                controller.transStatus = transStatus
-                controller.objCCResultVC = self
-                self.present(controller, animated: true, completion: nil)
-            }
-            else if ((html ).range(of: "Success").location != NSNotFound) {
+      //covert the response url to the string and check for that the response url contains the redirect/cancel url if true then chceck for the transaction status and pass the response to the result controller(ie. CCResultViewController)
+      let string = (webView.url?.absoluteString)
+      print("String :: \(string ?? "no url inside")")
+      
+      if((string?.contains(redirectUrl)) != nil) //("http://122.182.6.216/merchant/ccavResponseHandler.jsp"))//
+      {
+          print(viewWeb.isLoading)
+          guard let htmlTemp:NSString = webView.evaluateJavaScript("document.documentElement.outerHTML") as! NSString? else{
+              print("failed to evaluate javaScript")
+              return
+          }
+          
+          let html = htmlTemp
+          print("html :: ",html)
+          var transStatus = "Not Known"
+          
+          if ((html ).range(of: "Aborted").location != NSNotFound) || ((html ).range(of: "Cancel").location != NSNotFound) {
+              transStatus = "Transaction Cancelled"
+              let controller: CCResultViewController = CCResultViewController()
+              controller.transStatus = transStatus
+//              controller.objCCResultVC = self
+              self.present(controller, animated: true, completion: nil)
+          }
+          else if ((html ).range(of: "Success").location != NSNotFound) {
 //                transStatus = "Transaction Successful"
 //                let controller: CCResultViewController = CCResultViewController()
 //                controller.transStatus = transStatus
 //                controller.objCCResultVC = self
 //                self.present(controller, animated: true, completion: { _ in })
-            }
-            else if ((html ).range(of: "Fail").location != NSNotFound) {
-                transStatus = "Transaction Failed"
-                let controller: CCResultViewController = CCResultViewController()
-                controller.transStatus = transStatus
-                controller.objCCResultVC = self
-                self.present(controller, animated: true, completion: nil)
-            }
-            /*
-            if ((html ).range(of: "tracking_id").location != NSNotFound) && ((html ).range(of: "bin_country").location != NSNotFound) {
-                if ((html ).range(of: "Aborted").location != NSNotFound) || ((html ).range(of: "Cancel").location != NSNotFound) {
-                    transStatus = "Transaction Cancelled"
-                    let controller: CCResultViewController = CCResultViewController()
-                    controller.transStatus = transStatus
-                    self.present(controller, animated: true, completion: nil)
-                }
-                else if ((html ).range(of: "Success").location != NSNotFound) {
-                    transStatus = "Transaction Successful"
-                    let controller: CCResultViewController = CCResultViewController()
-                    controller.transStatus = transStatus
-                    self.present(controller, animated: true, completion: { _ in })
-                }
-                else if ((html ).range(of: "Fail").location != NSNotFound) {
-                    transStatus = "Transaction Failed"
-                    let controller: CCResultViewController = CCResultViewController()
-                    controller.transStatus = transStatus
-                    self.present(controller, animated: true, completion: { _ in })
-                } 
-            }
-            else{
-                print("html does not contain any related data")
-                displayAlert(msg: "html does not contain any related data for this transaction.")
-                
-            }*/
-        }
-        else if(string.contains(cancelUrl)){
-            let controller: CCResultViewController = CCResultViewController()
-            controller.transStatus = "Transaction Cancelled"
-            controller.objCCResultVC = self
-            self.present(controller, animated: true, completion: nil)
-        }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+          }
+          else if ((html ).range(of: "Fail").location != NSNotFound) {
+              transStatus = "Transaction Failed"
+              let controller: CCResultViewController = CCResultViewController()
+              controller.transStatus = transStatus
+//              controller.objCCResultVC = self
+              self.present(controller, animated: true, completion: nil)
+          }
+          /*
+          if ((html ).range(of: "tracking_id").location != NSNotFound) && ((html ).range(of: "bin_country").location != NSNotFound) {
+              if ((html ).range(of: "Aborted").location != NSNotFound) || ((html ).range(of: "Cancel").location != NSNotFound) {
+                  transStatus = "Transaction Cancelled"
+                  let controller: CCResultViewController = CCResultViewController()
+                  controller.transStatus = transStatus
+                  self.present(controller, animated: true, completion: nil)
+              }
+              else if ((html ).range(of: "Success").location != NSNotFound) {
+                  transStatus = "Transaction Successful"
+                  let controller: CCResultViewController = CCResultViewController()
+                  controller.transStatus = transStatus
+                  self.present(controller, animated: true, completion: { _ in })
+              }
+              else if ((html ).range(of: "Fail").location != NSNotFound) {
+                  transStatus = "Transaction Failed"
+                  let controller: CCResultViewController = CCResultViewController()
+                  controller.transStatus = transStatus
+                  self.present(controller, animated: true, completion: { _ in })
+              }
+          }
+          else{
+              print("html does not contain any related data")
+              displayAlert(msg: "html does not contain any related data for this transaction.")
+              
+          }*/
+      }
+      else if((string?.contains(cancelUrl)) != nil){
+          let controller: CCResultViewController = CCResultViewController()
+          controller.transStatus = "Transaction Cancelled"
+//          controller.objCCResultVC = self
+          self.present(controller, animated: true, completion: nil)
+      }
+  }
+
 }
+
+//extension CCWebViewController: WKNavigationDelegate {
+//
+//    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+//        print("Start Request")
+//        print("webViewDidStartLoad")
+//        print(viewWeb.isLoading)
+//        print(request?.httpBodyStream as Any)
+//        print(request?.httpBody as Any)
+//    }
+//
+//    func webView(_ webView: WKWebView, decidePolicyFor navigation: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+//        print("webview should start",navigation.request)
+//        let urlString = (navigation.request.url?.absoluteString)!
+//        if(urlString.contains("http://google.com")){
+//            self.dismiss(animated: true, completion: nil);
+//            decisionHandler(.cancel)
+//        }
+//        decisionHandler(.allow)
+//    }
+//
+//    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+//        print("Failed Request")
+//        print("Failed to load  webview")
+//    }
+//
+//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//        LoadingOverlay.shared.hideOverlayView()
+//
+//        //covert the response url to the string and check for that the response url contains the redirect/cancel url if true then chceck for the transaction status and pass the response to the result controller(ie. CCResultViewController)
+//        let string = (webView.url?.absoluteString)
+//        print("String :: \(string ?? "no url inside")")
+//
+//        if((string?.contains(redirectUrl)) != nil) //("http://122.182.6.216/merchant/ccavResponseHandler.jsp"))//
+//        {
+//            print(viewWeb.isLoading)
+//            guard let htmlTemp:NSString = webView.evaluateJavaScript("document.documentElement.outerHTML") as! NSString? else{
+//                print("failed to evaluate javaScript")
+//                return
+//            }
+//
+//            let html = htmlTemp
+//            print("html :: ",html)
+//            var transStatus = "Not Known"
+//
+//            if ((html ).range(of: "Aborted").location != NSNotFound) || ((html ).range(of: "Cancel").location != NSNotFound) {
+//                transStatus = "Transaction Cancelled"
+//                let controller: CCResultViewController = CCResultViewController()
+//                controller.transStatus = transStatus
+//                controller.objCCResultVC = self
+//                self.present(controller, animated: true, completion: nil)
+//            }
+//            else if ((html ).range(of: "Success").location != NSNotFound) {
+////                transStatus = "Transaction Successful"
+////                let controller: CCResultViewController = CCResultViewController()
+////                controller.transStatus = transStatus
+////                controller.objCCResultVC = self
+////                self.present(controller, animated: true, completion: { _ in })
+//            }
+//            else if ((html ).range(of: "Fail").location != NSNotFound) {
+//                transStatus = "Transaction Failed"
+//                let controller: CCResultViewController = CCResultViewController()
+//                controller.transStatus = transStatus
+//                controller.objCCResultVC = self
+//                self.present(controller, animated: true, completion: nil)
+//            }
+//            /*
+//            if ((html ).range(of: "tracking_id").location != NSNotFound) && ((html ).range(of: "bin_country").location != NSNotFound) {
+//                if ((html ).range(of: "Aborted").location != NSNotFound) || ((html ).range(of: "Cancel").location != NSNotFound) {
+//                    transStatus = "Transaction Cancelled"
+//                    let controller: CCResultViewController = CCResultViewController()
+//                    controller.transStatus = transStatus
+//                    self.present(controller, animated: true, completion: nil)
+//                }
+//                else if ((html ).range(of: "Success").location != NSNotFound) {
+//                    transStatus = "Transaction Successful"
+//                    let controller: CCResultViewController = CCResultViewController()
+//                    controller.transStatus = transStatus
+//                    self.present(controller, animated: true, completion: { _ in })
+//                }
+//                else if ((html ).range(of: "Fail").location != NSNotFound) {
+//                    transStatus = "Transaction Failed"
+//                    let controller: CCResultViewController = CCResultViewController()
+//                    controller.transStatus = transStatus
+//                    self.present(controller, animated: true, completion: { _ in })
+//                }
+//            }
+//            else{
+//                print("html does not contain any related data")
+//                displayAlert(msg: "html does not contain any related data for this transaction.")
+//
+//            }*/
+//        }
+//        else if((string?.contains(cancelUrl)) != nil){
+//            let controller: CCResultViewController = CCResultViewController()
+//            controller.transStatus = "Transaction Cancelled"
+//            controller.objCCResultVC = self
+//            self.present(controller, animated: true, completion: nil)
+//        }
+//    }
+//}

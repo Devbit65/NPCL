@@ -16,6 +16,20 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1EB75BEFE5E34209A4BAD099 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D7A77DB55B049D0A63BF138 /* FontAwesome.ttf */; };
+		228CFF2927A9A4900044064B /* CCResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228CFF1627A9A4900044064B /* CCResultViewController.swift */; };
+		228CFF2A27A9A4900044064B /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 228CFF1827A9A4900044064B /* Base64.m */; };
+		228CFF2B27A9A4910044064B /* DesignableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228CFF1927A9A4900044064B /* DesignableTextField.swift */; };
+		228CFF2C27A9A4910044064B /* CCTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 228CFF1A27A9A4900044064B /* CCTool.m */; };
+		228CFF2D27A9A4910044064B /* KeyboardHandleExtension + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228CFF1B27A9A4900044064B /* KeyboardHandleExtension + UIViewController.swift */; };
+		228CFF2E27A9A4910044064B /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 228CFF1C27A9A4900044064B /* libcrypto.a */; };
+		228CFF2F27A9A4910044064B /* DesignableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228CFF1E27A9A4900044064B /* DesignableTableViewCell.swift */; };
+		228CFF3027A9A4910044064B /* DesignableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228CFF1F27A9A4900044064B /* DesignableButton.swift */; };
+		228CFF3127A9A4910044064B /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 228CFF2027A9A4900044064B /* libssl.a */; };
+		228CFF3227A9A4910044064B /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228CFF2127A9A4900044064B /* LoadingOverlay.swift */; };
+		228CFF3327A9A4910044064B /* CCInitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228CFF2227A9A4900044064B /* CCInitView.swift */; };
+		228CFF3427A9A4910044064B /* CCWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228CFF2327A9A4900044064B /* CCWebViewController.swift */; };
+		228CFF3527A9A4910044064B /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228CFF2427A9A4900044064B /* DesignableView.swift */; };
+		228CFF3627A9A4910044064B /* CCInitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228CFF2727A9A4900044064B /* CCInitViewController.swift */; };
 		2582C429C3F2826A8413D206 /* libPods-NPCLProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16682FC4F2A67422B7A008CE /* libPods-NPCLProject.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -36,26 +50,7 @@
 		B08F67C625C86E9900A32DA4 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		B0E4D7A525BD667200E6AF92 /* NPCLPaymentBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D7A425BD667200E6AF92 /* NPCLPaymentBridge.m */; };
 		B0E4D7AE25BD7AC100E6AF92 /* CCAvenuePaymentDisplayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D7AD25BD7AC100E6AF92 /* CCAvenuePaymentDisplayVC.swift */; };
-		B0E4D80A25BD7FE600E6AF92 /* shim.h in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D7F625BD7FE500E6AF92 /* shim.h */; };
-		B0E4D80B25BD7FE600E6AF92 /* DesignableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D7F725BD7FE500E6AF92 /* DesignableButton.swift */; };
-		B0E4D80C25BD7FE600E6AF92 /* DesignableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D7F825BD7FE500E6AF92 /* DesignableTextField.swift */; };
-		B0E4D80D25BD7FE600E6AF92 /* module.modulemap in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D7F925BD7FE500E6AF92 /* module.modulemap */; };
-		B0E4D81025BD7FE600E6AF92 /* CCInitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D7FC25BD7FE500E6AF92 /* CCInitViewController.swift */; };
-		B0E4D81325BD7FE600E6AF92 /* CCInitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D7FF25BD7FE500E6AF92 /* CCInitView.swift */; };
-		B0E4D81425BD7FE600E6AF92 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D80025BD7FE500E6AF92 /* LoadingOverlay.swift */; };
-		B0E4D81625BD7FE600E6AF92 /* CCIntegrationKit_Swift-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D80225BD7FE600E6AF92 /* CCIntegrationKit_Swift-Bridging-Header.h */; };
-		B0E4D81725BD7FE600E6AF92 /* CCIntegrationKit_swift+bridging.h in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D80325BD7FE600E6AF92 /* CCIntegrationKit_swift+bridging.h */; };
-		B0E4D81925BD7FE600E6AF92 /* Base64.h in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D80525BD7FE600E6AF92 /* Base64.h */; };
-		B0E4D81A25BD7FE600E6AF92 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D80625BD7FE600E6AF92 /* Base64.m */; };
-		B0E4D81B25BD7FE600E6AF92 /* KeyboardHandleExtension + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D80725BD7FE600E6AF92 /* KeyboardHandleExtension + UIViewController.swift */; };
-		B0E4D81D25BD7FE600E6AF92 /* DesignableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D80925BD7FE600E6AF92 /* DesignableTableViewCell.swift */; };
-		B0E4D82425BD801700E6AF92 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E4D82225BD801700E6AF92 /* libcrypto.a */; };
-		B0E4D82525BD801700E6AF92 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E4D82325BD801700E6AF92 /* libssl.a */; };
 		B0E4D82725BD805B00E6AF92 /* include in Resources */ = {isa = PBXBuildFile; fileRef = B0E4D82625BD805B00E6AF92 /* include */; };
-		B0E4D82925BD8B9800E6AF92 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D82825BD8B9700E6AF92 /* DesignableView.swift */; };
-		B0E4D82B25BD919400E6AF92 /* CCResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D82A25BD919400E6AF92 /* CCResultViewController.swift */; };
-		B0E4D83225BD927D00E6AF92 /* CCTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D83125BD927C00E6AF92 /* CCTool.m */; };
-		B0E4D83325BD992F00E6AF92 /* CCWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E4D7FA25BD7FE500E6AF92 /* CCWebViewController.swift */; };
 		B10656C24B254CEDBA3FB768 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 239BE5CB2D4C4AA3A5F41344 /* Fontisto.ttf */; };
 		BA304AEFEBA7600CE78F7BE5 /* libPods-NPCLProject-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 956B89F84671B96BAE284840 /* libPods-NPCLProject-tvOS.a */; };
 		BADAAD62EE5256279A862DE5 /* libPods-NPCLProject-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C69F0DEB1C1EE93421360A7 /* libPods-NPCLProject-tvOSTests.a */; };
@@ -97,6 +92,26 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = NPCLProject/main.m; sourceTree = "<group>"; };
 		16682FC4F2A67422B7A008CE /* libPods-NPCLProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NPCLProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A85E7A9059E4A419FE0B7B6 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		228CFF1527A9A4900044064B /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Base64.h; path = NPCLProject/CCAvenure/Base64.h; sourceTree = SOURCE_ROOT; };
+		228CFF1627A9A4900044064B /* CCResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCResultViewController.swift; path = NPCLProject/CCAvenure/CCResultViewController.swift; sourceTree = SOURCE_ROOT; };
+		228CFF1727A9A4900044064B /* CCIntegrationKit_Swift-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCIntegrationKit_Swift-Bridging-Header.h"; path = "NPCLProject/CCAvenure/CCIntegrationKit_Swift-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		228CFF1827A9A4900044064B /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Base64.m; path = NPCLProject/CCAvenure/Base64.m; sourceTree = SOURCE_ROOT; };
+		228CFF1927A9A4900044064B /* DesignableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DesignableTextField.swift; path = NPCLProject/CCAvenure/DesignableTextField.swift; sourceTree = SOURCE_ROOT; };
+		228CFF1A27A9A4900044064B /* CCTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCTool.m; path = NPCLProject/CCAvenure/CCTool.m; sourceTree = SOURCE_ROOT; };
+		228CFF1B27A9A4900044064B /* KeyboardHandleExtension + UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KeyboardHandleExtension + UIViewController.swift"; path = "NPCLProject/CCAvenure/KeyboardHandleExtension + UIViewController.swift"; sourceTree = SOURCE_ROOT; };
+		228CFF1C27A9A4900044064B /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = NPCLProject/CCAvenure/libcrypto.a; sourceTree = SOURCE_ROOT; };
+		228CFF1D27A9A4900044064B /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = NPCLProject/CCAvenure/module.modulemap; sourceTree = SOURCE_ROOT; };
+		228CFF1E27A9A4900044064B /* DesignableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DesignableTableViewCell.swift; path = NPCLProject/CCAvenure/DesignableTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		228CFF1F27A9A4900044064B /* DesignableButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DesignableButton.swift; path = NPCLProject/CCAvenure/DesignableButton.swift; sourceTree = SOURCE_ROOT; };
+		228CFF2027A9A4900044064B /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = NPCLProject/CCAvenure/libssl.a; sourceTree = SOURCE_ROOT; };
+		228CFF2127A9A4900044064B /* LoadingOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingOverlay.swift; path = NPCLProject/CCAvenure/LoadingOverlay.swift; sourceTree = SOURCE_ROOT; };
+		228CFF2227A9A4900044064B /* CCInitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCInitView.swift; path = NPCLProject/CCAvenure/CCInitView.swift; sourceTree = SOURCE_ROOT; };
+		228CFF2327A9A4900044064B /* CCWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCWebViewController.swift; path = NPCLProject/CCAvenure/CCWebViewController.swift; sourceTree = SOURCE_ROOT; };
+		228CFF2427A9A4900044064B /* DesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DesignableView.swift; path = NPCLProject/CCAvenure/DesignableView.swift; sourceTree = SOURCE_ROOT; };
+		228CFF2527A9A4900044064B /* CCTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCTool.h; path = NPCLProject/CCAvenure/CCTool.h; sourceTree = SOURCE_ROOT; };
+		228CFF2627A9A4900044064B /* CCIntegrationKit_swift+bridging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CCIntegrationKit_swift+bridging.h"; path = "NPCLProject/CCAvenure/CCIntegrationKit_swift+bridging.h"; sourceTree = SOURCE_ROOT; };
+		228CFF2727A9A4900044064B /* CCInitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCInitViewController.swift; path = NPCLProject/CCAvenure/CCInitViewController.swift; sourceTree = SOURCE_ROOT; };
+		228CFF2827A9A4900044064B /* shim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shim.h; path = NPCLProject/CCAvenure/shim.h; sourceTree = SOURCE_ROOT; };
 		239BE5CB2D4C4AA3A5F41344 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* NPCLProject-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NPCLProject-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* NPCLProject-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NPCLProject-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,29 +140,9 @@
 		B091DBE625BD48160099FF48 /* NPCLProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NPCLProject-Bridging-Header.h"; sourceTree = "<group>"; };
 		B0E4D7A425BD667200E6AF92 /* NPCLPaymentBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NPCLPaymentBridge.m; sourceTree = "<group>"; };
 		B0E4D7AD25BD7AC100E6AF92 /* CCAvenuePaymentDisplayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCAvenuePaymentDisplayVC.swift; path = NPCLProject/CCAvenuePaymentDisplayVC.swift; sourceTree = "<group>"; };
-		B0E4D7F625BD7FE500E6AF92 /* shim.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = shim.h; path = ../NPCLProject/CCAvenure/shim.h; sourceTree = "<group>"; };
-		B0E4D7F725BD7FE500E6AF92 /* DesignableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DesignableButton.swift; path = ../NPCLProject/CCAvenure/DesignableButton.swift; sourceTree = "<group>"; };
-		B0E4D7F825BD7FE500E6AF92 /* DesignableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DesignableTextField.swift; path = ../NPCLProject/CCAvenure/DesignableTextField.swift; sourceTree = "<group>"; };
-		B0E4D7F925BD7FE500E6AF92 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = ../NPCLProject/CCAvenure/module.modulemap; sourceTree = "<group>"; };
-		B0E4D7FA25BD7FE500E6AF92 /* CCWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CCWebViewController.swift; path = ../NPCLProject/CCAvenure/CCWebViewController.swift; sourceTree = "<group>"; };
-		B0E4D7FC25BD7FE500E6AF92 /* CCInitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CCInitViewController.swift; path = ../NPCLProject/CCAvenure/CCInitViewController.swift; sourceTree = "<group>"; };
-		B0E4D7FE25BD7FE500E6AF92 /* CCTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCTool.h; path = ../NPCLProject/CCAvenure/CCTool.h; sourceTree = "<group>"; };
-		B0E4D7FF25BD7FE500E6AF92 /* CCInitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CCInitView.swift; path = ../NPCLProject/CCAvenure/CCInitView.swift; sourceTree = "<group>"; };
-		B0E4D80025BD7FE500E6AF92 /* LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadingOverlay.swift; path = ../NPCLProject/CCAvenure/LoadingOverlay.swift; sourceTree = "<group>"; };
-		B0E4D80225BD7FE600E6AF92 /* CCIntegrationKit_Swift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CCIntegrationKit_Swift-Bridging-Header.h"; path = "../NPCLProject/CCAvenure/CCIntegrationKit_Swift-Bridging-Header.h"; sourceTree = "<group>"; };
-		B0E4D80325BD7FE600E6AF92 /* CCIntegrationKit_swift+bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CCIntegrationKit_swift+bridging.h"; path = "../NPCLProject/CCAvenure/CCIntegrationKit_swift+bridging.h"; sourceTree = "<group>"; };
-		B0E4D80525BD7FE600E6AF92 /* Base64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Base64.h; path = ../NPCLProject/CCAvenure/Base64.h; sourceTree = "<group>"; };
-		B0E4D80625BD7FE600E6AF92 /* Base64.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Base64.m; path = ../NPCLProject/CCAvenure/Base64.m; sourceTree = "<group>"; };
-		B0E4D80725BD7FE600E6AF92 /* KeyboardHandleExtension + UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KeyboardHandleExtension + UIViewController.swift"; path = "../NPCLProject/CCAvenure/KeyboardHandleExtension + UIViewController.swift"; sourceTree = "<group>"; };
-		B0E4D80925BD7FE600E6AF92 /* DesignableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DesignableTableViewCell.swift; path = ../NPCLProject/CCAvenure/DesignableTableViewCell.swift; sourceTree = "<group>"; };
 		B0E4D81E25BD800800E6AF92 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = NPCLProject/CCAvenure/libcrypto.a; sourceTree = "<group>"; };
 		B0E4D81F25BD800800E6AF92 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = NPCLProject/CCAvenure/libssl.a; sourceTree = "<group>"; };
-		B0E4D82225BD801700E6AF92 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../NPCLProject/CCAvenure/libcrypto.a; sourceTree = "<group>"; };
-		B0E4D82325BD801700E6AF92 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../NPCLProject/CCAvenure/libssl.a; sourceTree = "<group>"; };
 		B0E4D82625BD805B00E6AF92 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = NPCLProject/include; sourceTree = "<group>"; };
-		B0E4D82825BD8B9700E6AF92 /* DesignableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DesignableView.swift; path = ../NPCLProject/CCAvenure/DesignableView.swift; sourceTree = "<group>"; };
-		B0E4D82A25BD919400E6AF92 /* CCResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CCResultViewController.swift; path = NPCLProject/SSL/CCResultViewController.swift; sourceTree = SOURCE_ROOT; };
-		B0E4D83125BD927C00E6AF92 /* CCTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CCTool.m; path = ../NPCLProject/CCAvenure/CCTool.m; sourceTree = "<group>"; };
 		BE519980774BA88C695B4CFC /* Pods-NPCLProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NPCLProject.release.xcconfig"; path = "Target Support Files/Pods-NPCLProject/Pods-NPCLProject.release.xcconfig"; sourceTree = "<group>"; };
 		BF07EF1B3A4B4C72A156C238 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		C3CAF33217ABA29DFCCDA8DB /* Pods-NPCLProject-NPCLProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NPCLProject-NPCLProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-NPCLProject-NPCLProjectTests/Pods-NPCLProject-NPCLProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -172,10 +167,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				228CFF3127A9A4910044064B /* libssl.a in Frameworks */,
 				B068240327047C76002BA95F /* libYogaKit.a in Frameworks */,
-				B0E4D82425BD801700E6AF92 /* libcrypto.a in Frameworks */,
 				2582C429C3F2826A8413D206 /* libPods-NPCLProject.a in Frameworks */,
-				B0E4D82525BD801700E6AF92 /* libssl.a in Frameworks */,
+				228CFF2E27A9A4910044064B /* libcrypto.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +253,33 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		228CFF1427A9A4760044064B /* CCAvenure */ = {
+			isa = PBXGroup;
+			children = (
+				228CFF1527A9A4900044064B /* Base64.h */,
+				228CFF1827A9A4900044064B /* Base64.m */,
+				228CFF2227A9A4900044064B /* CCInitView.swift */,
+				228CFF2727A9A4900044064B /* CCInitViewController.swift */,
+				228CFF1727A9A4900044064B /* CCIntegrationKit_Swift-Bridging-Header.h */,
+				228CFF2627A9A4900044064B /* CCIntegrationKit_swift+bridging.h */,
+				228CFF1627A9A4900044064B /* CCResultViewController.swift */,
+				228CFF2527A9A4900044064B /* CCTool.h */,
+				228CFF1A27A9A4900044064B /* CCTool.m */,
+				228CFF2327A9A4900044064B /* CCWebViewController.swift */,
+				228CFF1F27A9A4900044064B /* DesignableButton.swift */,
+				228CFF1E27A9A4900044064B /* DesignableTableViewCell.swift */,
+				228CFF1927A9A4900044064B /* DesignableTextField.swift */,
+				228CFF2427A9A4900044064B /* DesignableView.swift */,
+				228CFF1B27A9A4900044064B /* KeyboardHandleExtension + UIViewController.swift */,
+				228CFF1C27A9A4900044064B /* libcrypto.a */,
+				228CFF2027A9A4900044064B /* libssl.a */,
+				228CFF2127A9A4900044064B /* LoadingOverlay.swift */,
+				228CFF1D27A9A4900044064B /* module.modulemap */,
+				228CFF2827A9A4900044064B /* shim.h */,
+			);
+			path = CCAvenure;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,9 +321,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				228CFF1427A9A4760044064B /* CCAvenure */,
 				B01BC97825D0217000A693EB /* highcharts */,
 				B0E4D82625BD805B00E6AF92 /* include */,
-				B0E4D7F525BD7FA100E6AF92 /* CCAvenure */,
 				13B07FAE1A68108700A75B9A /* NPCLProject */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* NPCLProjectTests */,
@@ -324,33 +346,6 @@
 				2D02E4901E0B4A5D006451C7 /* NPCLProject-tvOSTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		B0E4D7F525BD7FA100E6AF92 /* CCAvenure */ = {
-			isa = PBXGroup;
-			children = (
-				B0E4D82825BD8B9700E6AF92 /* DesignableView.swift */,
-				B0E4D80525BD7FE600E6AF92 /* Base64.h */,
-				B0E4D80625BD7FE600E6AF92 /* Base64.m */,
-				B0E4D7FF25BD7FE500E6AF92 /* CCInitView.swift */,
-				B0E4D7FC25BD7FE500E6AF92 /* CCInitViewController.swift */,
-				B0E4D80225BD7FE600E6AF92 /* CCIntegrationKit_Swift-Bridging-Header.h */,
-				B0E4D80325BD7FE600E6AF92 /* CCIntegrationKit_swift+bridging.h */,
-				B0E4D82A25BD919400E6AF92 /* CCResultViewController.swift */,
-				B0E4D7FE25BD7FE500E6AF92 /* CCTool.h */,
-				B0E4D83125BD927C00E6AF92 /* CCTool.m */,
-				B0E4D7FA25BD7FE500E6AF92 /* CCWebViewController.swift */,
-				B0E4D7F725BD7FE500E6AF92 /* DesignableButton.swift */,
-				B0E4D82225BD801700E6AF92 /* libcrypto.a */,
-				B0E4D82325BD801700E6AF92 /* libssl.a */,
-				B0E4D80925BD7FE600E6AF92 /* DesignableTableViewCell.swift */,
-				B0E4D7F825BD7FE500E6AF92 /* DesignableTextField.swift */,
-				B0E4D80725BD7FE600E6AF92 /* KeyboardHandleExtension + UIViewController.swift */,
-				B0E4D80025BD7FE500E6AF92 /* LoadingOverlay.swift */,
-				B0E4D7F925BD7FE500E6AF92 /* module.modulemap */,
-				B0E4D7F625BD7FE500E6AF92 /* shim.h */,
-			);
-			path = CCAvenure;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -836,26 +831,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0E4D7AE25BD7AC100E6AF92 /* CCAvenuePaymentDisplayVC.swift in Sources */,
+				228CFF2D27A9A4910044064B /* KeyboardHandleExtension + UIViewController.swift in Sources */,
+				228CFF2927A9A4900044064B /* CCResultViewController.swift in Sources */,
+				228CFF3327A9A4910044064B /* CCInitView.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				B0E4D80A25BD7FE600E6AF92 /* shim.h in Sources */,
-				B0E4D80B25BD7FE600E6AF92 /* DesignableButton.swift in Sources */,
-				B0E4D80C25BD7FE600E6AF92 /* DesignableTextField.swift in Sources */,
-				B0E4D80D25BD7FE600E6AF92 /* module.modulemap in Sources */,
-				B0E4D81025BD7FE600E6AF92 /* CCInitViewController.swift in Sources */,
-				B0E4D81325BD7FE600E6AF92 /* CCInitView.swift in Sources */,
-				B0E4D81425BD7FE600E6AF92 /* LoadingOverlay.swift in Sources */,
-				B0E4D81625BD7FE600E6AF92 /* CCIntegrationKit_Swift-Bridging-Header.h in Sources */,
-				B0E4D81725BD7FE600E6AF92 /* CCIntegrationKit_swift+bridging.h in Sources */,
-				B0E4D81925BD7FE600E6AF92 /* Base64.h in Sources */,
-				B0E4D81A25BD7FE600E6AF92 /* Base64.m in Sources */,
-				B0E4D81B25BD7FE600E6AF92 /* KeyboardHandleExtension + UIViewController.swift in Sources */,
-				B0E4D81D25BD7FE600E6AF92 /* DesignableTableViewCell.swift in Sources */,
+				228CFF3027A9A4910044064B /* DesignableButton.swift in Sources */,
+				228CFF2B27A9A4910044064B /* DesignableTextField.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				228CFF3527A9A4910044064B /* DesignableView.swift in Sources */,
+				228CFF2A27A9A4900044064B /* Base64.m in Sources */,
+				228CFF2F27A9A4910044064B /* DesignableTableViewCell.swift in Sources */,
 				B0E4D7A525BD667200E6AF92 /* NPCLPaymentBridge.m in Sources */,
-				B0E4D82B25BD919400E6AF92 /* CCResultViewController.swift in Sources */,
-				B0E4D83325BD992F00E6AF92 /* CCWebViewController.swift in Sources */,
-				B0E4D83225BD927D00E6AF92 /* CCTool.m in Sources */,
-				B0E4D82925BD8B9800E6AF92 /* DesignableView.swift in Sources */,
+				228CFF3427A9A4910044064B /* CCWebViewController.swift in Sources */,
+				228CFF2C27A9A4910044064B /* CCTool.m in Sources */,
+				228CFF3627A9A4910044064B /* CCInitViewController.swift in Sources */,
+				228CFF3227A9A4910044064B /* LoadingOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1004,6 +994,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NPCLProject/CCAvenure/**",
+					"$(PROJECT_DIR)/NPCLProject/CCAvenure",
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
@@ -1087,6 +1078,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/NPCLProject/CCAvenure/**",
+					"$(PROJECT_DIR)/NPCLProject/CCAvenure",
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
