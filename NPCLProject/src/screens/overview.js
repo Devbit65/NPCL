@@ -57,7 +57,7 @@ class Overview extends Component {
             dialy_consumption_total : daily_totalConsumption,
             monthly_consumption_total : monthly_totalConsumption,
             load_unit : dataResouces ? dataResouces.load_unit : '',
-            reading_unit : dataResouces ? dataResouces.reading_unit : '',
+            reading_unit : dataResouces ? dataResouces.load_unit : '',
             currency : dataResouces ? dataResouces.currency : '',
             willShowResetButton : dataResouces && (dataResouces.current_status === "Overload GRID" || dataResouces.current_status === "Overload DG"),//(Number(dataResouces.grid_overload_setting) < Number(dataResouces.grid_load_alarm)) : '',
             chartWidth : 0,
@@ -164,7 +164,7 @@ class Overview extends Component {
                 dialy_consumption_total : daily_totalConsumption,
                 monthly_consumption_total : monthly_totalConsumption,
                 load_unit:dataResouces.load_unit,
-                reading_unit : dataResouces.reading_unit,
+                reading_unit : dataResouces.load_unit,
                 currency:dataResouces.currency,
                 isShowingDaily : true,
                 current_status : dataResouces ? dataResouces.current_status : "--",
@@ -474,7 +474,7 @@ class Overview extends Component {
                                                 <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Unit</Text>
                                             </View>
                                             <View style={{flex:3}}>
-                                                <Text style={{flex:1, fontWeight:'bold', fontSize:10}}> : {this.state.grid_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
+                                                <Text style={{flex:1, fontWeight:'bold', fontSize:10}}> : {this.state.grid_kwh} {dataResouces ? dataResouces.load_unit : ''}</Text>
                                             </View>
                                         </View>
                                     </View>
@@ -510,7 +510,7 @@ class Overview extends Component {
                                                 <Text adjustsFontSizeToFit style={{flex:1, fontSize:11, textAlign:'right'}}>Unit</Text>
                                             </View>
                                             <View style={{flex:3}}>
-                                                <Text style={{flex:1, fontWeight:'bold', fontSize:10}}> : {this.state.dg_kwh} {dataResouces ? dataResouces.reading_unit : ''}</Text>
+                                                <Text style={{flex:1, fontWeight:'bold', fontSize:10}}> : {this.state.dg_kwh} {dataResouces ? dataResouces.load_unit : ''}</Text>
                                             </View>
                                         </View>
                                     </View>

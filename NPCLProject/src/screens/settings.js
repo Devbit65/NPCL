@@ -33,6 +33,7 @@ class Settings extends Component {
             nofity:dataResouces.notification_app_load==='Y',
             low_balance:dataResouces.notification_app_balance==='Y',
             power_cut_restore:dataResouces.power_cut_restore_notification==='Y',
+            source_change:dataResouces.notification_app_esource==='Y',
             notify_recharge:dataResouces.recharge_notification==='Y',
             grid_unit:dataResouces.alert_daily_consumption_grid,
             dg_unit:dataResouces.alert_daily_consumption_dg,
@@ -68,6 +69,7 @@ class Settings extends Component {
                 nofity:dataResouces.notification_app_load==='Y',
                 low_balance:dataResouces.notification_app_balance==='Y',
                 power_cut_restore:dataResouces.power_cut_restore_notification==='Y',
+                source_change:dataResouces.notification_app_esource==='Y',
                 notify_recharge:dataResouces.recharge_notification==='Y',
                 grid_unit:dataResouces.alert_daily_consumption_grid,
                 dg_unit:dataResouces.alert_daily_consumption_dg,
@@ -80,7 +82,8 @@ class Settings extends Component {
         var dataResouces = this.userData.resource
         return  (this.state.nofity ? dataResouces.notification_app_load==='Y':dataResouces.notification_app_load==='N') && 
                 (this.state.low_balance ? dataResouces.notification_app_balance==='Y':dataResouces.notification_app_balance==='N') &&
-                (this.state.power_cut_restore ? dataResouces.power_cut_restore_notification==='Y':dataResouces.power_cut_restore_notification==='N') && 
+                (this.state.power_cut_restore ? dataResouces.power_cut_restore_notification==='Y':dataResouces.power_cut_restore_notification==='N') &&
+                (this.state.source_change ? dataResouces.notification_app_esource==='Y':dataResouces.notification_app_esource==='N') && 
                 (this.state.notify_recharge ? dataResouces.recharge_notification==='Y':dataResouces.recharge_notification==='N') &&
                 (this.state.grid_unit === dataResouces.alert_daily_consumption_grid) &&
                 (this.state.dg_unit === dataResouces.alert_daily_consumption_dg) &&
@@ -110,6 +113,7 @@ class Settings extends Component {
             'dg_load_alarm':dataResouces.dg_load_alarm,
             "recharge_notification" : this.state.notify_recharge || this.state.notify_recharge==='YES'?'Y':'N',
             "power_cut_restore_notification" : this.state.power_cut_restore || this.state.power_cut_restore==='YES'?'Y':'N',
+            "notification_app_esource" : this.state.source_change || this.state.source_change==='YES'?'Y':'N',
         }
 
         fetchSaveSettings(saveData)
@@ -202,7 +206,7 @@ class Settings extends Component {
                         <View style={{flex:1, maxHeight:1, marginLeft:10, marginRight:10, backgroundColor:'#000'}}>
                         </View>
 
-                        <View style={{height:175,  margin:15}}>
+                        <View style={{height:250,  margin:15}}>
                             <View style={{flex:1}}>
                                 <Text style={{fontWeight:'bold',color:kThemeBlueColor}}>MISCELLANEOUS</Text>
                                 
@@ -246,6 +250,23 @@ class Settings extends Component {
                                     </View>
                                 </View>
                                 
+                                <View style={{flex:1, marginLeft:10, marginRight:10, flexDirection:'row'}}>
+                                    <View style={{flex:1, justifyContent:'center'}}>
+                                        <Text style={{color:kThemeBlueColor}}>SOURCE CHANGE</Text>
+                                
+                                        <Text>{this.state.source_change? "YES": "NO"}</Text>
+                                    </View>
+                                    <View style={{width:50, justifyContent:'center' }}>
+                                        <Switch
+                                            style={{ transform: [{ scaleX: 1 }, { scaleY: 1 }] }}
+                                            trackColor={{ false: "gray", true: 'rgba(19,69,113,0.4)' }}
+                                            thumbColor={kThemeBlueColor}
+                                            onValueChange={()=>{this.setState({source_change:!this.state.source_change})}}
+                                            value={this.state.source_change}
+                                        />
+                                    </View>
+                                </View>
+
                                 <View style={{flex:1, marginLeft:10, marginRight:10, flexDirection:'row'}}>
                                     <View style={{flex:1, justifyContent:'center'}}>
                                         <Text style={{color:kThemeBlueColor}}>NOTIFY RECHARGE</Text>
