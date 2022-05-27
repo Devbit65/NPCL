@@ -47,7 +47,7 @@ let CUSTOMER_IDENTIFIER = "customer_identifier";
  */
 
 
-class CCWebViewController: UIViewController, WKNavigationDelegate {
+class CCWebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     var accessCode = String()
     var merchantId = String()
@@ -90,11 +90,7 @@ class CCWebViewController: UIViewController, WKNavigationDelegate {
   
     
   
-  var viewWeb:WKWebView {
-        let configuration = WKWebViewConfiguration()
-        let webView = WKWebView(frame: .zero, configuration: configuration)
-    ;   return webView
-  }
+  var viewWeb:WKWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -163,19 +159,34 @@ class CCWebViewController: UIViewController, WKNavigationDelegate {
     private func setupWebView(){
         
         //setup webview
-        view.addSubview(viewWeb)
+      
+      let configuration = WKWebViewConfiguration()
+      var Ycord : CGFloat = 0.0 // for top space
+      if UIScreen.main.bounds.height == 812 { //Check for iPhone-x
+          Ycord = 44.0
+      }
+      else {
+          Ycord = 20.0
+      }
+
+      let frame = CGRect(x: 0.0, y: Ycord, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-Ycord)
+
+      self.viewWeb = WKWebView(frame: frame, configuration: configuration)
+      self.viewWeb.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+      self.viewWeb.uiDelegate = self
+        view.addSubview(self.viewWeb)
         if #available(iOS 11.0, *) {
-            viewWeb.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-            viewWeb.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+//            viewWeb.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+//            viewWeb.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         } else {
             // Fallback on earlier versions
-            viewWeb.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-            viewWeb.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//            viewWeb.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+//            viewWeb.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         }
         
-        viewWeb.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        
-        viewWeb.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+//        viewWeb.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+//
+//        viewWeb.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
         _ = [viewWeb .setContentCompressionResistancePriority(1000, for: NSLayoutConstraint.Axis.vertical)]
     }

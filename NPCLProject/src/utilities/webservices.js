@@ -48,7 +48,6 @@ export const fethcLogin = (devToken) => {
     device_token : devToken,
     device_OS : devToken === " " ? " " : Platform.OS
   }
-
   return fetch(req_url,{
     
     method: 'POST',

@@ -7,7 +7,6 @@ import {
     StyleSheet,
     Modal,
     Platform,
-    PermissionsAndroid,
     FlatList
 } from 'react-native';
 
@@ -20,7 +19,6 @@ import { connect } from 'react-redux';
 import { ActionCreators } from '../redux/action';
 import {fetchMonthlyBillURL} from '../utilities/webservices'
 import Spinner from '../components/activity-indicator'
-import RNFetchBlob from 'rn-fetch-blob'
 
 
 const kThemeRedColor = 'rgb(206, 0, 57)'
@@ -94,118 +92,14 @@ class Report extends Component {
         this.props.navigation.navigate("CurrentTarrif")
     }
 
-    async onPressBillDownload(pdfData) {
-
-        if(Platform.OS === 'android'){
-
-            try {
-                const READ_PERMISSION = PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE
-                const WRITE_PERMISSION = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
-                
-                const granted = await PermissionsAndroid.requestMultiple(
-                        [
-                            // READ_PERMISSION,
-                            WRITE_PERMISSION
-                        ]
-                        
-                    // {
-                    //     title: "App need Storage Permission",
-                    //     message:
-                    //     "App need you device storage permesion " +
-                    //     "so you can download monthly bill.",
-                    //     buttonNeutral: "Ask Me Later",
-                    //     buttonNegative: "Cancel",
-                    //     buttonPositive: "OK"
-                    // }
-                );
-                // if (granted[READ_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED && granted[WRITE_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED) {
-                if (granted[WRITE_PERMISSION] === PermissionsAndroid.RESULTS.GRANTED) {
-                    this.initiateDownload(pdfData);
-                } else {
-                    
-                    return;
-                }
-            } catch (err) {
-                console.warn(err);
-                return;
-            }
-        }
-        else {
-            this.initiateDownload(pdfData);
-        }
-    }
-
-    initiateDownload(pdfData) {
-
-        this.spinner.startActivity();
-        if(!this.spinner.isNetConnected()){
-            alert("Please check you internet connection.")
-            this.spinner.stopActivity()
-            return;
-        }
+    onPressShowBill(pdfData) {
 
         const month = pdfData.month
         const monthName = pdfData.monthName
         const year = pdfData.year
 
         const monthlyBillURL = fetchMonthlyBillURL(month, year)
-        const pdfName = "Monthly_Bill_"+monthName+"_"+year+".pdf"
-
-        const { dirs } = RNFetchBlob.fs;
-        const dirToSave = Platform.OS == 'ios' ? dirs.DocumentDir : dirs.DownloadDir
-        const configfb = {
-            fileCache: true,
-            useDownloadManager: true,
-            notification: true,
-            mediaScannable: true,
-            title: pdfName,
-            path: `${dirToSave}/${pdfName}`,
-            addAndroidDownloads: {
-                useDownloadManager: true,
-                notification: true,
-                mediaScannable: true,
-                title: pdfName,
-                path: `${dirToSave}/${pdfName}`,
-            },
-        }
-        const configOptions = Platform.select({
-            ios: {
-                fileCache: configfb.fileCache,
-                title: configfb.title,
-                path: configfb.path,
-                appendExt: 'pdf',
-            },
-            android: configfb,
-        });
-        RNFetchBlob
-        .config(configOptions)
-        .fetch('GET', monthlyBillURL, {
-            //some headers ..
-        })
-        .progress({ count : 20 },(received, total) => {
-            
-        })
-        .then((res) => {
-            var newPath =  res.path()
-            if(Platform.OS === 'android'){
-
-                RNFetchBlob.android.addCompleteDownload({
-                    title: pdfName,
-                    description: pdfName,
-                    mime: 'application/pdf',
-                    path: newPath,
-                    showNotification: true
-                })
-            }
-            
-            alert("Bill downloaded successfully.")
-            this.props.showPDFView(true, newPath)
-        })
-        .catch((error)=>{
-            this.spinner.stopActivity()
-            alert("Unable to download bill for Month : "+monthName+" Year : "+year+". Please try again.")
-        })
-
+        this.props.showPDFView(true, monthlyBillURL)
     }
 
     onSelectDate(newDate) {
@@ -300,7 +194,7 @@ class Report extends Component {
                                 data={this.state.monthlyBillList}
                                 renderItem={({ item, index, separators })=>{
                                     return  <View style={{flexDirection:'row', margin:15, marginTop:5, marginBottom:0}}>
-                                        <TouchableOpacity onPress={()=>this.onPressBillDownload(item)} style={[{flex:1, height:54, margin:5, borderRadius:5, backgroundColor:'#fff', flexDirection:'row', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
+                                        <TouchableOpacity onPress={()=>this.onPressShowBill(item)} style={[{flex:1, height:54, margin:5, borderRadius:5, backgroundColor:'#fff', flexDirection:'row', alignItems:'center', justifyContent:'center'}, style.cardShadow]}>
                                             <View style={{flex:1, marginLeft:10, alignItems:'flex-start', justifyContent:'center'}}>
                                                 <Image style={{ width:45, height:45, resizeMode:'contain' }}  source={require("../resources/bill-download.png")}/>
                                             </View>
