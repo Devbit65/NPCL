@@ -174,6 +174,7 @@ class CCWebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate 
       self.viewWeb = WKWebView(frame: frame, configuration: configuration)
       self.viewWeb.autoresizingMask = [.flexibleWidth, .flexibleHeight]
       self.viewWeb.uiDelegate = self
+      self.viewWeb.navigationDelegate = self;
         view.addSubview(self.viewWeb)
         if #available(iOS 11.0, *) {
 //            viewWeb.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -355,11 +356,11 @@ class CCWebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate 
   }
   
   func webView(_ webView: WKWebView, decidePolicyFor navigation: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-      print("webview should start",navigation.request)
+      //print("webview should start",navigation.request)
+      print("webview should start",navigation)
       let urlString = (navigation.request.url?.absoluteString)!
       if(urlString.contains("http://google.com")){
           self.dismiss(animated: true, completion: nil);
-          decisionHandler(.cancel)
       }
       decisionHandler(.allow)
   }
@@ -379,11 +380,19 @@ class CCWebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate 
       if((string?.contains(redirectUrl)) != nil) //("http://122.182.6.216/merchant/ccavResponseHandler.jsp"))//
       {
           print(viewWeb.isLoading)
-          guard let htmlTemp:NSString = webView.evaluateJavaScript("document.documentElement.outerHTML") as! NSString? else{
-              print("failed to evaluate javaScript")
-              return
+          var htmlTemp:NSString = ""
+          webView.evaluateJavaScript("document.documentElement.outerHTML") { (result, error) in
+            if error == nil {
+                if result != nil {
+                  htmlTemp = result as! NSString;
+                }
+            }
           }
-          
+//          guard let htmlTemp:NSString = webView.evaluateJavaScript("document.documentElement.outerHTML") else {
+//              print("failed to evaluate javaScript")
+//              return
+//          }
+        
           let html = htmlTemp
           print("html :: ",html)
           var transStatus = "Not Known"
