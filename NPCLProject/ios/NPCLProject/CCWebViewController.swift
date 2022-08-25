@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import WebKit
 
 //new keys to be added
 let BILLING_NAME = "billing_name";
@@ -46,7 +47,7 @@ let CUSTOMER_IDENTIFIER = "customer_identifier";
  */
 
 
-class CCWebViewController: UIViewController,UIWebViewDelegate {
+class CCWebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     var accessCode = String()
     var merchantId = String()
@@ -60,6 +61,7 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
     var rsaKey = String()
     static var statusCode = 0//zero means success or else error in encrption with rsa
     var encVal = String()
+    var userData = Dictionary<String, Any>()
     
     //new keys to be added
     var BILLING_NAME_Val = String()
@@ -84,17 +86,11 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
     var MERCHANT_PARAM4_Val = String()
     var MERCHANT_PARAM5_Val = String()
     var CUSTOMER_IDENTIFIER_Val = String()
+    var KeyValueFromResponse = String()
+  
     
-    
-    lazy var viewWeb: UIWebView = {
-        let webView = UIWebView()
-        webView.backgroundColor = .white
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.delegate = self
-        webView.scalesPageToFit = true
-        webView.contentMode = UIView.ContentMode.scaleAspectFill
-        return webView
-    }()
+  
+  var viewWeb:WKWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,104 +101,41 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         
         //fill the required values to be passes to the payment web page
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "consumer_name") as? String) != nil{
-            BILLING_NAME_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "consumer_name") as? String)!
-        }
-        
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "flat_number") as? String) != nil{
-            BILLING_ADDRESS_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "flat_number") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_city")) != nil{
-            BILLING_CITY_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_city") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_state") as? String) != nil{
-             BILLING_STATE_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_state") as? String)!
-        }
-       
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_country") as? String) != nil{
-            BILLING_COUNTRY_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_country") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_zipcode") as? String) != nil{
-            BILLING_ZIP_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_zipcode") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "consumer_mobile_no") as? String) != nil{
-            BILLING_TEL_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "consumer_mobile_no") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "consumer_email_id") as? String) != nil{
-            BILLING_EMAIL_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "consumer_email_id") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "consumer_name" ) as? String) != nil{
-            DELIVERY_NAME_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "consumer_name" ) as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "flat_number") as? String) != nil{
-            DELIVERY_ADDRESS_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "flat_number") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_city") as? String) != nil{
-            DELIVERY_CITY_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_city") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_state") as? String) != nil{
-            DELIVERY_STATE_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_state") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_country") as? String) != nil {
-            DELIVERY_COUNTRY_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_country") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_zipcode") as? String) != nil {
-            DELIVERY_ZIP_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_zipcode") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "consumer_mobile_no") as? String) != nil {
-            DELIVERY_TEL_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "consumer_mobile_no") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "consumer_email_id") as? String) != nil {
-            DELIVERY_EMAIL_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "consumer_email_id") as? String)!
-        }
-        
-        MERCHANT_PARAM1_Val = "Radius Synergies Int. Pvt. ltd."
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "location_id") as? String) != nil {
-            MERCHANT_PARAM2_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "location_id") as? String)! // login id of user is location id
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "flat_number") as? String) != nil {
-            MERCHANT_PARAM3_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "flat_number") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_id") as? String) != nil {
-            MERCHANT_PARAM4_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_id") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_code") as? String) != nil && ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_name") as? String) != nil {
-            MERCHANT_PARAM5_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_code") as? String)! + ":" + ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_name") as? String)!
-        }
-        
-        if ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_code") as? String) != nil && ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "flat_number") as? String) != nil {
-            CUSTOMER_IDENTIFIER_Val = ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "site_code") as? String)! + ":" + ((appDelegate.billDataDict.object(forKey: "resource") as? NSDictionary)?.value(forKey: "flat_number") as? String)!
-        }
-        
-        
-        
-        
+      BILLING_NAME_Val = (userData["consumer_name"]as? String) ?? ""
+      BILLING_ADDRESS_Val = (userData["flat_number"]as? String) ?? ""
+      BILLING_CITY_Val = (userData["site_city"]as? String) ?? ""
+      BILLING_STATE_Val = (userData["site_state"]as? String) ?? ""
+      BILLING_COUNTRY_Val = (userData["site_country"]as? String) ?? ""
+      BILLING_ZIP_Val = (userData["site_zipcode"]as? String) ?? ""
+      BILLING_TEL_Val = (userData["consumer_mobile_no"]as? String) ?? ""
+      BILLING_EMAIL_Val = (userData["consumer_email_id"]as? String) ?? ""
+      DELIVERY_NAME_Val = (userData["consumer_name"]as? String) ?? ""
+      DELIVERY_ADDRESS_Val = (userData["flat_number"]as? String) ?? ""
+      DELIVERY_CITY_Val = (userData["site_city"]as? String) ?? ""
+      DELIVERY_STATE_Val = (userData["site_state"]as? String) ?? ""
+      DELIVERY_COUNTRY_Val = (userData["site_country"]as? String) ?? ""
+      DELIVERY_ZIP_Val = (userData["site_zipcode"]as? String) ?? ""
+      DELIVERY_TEL_Val = (userData["consumer_mobile_no"]as? String) ?? ""
+      DELIVERY_EMAIL_Val = (userData["consumer_email_id"]as? String) ?? ""
+      MERCHANT_PARAM1_Val = "Radius Synergies Int. Pvt. ltd."
+      MERCHANT_PARAM2_Val = (userData["location_id"]as? String) ?? ""
+      MERCHANT_PARAM3_Val = (userData["flat_number"]as? String) ?? ""
+      MERCHANT_PARAM4_Val = (userData["site_id"]as? String) ?? ""
+      
+//      KeyValueFromResponse = (userData["KeyValueFromResponse"]as? String) ?? ""
+      
+      let siteCode = (userData["site_code"]as? String) ?? ""
+      let siteName = (userData["site_name"]as? String) ?? ""
+      
+      MERCHANT_PARAM5_Val = siteCode + ":" + siteName
+      
+      let flatNumber = (userData["flat_number"]as? String) ?? ""
+      
+      CUSTOMER_IDENTIFIER_Val = siteCode + ":" + flatNumber
+
         /**
          * In viewWillAppear we will call gettingRsaKey method to generate RSA Key for the transaction and use the same to encrypt data
          */
-        
-        
-        
         self.gettingRsaKey(){
             (success, object) -> () in
             DispatchQueue.main.sync {
@@ -226,19 +159,35 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
     private func setupWebView(){
         
         //setup webview
-        view.addSubview(viewWeb)
+      
+      let configuration = WKWebViewConfiguration()
+      var Ycord : CGFloat = 0.0 // for top space
+      if UIScreen.main.bounds.height == 812 { //Check for iPhone-x
+          Ycord = 44.0
+      }
+      else {
+          Ycord = 20.0
+      }
+
+      let frame = CGRect(x: 0.0, y: Ycord, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-Ycord)
+
+      self.viewWeb = WKWebView(frame: frame, configuration: configuration)
+      self.viewWeb.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+      self.viewWeb.uiDelegate = self
+      self.viewWeb.navigationDelegate = self;
+        view.addSubview(self.viewWeb)
         if #available(iOS 11.0, *) {
-            viewWeb.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-            viewWeb.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+//            viewWeb.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+//            viewWeb.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         } else {
             // Fallback on earlier versions
-            viewWeb.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-            viewWeb.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//            viewWeb.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+//            viewWeb.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         }
         
-        viewWeb.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        
-        viewWeb.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+//        viewWeb.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+//
+//        viewWeb.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
         _ = [viewWeb .setContentCompressionResistancePriority(1000, for: NSLayoutConstraint.Axis.vertical)]
     }
@@ -312,7 +261,7 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
         
         let myRequestString = "amount=\(amount)&currency=\(currency)"
         
-        let ccTool = CCTool()
+      let ccTool = CCTool()
         var encVal = ccTool.encryptRSA(myRequestString, key: rsaKey)
         
         encVal = CFURLCreateStringByAddingPercentEscapes(
@@ -327,7 +276,9 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
         if CCWebViewController.statusCode == 0{
             //let urlAsString = "https://secure.ccavenue.com/transaction/initTrans"
            let urlAsString = "https://secure.ccavenue.com/transaction/initTrans"
-            let encryptedStr = "merchant_id=\(merchantId)&order_id=\(orderId)&redirect_url=\(redirectUrl)&cancel_url=\(cancelUrl)&enc_val=\(encVal!)&access_code=\(accessCode)&\(BILLING_NAME)=\(BILLING_NAME_Val)&\(BILLING_ADDRESS)=\(BILLING_ADDRESS_Val)&\(BILLING_CITY)=\(BILLING_CITY_Val)&\(BILLING_STATE)=\(BILLING_STATE_Val)&\(BILLING_COUNTRY)=\(BILLING_COUNTRY_Val)&\(BILLING_ZIP)=\(BILLING_ZIP_Val)&\(BILLING_TEL)=\(BILLING_TEL_Val)&\(BILLING_EMAIL)=\(BILLING_EMAIL_Val)&\(DELIVERY_NAME)=\(DELIVERY_NAME_Val)&\(DELIVERY_ADDRESS)=\(DELIVERY_ADDRESS_Val)&\(DELIVERY_CITY)=\(DELIVERY_CITY_Val)&\(DELIVERY_STATE)=\(DELIVERY_STATE_Val)&\(DELIVERY_COUNTRY)=\(DELIVERY_COUNTRY_Val)&\(DELIVERY_ZIP)=\(DELIVERY_ZIP_Val)&\(DELIVERY_TEL)=\(DELIVERY_TEL_Val)&\(DELIVERY_EMAIL)=\(DELIVERY_EMAIL_Val)&\(MERCHANT_PARAM1)=\(MERCHANT_PARAM1_Val)&\(MERCHANT_PARAM2)=\(MERCHANT_PARAM2_Val)&\(MERCHANT_PARAM3)=\(MERCHANT_PARAM3_Val)&\(MERCHANT_PARAM4)=\(MERCHANT_PARAM4_Val)&\(MERCHANT_PARAM5)=\(MERCHANT_PARAM5_Val)&\(CUSTOMER_IDENTIFIER)=\(CUSTOMER_IDENTIFIER_Val)"
+//            let encryptedStr = "merchant_id=\(merchantId)&order_id=\(orderId)&redirect_url=\(redirectUrl)&cancel_url=\(cancelUrl)&enc_val=\(encVal!)&access_code=\(accessCode)&\(BILLING_NAME)=\(BILLING_NAME_Val)&\(BILLING_ADDRESS)=\(BILLING_ADDRESS_Val)&\(BILLING_CITY)=\(BILLING_CITY_Val)&\(BILLING_STATE)=\(BILLING_STATE_Val)&\(BILLING_COUNTRY)=\(BILLING_COUNTRY_Val)&\(BILLING_ZIP)=\(BILLING_ZIP_Val)&\(BILLING_TEL)=\(BILLING_TEL_Val)&\(BILLING_EMAIL)=\(BILLING_EMAIL_Val)&\(DELIVERY_NAME)=\(DELIVERY_NAME_Val)&\(DELIVERY_ADDRESS)=\(DELIVERY_ADDRESS_Val)&\(DELIVERY_CITY)=\(DELIVERY_CITY_Val)&\(DELIVERY_STATE)=\(DELIVERY_STATE_Val)&\(DELIVERY_COUNTRY)=\(DELIVERY_COUNTRY_Val)&\(DELIVERY_ZIP)=\(DELIVERY_ZIP_Val)&\(DELIVERY_TEL)=\(DELIVERY_TEL_Val)&\(DELIVERY_EMAIL)=\(DELIVERY_EMAIL_Val)&\(MERCHANT_PARAM1)=\(MERCHANT_PARAM1_Val)&\(MERCHANT_PARAM2)=\(MERCHANT_PARAM2_Val)&\(MERCHANT_PARAM3)=\(MERCHANT_PARAM3_Val)&\(MERCHANT_PARAM4)=\(MERCHANT_PARAM4_Val)&\(MERCHANT_PARAM5)=\(MERCHANT_PARAM5_Val)&\(CUSTOMER_IDENTIFIER)=\(CUSTOMER_IDENTIFIER_Val)"
+          
+          let encryptedStr = "redirect_url=\(redirectUrl)&cancel_url=\(cancelUrl)&enc_val=\(encVal!)&access_code=\(accessCode)\(KeyValueFromResponse)&\(CUSTOMER_IDENTIFIER)=\(CUSTOMER_IDENTIFIER_Val)"
             
             print("encValue :: \(encVal ?? "No val for encVal")")
             
@@ -358,7 +309,7 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
                         return
                     }
                     DispatchQueue.main.async {
-                        self.viewWeb.loadRequest(self.request! as URLRequest)
+                      self.viewWeb.load(self.request! as URLRequest)
                     }
                     print("data :: ",data)
                 }
@@ -391,108 +342,216 @@ class CCWebViewController: UIViewController,UIWebViewDelegate {
         
     }
     
-    
-    //MARK:
-    //MARK: WebviewDelegate Methods
-    
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        print("webViewDidStartLoad",webView.request!)
-        print(viewWeb.isLoading)
-        print(request?.httpBodyStream as Any)
-        print(request?.httpBody as Any)
-        
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
-    
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-        print("Failed to load  webview")
-    }
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        print("webview should start",request)
-        let urlString = (request.url?.absoluteString)!
-        if(urlString.contains("http://google.com")){
-            self.dismiss(animated: true, completion: nil);
-            return false
-        }
-        return true
-    }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        LoadingOverlay.shared.hideOverlayView()
+  
+  func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+      print("Start Request")
+      print("webViewDidStartLoad")
+      print(viewWeb.isLoading)
+      print(request?.httpBodyStream as Any)
+      print(request?.httpBody as Any)
+  }
+  
+  func webView(_ webView: WKWebView, decidePolicyFor navigation: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+      //print("webview should start",navigation.request)
+      print("webview should start",navigation)
+      let urlString = (navigation.request.url?.absoluteString)!
+      if(urlString.contains("http://google.com")){
+          self.dismiss(animated: true, completion: nil);
+      }
+      decisionHandler(.allow)
+  }
+  
+  func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+      print("Failed Request")
+      print("Failed to load  webview")
+  }
+  
+  func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+      LoadingOverlay.shared.hideOverlayView()
 
-        //covert the response url to the string and check for that the response url contains the redirect/cancel url if true then chceck for the transaction status and pass the response to the result controller(ie. CCResultViewController)
-        let string = (webView.request?.url?.absoluteString)!
-        print("String :: \(string)")
+      //covert the response url to the string and check for that the response url contains the redirect/cancel url if true then chceck for the transaction status and pass the response to the result controller(ie. CCResultViewController)
+      let string = (webView.url?.absoluteString)
+      print("String :: \(string ?? "no url inside")")
+      
+      if((string?.contains(redirectUrl)) != nil) //("http://122.182.6.216/merchant/ccavResponseHandler.jsp"))//
+      {
+          print(viewWeb.isLoading)
+          var htmlTemp:NSString = ""
+          webView.evaluateJavaScript("document.documentElement.outerHTML") { (result, error) in
+            if error == nil {
+                if result != nil {
+                  htmlTemp = result as! NSString;
+                }
+            }
+          }
+//          guard let htmlTemp:NSString = webView.evaluateJavaScript("document.documentElement.outerHTML") else {
+//              print("failed to evaluate javaScript")
+//              return
+//          }
         
-        if(string.contains(redirectUrl)) //("http://122.182.6.216/merchant/ccavResponseHandler.jsp"))//
-        {
-            print(viewWeb.isLoading)
-            guard let htmlTemp:NSString = webView.stringByEvaluatingJavaScript(from: "document.documentElement.outerHTML") as NSString? else{
-                print("failed to evaluate javaScript")
-                return
-            }
-            
-            let html = htmlTemp
-            print("html :: ",html)
-            var transStatus = "Not Known"
-            
-            if ((html ).range(of: "Aborted").location != NSNotFound) || ((html ).range(of: "Cancel").location != NSNotFound) {
-                transStatus = "Transaction Cancelled"
-                let controller: CCResultViewController = CCResultViewController()
-                controller.transStatus = transStatus
-                controller.objCCResultVC = self
-                self.present(controller, animated: true, completion: nil)
-            }
-            else if ((html ).range(of: "Success").location != NSNotFound) {
+          let html = htmlTemp
+          print("html :: ",html)
+          var transStatus = "Not Known"
+          
+          if ((html ).range(of: "Aborted").location != NSNotFound) || ((html ).range(of: "Cancel").location != NSNotFound) {
+              transStatus = "Transaction Cancelled"
+              let controller: CCResultViewController = CCResultViewController()
+              controller.transStatus = transStatus
+//              controller.objCCResultVC = self
+              self.present(controller, animated: true, completion: nil)
+          }
+          else if ((html ).range(of: "Success").location != NSNotFound) {
 //                transStatus = "Transaction Successful"
 //                let controller: CCResultViewController = CCResultViewController()
 //                controller.transStatus = transStatus
 //                controller.objCCResultVC = self
 //                self.present(controller, animated: true, completion: { _ in })
-            }
-            else if ((html ).range(of: "Fail").location != NSNotFound) {
-                transStatus = "Transaction Failed"
-                let controller: CCResultViewController = CCResultViewController()
-                controller.transStatus = transStatus
-                controller.objCCResultVC = self
-                self.present(controller, animated: true, completion: nil)
-            }
-            /*
-            if ((html ).range(of: "tracking_id").location != NSNotFound) && ((html ).range(of: "bin_country").location != NSNotFound) {
-                if ((html ).range(of: "Aborted").location != NSNotFound) || ((html ).range(of: "Cancel").location != NSNotFound) {
-                    transStatus = "Transaction Cancelled"
-                    let controller: CCResultViewController = CCResultViewController()
-                    controller.transStatus = transStatus
-                    self.present(controller, animated: true, completion: nil)
-                }
-                else if ((html ).range(of: "Success").location != NSNotFound) {
-                    transStatus = "Transaction Successful"
-                    let controller: CCResultViewController = CCResultViewController()
-                    controller.transStatus = transStatus
-                    self.present(controller, animated: true, completion: { _ in })
-                }
-                else if ((html ).range(of: "Fail").location != NSNotFound) {
-                    transStatus = "Transaction Failed"
-                    let controller: CCResultViewController = CCResultViewController()
-                    controller.transStatus = transStatus
-                    self.present(controller, animated: true, completion: { _ in })
-                } 
-            }
-            else{
-                print("html does not contain any related data")
-                displayAlert(msg: "html does not contain any related data for this transaction.")
-                
-            }*/
-        }
-        else if(string.contains(cancelUrl)){
-            let controller: CCResultViewController = CCResultViewController()
-            controller.transStatus = "Transaction Cancelled"
-            controller.objCCResultVC = self
-            self.present(controller, animated: true, completion: nil)
-        }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+          }
+          else if ((html ).range(of: "Fail").location != NSNotFound) {
+              transStatus = "Transaction Failed"
+              let controller: CCResultViewController = CCResultViewController()
+              controller.transStatus = transStatus
+//              controller.objCCResultVC = self
+              self.present(controller, animated: true, completion: nil)
+          }
+          /*
+          if ((html ).range(of: "tracking_id").location != NSNotFound) && ((html ).range(of: "bin_country").location != NSNotFound) {
+              if ((html ).range(of: "Aborted").location != NSNotFound) || ((html ).range(of: "Cancel").location != NSNotFound) {
+                  transStatus = "Transaction Cancelled"
+                  let controller: CCResultViewController = CCResultViewController()
+                  controller.transStatus = transStatus
+                  self.present(controller, animated: true, completion: nil)
+              }
+              else if ((html ).range(of: "Success").location != NSNotFound) {
+                  transStatus = "Transaction Successful"
+                  let controller: CCResultViewController = CCResultViewController()
+                  controller.transStatus = transStatus
+                  self.present(controller, animated: true, completion: { _ in })
+              }
+              else if ((html ).range(of: "Fail").location != NSNotFound) {
+                  transStatus = "Transaction Failed"
+                  let controller: CCResultViewController = CCResultViewController()
+                  controller.transStatus = transStatus
+                  self.present(controller, animated: true, completion: { _ in })
+              }
+          }
+          else{
+              print("html does not contain any related data")
+              displayAlert(msg: "html does not contain any related data for this transaction.")
+              
+          }*/
+      }
+      else if((string?.contains(cancelUrl)) != nil){
+          let controller: CCResultViewController = CCResultViewController()
+          controller.transStatus = "Transaction Cancelled"
+//          controller.objCCResultVC = self
+          self.present(controller, animated: true, completion: nil)
+      }
+  }
+
 }
+
+//extension CCWebViewController: WKNavigationDelegate {
+//
+//    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+//        print("Start Request")
+//        print("webViewDidStartLoad")
+//        print(viewWeb.isLoading)
+//        print(request?.httpBodyStream as Any)
+//        print(request?.httpBody as Any)
+//    }
+//
+//    func webView(_ webView: WKWebView, decidePolicyFor navigation: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+//        print("webview should start",navigation.request)
+//        let urlString = (navigation.request.url?.absoluteString)!
+//        if(urlString.contains("http://google.com")){
+//            self.dismiss(animated: true, completion: nil);
+//            decisionHandler(.cancel)
+//        }
+//        decisionHandler(.allow)
+//    }
+//
+//    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+//        print("Failed Request")
+//        print("Failed to load  webview")
+//    }
+//
+//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//        LoadingOverlay.shared.hideOverlayView()
+//
+//        //covert the response url to the string and check for that the response url contains the redirect/cancel url if true then chceck for the transaction status and pass the response to the result controller(ie. CCResultViewController)
+//        let string = (webView.url?.absoluteString)
+//        print("String :: \(string ?? "no url inside")")
+//
+//        if((string?.contains(redirectUrl)) != nil) //("http://122.182.6.216/merchant/ccavResponseHandler.jsp"))//
+//        {
+//            print(viewWeb.isLoading)
+//            guard let htmlTemp:NSString = webView.evaluateJavaScript("document.documentElement.outerHTML") as! NSString? else{
+//                print("failed to evaluate javaScript")
+//                return
+//            }
+//
+//            let html = htmlTemp
+//            print("html :: ",html)
+//            var transStatus = "Not Known"
+//
+//            if ((html ).range(of: "Aborted").location != NSNotFound) || ((html ).range(of: "Cancel").location != NSNotFound) {
+//                transStatus = "Transaction Cancelled"
+//                let controller: CCResultViewController = CCResultViewController()
+//                controller.transStatus = transStatus
+//                controller.objCCResultVC = self
+//                self.present(controller, animated: true, completion: nil)
+//            }
+//            else if ((html ).range(of: "Success").location != NSNotFound) {
+////                transStatus = "Transaction Successful"
+////                let controller: CCResultViewController = CCResultViewController()
+////                controller.transStatus = transStatus
+////                controller.objCCResultVC = self
+////                self.present(controller, animated: true, completion: { _ in })
+//            }
+//            else if ((html ).range(of: "Fail").location != NSNotFound) {
+//                transStatus = "Transaction Failed"
+//                let controller: CCResultViewController = CCResultViewController()
+//                controller.transStatus = transStatus
+//                controller.objCCResultVC = self
+//                self.present(controller, animated: true, completion: nil)
+//            }
+//            /*
+//            if ((html ).range(of: "tracking_id").location != NSNotFound) && ((html ).range(of: "bin_country").location != NSNotFound) {
+//                if ((html ).range(of: "Aborted").location != NSNotFound) || ((html ).range(of: "Cancel").location != NSNotFound) {
+//                    transStatus = "Transaction Cancelled"
+//                    let controller: CCResultViewController = CCResultViewController()
+//                    controller.transStatus = transStatus
+//                    self.present(controller, animated: true, completion: nil)
+//                }
+//                else if ((html ).range(of: "Success").location != NSNotFound) {
+//                    transStatus = "Transaction Successful"
+//                    let controller: CCResultViewController = CCResultViewController()
+//                    controller.transStatus = transStatus
+//                    self.present(controller, animated: true, completion: { _ in })
+//                }
+//                else if ((html ).range(of: "Fail").location != NSNotFound) {
+//                    transStatus = "Transaction Failed"
+//                    let controller: CCResultViewController = CCResultViewController()
+//                    controller.transStatus = transStatus
+//                    self.present(controller, animated: true, completion: { _ in })
+//                }
+//            }
+//            else{
+//                print("html does not contain any related data")
+//                displayAlert(msg: "html does not contain any related data for this transaction.")
+//
+//            }*/
+//        }
+//        else if((string?.contains(cancelUrl)) != nil){
+//            let controller: CCResultViewController = CCResultViewController()
+//            controller.transStatus = "Transaction Cancelled"
+//            controller.objCCResultVC = self
+//            self.present(controller, animated: true, completion: nil)
+//        }
+//    }
+//}
