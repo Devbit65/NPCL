@@ -359,7 +359,7 @@ class CCWebViewController: UIViewController, WKNavigationDelegate, WKUIDelegate 
       //print("webview should start",navigation.request)
       print("webview should start",navigation)
       let urlString = (navigation.request.url?.absoluteString)!
-      if(urlString.contains("http://google.com")){
+      if(urlString.contains("http://google.com") || urlString.contains("https://myxenius.com/Pg_responseController/responseMobileAPP/cancel")){
           self.dismiss(animated: true, completion: nil);
       }
       decisionHandler(.allow)
