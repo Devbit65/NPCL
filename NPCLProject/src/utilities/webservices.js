@@ -372,7 +372,7 @@ export const fetchMonthlyBillURL = (month, year) => {
   if(!url.includes('https://')){
     url = 'https://'+url
   }
-  var req_url = url+kMonthlyBill+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&month='+month+'&year='+year
+  var req_url = url+kMonthlyBill+'?login_id='+userCred.user_id+'&password='+userCred.pswd+'&month='+month+'&year='+year+'&format=pdff'
   return req_url
 }
 
