@@ -205,13 +205,14 @@ class Overview extends Component {
             }
             else{
                 
-                var balance = Number(response.message)
-                if(balance < 0){
-                    alert("Unable to Re-store due to low balance !!!")
-                }
-                else {
-                    this.restoreApi()
-                }
+                this.restoreApi()
+                // var balance = Number(response.message)
+                // if(balance < 0){
+                //     alert("Unable to Re-store due to low balance !!!")
+                // }
+                // else {
+                //     this.restoreApi()
+                // }
             }
             this.spinner.stopActivity();
         })
@@ -603,7 +604,7 @@ class Overview extends Component {
                                     <View style={{flex:0.5, flexDirection:'row'}}>
                                         <Text style={{flex:1, fontSize:12}}></Text>
                                         
-                                        <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {this.state.reading_unit}</Text>
+                                        <Text style={{flex:1, fontSize:8, textAlign:'right'}}>VALUE IN {this.state.load_unit}</Text>
                                     </View>
 
                                 </View>
