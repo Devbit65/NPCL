@@ -1,100 +1,41 @@
 {
   "project_info": {
-    "project_number": "1084678128491",
-    "project_id": "xenius-test",
-    "storage_bucket": "xenius-test.appspot.com"
+    "project_number": "779504723345",
+    "project_id": "xenius-sems-pro",
+    "storage_bucket": "xenius-sems-pro.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1084678128491:android:10cb1111ab53072024c22e",
+        "mobilesdk_app_id": "1:779504723345:android:6df03839aca2d09802e630",
         "android_client_info": {
-          "package_name": "com.Synergy.Xenius"
+          "package_name": "com.xenius.pro"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1084678128491-1559bqnec5kvvc0dtimi9ajjk9es3k3p.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.Synergy.Xenius",
-            "certificate_hash": "a6c6000fd6484233f92a51852c9b5062c6c405b6"
-          }
-        },
-        {
-          "client_id": "1084678128491-1gqn8bm756q5k3hlkhagg91kcabo4fdh.apps.googleusercontent.com",
+          "client_id": "779504723345-3ckjenhml66j9vf5ft533a1uak1n3a9i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCStbhouixAFP38BadSrCNPRuwr2ndYvj4"
+          "current_key": "AIzaSyDhUPd1jqLSvybpO--YNzrV32kiUdlYp2c"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1084678128491-1gqn8bm756q5k3hlkhagg91kcabo4fdh.apps.googleusercontent.com",
+              "client_id": "779504723345-3ckjenhml66j9vf5ft533a1uak1n3a9i.apps.googleusercontent.com",
               "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1084678128491:android:321bb4716bd17e8624c22e",
-        "android_client_info": {
-          "package_name": "com.camera"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1084678128491-1gqn8bm756q5k3hlkhagg91kcabo4fdh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCStbhouixAFP38BadSrCNPRuwr2ndYvj4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
+            },
             {
-              "client_id": "1084678128491-1gqn8bm756q5k3hlkhagg91kcabo4fdh.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1084678128491:android:2afbaff03eab307d24c22e",
-        "android_client_info": {
-          "package_name": "com.dashboardproject"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1084678128491-1gqn8bm756q5k3hlkhagg91kcabo4fdh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCStbhouixAFP38BadSrCNPRuwr2ndYvj4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1084678128491-1gqn8bm756q5k3hlkhagg91kcabo4fdh.apps.googleusercontent.com",
-              "client_type": 3
+              "client_id": "779504723345-kup79b87o013041q4dhcgj5aiucs2e3n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.xenius.pro"
+              }
             }
           ]
         }
